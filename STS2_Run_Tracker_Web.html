@@ -22629,18 +22629,6 @@
             </div>
           </div>
 
-          <!-- Key & Ancient Relics -->
-          <div class="card-impact-card keyrelics" id="cardImpactKeyRelics">
-            <div class="impact-thumb-wrap" id="relicKeyThumb"></div>
-            <div style="flex: 1; min-width: 0;">
-              <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #c084fc; font-weight: 700; display: flex; align-items: center; gap: 6px;">
-                <span>🏺 Key &amp; Boss Relics</span>
-              </div>
-              <div id="relicKeyName" style="font-size: 16px; font-weight: 700; color: #fff; margin-top: 2px;">-</div>
-              <div id="relicKeyDetails" style="font-size: 12px; color: var(--text-dim); margin-top: 2px; line-height: 1.4;">-</div>
-            </div>
-          </div>
-
           <!-- Most Skipped Card (Passed Opportunities) -->
           <div class="card-impact-card mostskipped" id="cardImpactMostSkipped" style="display: none;">
             <div class="impact-thumb-wrap" id="cardSkippedThumb"></div>
@@ -22814,10 +22802,20 @@
             <li><strong>Dedicated Desktop Window:</strong> Runs in native Microsoft Edge App Mode without browser tabs or URL bar clutter.</li>
             <li><strong>Zero Dependencies:</strong> No installation, no zip extraction, and no batch scripts needed.</li>
           </ul>
-          <a id="btnDownloadExeRelease" href="https://github.com/Apocaelypze/sts2-tracker/releases/latest/download/STS2Tracker.exe" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display: flex; width: 100%; justify-content: center; background: linear-gradient(135deg, #d97706, #b45309); border: 1px solid #f59e0b; font-weight: 700; padding: 12px 18px; font-size: 14px; text-decoration: none; border-radius: 8px; color: #fff; box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-            Download STS2Tracker.exe (GitHub Release)
-          </a>
+          <div style="display: flex; flex-direction: column; gap: 10px;">
+            <a id="btnDownloadExeRelease" href="https://github.com/Apocaelypze/sts2-tracker/releases" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display: flex; width: 100%; justify-content: center; background: linear-gradient(135deg, #d97706, #b45309); border: 1px solid #f59e0b; font-weight: 700; padding: 12px 18px; font-size: 14px; text-decoration: none; border-radius: 8px; color: #fff; box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              Download STS2Tracker.exe (GitHub Releases)
+            </a>
+            <div style="display: flex; gap: 8px;">
+              <a href="https://drive.google.com/drive/folders/1NUzd0ifUHfblTk0xaUn-S7jf5EXN6D_W?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="flex: 1; justify-content: center; font-size: 12px; padding: 8px 12px;">
+                ☁️ Google Drive Direct Mirror
+              </a>
+              <a href="https://github.com/Apocaelypze/sts2-tracker" target="_blank" rel="noopener noreferrer" class="btn-secondary" style="flex: 1; justify-content: center; font-size: 12px; padding: 8px 12px;">
+                ⭐ GitHub Source Repository
+              </a>
+            </div>
+          </div>
         </div>
 
         <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 16px;">
@@ -24228,7 +24226,11 @@
       if (run.map_point_history && run.map_point_history.length > 0 && timelineTable) {
         let globalFloorNum = 1;
         run.map_point_history.forEach((act, actIndex) => {
-          const actName = run.acts && run.acts[actIndex] ? cleanId(run.acts[actIndex]) : `Act ${actIndex + 1}`;
+          const actNum = actIndex + 1;
+          const rawActName = run.acts && run.acts[actIndex] ? cleanId(run.acts[actIndex]) : `Act ${actNum}`;
+          const formattedActTitle = rawActName.toLowerCase().startsWith('act')
+            ? rawActName.toUpperCase()
+            : `ACT ${actNum}: ${rawActName.toUpperCase()}`;
           const nodes = Array.isArray(act) ? act : [act];
 
           // Compute Act Summary Metrics
@@ -24267,7 +24269,7 @@
               <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 8px;">
                 <div style="display: flex; align-items: center; gap: 8px;">
                   <span class="act-toggle-icon">▼</span>
-                  <span style="font-weight: 700; color: var(--gold-spire); letter-spacing: 0.5px; font-size: 13px;">${actName.toUpperCase()}</span>
+                  <span style="font-weight: 700; color: var(--gold-spire); letter-spacing: 0.5px; font-size: 13px;">${formattedActTitle}</span>
                   <span style="font-size: 11px; color: var(--text-muted); font-weight: normal;">(${nodes.length} floors)</span>
                 </div>
                 <div style="display: flex; gap: 10px; align-items: center; font-size: 11px;">
@@ -24919,6 +24921,7 @@
         });
       });
 
+      const totalFloors = globalFloor;
       if (combats.length < 3) return null;
 
       const candidates = [];
@@ -24928,10 +24931,15 @@
         const fAdded = c.floor_added_to_deck || 1;
         if (fAdded <= 1 && STARTER_CARD_IDS.has(c.id)) return;
 
+        const floorsSurvivedWithCard = totalFloors - fAdded;
+        // Longevity gate: if player died/abandoned and acquired card within the last 3 floors, it cannot be a carry/game changer
+        if (!run.win && floorsSurvivedWithCard < 3) return;
+
         const beforeFights = combats.filter(cb => cb.globalFloor < fAdded).slice(-windowSize);
         const afterFights = combats.filter(cb => cb.globalFloor >= fAdded).slice(0, windowSize);
 
-        if (beforeFights.length >= 1 && afterFights.length >= 1) {
+        // Must have at least 1 combat before and at least 2 combats after (or 1 if won)
+        if (beforeFights.length >= 1 && afterFights.length >= (run.win ? 1 : 2)) {
           const avgTurnsBefore = beforeFights.reduce((s, b) => s + b.turns, 0) / beforeFights.length;
           const avgTurnsAfter = afterFights.reduce((s, b) => s + b.turns, 0) / afterFights.length;
           const turnsDiff = avgTurnsBefore - avgTurnsAfter;
@@ -24954,7 +24962,8 @@
           }
 
           const cardData = (gameDatabase.cards && gameDatabase.cards[c.id]) || {};
-          const score = (turnsDiff * 25) + (dmgDiff * 2) + ((c.current_upgrade_level || 0) * 15) + (c.enchantment ? 20 : 0) + (cardData.rarity === 'Rare' ? 25 : (cardData.rarity === 'Uncommon' ? 15 : 5));
+          const longevityScore = Math.min(40, floorsSurvivedWithCard * 2);
+          const score = (turnsDiff * 25) + (dmgDiff * 2) + longevityScore + ((c.current_upgrade_level || 0) * 15) + (c.enchantment ? 20 : 0) + (cardData.rarity === 'Rare' ? 25 : (cardData.rarity === 'Uncommon' ? 15 : 5));
 
           candidates.push({
             card: c,
@@ -24966,6 +24975,7 @@
             actNum,
             actName,
             actFloor,
+            floorsSurvived: floorsSurvivedWithCard,
             avgTurnsBefore: avgTurnsBefore.toFixed(1),
             avgTurnsAfter: avgTurnsAfter.toFixed(1),
             turnsDiff: turnsDiff.toFixed(1),
@@ -25011,68 +25021,6 @@
       return Math.min(count, card.current_upgrade_level || 1);
     }
 
-    function calculateKeyRelics(run, p, gameDb) {
-      if (!p || !p.relics || p.relics.length === 0) return null;
-      const relics = p.relics;
-      const relicsDb = (gameDb && gameDb.relics) || {};
-
-      // Detect if an Ancient Blessing choice occurred in this run
-      let ancientChoiceData = null;
-      let floorCounter = 0;
-      if (run && run.map_point_history) {
-        run.map_point_history.forEach(act => {
-          (Array.isArray(act) ? act : [act]).forEach(node => {
-            floorCounter++;
-            const ps = (p && p.id && node.player_stats) ? (node.player_stats.find(s => String(s.player_id) === String(p.id)) || node.player_stats[0]) : (node.player_stats && node.player_stats[0]);
-            if (ps && ps.ancient_choice && ps.ancient_choice.length > 0 && !ancientChoiceData) {
-              const rmModel = (node.rooms && node.rooms[0] && node.rooms[0].model_id) || 'EVENT.NEOW';
-              const chosen = ps.ancient_choice.find(c => c.was_chosen);
-              const passed = ps.ancient_choice.filter(c => !c.was_chosen).map(c => c.TextKey.startsWith('RELIC.') ? c.TextKey : ('RELIC.' + c.TextKey));
-              if (chosen) {
-                const chosenId = chosen.TextKey.startsWith('RELIC.') ? chosen.TextKey : ('RELIC.' + chosen.TextKey);
-                ancientChoiceData = {
-                  id: chosenId,
-                  ancientName: cleanId(rmModel),
-                  floor: floorCounter,
-                  passedRelics: passed
-                };
-              }
-            }
-          });
-        });
-      }
-
-      const scoredRelics = relics.map(r => {
-        let score = 0;
-        const f = r.floor_added_to_deck || 1;
-        const rId = r.id || '';
-        const meta = relicsDb[rId] || {};
-        const isBoss = (f === 18 || f === 34 || f === 50 || rId.includes('OROBAS') || rId.includes('TOME') || rId.includes('EYE') || rId.includes('COAT'));
-        if (isBoss) score += 120;
-        if (ancientChoiceData && ancientChoiceData.id === rId) score += 150;
-        if (rId.includes('FEATHER') || rId.includes('LANTERN') || rId.includes('MARBLES') || rId.includes('MEMBERSHIP') || rId.includes('PUZZLE') || rId.includes('STONE')) score += 50;
-        if (r.props && Object.keys(r.props).length > 0) score += 20;
-        score += (50 - f);
-
-        return {
-          relic: r,
-          id: rId,
-          name: meta.name || cleanId(rId),
-          floor: f,
-          isBoss,
-          ancient: (ancientChoiceData && ancientChoiceData.id === rId) ? ancientChoiceData : null,
-          score,
-          desc: meta.desc || ''
-        };
-      });
-
-      scoredRelics.sort((a,b) => b.score - a.score);
-      const topRelic = scoredRelics[0];
-      if (topRelic && !topRelic.ancient && ancientChoiceData) {
-        topRelic.ancientInfo = ancientChoiceData;
-      }
-      return topRelic;
-    }
 
     function getEncounterTopCard(deck, floorNum, gameDb, floorUpgradeMap = null) {
       if (!deck || deck.length === 0) return null;
@@ -25132,7 +25080,6 @@
 
       const mvp = calculateRunMvpCard(run, p);
       const turnaround = calculateTurnaroundCard(run, p);
-      const keyRelic = calculateKeyRelics(run, p, gameDatabase);
 
       // 1. Run MVP Card
       const mvpCardEl = document.getElementById('cardImpactMvp');
@@ -25192,38 +25139,6 @@
         turnCardEl.style.display = 'flex';
       } else {
         turnCardEl.style.display = 'none';
-      }
-
-      // 3. Key & Ancient Relics
-      const relicCardEl = document.getElementById('cardImpactKeyRelics');
-      const relicThumbEl = document.getElementById('relicKeyThumb');
-      const relicNameEl = document.getElementById('relicKeyName');
-      const relicDetailsEl = document.getElementById('relicKeyDetails');
-
-      if (keyRelic) {
-        const asset = cleanIdForAsset(keyRelic.id);
-        relicThumbEl.innerHTML = `
-          <img src="${getAssetUrl('assets/relics/' + asset + '.png')}" class="card-impact-art" style="object-fit: contain; padding: 4px;" alt="${keyRelic.name}" onerror="if(!this.dataset.t1){this.dataset.t1='1';this.src='web/assets/relics/${asset}.png';}else{this.style.display='none';}">
-        `;
-
-        if (keyRelic.ancient) {
-          relicNameEl.innerHTML = `${keyRelic.name} <span style="font-size: 10px; background: rgba(192,132,252,0.25); color: #c084fc; padding: 1px 6px; border-radius: 4px; font-weight: 700; margin-left: 4px;">🏛️ ANCIENT BLESSING (${keyRelic.ancient.ancientName.toUpperCase()})</span>`;
-          const passedPills = (keyRelic.ancient.passedRelics || []).map(rId => `<span class="hover-relic-pill" onmouseenter="showRelicTooltip('${rId}', this, event, ${keyRelic.floor})" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()" style="color: #94a3b8; text-decoration: underline dotted;">${cleanId(rId)}</span>`).join(', ');
-          relicDetailsEl.innerHTML = `Chosen Floor ${keyRelic.floor} &bull; Passed: ${passedPills || 'none'}`;
-        } else if (keyRelic.isBoss) {
-          relicNameEl.innerHTML = `${keyRelic.name} <span style="font-size: 10px; background: rgba(234,179,8,0.25); color: var(--gold-spire); padding: 1px 6px; border-radius: 4px; font-weight: 700; margin-left: 4px;">BOSS RELIC</span>`;
-          relicDetailsEl.innerHTML = `Acquired Floor ${keyRelic.floor} &bull; ${keyRelic.desc ? keyRelic.desc.replace(/<[^>]+>/g, '').substring(0, 52) + '...' : 'Key Run Enabler'}`;
-        } else {
-          relicNameEl.innerHTML = `${keyRelic.name}`;
-          relicDetailsEl.innerHTML = `Acquired Floor ${keyRelic.floor} &bull; ${keyRelic.desc ? keyRelic.desc.replace(/<[^>]+>/g, '').substring(0, 52) + '...' : 'Key Run Enabler'}`;
-        }
-
-        relicCardEl.onmouseenter = (e) => showRelicTooltip(keyRelic.id, relicCardEl, e, keyRelic.floor);
-        relicCardEl.onmousemove = (e) => positionTooltip(e);
-        relicCardEl.onmouseleave = () => hideTooltip();
-        relicCardEl.style.display = 'flex';
-      } else {
-        relicCardEl.style.display = 'none';
       }
 
       // 4. Most Skipped Card (Passed Opportunities)
@@ -25761,7 +25676,6 @@
     ${renderRunSummary.toString()}
     ${buildFloorUpgradeMap.toString()}
     ${getCardUpgradeLevelAtFloor.toString()}
-    ${calculateKeyRelics.toString()}
     ${calculateRunMvpCard.toString()}
     ${calculateTurnaroundCard.toString()}
     ${getEncounterTopCard.toString()}
