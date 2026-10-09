@@ -1,0 +1,21 @@
+# Git ignore for Slay the Spire 2 Tracker
+
+# Binaries & Compressed Bundles (Hosted in GitHub Releases)
+*.exe
+assets.zip
+*.zip
+
+# Firebase cache
+.firebase/
+
+# Backups & Logs
+_Backups/
+*.log
+
+# Dependencies
+node_modules/
+
+# OS artifacts
+Thumbs.db
+Desktop.ini
+.DS_Store

@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "slay-the-spire-2-tracker",
+    "prod": "slay-the-spire-2-tracker"
+  },
+  "targets": {},
+  "etags": {}
+}

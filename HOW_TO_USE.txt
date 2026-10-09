@@ -1,0 +1,98 @@
+======================================================================
+           SLAY THE SPIRE 2 -- RUN TRACKER & ANALYTICS
+======================================================================
+
+Welcome to the standalone Slay the Spire 2 Run Tracker!
+This suite gives you deep climb analytics, official high-res artwork,
+interactive tooltips, combat damage breakdowns, run accolades & achievements,
+comparative co-op head-to-head breakdowns, zero-pollution run sharing,
+and comprehensive Epochs & Slayer progression tracking.
+
+======================================================================
+METHOD 1 (RECOMMENDED): Self-Contained Desktop App (STS2Tracker.exe)
+======================================================================
+1. Double-click "STS2Tracker.exe".
+   * NO zip folder extraction required.
+   * NO .bat file required.
+   * NO installation required.
+   * 100% Silent background execution: zero command prompt or terminal windows pop up.
+2. It automatically:
+   - Closes any older background tracker instances to prevent port conflicts.
+   - Scans your PC and discovers your Steam save history folder:
+     %APPDATA%\SlayTheSpire2\steam\<SteamID>\profile1\saves\history
+   - Loads all your climbs and starts real-time file monitoring.
+   - Opens the dashboard in a dedicated desktop window (Microsoft Edge App Mode),
+     giving you a clean native app experience with zero browser tabs or address bar clutter.
+3. Leave it running in the background while playing! Whenever you complete a
+   combat or climb in Slay the Spire 2, the tracker syncs the new data live.
+4. Seamless Auto-Shutdown:
+   - When you finish analyzing your runs, simply close the app window (click 'X' or
+     click [✕ Exit App] in the top navigation bar).
+   - The background server automatically terminates cleanly within seconds, leaving
+     zero leftover ghost processes in Task Manager.
+
+* SENDING TO FRIENDS / COMMUNITY:
+   Simply send the single "STS2Tracker.exe" file (~41 MB with all embedded card & relic
+   art) via Discord, Telegram, or Google Drive. They just double-click it on their PC
+   and it immediately detects their saves and opens the dashboard!
+
+
+======================================================================
+METHOD 2: Web Mode (Direct Browser Usage Without Exe)
+======================================================================
+If you or web visitors prefer not to download an executable:
+1. Open the hosted website (or "STS2_Run_Tracker_Web.html") in Chrome, Edge,
+   Firefox, Brave, or Opera.
+2. Click "Load Saves" in the header (or click "Select Save Folder" in the welcome card).
+3. Click "Copy Save Path" to copy:
+   %APPDATA%\SlayTheSpire2\steam\
+4. Paste it into your file picker address bar, open your Steam ID folder ->
+   profile1 -> saves -> history, and click "Select Folder" (or drag & drop your files).
+5. All climbs will load instantly and remain cached in browser local storage.
+
+
+======================================================================
+HOW TO HOST ON GOOGLE (FOR GLOBAL WEB SEARCH & DISCOVERY)
+======================================================================
+To host this online on Google so anyone searching the web can discover and use your tool:
+
+OPTION A: Google Firebase Hosting (Recommended - 100% Free & Fast)
+------------------------------------------------------------------
+Google's global CDN web hosting platform. Gives you an ultra-fast HTTPS site
+(e.g., https://sts2tracker.web.app) with automatic Google Search indexing.
+
+1. Double-click "Deploy_To_Google_Firebase.bat" in this directory.
+   - It installs the Firebase CLI if needed, guides you through "firebase login",
+     and deploys your tracker to Google's edge servers in 60 seconds!
+2. Your public website will include:
+   - The full interactive Tracker web application.
+   - Direct 1-click download button for "STS2Tracker.exe" (served directly from your site).
+   - "Load Saves" folder picker with path copy helper for browser visitors.
+
+OPTION B: Getting Discovered on Google (SEO & Search Indexing)
+--------------------------------------------------------------
+Once your site is hosted (via Firebase or custom domain):
+1. Go to Google Search Console: https://search.google.com/search-console
+2. Add your website URL (e.g., https://your-site.web.app).
+3. Request indexing for the homepage.
+4. Within days, players searching Google for "Slay the Spire 2 tracker",
+   "STS2 damage tracker", "STS2 co op run viewer", or "Slay the Spire 2 save analyzer"
+   will find your application directly on Google search results!
+
+
+======================================================================
+HOW TO SHARE & IMPORT RUNS (ZERO STAT POLLUTION)
+======================================================================
+1. To export a run to a friend or teammate:
+   - Open any run in the inspector.
+   - Click the "[📤 Share Climb]" button.
+   - Choose one of three clean options:
+     * Option 1: Standalone Webpage (.html) - An all-in-one file anyone can open in any browser.
+     * Option 2: Web Link - Direct link if you are hosting your tracker online.
+     * Option 3: Save Package (.sts2run) - Raw lightweight data package for Tracker users.
+
+2. To import a run from a friend:
+   - Drag & drop the .html, .sts2run, or .json file anywhere on the dashboard.
+   - The run appears under "Shared from Friends".
+   - Your personal win rate, character roster, and Ascension progression
+     remain 100% untouched and calculated strictly against your own climbs only.
