@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://slay-the-spire-2-tracker.web.app/sitemap.xml
