@@ -38,7 +38,7 @@ Built for instant speed, deep climb analytics, and zero-compromise privacy: **no
 3. Click **Copy Path**, open the folder in Windows Explorer, and select your `history` folder!
 
 ### Option 2: Standalone Desktop App (.exe)
-1. Download **`STS2Tracker.exe`** from [Releases](https://github.com/johnathonbarrett/slay-the-spire-2-tracker/releases/latest).
+1. Download **`STS2Tracker.exe`** from [Releases](https://github.com/Apocaelypze/sts2-tracker/releases/latest).
 2. Double-click `STS2Tracker.exe` to launch.
 3. It automatically detects your Steam saves and syncs climbs in real time!
 

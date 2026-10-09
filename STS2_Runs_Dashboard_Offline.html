@@ -22815,7 +22815,7 @@
             <li><strong>Dedicated Desktop Window:</strong> Runs in native Microsoft Edge App Mode without browser tabs or URL bar clutter.</li>
             <li><strong>Zero Dependencies:</strong> No installation, no zip extraction, and no batch scripts needed.</li>
           </ul>
-          <a id="btnDownloadExeRelease" href="https://github.com/johnathonbarrett/slay-the-spire-2-tracker/releases/latest/download/STS2Tracker.exe" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display: flex; width: 100%; justify-content: center; background: linear-gradient(135deg, #d97706, #b45309); border: 1px solid #f59e0b; font-weight: 700; padding: 12px 18px; font-size: 14px; text-decoration: none; border-radius: 8px; color: #fff; box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);">
+          <a id="btnDownloadExeRelease" href="https://github.com/Apocaelypze/sts2-tracker/releases/latest/download/STS2Tracker.exe" target="_blank" rel="noopener noreferrer" class="btn-primary" style="display: flex; width: 100%; justify-content: center; background: linear-gradient(135deg, #d97706, #b45309); border: 1px solid #f59e0b; font-weight: 700; padding: 12px 18px; font-size: 14px; text-decoration: none; border-radius: 8px; color: #fff; box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
             Download STS2Tracker.exe (GitHub Release)
           </a>
@@ -24335,7 +24335,7 @@
                 }
                 // Cards purged/removed
                 if (ps.cards_removed && ps.cards_removed.length > 0) {
-                  shopParts.push(`<div style="color: var(--loss-color); font-size: 12px; margin-top: 2px;">🗑️ Purged: <strong>${ps.cards_removed.map(c => cleanId(c)).join(', ')}</strong></div>`);
+                  shopParts.push(`<div style="color: var(--loss-color); font-size: 12px; margin-top: 2px;">🗑️ Purged: <strong>${ps.cards_removed.map(c => cleanId(c.id || c)).join(', ')}</strong></div>`);
                 }
                 // Gold spent & shop cards offered
                 const spent = ps.gold_spent || 0;
@@ -24900,7 +24900,7 @@
       const combats = [];
       let globalFloor = 0;
       run.map_point_history.forEach((act, actIdx) => {
-        act.forEach((fl, fIdx) => {
+        (Array.isArray(act) ? act : [act]).forEach((fl, fIdx) => {
           globalFloor++;
           const isCombat = ['monster', 'elite', 'boss'].includes(fl.map_point_type);
           const rm = fl.rooms && fl.rooms[0];
@@ -26090,6 +26090,10 @@
 
     function cleanId(id) {
       if (!id || id === 'NONE.NONE') return '';
+      if (typeof id === 'object') {
+        id = id.id || id.name || (id.card && id.card.id) || '';
+      }
+      if (typeof id !== 'string') id = String(id || '');
       return id.replace(/^(CARD|RELIC|CHARACTER|ACT|ENCOUNTER|MONSTER|EVENT|POTION|MODIFIER)\./, '')
                .replace(/_/g, ' ')
                .toLowerCase()
@@ -26098,6 +26102,10 @@
 
     function cleanIdForAsset(id, character = null) {
       if (!id) return '';
+      if (typeof id === 'object') {
+        id = id.id || id.name || (id.card && id.card.id) || '';
+      }
+      if (typeof id !== 'string') id = String(id || '');
       const clean = id.replace(/^(CARD|RELIC|CHARACTER|ACT|ENCOUNTER|MONSTER|EVENT|POTION|MODIFIER)\./, '')
                       .toLowerCase();
       const charName = character || (currentInspectedRun && currentInspectedRun.character);
