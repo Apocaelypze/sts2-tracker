@@ -717,12 +717,26 @@
       border-radius: 12px;
       padding: 16px 20px;
       display: grid;
-      grid-template-columns: 100px 180px 1fr 180px 100px;
+      grid-template-columns: 120px 180px 1fr 180px 95px;
       align-items: center;
       gap: 16px;
       cursor: pointer;
       transition: all 0.2s ease;
       position: relative;
+    }
+
+    .run-number-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--gold-spire);
+      background: rgba(234, 179, 8, 0.12);
+      border: 1px solid rgba(234, 179, 8, 0.3);
+      padding: 2px 7px;
+      border-radius: 4px;
+      letter-spacing: 0.5px;
+      display: inline-flex;
+      align-items: center;
     }
 
     @media (max-width: 1024px) {
@@ -742,6 +756,53 @@
     .run-card.loss { border-left: 4px solid var(--loss-color); }
     .run-card.abandoned { border-left: 4px solid var(--abandoned-color); }
     .run-card.shared-run { border-left: 4px solid var(--shared-color); }
+
+    /* Runs History Pagination */
+    .runs-pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .page-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      min-width: 32px;
+      text-align: center;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .page-btn:hover:not(:disabled) {
+      color: var(--text-main);
+      background: var(--bg-card-hover);
+      border-color: var(--border-light);
+    }
+    .page-btn.active {
+      background: rgba(234, 179, 8, 0.15);
+      border-color: var(--gold-spire);
+      color: var(--gold-spire);
+      box-shadow: 0 0 10px var(--gold-glow);
+      font-weight: 700;
+    }
+    .page-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+    .page-ellipsis {
+      color: var(--text-dim);
+      padding: 0 4px;
+      font-size: 13px;
+    }
 
     .run-outcome-badge {
       display: inline-flex;
@@ -22446,24 +22507,36 @@
           </select>
 
           <select class="select-dropdown" id="sortSelect" onchange="setSort(this.value)">
-            <option value="newest">Newest First</option>
-            <option value="oldest">Oldest First</option>
+            <option value="newest">Newest First (Run #101 → #1)</option>
+            <option value="oldest">Oldest First (Run #1 → #101)</option>
             <option value="duration">Longest Playtime</option>
             <option value="floors">Most Floors</option>
             <option value="ascension">Highest Ascension</option>
+          </select>
+
+          <select class="select-dropdown" id="perPageSelect" onchange="setRunsPerPage(this.value)" title="Runs shown per page">
+            <option value="10">10 / page</option>
+            <option value="20" selected>20 / page</option>
+            <option value="50">50 / page</option>
+            <option value="100">100 / page</option>
+            <option value="ALL">Show All</option>
           </select>
         </div>
 
         <div class="search-wrapper">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-          <input type="text" class="search-input" id="searchInput" placeholder="Search seed, enemy, card, relic..." oninput="onSearchInput(this.value)" />
+          <input type="text" class="search-input" id="searchInput" placeholder="Search seed, enemy, card, relic, #run..." oninput="onSearchInput(this.value)" />
         </div>
       </div>
 
-      <div class="section-title">
-        <span id="runsListCount">Runs History</span>
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 12px;">
+        <div class="section-title" style="margin-bottom: 0;">
+          <span id="runsListCount">Runs History</span>
+        </div>
+        <div id="runsPaginationTop" class="runs-pagination"></div>
       </div>
       <div class="runs-list" id="runsContainer"></div>
+      <div id="runsPaginationBottom" class="runs-pagination" style="margin-top: 16px; margin-bottom: 24px;"></div>
     </div>
 
     <!-- TAB 2: META ANALYTICS -->
@@ -23186,6 +23259,8 @@
     let recordsScopeFilter = 'wins'; // 'wins' (default) or 'all'
     let hallOfRecordsData = [];
     let hallOfRecordsCache = {};
+    let runsPerPage = 20; // 10, 20, 50, 100, or 'ALL'
+    let currentRunsPage = 1;
 
     let nemesisTypeFilter = 'all'; // 'all', 'boss', 'elite', 'monster'
     let nemesisSortCol = 'defeats'; // 'defeats', 'fought', 'fatality', 'type', 'name'
@@ -23383,6 +23458,18 @@
       // Mark shared runs with flag
       rawSharedRuns.forEach(r => r._isShared = true);
       rawLocalRuns.forEach(r => r._isShared = false);
+
+      // Assign permanent chronological run numbers (Run #1 = oldest climb, Run #N = newest climb)
+      const localChrono = [...rawLocalRuns].sort((a, b) => (a.start_time || 0) - (b.start_time || 0));
+      localChrono.forEach((r, idx) => {
+        r._runNumber = idx + 1;
+      });
+      if (rawSharedRuns.length > 0) {
+        const sharedChrono = [...rawSharedRuns].sort((a, b) => (a.start_time || 0) - (b.start_time || 0));
+        sharedChrono.forEach((r, idx) => {
+          r._runNumber = idx + 1;
+        });
+      }
 
       document.getElementById('countMyClimbs').innerText = rawLocalRuns.length;
       document.getElementById('countSharedClimbs').innerText = rawSharedRuns.length;
@@ -23911,7 +23998,7 @@
             icon: '🔨',
             title: 'Most Cards Upgraded',
             value: mostUpg ? `${mostUpg.val} Upgrades` : '-',
-            subtext: mostUpg ? `${mostUpg.val} / ${(getPlayer(mostUpg.run).deck || []).length} cards upgraded in deck (${scopeBadge})` : '-',
+            subtext: mostUpg ? `Run #${mostUpg.run._runNumber || ''} • ${mostUpg.val} / ${(getPlayer(mostUpg.run).deck || []).length} cards upgraded (${scopeBadge})` : '-',
             run: mostUpg ? mostUpg.run : null,
             accent: '#38bdf8'
           },
@@ -23921,7 +24008,7 @@
             icon: '⚪',
             title: 'Least Cards Upgraded',
             value: leastUpg ? `${leastUpg.val} Upgrades` : '-',
-            subtext: leastUpg ? `Floor ${leastUpg.floors} ${scopeBadge} with ${leastUpg.val} upgrade${leastUpg.val === 1 ? '' : 's'}` : '-',
+            subtext: leastUpg ? `Run #${leastUpg.run._runNumber || ''} • Floor ${leastUpg.floors} ${scopeBadge} with ${leastUpg.val} upgrade${leastUpg.val === 1 ? '' : 's'}` : '-',
             run: leastUpg ? leastUpg.run : null,
             accent: '#94a3b8'
           },
@@ -23931,7 +24018,7 @@
             icon: '🏕️',
             title: 'Most Campfire Rests',
             value: mostRests ? `${mostRests.val} Rests Healed` : '-',
-            subtext: mostRests ? `Healed HP at ${mostRests.val} different campfires (${scopeBadge})` : '-',
+            subtext: mostRests ? `Run #${mostRests.run._runNumber || ''} • Healed HP at ${mostRests.val} different campfires (${scopeBadge})` : '-',
             run: mostRests ? mostRests.run : null,
             accent: '#f97316'
           },
@@ -23941,7 +24028,7 @@
             icon: '☕',
             title: 'Least Campfire Rests',
             value: leastRests ? `${leastRests.val} Rests (Iron Will)` : '-',
-            subtext: leastRests ? `Reached Floor ${leastRests.floors} ${scopeBadge} with ${leastRests.val} rest heals` : '-',
+            subtext: leastRests ? `Run #${leastRests.run._runNumber || ''} • Reached Floor ${leastRests.floors} ${scopeBadge} with ${leastRests.val} rest heals` : '-',
             run: leastRests ? leastRests.run : null,
             accent: '#10b981'
           },
@@ -23951,7 +24038,7 @@
             icon: '⚡',
             title: isWinsMode ? 'Fastest Victory' : 'Fastest Run',
             value: fastestRun ? formatDuration(fastestRun.val) : '-',
-            subtext: fastestRun ? `${fastestRun.run.win ? '🏆 Victory' : 'Defeat'} • Floor ${fastestRun.floors} • Speed Demon` : '-',
+            subtext: fastestRun ? `Run #${fastestRun.run._runNumber || ''} • Floor ${fastestRun.floors} • Speed Demon (${scopeBadge})` : '-',
             run: fastestRun ? fastestRun.run : null,
             accent: '#eab308'
           },
@@ -23961,7 +24048,7 @@
             icon: '🐢',
             title: isWinsMode ? 'Slowest Victory' : 'Slowest Run',
             value: slowestRun ? formatDuration(slowestRun.val) : '-',
-            subtext: slowestRun ? `Deep tactical battle • Floor ${slowestRun.floors} (${scopeBadge})` : '-',
+            subtext: slowestRun ? `Run #${slowestRun.run._runNumber || ''} • Deep tactical battle • Floor ${slowestRun.floors} (${scopeBadge})` : '-',
             run: slowestRun ? slowestRun.run : null,
             accent: '#c084fc'
           },
@@ -23971,7 +24058,7 @@
             icon: '📚',
             title: 'Largest Deck Size',
             value: highestCards ? `${highestCards.val} Cards` : '-',
-            subtext: highestCards ? `Massive card archive at ${scopeBadge.toLowerCase()} conclusion` : '-',
+            subtext: highestCards ? `Run #${highestCards.run._runNumber || ''} • Massive card archive at ${scopeBadge.toLowerCase()} conclusion` : '-',
             run: highestCards ? highestCards.run : null,
             accent: '#06b6d4'
           },
@@ -23981,7 +24068,7 @@
             icon: '🎴',
             title: 'Smallest Deck Size',
             value: lowestCards ? `${lowestCards.val} Cards (Minimalist)` : '-',
-            subtext: lowestCards ? `Lean trimmed deck • Floor ${lowestCards.floors} (${scopeBadge})` : '-',
+            subtext: lowestCards ? `Run #${lowestCards.run._runNumber || ''} • Lean trimmed deck • Floor ${lowestCards.floors} (${scopeBadge})` : '-',
             run: lowestCards ? lowestCards.run : null,
             accent: '#ec4899'
           },
@@ -23991,7 +24078,7 @@
             icon: '👑',
             title: 'Most Relics Collected',
             value: highestRelics ? `${highestRelics.val} Relics` : '-',
-            subtext: highestRelics ? `Relic treasure hoard at ${scopeBadge.toLowerCase()} finish` : '-',
+            subtext: highestRelics ? `Run #${highestRelics.run._runNumber || ''} • Relic treasure hoard at ${scopeBadge.toLowerCase()} finish` : '-',
             run: highestRelics ? highestRelics.run : null,
             accent: '#f59e0b'
           },
@@ -24001,7 +24088,7 @@
             icon: '🪨',
             title: 'Fewest Relics Collected',
             value: lowestRelics ? `${lowestRelics.val} Relic${lowestRelics.val === 1 ? '' : 's'}` : '-',
-            subtext: lowestRelics ? `Minimalist trinket loadout • Floor ${lowestRelics.floors} (${scopeBadge})` : '-',
+            subtext: lowestRelics ? `Run #${lowestRelics.run._runNumber || ''} • Minimalist trinket loadout • Floor ${lowestRelics.floors} (${scopeBadge})` : '-',
             run: lowestRelics ? lowestRelics.run : null,
             accent: '#64748b'
           },
@@ -24011,7 +24098,7 @@
             icon: '🏆',
             title: 'Most Wins in a Row',
             value: `${maxWin} Wins Streak`,
-            subtext: winStreakRun ? `Peak Win Streak • Capstone: ${cleanId(getPlayer(winStreakRun).character || 'Hero')} A${winStreakRun.ascension || 0}` : 'No victory streak recorded yet',
+            subtext: winStreakRun ? `Peak Win Streak • Capstone: Run #${winStreakRun._runNumber || ''} (${cleanId(getPlayer(winStreakRun).character || 'Hero')} A${winStreakRun.ascension || 0})` : 'No victory streak recorded yet',
             run: winStreakRun,
             accent: '#10b981'
           },
@@ -24021,7 +24108,7 @@
             icon: '💀',
             title: 'Most Losses in a Row',
             value: `${maxLoss} Losses Streak`,
-            subtext: lossStreakRun ? `Peak Loss Streak across career • Floor ${getRunFloors(lossStreakRun)}` : '-',
+            subtext: lossStreakRun ? `Peak Loss Streak across career • Concluded on Run #${lossStreakRun._runNumber || ''} • Floor ${getRunFloors(lossStreakRun)}` : '-',
             run: lossStreakRun,
             accent: '#f43f5e'
           },
@@ -24031,7 +24118,7 @@
             icon: '🗡️',
             title: 'Most Elites Killed',
             value: mostElites ? `${mostElites.val} Elites Slain` : '-',
-            subtext: mostElites ? `Elite hunts in a single run • Floor ${mostElites.floors} (${scopeBadge})` : '-',
+            subtext: mostElites ? `Run #${mostElites.run._runNumber || ''} • Elite hunts in a single run • Floor ${mostElites.floors} (${scopeBadge})` : '-',
             run: mostElites ? mostElites.run : null,
             accent: '#ef4444'
           }
@@ -24079,18 +24166,27 @@
           const outcomeClass = isWin ? 'badge-win' : (isAb ? 'badge-abandoned' : 'badge-loss');
           const outcomeText = isWin ? 'Victory 🏆' : (isAb ? 'Abandoned 🚪' : 'Defeat 💀');
           const ascStr = rec.run.ascension ? ` A${rec.run.ascension}` : '';
+          const runNumPill = rec.run._runNumber ? `<span style="font-family: var(--font-mono); font-size: 10px; font-weight: 800; color: var(--gold-spire); background: rgba(234, 179, 8, 0.15); border: 1px solid rgba(234, 179, 8, 0.35); padding: 1px 6px; border-radius: 4px; margin-right: 4px;">Run #${rec.run._runNumber}</span>` : '';
           footerHero = `
             <div class="record-card-hero" style="color: ${cfg.color};">
+              ${runNumPill}
               <span>${cfg.name}${ascStr}</span>
               <span class="run-outcome-badge ${outcomeClass}" style="padding: 1px 6px; font-size: 9.5px; border-radius: 4px;">${outcomeText}</span>
             </div>
           `;
         }
 
+        const runBadgeTop = (rec.run && rec.run._runNumber)
+          ? `<span style="font-family: var(--font-mono); font-size: 11px; font-weight: 800; color: var(--gold-spire); background: rgba(234, 179, 8, 0.15); border: 1px solid rgba(234, 179, 8, 0.35); padding: 2px 7px; border-radius: 4px; letter-spacing: 0.5px;">Run #${rec.run._runNumber}</span>`
+          : '';
+
         card.innerHTML = `
           <div class="record-card-top">
             <span class="record-card-cat" style="color: ${rec.accent}; background: ${rec.accent}15; border: 1px solid ${rec.accent}30;">${rec.category}</span>
-            <span class="record-card-icon">${rec.icon}</span>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              ${runBadgeTop}
+              <span class="record-card-icon">${rec.icon}</span>
+            </div>
           </div>
           <div class="record-card-title">${rec.title}</div>
           <div class="record-card-value">${rec.value}</div>
@@ -24198,18 +24294,36 @@
 
     function setFilter(type, val) {
       activeFilters[type] = val;
+      currentRunsPage = 1;
       if (type === 'character') renderCharacterRoster(rawLocalRuns);
       applyFiltersAndRender();
     }
 
     function setSort(val) {
       currentSort = val;
+      currentRunsPage = 1;
       applyFiltersAndRender();
     }
 
     function onSearchInput(val) {
       activeFilters.search = val.trim().toLowerCase();
+      currentRunsPage = 1;
       applyFiltersAndRender();
+    }
+
+    function setRunsPerPage(val) {
+      runsPerPage = (val === 'ALL') ? 'ALL' : parseInt(val, 10);
+      currentRunsPage = 1;
+      renderRunsList();
+    }
+
+    function goToRunsPage(page) {
+      currentRunsPage = page;
+      renderRunsList();
+      const target = document.getElementById('runsListCount');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
 
     function applyFiltersAndRender() {
@@ -24239,7 +24353,9 @@
           const seed = (r.seed || '').toLowerCase();
           const killedBy = (r.killed_by_encounter || '').toLowerCase();
           const charName = (CHAR_CONFIG[cKey] ? CHAR_CONFIG[cKey].name : '').toLowerCase();
-          if (!seed.includes(q) && !killedBy.includes(q) && !charName.includes(q)) return false;
+          const runNumStr = r._runNumber ? String(r._runNumber) : '';
+          const matchRun = (runNumStr === q || `#${runNumStr}` === q || `run ${runNumStr}` === q || `run #${runNumStr}` === q);
+          if (!seed.includes(q) && !killedBy.includes(q) && !charName.includes(q) && !matchRun) return false;
         }
         return true;
       });
@@ -24258,10 +24374,18 @@
 
     function renderRunsList() {
       const container = document.getElementById('runsContainer');
-      document.getElementById('runsListCount').innerText = `Runs History (${filteredRuns.length} of ${allRuns.length})`;
-      container.innerHTML = '';
+      const countHeader = document.getElementById('runsListCount');
+      const topPaging = document.getElementById('runsPaginationTop');
+      const btmPaging = document.getElementById('runsPaginationBottom');
 
-      if (filteredRuns.length === 0) {
+      container.innerHTML = '';
+      if (topPaging) topPaging.innerHTML = '';
+      if (btmPaging) btmPaging.innerHTML = '';
+
+      const totalRuns = filteredRuns.length;
+
+      if (totalRuns === 0) {
+        if (countHeader) countHeader.innerText = `Runs History (0 of ${allRuns.length})`;
         if (allRuns.length === 0) {
           container.innerHTML = `
             <div style="text-align: center; padding: 50px 24px; background: rgba(255,255,255,0.02); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 16px; margin: 20px 0;">
@@ -24306,7 +24430,80 @@
         return;
       }
 
-      filteredRuns.forEach(r => {
+      let displayedRuns = filteredRuns;
+      let totalPages = 1;
+      let startIndex = 0;
+      let endIndex = totalRuns;
+
+      if (runsPerPage !== 'ALL') {
+        const perPage = parseInt(runsPerPage, 10);
+        totalPages = Math.max(1, Math.ceil(totalRuns / perPage));
+        if (currentRunsPage > totalPages) currentRunsPage = totalPages;
+        if (currentRunsPage < 1) currentRunsPage = 1;
+
+        startIndex = (currentRunsPage - 1) * perPage;
+        endIndex = Math.min(startIndex + perPage, totalRuns);
+        displayedRuns = filteredRuns.slice(startIndex, endIndex);
+
+        if (countHeader) {
+          countHeader.innerText = `Runs History • Showing Runs ${startIndex + 1}–${endIndex} of ${totalRuns} (Page ${currentRunsPage} of ${totalPages})`;
+        }
+      } else {
+        if (countHeader) {
+          countHeader.innerText = `Runs History • Showing All ${totalRuns} Runs`;
+        }
+      }
+
+      function buildPaginationHtml() {
+        if (totalPages <= 1) return '';
+        let html = '';
+
+        // Prev Button
+        html += `<button class="page-btn" ${currentRunsPage === 1 ? 'disabled' : ''} onclick="goToRunsPage(${currentRunsPage - 1})">◀ Prev</button>`;
+
+        // Page Number Buttons with Smart Ellipsis
+        const maxButtons = 7;
+        let startPage = 1;
+        let endPage = totalPages;
+
+        if (totalPages > maxButtons) {
+          if (currentRunsPage <= 4) {
+            startPage = 1;
+            endPage = 5;
+          } else if (currentRunsPage >= totalPages - 3) {
+            startPage = totalPages - 4;
+            endPage = totalPages;
+          } else {
+            startPage = currentRunsPage - 2;
+            endPage = currentRunsPage + 2;
+          }
+        }
+
+        if (startPage > 1) {
+          html += `<button class="page-btn ${currentRunsPage === 1 ? 'active' : ''}" onclick="goToRunsPage(1)">1</button>`;
+          if (startPage > 2) html += `<span class="page-ellipsis">&hellip;</span>`;
+        }
+
+        for (let p = startPage; p <= endPage; p++) {
+          html += `<button class="page-btn ${currentRunsPage === p ? 'active' : ''}" onclick="goToRunsPage(${p})">${p}</button>`;
+        }
+
+        if (endPage < totalPages) {
+          if (endPage < totalPages - 1) html += `<span class="page-ellipsis">&hellip;</span>`;
+          html += `<button class="page-btn ${currentRunsPage === totalPages ? 'active' : ''}" onclick="goToRunsPage(${totalPages})">${totalPages}</button>`;
+        }
+
+        // Next Button
+        html += `<button class="page-btn" ${currentRunsPage === totalPages ? 'disabled' : ''} onclick="goToRunsPage(${currentRunsPage + 1})">Next ▶</button>`;
+
+        return html;
+      }
+
+      const paginationHtml = buildPaginationHtml();
+      if (topPaging) topPaging.innerHTML = paginationHtml;
+      if (btmPaging) btmPaging.innerHTML = paginationHtml;
+
+      displayedRuns.forEach(r => {
         const p = getPlayer(r);
         const cKey = getCharKey(r);
         const cfg = CHAR_CONFIG[cKey] || { name: cKey, color: '#94a3b8', img: 'ironclad.webp' };
@@ -24340,12 +24537,17 @@
             return `<span class="badge-player-pill" onmouseenter="showBadgeTooltip('${b.id}', this, event)" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()">${bIcon}${bTitle}</span>`;
           }).join('')}</div>` : '';
 
+        const runNumPill = r._runNumber ? `<span class="run-number-badge">Run #${r._runNumber}</span>` : '';
+
         const card = document.createElement('div');
         card.className = `run-card ${outcomeClass}`;
         card.onclick = () => openModal(r);
 
         card.innerHTML = `
           <div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 5px;">
+              ${runNumPill}
+            </div>
             <span class="run-outcome-badge ${badgeClass}">${outcomeText}</span>
             ${isCoop ? `<div class="badge-coop" style="margin-top: 4px;">CO-OP 👥 (2P)</div>` : ''}
             ${isShared ? `<div class="run-outcome-badge badge-shared" style="margin-top: 4px;">👤 Shared</div>` : ''}
@@ -24411,8 +24613,11 @@
       const partKey = partner && partner.character ? partner.character.replace('CHARACTER.', '').toUpperCase() : '';
       const partCfg = CHAR_CONFIG[partKey];
 
+      const runNumBadge = run._runNumber ? `<span class="run-number-badge" style="font-size: 13px; padding: 2px 8px; margin-right: 6px;">Run #${run._runNumber}</span>` : '';
+
       if (isCoop) {
         document.getElementById('modalTitle').innerHTML = `
+          ${runNumBadge}
           <span style="color: ${cfg.color}">${cfg.name}</span>
           <span style="font-size: 15px; color: var(--text-dim); font-weight: 400; font-family: var(--font-body);">&amp;</span>
           <span style="color: ${partCfg ? partCfg.color : '#fff'}">${partCfg ? partCfg.name : partKey}</span>
@@ -24420,11 +24625,14 @@
           <span class="badge-coop" style="margin-left: 8px;">CO-OP 👥 (2P)</span>
         `;
       } else {
-        document.getElementById('modalTitle').innerHTML = `<span style="color: ${cfg.color}">${cfg.name}</span> &bull; Ascension ${run.ascension || 0}`;
+        document.getElementById('modalTitle').innerHTML = `
+          ${runNumBadge}
+          <span style="color: ${cfg.color}">${cfg.name}</span> &bull; Ascension ${run.ascension || 0}
+        `;
       }
 
       document.getElementById('modalSubInfo').innerHTML = `
-        Climbed on ${formatDate(run.start_time)} &bull; Seed: <button class="copy-seed-btn" onclick="copySeed('${run.seed}', event)" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border-subtle); color: var(--gold-spire); padding: 2px 6px; border-radius: 4px; cursor: pointer;">${run.seed} (Copy)</button>
+        Climbed on ${formatDate(run.start_time)} &bull; ${run._runNumber ? `<strong>Run #${run._runNumber}</strong> &bull; ` : ''}Seed: <button class="copy-seed-btn" onclick="copySeed('${run.seed}', event)" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border-subtle); color: var(--gold-spire); padding: 2px 6px; border-radius: 4px; cursor: pointer;">${run.seed} (Copy)</button>
         ${isShared ? ' &bull; <strong style="color: var(--shared-color);">Imported Run</strong>' : ''}
         ${isCoop ? ' &bull; <strong style="color: #38bdf8;">Co-op Duo Run</strong>' : ''}
       `;
