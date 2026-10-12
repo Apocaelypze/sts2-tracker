@@ -1652,6 +1652,159 @@
       box-shadow: 0 0 10px rgba(234, 179, 8, 0.2);
     }
 
+    /* Hall of Records Showcase */
+    .hall-of-records-showcase {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+    }
+    .hall-of-records-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .records-filter-tabs {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .record-tab-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .record-tab-btn:hover {
+      color: var(--text-main);
+      background: rgba(255, 255, 255, 0.06);
+      border-color: var(--border-light);
+    }
+    .record-tab-btn.active {
+      background: rgba(234, 179, 8, 0.15);
+      border-color: var(--gold-spire);
+      color: var(--gold-spire);
+      box-shadow: 0 0 10px var(--gold-glow);
+    }
+    .records-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 12px;
+    }
+    .record-card {
+      background: var(--bg-darker);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.2s ease;
+      min-height: 140px;
+    }
+    .record-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--gold-spire);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 12px var(--gold-glow);
+      background: var(--bg-card-hover);
+    }
+    .record-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--card-accent, var(--gold-spire));
+      opacity: 0.85;
+    }
+    .record-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .record-card-cat {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+    .record-card-icon {
+      font-size: 20px;
+    }
+    .record-card-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.3px;
+      margin-bottom: 4px;
+    }
+    .record-card-value {
+      font-size: 20px;
+      font-weight: 700;
+      font-family: var(--font-title);
+      line-height: 1.2;
+      margin-bottom: 6px;
+      color: var(--card-accent, #fff);
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .record-card-sub {
+      font-size: 11px;
+      color: var(--text-dim);
+      line-height: 1.4;
+      margin-bottom: 10px;
+      flex: 1;
+    }
+    .record-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 11px;
+    }
+    .record-card-hero {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+    .record-card-hint {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: color 0.15s ease;
+    }
+    .record-card:hover .record-card-hint {
+      color: var(--gold-spire);
+    }
+
     /* Meta Category Multi-Select Bar */
     .meta-category-bar {
       display: flex;
@@ -11244,7 +11397,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 2,
-          "wins": 0
+          "wins": 1
         },
         {
           "character": "CHARACTER.REGENT",
@@ -11254,7 +11407,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 2,
-          "wins": 3
+          "wins": 4
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -11273,8 +11426,8 @@
         },
         {
           "character": "CHARACTER.SILENT",
-          "losses": 19,
-          "wins": 3
+          "losses": 21,
+          "wins": 4
         },
         {
           "character": "CHARACTER.REGENT",
@@ -11289,7 +11442,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 20,
-          "wins": 4
+          "wins": 5
         }
       ]
     },
@@ -11328,7 +11481,7 @@
         },
         {
           "character": "CHARACTER.SILENT",
-          "losses": 5,
+          "losses": 6,
           "wins": 1
         },
         {
@@ -11364,7 +11517,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 2,
-          "wins": 1
+          "wins": 2
         },
         {
           "character": "CHARACTER.REGENT",
@@ -11423,7 +11576,7 @@
         },
         {
           "character": "CHARACTER.SILENT",
-          "losses": 0,
+          "losses": 1,
           "wins": 1
         },
         {
@@ -11444,7 +11597,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 2
+          "wins": 3
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -11464,7 +11617,7 @@
       ]
     }
   ],
-  "architect_damage": 27913,
+  "architect_damage": 31295,
   "card_stats": [
     {
       "id": "CARD.STRIKE_IRONCLAD",
@@ -11538,7 +11691,7 @@
     },
     {
       "id": "CARD.BYRD_SWOOP",
-      "times_lost": 5,
+      "times_lost": 6,
       "times_picked": 0,
       "times_skipped": 0,
       "times_won": 2
@@ -11552,7 +11705,7 @@
     },
     {
       "id": "CARD.HIDDEN_GEM",
-      "times_lost": 7,
+      "times_lost": 8,
       "times_picked": 0,
       "times_skipped": 7,
       "times_won": 1
@@ -11771,14 +11924,14 @@
       "id": "CARD.ULTIMATE_STRIKE",
       "times_lost": 1,
       "times_picked": 0,
-      "times_skipped": 9,
+      "times_skipped": 10,
       "times_won": 2
     },
     {
       "id": "CARD.MASTER_OF_STRATEGY",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 7,
+      "times_skipped": 8,
       "times_won": 0
     },
     {
@@ -11925,14 +12078,14 @@
       "id": "CARD.FLASH_OF_STEEL",
       "times_lost": 2,
       "times_picked": 0,
-      "times_skipped": 6,
+      "times_skipped": 7,
       "times_won": 0
     },
     {
       "id": "CARD.SECRET_TECHNIQUE",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 13,
+      "times_skipped": 14,
       "times_won": 0
     },
     {
@@ -12009,8 +12162,8 @@
       "id": "CARD.GOLD_AXE",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 8,
-      "times_won": 2
+      "times_skipped": 9,
+      "times_won": 3
     },
     {
       "id": "CARD.ULTIMATE_DEFEND",
@@ -12037,7 +12190,7 @@
       "id": "CARD.ENTROPY",
       "times_lost": 2,
       "times_picked": 0,
-      "times_skipped": 11,
+      "times_skipped": 12,
       "times_won": 0
     },
     {
@@ -12079,7 +12232,7 @@
       "id": "CARD.SEEKER_STRIKE",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 7,
+      "times_skipped": 9,
       "times_won": 0
     },
     {
@@ -12105,52 +12258,52 @@
     },
     {
       "id": "CARD.STRIKE_SILENT",
-      "times_lost": 19,
+      "times_lost": 20,
       "times_picked": 0,
       "times_skipped": 0,
-      "times_won": 3
+      "times_won": 4
     },
     {
       "id": "CARD.DEFEND_SILENT",
-      "times_lost": 19,
+      "times_lost": 21,
       "times_picked": 0,
       "times_skipped": 0,
-      "times_won": 3
+      "times_won": 4
     },
     {
       "id": "CARD.NEUTRALIZE",
-      "times_lost": 19,
-      "times_picked": 0,
-      "times_skipped": 0,
-      "times_won": 2
-    },
-    {
-      "id": "CARD.SURVIVOR",
-      "times_lost": 19,
+      "times_lost": 21,
       "times_picked": 0,
       "times_skipped": 0,
       "times_won": 3
+    },
+    {
+      "id": "CARD.SURVIVOR",
+      "times_lost": 21,
+      "times_picked": 0,
+      "times_skipped": 0,
+      "times_won": 4
     },
     {
       "id": "CARD.DAGGER_THROW",
       "times_lost": 8,
-      "times_picked": 4,
-      "times_skipped": 11,
-      "times_won": 0
+      "times_picked": 5,
+      "times_skipped": 13,
+      "times_won": 1
     },
     {
       "id": "CARD.RICOCHET",
       "times_lost": 3,
       "times_picked": 4,
-      "times_skipped": 32,
+      "times_skipped": 36,
       "times_won": 0
     },
     {
       "id": "CARD.LEADING_STRIKE",
-      "times_lost": 10,
-      "times_picked": 11,
-      "times_skipped": 22,
-      "times_won": 2
+      "times_lost": 11,
+      "times_picked": 13,
+      "times_skipped": 26,
+      "times_won": 3
     },
     {
       "id": "CARD.SKEWER",
@@ -12162,15 +12315,15 @@
     {
       "id": "CARD.CLOAK_AND_DAGGER",
       "times_lost": 6,
-      "times_picked": 8,
-      "times_skipped": 26,
-      "times_won": 2
+      "times_picked": 9,
+      "times_skipped": 27,
+      "times_won": 3
     },
     {
       "id": "CARD.OUTBREAK",
       "times_lost": 5,
       "times_picked": 5,
-      "times_skipped": 10,
+      "times_skipped": 13,
       "times_won": 1
     },
     {
@@ -12182,86 +12335,86 @@
     },
     {
       "id": "CARD.STRANGLE",
-      "times_lost": 3,
-      "times_picked": 3,
-      "times_skipped": 2,
+      "times_lost": 4,
+      "times_picked": 4,
+      "times_skipped": 5,
       "times_won": 1
     },
     {
       "id": "CARD.CALCULATED_GAMBLE",
       "times_lost": 3,
-      "times_picked": 4,
+      "times_picked": 5,
       "times_skipped": 6,
-      "times_won": 1
+      "times_won": 2
     },
     {
       "id": "CARD.DODGE_AND_ROLL",
       "times_lost": 3,
       "times_picked": 3,
-      "times_skipped": 30,
-      "times_won": 0
+      "times_skipped": 35,
+      "times_won": 1
     },
     {
       "id": "CARD.BOUNCING_FLASK",
-      "times_lost": 3,
-      "times_picked": 2,
-      "times_skipped": 8,
+      "times_lost": 4,
+      "times_picked": 3,
+      "times_skipped": 9,
       "times_won": 0
     },
     {
       "id": "CARD.SLICE",
       "times_lost": 1,
-      "times_picked": 1,
-      "times_skipped": 25,
-      "times_won": 0
+      "times_picked": 2,
+      "times_skipped": 31,
+      "times_won": 1
     },
     {
       "id": "CARD.DAGGER_SPRAY",
       "times_lost": 3,
-      "times_picked": 5,
-      "times_skipped": 27,
-      "times_won": 1
+      "times_picked": 6,
+      "times_skipped": 32,
+      "times_won": 2
     },
     {
       "id": "CARD.PREDATOR",
       "times_lost": 2,
       "times_picked": 3,
-      "times_skipped": 15,
+      "times_skipped": 17,
       "times_won": 1
     },
     {
       "id": "CARD.SUCKER_PUNCH",
-      "times_lost": 7,
-      "times_picked": 7,
-      "times_skipped": 19,
-      "times_won": 2
+      "times_lost": 8,
+      "times_picked": 9,
+      "times_skipped": 20,
+      "times_won": 3
     },
     {
       "id": "CARD.DEFLECT",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 35,
-      "times_won": 0
+      "times_skipped": 42,
+      "times_won": 1
     },
     {
       "id": "CARD.DASH",
       "times_lost": 2,
-      "times_picked": 3,
-      "times_skipped": 12,
-      "times_won": 1
+      "times_picked": 4,
+      "times_skipped": 13,
+      "times_won": 2
     },
     {
       "id": "CARD.NIGHTMARE",
-      "times_lost": 0,
+      "times_lost": 1,
       "times_picked": 0,
-      "times_skipped": 4,
+      "times_skipped": 5,
       "times_won": 0
     },
     {
       "id": "CARD.UP_MY_SLEEVE",
       "times_lost": 3,
       "times_picked": 5,
-      "times_skipped": 7,
+      "times_skipped": 9,
       "times_won": 1
     },
     {
@@ -12273,22 +12426,22 @@
     },
     {
       "id": "CARD.POUNCE",
-      "times_lost": 5,
-      "times_picked": 6,
-      "times_skipped": 10,
+      "times_lost": 6,
+      "times_picked": 7,
+      "times_skipped": 11,
       "times_won": 2
     },
     {
       "id": "CARD.WELL_LAID_PLANS",
-      "times_lost": 4,
+      "times_lost": 5,
       "times_picked": 3,
-      "times_skipped": 8,
+      "times_skipped": 10,
       "times_won": 1
     },
     {
       "id": "CARD.SERPENT_FORM",
-      "times_lost": 5,
-      "times_picked": 7,
+      "times_lost": 6,
+      "times_picked": 8,
       "times_skipped": 2,
       "times_won": 2
     },
@@ -12296,14 +12449,14 @@
       "id": "CARD.PREPARED",
       "times_lost": 4,
       "times_picked": 3,
-      "times_skipped": 15,
+      "times_skipped": 22,
       "times_won": 0
     },
     {
       "id": "CARD.BACKSTAB",
       "times_lost": 4,
       "times_picked": 6,
-      "times_skipped": 5,
+      "times_skipped": 9,
       "times_won": 2
     },
     {
@@ -12316,22 +12469,22 @@
     {
       "id": "CARD.INFINITE_BLADES",
       "times_lost": 4,
-      "times_picked": 5,
-      "times_skipped": 10,
-      "times_won": 2
+      "times_picked": 6,
+      "times_skipped": 12,
+      "times_won": 3
     },
     {
       "id": "CARD.GRAND_FINALE",
       "times_lost": 1,
       "times_picked": 1,
-      "times_skipped": 5,
+      "times_skipped": 6,
       "times_won": 0
     },
     {
       "id": "CARD.NOXIOUS_FUMES",
       "times_lost": 8,
       "times_picked": 7,
-      "times_skipped": 10,
+      "times_skipped": 12,
       "times_won": 1
     },
     {
@@ -12343,28 +12496,28 @@
     },
     {
       "id": "CARD.FOOTWORK",
-      "times_lost": 3,
-      "times_picked": 4,
-      "times_skipped": 17,
-      "times_won": 1
+      "times_lost": 4,
+      "times_picked": 6,
+      "times_skipped": 19,
+      "times_won": 2
     },
     {
       "id": "CARD.UNTOUCHABLE",
       "times_lost": 4,
       "times_picked": 3,
-      "times_skipped": 26,
+      "times_skipped": 30,
       "times_won": 0
     },
     {
       "id": "CARD.ANTICIPATE",
       "times_lost": 3,
       "times_picked": 2,
-      "times_skipped": 25,
+      "times_skipped": 30,
       "times_won": 0
     },
     {
       "id": "CARD.HAZE",
-      "times_lost": 2,
+      "times_lost": 3,
       "times_picked": 1,
       "times_skipped": 12,
       "times_won": 0
@@ -12373,7 +12526,7 @@
       "id": "CARD.MEMENTO_MORI",
       "times_lost": 1,
       "times_picked": 1,
-      "times_skipped": 10,
+      "times_skipped": 12,
       "times_won": 0
     },
     {
@@ -12394,56 +12547,56 @@
       "id": "CARD.ACROBATICS",
       "times_lost": 1,
       "times_picked": 1,
-      "times_skipped": 9,
+      "times_skipped": 11,
       "times_won": 0
     },
     {
       "id": "CARD.SPEEDSTER",
       "times_lost": 2,
       "times_picked": 2,
-      "times_skipped": 10,
+      "times_skipped": 11,
       "times_won": 0
     },
     {
       "id": "CARD.FASTEN",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 8,
+      "times_skipped": 9,
       "times_won": 0
     },
     {
       "id": "CARD.PRECISE_CUT",
       "times_lost": 5,
       "times_picked": 7,
-      "times_skipped": 6,
+      "times_skipped": 8,
       "times_won": 1
     },
     {
       "id": "CARD.BLADE_DANCE",
-      "times_lost": 5,
-      "times_picked": 7,
-      "times_skipped": 19,
-      "times_won": 2
+      "times_lost": 6,
+      "times_picked": 9,
+      "times_skipped": 20,
+      "times_won": 3
     },
     {
       "id": "CARD.THE_HUNT",
       "times_lost": 1,
       "times_picked": 0,
-      "times_skipped": 7,
+      "times_skipped": 9,
       "times_won": 0
     },
     {
       "id": "CARD.BACKFLIP",
-      "times_lost": 7,
-      "times_picked": 7,
-      "times_skipped": 19,
-      "times_won": 1
+      "times_lost": 9,
+      "times_picked": 10,
+      "times_skipped": 23,
+      "times_won": 2
     },
     {
       "id": "CARD.STRATAGEM",
       "times_lost": 1,
       "times_picked": 0,
-      "times_skipped": 6,
+      "times_skipped": 7,
       "times_won": 0
     },
     {
@@ -12455,30 +12608,30 @@
     },
     {
       "id": "CARD.PIERCING_WAIL",
-      "times_lost": 8,
-      "times_picked": 7,
-      "times_skipped": 19,
+      "times_lost": 9,
+      "times_picked": 8,
+      "times_skipped": 22,
       "times_won": 1
     },
     {
       "id": "CARD.FLICK_FLACK",
-      "times_lost": 4,
-      "times_picked": 4,
-      "times_skipped": 20,
+      "times_lost": 5,
+      "times_picked": 5,
+      "times_skipped": 25,
       "times_won": 0
     },
     {
       "id": "CARD.DEADLY_POISON",
-      "times_lost": 7,
-      "times_picked": 11,
-      "times_skipped": 25,
+      "times_lost": 8,
+      "times_picked": 12,
+      "times_skipped": 29,
       "times_won": 1
     },
     {
       "id": "CARD.MIRAGE",
       "times_lost": 2,
       "times_picked": 1,
-      "times_skipped": 6,
+      "times_skipped": 8,
       "times_won": 0
     },
     {
@@ -12534,7 +12687,7 @@
       "id": "CARD.DRAMATIC_ENTRANCE",
       "times_lost": 3,
       "times_picked": 2,
-      "times_skipped": 7,
+      "times_skipped": 8,
       "times_won": 2
     },
     {
@@ -12898,7 +13051,7 @@
       "id": "CARD.THINKING_AHEAD",
       "times_lost": 4,
       "times_picked": 1,
-      "times_skipped": 7,
+      "times_skipped": 8,
       "times_won": 1
     },
     {
@@ -13045,7 +13198,7 @@
       "id": "CARD.ROLLING_BOULDER",
       "times_lost": 1,
       "times_picked": 0,
-      "times_skipped": 8,
+      "times_skipped": 9,
       "times_won": 2
     },
     {
@@ -13109,41 +13262,41 @@
       "times_lost": 19,
       "times_picked": 0,
       "times_skipped": 0,
-      "times_won": 4
+      "times_won": 5
     },
     {
       "id": "CARD.DEFEND_DEFECT",
       "times_lost": 19,
       "times_picked": 0,
       "times_skipped": 0,
-      "times_won": 4
+      "times_won": 5
     },
     {
       "id": "CARD.ZAP",
       "times_lost": 20,
       "times_picked": 0,
       "times_skipped": 0,
-      "times_won": 4
+      "times_won": 5
     },
     {
       "id": "CARD.DUALCAST",
       "times_lost": 20,
       "times_picked": 0,
       "times_skipped": 0,
-      "times_won": 4
+      "times_won": 5
     },
     {
       "id": "CARD.LIGHTNING_ROD",
       "times_lost": 12,
-      "times_picked": 12,
+      "times_picked": 13,
       "times_skipped": 17,
-      "times_won": 4
+      "times_won": 5
     },
     {
       "id": "CARD.CLAW",
       "times_lost": 4,
       "times_picked": 12,
-      "times_skipped": 23,
+      "times_skipped": 25,
       "times_won": 1
     },
     {
@@ -13151,7 +13304,7 @@
       "times_lost": 6,
       "times_picked": 5,
       "times_skipped": 12,
-      "times_won": 2
+      "times_won": 3
     },
     {
       "id": "CARD.SHADOW_SHIELD",
@@ -13163,22 +13316,22 @@
     {
       "id": "CARD.WHITE_NOISE",
       "times_lost": 8,
-      "times_picked": 10,
+      "times_picked": 12,
       "times_skipped": 2,
-      "times_won": 4
+      "times_won": 5
     },
     {
       "id": "CARD.UPROAR",
       "times_lost": 8,
       "times_picked": 9,
-      "times_skipped": 31,
+      "times_skipped": 32,
       "times_won": 2
     },
     {
       "id": "CARD.COLD_SNAP",
       "times_lost": 2,
       "times_picked": 2,
-      "times_skipped": 36,
+      "times_skipped": 38,
       "times_won": 1
     },
     {
@@ -13191,36 +13344,36 @@
     {
       "id": "CARD.CHARGE_BATTERY",
       "times_lost": 10,
-      "times_picked": 13,
-      "times_skipped": 33,
-      "times_won": 4
+      "times_picked": 14,
+      "times_skipped": 35,
+      "times_won": 5
     },
     {
       "id": "CARD.REFRACT",
       "times_lost": 0,
       "times_picked": 2,
-      "times_skipped": 18,
+      "times_skipped": 19,
       "times_won": 2
     },
     {
       "id": "CARD.FUSION",
       "times_lost": 5,
-      "times_picked": 6,
-      "times_skipped": 4,
-      "times_won": 2
+      "times_picked": 7,
+      "times_skipped": 5,
+      "times_won": 3
     },
     {
       "id": "CARD.SWEEPING_BEAM",
       "times_lost": 6,
       "times_picked": 5,
-      "times_skipped": 29,
+      "times_skipped": 31,
       "times_won": 2
     },
     {
       "id": "CARD.MACHINE_LEARNING",
       "times_lost": 3,
       "times_picked": 4,
-      "times_skipped": 9,
+      "times_skipped": 10,
       "times_won": 2
     },
     {
@@ -13241,7 +13394,7 @@
       "id": "CARD.BULK_UP",
       "times_lost": 2,
       "times_picked": 0,
-      "times_skipped": 16,
+      "times_skipped": 17,
       "times_won": 0
     },
     {
@@ -13297,7 +13450,7 @@
       "id": "CARD.DISCOVERY",
       "times_lost": 4,
       "times_picked": 0,
-      "times_skipped": 4,
+      "times_skipped": 5,
       "times_won": 1
     },
     {
@@ -13415,9 +13568,9 @@
     {
       "id": "CARD.TRACKING",
       "times_lost": 2,
-      "times_picked": 1,
+      "times_picked": 2,
       "times_skipped": 4,
-      "times_won": 1
+      "times_won": 2
     },
     {
       "id": "CARD.BULLET_TIME",
@@ -13430,13 +13583,13 @@
       "id": "CARD.SNAKEBITE",
       "times_lost": 5,
       "times_picked": 4,
-      "times_skipped": 14,
+      "times_skipped": 19,
       "times_won": 0
     },
     {
       "id": "CARD.ECHOING_SLASH",
-      "times_lost": 1,
-      "times_picked": 0,
+      "times_lost": 2,
+      "times_picked": 1,
       "times_skipped": 9,
       "times_won": 1
     },
@@ -13458,28 +13611,28 @@
       "id": "CARD.POISONED_STAB",
       "times_lost": 6,
       "times_picked": 7,
-      "times_skipped": 22,
+      "times_skipped": 26,
       "times_won": 1
     },
     {
       "id": "CARD.BUBBLE_BUBBLE",
       "times_lost": 1,
       "times_picked": 2,
-      "times_skipped": 5,
+      "times_skipped": 6,
       "times_won": 0
     },
     {
       "id": "CARD.EXPERTISE",
       "times_lost": 1,
       "times_picked": 1,
-      "times_skipped": 12,
+      "times_skipped": 13,
       "times_won": 0
     },
     {
       "id": "CARD.ITERATION",
       "times_lost": 2,
       "times_picked": 2,
-      "times_skipped": 21,
+      "times_skipped": 22,
       "times_won": 1
     },
     {
@@ -13487,27 +13640,27 @@
       "times_lost": 7,
       "times_picked": 6,
       "times_skipped": 15,
-      "times_won": 2
+      "times_won": 3
     },
     {
       "id": "CARD.BEAM_CELL",
       "times_lost": 9,
-      "times_picked": 10,
+      "times_picked": 11,
       "times_skipped": 18,
-      "times_won": 1
+      "times_won": 2
     },
     {
       "id": "CARD.GO_FOR_THE_EYES",
       "times_lost": 10,
-      "times_picked": 11,
+      "times_picked": 12,
       "times_skipped": 15,
-      "times_won": 3
+      "times_won": 4
     },
     {
       "id": "CARD.COOLHEADED",
       "times_lost": 7,
       "times_picked": 8,
-      "times_skipped": 23,
+      "times_skipped": 28,
       "times_won": 2
     },
     {
@@ -13529,21 +13682,21 @@
       "times_lost": 1,
       "times_picked": 0,
       "times_skipped": 8,
-      "times_won": 0
+      "times_won": 1
     },
     {
       "id": "CARD.HOTFIX",
       "times_lost": 4,
-      "times_picked": 3,
+      "times_picked": 4,
       "times_skipped": 26,
-      "times_won": 0
+      "times_won": 1
     },
     {
       "id": "CARD.STORM",
       "times_lost": 7,
       "times_picked": 5,
       "times_skipped": 10,
-      "times_won": 0
+      "times_won": 1
     },
     {
       "id": "CARD.SYNCHRONIZE",
@@ -13578,7 +13731,7 @@
       "times_lost": 0,
       "times_picked": 0,
       "times_skipped": 9,
-      "times_won": 0
+      "times_won": 1
     },
     {
       "id": "CARD.FRIENDSHIP",
@@ -13597,99 +13750,99 @@
     {
       "id": "CARD.CAPACITOR",
       "times_lost": 4,
-      "times_picked": 3,
+      "times_picked": 4,
       "times_skipped": 16,
-      "times_won": 1
+      "times_won": 2
     },
     {
       "id": "CARD.FOCUSED_STRIKE",
       "times_lost": 7,
       "times_picked": 11,
-      "times_skipped": 32,
+      "times_skipped": 33,
       "times_won": 3
     },
     {
       "id": "CARD.TESLA_COIL",
       "times_lost": 3,
-      "times_picked": 5,
+      "times_picked": 6,
       "times_skipped": 11,
-      "times_won": 2
+      "times_won": 3
     },
     {
       "id": "CARD.BOOST_AWAY",
       "times_lost": 3,
       "times_picked": 3,
-      "times_skipped": 38,
+      "times_skipped": 43,
       "times_won": 1
     },
     {
       "id": "CARD.COMPILE_DRIVER",
       "times_lost": 4,
       "times_picked": 5,
-      "times_skipped": 32,
+      "times_skipped": 34,
       "times_won": 2
     },
     {
       "id": "CARD.FIGHT_THROUGH",
       "times_lost": 3,
-      "times_picked": 3,
+      "times_picked": 4,
       "times_skipped": 6,
-      "times_won": 2
+      "times_won": 3
     },
     {
       "id": "CARD.HYPERBEAM",
       "times_lost": 1,
       "times_picked": 0,
-      "times_skipped": 12,
+      "times_skipped": 13,
       "times_won": 0
     },
     {
       "id": "CARD.AFTERIMAGE",
-      "times_lost": 1,
+      "times_lost": 2,
       "times_picked": 2,
-      "times_skipped": 3,
+      "times_skipped": 4,
       "times_won": 1
     },
     {
       "id": "CARD.SCARE",
-      "times_lost": 3,
-      "times_picked": 3,
-      "times_skipped": 11,
-      "times_won": 0
+      "times_lost": 4,
+      "times_picked": 5,
+      "times_skipped": 12,
+      "times_won": 1
     },
     {
       "id": "CARD.BOLAS",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 9,
+      "times_skipped": 11,
       "times_won": 0
     },
     {
       "id": "CARD.KNIFE_TRAP",
       "times_lost": 2,
-      "times_picked": 1,
+      "times_picked": 2,
       "times_skipped": 2,
-      "times_won": 0
+      "times_won": 1
     },
     {
       "id": "CARD.FAN_OF_KNIVES",
       "times_lost": 1,
-      "times_picked": 3,
+      "times_picked": 4,
       "times_skipped": 2,
-      "times_won": 2
+      "times_won": 3
     },
     {
       "id": "CARD.STORM_OF_STEEL",
-      "times_lost": 2,
-      "times_picked": 2,
+      "times_lost": 3,
+      "times_picked": 3,
       "times_skipped": 5,
-      "times_won": 0
+      "times_won": 1
     },
     {
       "id": "CARD.BURST",
-      "times_lost": 1,
+      "times_lost": 2,
       "times_picked": 1,
-      "times_skipped": 5,
+      "times_skipped": 6,
       "times_won": 0
     },
     {
@@ -13702,9 +13855,9 @@
     {
       "id": "CARD.ADRENALINE",
       "times_lost": 3,
-      "times_picked": 3,
-      "times_skipped": 3,
-      "times_won": 2
+      "times_picked": 4,
+      "times_skipped": 5,
+      "times_won": 3
     },
     {
       "id": "CARD.FINISHER",
@@ -13715,31 +13868,31 @@
     },
     {
       "id": "CARD.LEG_SWEEP",
-      "times_lost": 1,
-      "times_picked": 2,
-      "times_skipped": 4,
+      "times_lost": 3,
+      "times_picked": 4,
+      "times_skipped": 6,
       "times_won": 1
     },
     {
       "id": "CARD.IMPATIENCE",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 9,
+      "times_skipped": 10,
       "times_won": 0
     },
     {
       "id": "CARD.BLUR",
       "times_lost": 4,
       "times_picked": 3,
-      "times_skipped": 3,
+      "times_skipped": 4,
       "times_won": 2
     },
     {
       "id": "CARD.TACTICIAN",
       "times_lost": 1,
-      "times_picked": 1,
+      "times_picked": 2,
       "times_skipped": 6,
-      "times_won": 1
+      "times_won": 2
     },
     {
       "id": "CARD.COMET",
@@ -13800,9 +13953,9 @@
     {
       "id": "CARD.CATASTROPHE",
       "times_lost": 2,
-      "times_picked": 2,
+      "times_picked": 3,
       "times_skipped": 1,
-      "times_won": 1
+      "times_won": 2
     },
     {
       "id": "CARD.DANSE_MACABRE",
@@ -13850,15 +14003,15 @@
       "id": "CARD.BOOT_SEQUENCE",
       "times_lost": 3,
       "times_picked": 4,
-      "times_skipped": 11,
+      "times_skipped": 13,
       "times_won": 1
     },
     {
       "id": "CARD.BALL_LIGHTNING",
       "times_lost": 10,
-      "times_picked": 12,
-      "times_skipped": 34,
-      "times_won": 2
+      "times_picked": 13,
+      "times_skipped": 36,
+      "times_won": 3
     },
     {
       "id": "CARD.SPINNER",
@@ -13872,20 +14025,20 @@
       "times_lost": 7,
       "times_picked": 7,
       "times_skipped": 7,
-      "times_won": 0
+      "times_won": 1
     },
     {
       "id": "CARD.SUPERCRITICAL",
       "times_lost": 5,
       "times_picked": 5,
-      "times_skipped": 3,
+      "times_skipped": 4,
       "times_won": 2
     },
     {
       "id": "CARD.CHAOS",
       "times_lost": 6,
       "times_picked": 6,
-      "times_skipped": 6,
+      "times_skipped": 7,
       "times_won": 2
     },
     {
@@ -13900,7 +14053,7 @@
       "times_lost": 6,
       "times_picked": 10,
       "times_skipped": 13,
-      "times_won": 1
+      "times_won": 2
     },
     {
       "id": "CARD.SYNTHESIS",
@@ -13913,7 +14066,7 @@
       "id": "CARD.TEMPEST",
       "times_lost": 4,
       "times_picked": 4,
-      "times_skipped": 7,
+      "times_skipped": 9,
       "times_won": 0
     },
     {
@@ -13927,28 +14080,28 @@
       "id": "CARD.SCRAPE",
       "times_lost": 2,
       "times_picked": 1,
-      "times_skipped": 9,
+      "times_skipped": 10,
       "times_won": 0
     },
     {
       "id": "CARD.SUNDER",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 13,
+      "times_skipped": 15,
       "times_won": 1
     },
     {
       "id": "CARD.ALL_FOR_ONE",
       "times_lost": 3,
-      "times_picked": 4,
-      "times_skipped": 3,
-      "times_won": 1
+      "times_picked": 5,
+      "times_skipped": 4,
+      "times_won": 2
     },
     {
       "id": "CARD.ROCKET_PUNCH",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 12,
+      "times_skipped": 13,
       "times_won": 0
     },
     {
@@ -13961,9 +14114,9 @@
     {
       "id": "CARD.CHILL",
       "times_lost": 3,
-      "times_picked": 4,
-      "times_skipped": 14,
-      "times_won": 1
+      "times_picked": 5,
+      "times_skipped": 16,
+      "times_won": 2
     },
     {
       "id": "CARD.ADAPTIVE_STRIKE",
@@ -13976,7 +14129,7 @@
       "id": "CARD.GLACIER",
       "times_lost": 1,
       "times_picked": 1,
-      "times_skipped": 16,
+      "times_skipped": 17,
       "times_won": 0
     },
     {
@@ -14123,19 +14276,19 @@
       "id": "CARD.ACCELERANT",
       "times_lost": 4,
       "times_picked": 6,
-      "times_skipped": 2,
+      "times_skipped": 3,
       "times_won": 1
     },
     {
       "id": "CARD.PRODUCTION",
       "times_lost": 1,
       "times_picked": 0,
-      "times_skipped": 1,
+      "times_skipped": 2,
       "times_won": 0
     },
     {
       "id": "CARD.METAMORPHOSIS",
-      "times_lost": 4,
+      "times_lost": 5,
       "times_picked": 0,
       "times_skipped": 0,
       "times_won": 0
@@ -14165,22 +14318,22 @@
       "id": "CARD.MURDER",
       "times_lost": 3,
       "times_picked": 3,
-      "times_skipped": 8,
+      "times_skipped": 9,
       "times_won": 0
     },
     {
       "id": "CARD.REND",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 12,
+      "times_skipped": 14,
       "times_won": 0
     },
     {
       "id": "CARD.MALAISE",
       "times_lost": 1,
-      "times_picked": 2,
-      "times_skipped": 6,
-      "times_won": 0
+      "times_picked": 3,
+      "times_skipped": 7,
+      "times_won": 1
     },
     {
       "id": "CARD.PROWESS",
@@ -14193,8 +14346,8 @@
       "id": "CARD.NULL",
       "times_lost": 6,
       "times_picked": 6,
-      "times_skipped": 17,
-      "times_won": 2
+      "times_skipped": 18,
+      "times_won": 3
     },
     {
       "id": "CARD.REBOOT",
@@ -14219,7 +14372,7 @@
     },
     {
       "id": "CARD.RALLY",
-      "times_lost": 1,
+      "times_lost": 2,
       "times_picked": 0,
       "times_skipped": 3,
       "times_won": 0
@@ -14241,16 +14394,16 @@
     {
       "id": "CARD.LOOP",
       "times_lost": 10,
-      "times_picked": 6,
-      "times_skipped": 5,
-      "times_won": 2
+      "times_picked": 7,
+      "times_skipped": 6,
+      "times_won": 3
     },
     {
       "id": "CARD.HOLOGRAM",
       "times_lost": 6,
-      "times_picked": 7,
-      "times_skipped": 16,
-      "times_won": 1
+      "times_picked": 8,
+      "times_skipped": 20,
+      "times_won": 2
     },
     {
       "id": "CARD.COMPACT",
@@ -14262,9 +14415,9 @@
     {
       "id": "CARD.LEAP",
       "times_lost": 6,
-      "times_picked": 5,
-      "times_skipped": 24,
-      "times_won": 1
+      "times_picked": 6,
+      "times_skipped": 26,
+      "times_won": 2
     },
     {
       "id": "CARD.CONSUMING_SHADOW",
@@ -14284,7 +14437,7 @@
       "id": "CARD.VOLTAIC",
       "times_lost": 3,
       "times_picked": 1,
-      "times_skipped": 3,
+      "times_skipped": 4,
       "times_won": 0
     },
     {
@@ -14312,7 +14465,7 @@
       "id": "CARD.FINESSE",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 5,
+      "times_skipped": 6,
       "times_won": 1
     },
     {
@@ -14368,7 +14521,7 @@
       "id": "CARD.KNOCKDOWN",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 3,
+      "times_skipped": 4,
       "times_won": 0
     },
     {
@@ -14472,16 +14625,16 @@
     {
       "id": "CARD.ECHO_FORM",
       "times_lost": 4,
-      "times_picked": 5,
+      "times_picked": 6,
       "times_skipped": 2,
-      "times_won": 2
+      "times_won": 3
     },
     {
       "id": "CARD.ICE_LANCE",
       "times_lost": 0,
-      "times_picked": 0,
+      "times_picked": 1,
       "times_skipped": 8,
-      "times_won": 0
+      "times_won": 1
     },
     {
       "id": "CARD.GLASSWORK",
@@ -14634,7 +14787,7 @@
       "id": "CARD.ANOINTED",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 7,
+      "times_skipped": 8,
       "times_won": 1
     },
     {
@@ -14689,9 +14842,9 @@
     {
       "id": "CARD.OVERCLOCK",
       "times_lost": 3,
-      "times_picked": 2,
-      "times_skipped": 9,
-      "times_won": 0
+      "times_picked": 3,
+      "times_skipped": 10,
+      "times_won": 1
     },
     {
       "id": "CARD.GREED",
@@ -14704,7 +14857,7 @@
       "id": "CARD.HAND_TRICK",
       "times_lost": 1,
       "times_picked": 1,
-      "times_skipped": 6,
+      "times_skipped": 7,
       "times_won": 0
     },
     {
@@ -14739,15 +14892,15 @@
       "id": "CARD.REFLEX",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 7,
+      "times_skipped": 9,
       "times_won": 0
     },
     {
       "id": "CARD.DEFRAGMENT",
       "times_lost": 2,
-      "times_picked": 1,
+      "times_picked": 2,
       "times_skipped": 3,
-      "times_won": 0
+      "times_won": 1
     },
     {
       "id": "CARD.COOLANT",
@@ -14760,14 +14913,14 @@
       "id": "CARD.BARRAGE",
       "times_lost": 2,
       "times_picked": 2,
-      "times_skipped": 16,
+      "times_skipped": 17,
       "times_won": 0
     },
     {
       "id": "CARD.ABRASIVE",
       "times_lost": 1,
       "times_picked": 2,
-      "times_skipped": 4,
+      "times_skipped": 5,
       "times_won": 0
     },
     {
@@ -14788,14 +14941,14 @@
       "id": "CARD.CALAMITY",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 7,
+      "times_skipped": 9,
       "times_won": 0
     },
     {
       "id": "CARD.SMOKESTACK",
       "times_lost": 2,
       "times_picked": 2,
-      "times_skipped": 10,
+      "times_skipped": 11,
       "times_won": 1
     },
     {
@@ -14809,7 +14962,7 @@
       "id": "CARD.ENVENOM",
       "times_lost": 2,
       "times_picked": 2,
-      "times_skipped": 0,
+      "times_skipped": 1,
       "times_won": 0
     },
     {
@@ -14866,7 +15019,7 @@
       "times_lost": 2,
       "times_picked": 0,
       "times_skipped": 0,
-      "times_won": 0
+      "times_won": 1
     },
     {
       "id": "CARD.ARSENAL",
@@ -14884,7 +15037,7 @@
     },
     {
       "id": "CARD.MAUL",
-      "times_lost": 0,
+      "times_lost": 1,
       "times_picked": 0,
       "times_skipped": 0,
       "times_won": 2
@@ -14892,20 +15045,20 @@
     {
       "id": "CARD.MASTER_PLANNER",
       "times_lost": 2,
-      "times_picked": 2,
-      "times_skipped": 4,
-      "times_won": 0
+      "times_picked": 3,
+      "times_skipped": 5,
+      "times_won": 1
     },
     {
       "id": "CARD.THE_BOMB",
       "times_lost": 0,
       "times_picked": 1,
-      "times_skipped": 3,
+      "times_skipped": 5,
       "times_won": 1
     },
     {
       "id": "CARD.DECAY",
-      "times_lost": 1,
+      "times_lost": 2,
       "times_picked": 0,
       "times_skipped": 0,
       "times_won": 0
@@ -14940,17 +15093,17 @@
     },
     {
       "id": "CARD.BLADE_OF_INK",
-      "times_lost": 1,
-      "times_picked": 1,
+      "times_lost": 2,
+      "times_picked": 2,
       "times_skipped": 1,
       "times_won": 1
     },
     {
       "id": "CARD.HIDDEN_DAGGERS",
       "times_lost": 2,
-      "times_picked": 1,
+      "times_picked": 2,
       "times_skipped": 3,
-      "times_won": 0
+      "times_won": 1
     },
     {
       "id": "CARD.MISERY",
@@ -14978,7 +15131,7 @@
       "times_lost": 0,
       "times_picked": 0,
       "times_skipped": 0,
-      "times_won": 2
+      "times_won": 3
     },
     {
       "id": "CARD.SWORD_SAGE",
@@ -15026,19 +15179,19 @@
       "id": "CARD.FLAK_CANNON",
       "times_lost": 1,
       "times_picked": 1,
-      "times_skipped": 2,
+      "times_skipped": 3,
       "times_won": 0
     },
     {
       "id": "CARD.PHANTOM_BLADES",
-      "times_lost": 1,
-      "times_picked": 0,
+      "times_lost": 2,
+      "times_picked": 1,
       "times_skipped": 1,
       "times_won": 0
     },
     {
       "id": "CARD.SNEAKY",
-      "times_lost": 1,
+      "times_lost": 2,
       "times_picked": 1,
       "times_skipped": 1,
       "times_won": 0
@@ -15055,7 +15208,7 @@
       "times_lost": 1,
       "times_picked": 0,
       "times_skipped": 0,
-      "times_won": 0
+      "times_won": 1
     },
     {
       "id": "CARD.TEAR_ASUNDER",
@@ -15095,14 +15248,28 @@
     {
       "id": "CARD.TURBO",
       "times_lost": 1,
-      "times_picked": 0,
-      "times_skipped": 2,
-      "times_won": 0
+      "times_picked": 1,
+      "times_skipped": 4,
+      "times_won": 1
     },
     {
       "id": "CARD.SCAVENGE",
       "times_lost": 1,
       "times_picked": 1,
+      "times_skipped": 2,
+      "times_won": 0
+    },
+    {
+      "id": "CARD.BAD_LUCK",
+      "times_lost": 0,
+      "times_picked": 0,
+      "times_skipped": 0,
+      "times_won": 1
+    },
+    {
+      "id": "CARD.HELIX_DRILL",
+      "times_lost": 0,
+      "times_picked": 0,
       "times_skipped": 1,
       "times_won": 0
     }
@@ -15169,17 +15336,17 @@
     {
       "badges": [
         {
-          "count": 12,
+          "count": 13,
           "id": "ELITE",
           "rarity": "bronze"
         },
         {
-          "count": 1,
+          "count": 2,
           "id": "CCCCOMBO",
           "rarity": "bronze"
         },
         {
-          "count": 4,
+          "count": 5,
           "id": "DEBUFFER",
           "rarity": "bronze"
         },
@@ -15222,17 +15389,22 @@
           "count": 1,
           "id": "MONEY_MONEY",
           "rarity": "silver"
+        },
+        {
+          "count": 1,
+          "id": "BIG_DECK",
+          "rarity": "silver"
         }
       ],
       "best_win_streak": 2,
-      "current_streak": 0,
+      "current_streak": 1,
       "fastest_win_time": 4245,
       "id": "CHARACTER.SILENT",
-      "max_ascension": 1,
-      "playtime": 58282,
-      "preferred_ascension": 1,
-      "total_losses": 19,
-      "total_wins": 3
+      "max_ascension": 2,
+      "playtime": 67151,
+      "preferred_ascension": 2,
+      "total_losses": 21,
+      "total_wins": 4
     },
     {
       "badges": [
@@ -15358,7 +15530,7 @@
     {
       "badges": [
         {
-          "count": 12,
+          "count": 13,
           "id": "ELITE",
           "rarity": "bronze"
         },
@@ -15401,17 +15573,22 @@
           "count": 1,
           "id": "SPEEDY",
           "rarity": "bronze"
+        },
+        {
+          "count": 1,
+          "id": "BIG_DECK",
+          "rarity": "bronze"
         }
       ],
       "best_win_streak": 1,
-      "current_streak": 0,
+      "current_streak": 1,
       "fastest_win_time": 2485,
       "id": "CHARACTER.DEFECT",
-      "max_ascension": 2,
-      "playtime": 75066,
-      "preferred_ascension": 2,
+      "max_ascension": 3,
+      "playtime": 81262,
+      "preferred_ascension": 3,
       "total_losses": 20,
-      "total_wins": 4
+      "total_wins": 5
     },
     {
       "badges": [],
@@ -16409,12 +16586,12 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 13
+          "wins": 14
         },
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 6
+          "wins": 8
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -16439,12 +16616,12 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 13
+          "wins": 14
         },
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 6
+          "wins": 9
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -16479,7 +16656,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 6
+          "wins": 7
         },
         {
           "character": "CHARACTER.REGENT",
@@ -16499,7 +16676,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 2
+          "wins": 4
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -16534,7 +16711,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 4
+          "wins": 7
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -16559,7 +16736,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 1
+          "wins": 2
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -16598,6 +16775,11 @@
         },
         {
           "character": "CHARACTER.NECROBINDER",
+          "losses": 0,
+          "wins": 1
+        },
+        {
+          "character": "CHARACTER.SILENT",
           "losses": 0,
           "wins": 1
         }
@@ -16644,7 +16826,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 1,
-          "wins": 1
+          "wins": 2
         },
         {
           "character": "CHARACTER.REGENT",
@@ -16654,7 +16836,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 1,
-          "wins": 2
+          "wins": 3
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -16674,7 +16856,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 11
+          "wins": 13
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -16689,7 +16871,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 9
+          "wins": 10
         }
       ]
     },
@@ -16719,7 +16901,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 5
+          "wins": 6
         }
       ]
     },
@@ -16759,7 +16941,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 3
+          "wins": 4
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -16789,7 +16971,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 10
+          "wins": 11
         },
         {
           "character": "CHARACTER.REGENT",
@@ -16819,7 +17001,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 2,
-          "wins": 4
+          "wins": 5
         },
         {
           "character": "CHARACTER.REGENT",
@@ -16829,7 +17011,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 4
+          "wins": 5
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -16849,12 +17031,12 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 14
+          "wins": 15
         },
         {
           "character": "CHARACTER.SILENT",
           "losses": 1,
-          "wins": 3
+          "wins": 6
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -16889,12 +17071,12 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 9
+          "wins": 10
         },
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 4
+          "wins": 6
         }
       ]
     },
@@ -16914,7 +17096,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 2
+          "wins": 3
         }
       ]
     },
@@ -16959,7 +17141,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 5
+          "wins": 7
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -16974,7 +17156,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 10
+          "wins": 11
         }
       ]
     },
@@ -17003,8 +17185,8 @@
         },
         {
           "character": "CHARACTER.SILENT",
-          "losses": 0,
-          "wins": 3
+          "losses": 1,
+          "wins": 4
         }
       ]
     },
@@ -17019,12 +17201,12 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 8
+          "wins": 9
         },
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 12
+          "wins": 13
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -17114,12 +17296,12 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 1
+          "wins": 2
         },
         {
           "character": "CHARACTER.DEFECT",
           "losses": 1,
-          "wins": 6
+          "wins": 7
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -17184,7 +17366,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 2
+          "wins": 3
         }
       ]
     },
@@ -17214,7 +17396,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 1,
-          "wins": 4
+          "wins": 5
         }
       ]
     },
@@ -17229,12 +17411,12 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 4
+          "wins": 5
         },
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 7
+          "wins": 8
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -17264,7 +17446,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 7
+          "wins": 9
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -17314,7 +17496,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 3
+          "wins": 4
         },
         {
           "character": "CHARACTER.REGENT",
@@ -17324,7 +17506,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 1,
-          "wins": 3
+          "wins": 4
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -17374,7 +17556,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 4
+          "wins": 5
         }
       ]
     },
@@ -17389,7 +17571,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 3
+          "wins": 4
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -17399,7 +17581,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 3
+          "wins": 4
         },
         {
           "character": "CHARACTER.REGENT",
@@ -17429,7 +17611,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 3
+          "wins": 4
         },
         {
           "character": "CHARACTER.DEFECT",
@@ -17484,7 +17666,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 3,
-          "wins": 2
+          "wins": 3
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -17509,7 +17691,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 5
+          "wins": 6
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -17519,7 +17701,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 4
+          "wins": 5
         },
         {
           "character": "CHARACTER.REGENT",
@@ -17563,7 +17745,7 @@
         },
         {
           "character": "CHARACTER.SILENT",
-          "losses": 0,
+          "losses": 1,
           "wins": 2
         },
         {
@@ -17574,7 +17756,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 1
+          "wins": 2
         }
       ]
     },
@@ -17589,7 +17771,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 2
+          "wins": 3
         },
         {
           "character": "CHARACTER.DEFECT",
@@ -17619,7 +17801,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 2,
-          "wins": 2
+          "wins": 3
         },
         {
           "character": "CHARACTER.REGENT",
@@ -17999,7 +18181,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 1,
-          "wins": 4
+          "wins": 5
         },
         {
           "character": "CHARACTER.REGENT",
@@ -18029,7 +18211,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 7
+          "wins": 8
         },
         {
           "character": "CHARACTER.REGENT",
@@ -18054,7 +18236,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 2,
-          "wins": 2
+          "wins": 3
         },
         {
           "character": "CHARACTER.DEFECT",
@@ -18224,7 +18406,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 1,
-          "wins": 1
+          "wins": 2
         },
         {
           "character": "CHARACTER.SILENT",
@@ -18249,7 +18431,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 2
+          "wins": 3
         },
         {
           "character": "CHARACTER.REGENT",
@@ -18269,7 +18451,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 2
+          "wins": 3
         }
       ]
     },
@@ -18354,7 +18536,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 2
+          "wins": 3
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -18429,7 +18611,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 2,
-          "wins": 0
+          "wins": 1
         },
         {
           "character": "CHARACTER.IRONCLAD",
@@ -18514,7 +18696,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 1,
-          "wins": 4
+          "wins": 5
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -18706,12 +18888,12 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 16
+          "wins": 17
         },
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 7
+          "wins": 9
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -18736,12 +18918,12 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 18
+          "wins": 20
         },
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 8
+          "wins": 11
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -18766,12 +18948,12 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 16
+          "wins": 19
         },
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 3
+          "wins": 5
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -18796,12 +18978,12 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 18
+          "wins": 20
         },
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 8
+          "wins": 11
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -18826,7 +19008,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 1,
-          "wins": 12
+          "wins": 13
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -18836,7 +19018,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 7
+          "wins": 8
         },
         {
           "character": "CHARACTER.REGENT",
@@ -18856,7 +19038,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 2
+          "wins": 4
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -18891,7 +19073,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 4
+          "wins": 7
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -18916,7 +19098,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 1
+          "wins": 2
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -18957,6 +19139,11 @@
           "character": "CHARACTER.NECROBINDER",
           "losses": 0,
           "wins": 1
+        },
+        {
+          "character": "CHARACTER.SILENT",
+          "losses": 0,
+          "wins": 1
         }
       ]
     },
@@ -18980,6 +19167,11 @@
         },
         {
           "character": "CHARACTER.NECROBINDER",
+          "losses": 0,
+          "wins": 1
+        },
+        {
+          "character": "CHARACTER.SILENT",
           "losses": 0,
           "wins": 1
         }
@@ -19007,6 +19199,11 @@
           "character": "CHARACTER.NECROBINDER",
           "losses": 0,
           "wins": 1
+        },
+        {
+          "character": "CHARACTER.SILENT",
+          "losses": 0,
+          "wins": 1
         }
       ]
     },
@@ -19021,7 +19218,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 1,
-          "wins": 1
+          "wins": 2
         },
         {
           "character": "CHARACTER.REGENT",
@@ -19031,7 +19228,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 1,
-          "wins": 2
+          "wins": 3
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -19051,7 +19248,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 12
+          "wins": 15
         },
         {
           "character": "CHARACTER.REGENT",
@@ -19066,7 +19263,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 4,
-          "wins": 15
+          "wins": 17
         }
       ]
     },
@@ -19096,7 +19293,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 5
+          "wins": 6
         }
       ]
     },
@@ -19111,12 +19308,12 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 13
+          "wins": 14
         },
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 24
+          "wins": 26
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -19191,7 +19388,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 3
+          "wins": 4
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -19221,7 +19418,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 10
+          "wins": 11
         },
         {
           "character": "CHARACTER.REGENT",
@@ -19251,7 +19448,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 2,
-          "wins": 4
+          "wins": 5
         },
         {
           "character": "CHARACTER.REGENT",
@@ -19261,7 +19458,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 4
+          "wins": 5
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -19280,7 +19477,7 @@
         },
         {
           "character": "CHARACTER.SILENT",
-          "losses": 1,
+          "losses": 2,
           "wins": 0
         }
       ]
@@ -19296,12 +19493,12 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 1,
-          "wins": 15
+          "wins": 17
         },
         {
           "character": "CHARACTER.SILENT",
           "losses": 1,
-          "wins": 4
+          "wins": 7
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -19336,12 +19533,12 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 9
+          "wins": 10
         },
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 4
+          "wins": 6
         }
       ]
     },
@@ -19366,12 +19563,12 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 9
+          "wins": 10
         },
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 4
+          "wins": 6
         }
       ]
     },
@@ -19391,7 +19588,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 3
+          "wins": 4
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -19426,7 +19623,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 2
+          "wins": 3
         }
       ]
     },
@@ -19491,7 +19688,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 5
+          "wins": 7
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -19506,7 +19703,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 10
+          "wins": 11
         }
       ]
     },
@@ -19521,7 +19718,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 8
+          "wins": 10
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -19536,7 +19733,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 9
+          "wins": 10
         }
       ]
     },
@@ -19565,8 +19762,8 @@
         },
         {
           "character": "CHARACTER.SILENT",
-          "losses": 0,
-          "wins": 3
+          "losses": 2,
+          "wins": 4
         }
       ]
     },
@@ -19595,8 +19792,8 @@
         },
         {
           "character": "CHARACTER.SILENT",
-          "losses": 0,
-          "wins": 3
+          "losses": 1,
+          "wins": 4
         }
       ]
     },
@@ -19611,7 +19808,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 5
+          "wins": 6
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -19621,7 +19818,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 8
+          "wins": 9
         },
         {
           "character": "CHARACTER.REGENT",
@@ -19806,7 +20003,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 2
+          "wins": 3
         }
       ]
     },
@@ -19836,7 +20033,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 1,
-          "wins": 4
+          "wins": 5
         }
       ]
     },
@@ -19851,12 +20048,12 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 4
+          "wins": 5
         },
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 7
+          "wins": 8
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -19881,12 +20078,12 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 4
+          "wins": 5
         },
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 7
+          "wins": 8
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -19916,7 +20113,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 7
+          "wins": 9
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -19941,7 +20138,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 5
+          "wins": 6
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -19951,7 +20148,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 7
+          "wins": 8
         },
         {
           "character": "CHARACTER.REGENT",
@@ -19971,7 +20168,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 3
+          "wins": 4
         },
         {
           "character": "CHARACTER.REGENT",
@@ -19981,7 +20178,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 1,
-          "wins": 3
+          "wins": 4
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -20051,7 +20248,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 3
+          "wins": 4
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -20061,7 +20258,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 3
+          "wins": 4
         },
         {
           "character": "CHARACTER.REGENT",
@@ -20091,7 +20288,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 3
+          "wins": 4
         },
         {
           "character": "CHARACTER.DEFECT",
@@ -20176,7 +20373,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 3,
-          "wins": 2
+          "wins": 3
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -20320,7 +20517,7 @@
         },
         {
           "character": "CHARACTER.SILENT",
-          "losses": 0,
+          "losses": 1,
           "wins": 2
         },
         {
@@ -20331,7 +20528,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 1
+          "wins": 2
         }
       ]
     },
@@ -20345,7 +20542,7 @@
         },
         {
           "character": "CHARACTER.SILENT",
-          "losses": 0,
+          "losses": 1,
           "wins": 2
         },
         {
@@ -20356,7 +20553,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 1
+          "wins": 2
         }
       ]
     },
@@ -20371,7 +20568,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 2
+          "wins": 3
         },
         {
           "character": "CHARACTER.DEFECT",
@@ -20401,7 +20598,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 2,
-          "wins": 2
+          "wins": 3
         },
         {
           "character": "CHARACTER.REGENT",
@@ -20431,7 +20628,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 2,
-          "wins": 2
+          "wins": 3
         },
         {
           "character": "CHARACTER.REGENT",
@@ -20896,7 +21093,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 1,
-          "wins": 4
+          "wins": 5
         },
         {
           "character": "CHARACTER.REGENT",
@@ -20921,7 +21118,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 1,
-          "wins": 4
+          "wins": 5
         },
         {
           "character": "CHARACTER.REGENT",
@@ -20946,7 +21143,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 2,
-          "wins": 2
+          "wins": 3
         },
         {
           "character": "CHARACTER.DEFECT",
@@ -20976,7 +21173,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 2,
-          "wins": 2
+          "wins": 3
         },
         {
           "character": "CHARACTER.DEFECT",
@@ -21146,7 +21343,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 0,
-          "wins": 2
+          "wins": 3
         },
         {
           "character": "CHARACTER.REGENT",
@@ -21166,7 +21363,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 2
+          "wins": 3
         }
       ]
     },
@@ -21236,7 +21433,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 15
+          "wins": 17
         },
         {
           "character": "CHARACTER.REGENT",
@@ -21266,7 +21463,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 0,
-          "wins": 2
+          "wins": 3
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -21341,7 +21538,7 @@
         {
           "character": "CHARACTER.SILENT",
           "losses": 2,
-          "wins": 0
+          "wins": 1
         },
         {
           "character": "CHARACTER.IRONCLAD",
@@ -21406,7 +21603,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 1,
-          "wins": 4
+          "wins": 5
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -21436,7 +21633,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 1,
-          "wins": 4
+          "wins": 5
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -21466,7 +21663,7 @@
         {
           "character": "CHARACTER.DEFECT",
           "losses": 1,
-          "wins": 4
+          "wins": 5
         },
         {
           "character": "CHARACTER.NECROBINDER",
@@ -21948,7 +22145,7 @@
       "state": "revealed"
     }
   ],
-  "floors_climbed": 3005,
+  "floors_climbed": 3155,
   "ftue_completed": [
     "accept_tutorials_ftue",
     "map_select_ftue",
@@ -21969,8 +22166,8 @@
   "pending_character_unlock": "NONE.NONE",
   "preferred_multiplayer_ascension": 2,
   "schema_version": 21,
-  "test_subject_kills": 20,
-  "total_playtime": 289114,
+  "test_subject_kills": 22,
+  "total_playtime": 304179,
   "total_unlocks": 18,
   "unique_id": "BNNXAC6",
   "unlocked_achievements": [],
@@ -22170,10 +22367,7 @@
             </div>
           </div>
           <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
-            <div class="meta-filter-group" id="badgeScopeFilterGroup" style="margin-bottom: 0;">
-              <button class="meta-pill-btn active" id="btnBadgeScopeAll" onclick="setBadgeScope('all')">All Party Badges</button>
-              <button class="meta-pill-btn" id="btnBadgeScopeMy" onclick="setBadgeScope('my')">My Badges Only</button>
-            </div>
+            <span id="myBadgesTotalCount" style="font-size: 11.5px; background: rgba(234,179,8,0.15); border: 1px solid rgba(234,179,8,0.3); color: var(--gold-spire); padding: 4px 12px; border-radius: 12px; font-weight: 700;"></span>
             <button class="btn-secondary" id="btnClearBadgeFilter" style="display: none; font-size: 11px; padding: 4px 10px;" onclick="clearBadgeFilter()">
               Clear Badge Filter ✕
             </button>
@@ -22181,6 +22375,34 @@
         </div>
         <div id="badgesGrid" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
           <!-- Dynamically filled with badge chips -->
+        </div>
+      </div>
+
+      <!-- Spire Hall of Records & Feats Showcase -->
+      <div class="hall-of-records-showcase" id="hallOfRecordsShowcase">
+        <div class="hall-of-records-header">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 22px;">🏛️</span>
+            <div>
+              <div style="font-family: var(--font-title); font-size: 16px; font-weight: 700; color: var(--gold-spire); letter-spacing: 0.5px;">
+                Spire Hall of Records &bull; Career Feats &amp; Extremes
+              </div>
+              <div style="font-size: 12px; color: var(--text-dim);">
+                Milestone extremes, deck sizes, streaks, and tempo peaks. Click any card to inspect that exact run.
+              </div>
+            </div>
+          </div>
+          <div class="records-filter-tabs" id="recordsFilterTabs">
+            <button class="record-tab-btn active" data-cat="ALL" onclick="setRecordsCategoryFilter('ALL')">All Feats (13)</button>
+            <button class="record-tab-btn" data-cat="TEMPO" onclick="setRecordsCategoryFilter('TEMPO')">⏱️ Pacing &amp; Streaks</button>
+            <button class="record-tab-btn" data-cat="DECK" onclick="setRecordsCategoryFilter('DECK')">🎴 Deck Building</button>
+            <button class="record-tab-btn" data-cat="CAMPFIRE" onclick="setRecordsCategoryFilter('CAMPFIRE')">🏕️ Campfire &amp; Rests</button>
+            <button class="record-tab-btn" data-cat="RELICS" onclick="setRecordsCategoryFilter('RELICS')">👑 Relic Hoard</button>
+            <button class="record-tab-btn" data-cat="COMBAT" onclick="setRecordsCategoryFilter('COMBAT')">⚔️ Elite Slayer</button>
+          </div>
+        </div>
+        <div class="records-grid" id="recordsGrid">
+          <!-- Dynamically filled with 13 interactive record cards -->
         </div>
       </div>
 
@@ -22952,17 +23174,9 @@
     let relicStarterFilter = 'exclude'; // 'exclude', 'all', 'ancient'
     let currentTimelineTypeFilter = 'all';
     let activeBadgeFilter = null;
-    let badgeScopeFilter = 'all'; // 'all', 'my'
-
-    function setBadgeScope(scope) {
-      badgeScopeFilter = scope;
-      const btnAll = document.getElementById('btnBadgeScopeAll');
-      if (btnAll) btnAll.classList.toggle('active', scope === 'all');
-      const btnMy = document.getElementById('btnBadgeScopeMy');
-      if (btnMy) btnMy.classList.toggle('active', scope === 'my');
-      renderLifetimeBadgesShowcase(rawLocalRuns);
-      if (activeBadgeFilter) applyFiltersAndRender();
-    }
+    let currentRecordsCategory = 'ALL';
+    let hallOfRecordsData = [];
+    let hallOfRecordsCache = {};
 
     let nemesisTypeFilter = 'all'; // 'all', 'boss', 'elite', 'monster'
     let nemesisSortCol = 'defeats'; // 'defeats', 'fought', 'fatality', 'type', 'name'
@@ -23181,6 +23395,7 @@
       renderCharacterRoster(rawLocalRuns);
       renderEpochTracker(rawLocalRuns, progressData);
       renderLifetimeBadgesShowcase(rawLocalRuns);
+      renderHallOfRecords(rawLocalRuns);
 
       applyFiltersAndRender();
     }
@@ -23437,6 +23652,7 @@
       if (relSub) relSub.innerText = `${Math.round((uniqueRelics.size / 309) * 100)}% Codex Discovered`;
 
       renderLifetimeBadgesShowcase(runs);
+      renderHallOfRecords(runs);
     }
 
     function renderLifetimeBadgesShowcase(runs) {
@@ -23444,38 +23660,27 @@
       if (!container) return;
       container.innerHTML = '';
 
-      let totalAllBadges = 0;
       let totalMyBadges = 0;
       const myBadgeCounts = {};
-      const partyBadgeCounts = {};
 
       runs.forEach(r => {
         const localP = getPlayer(r);
-        (r.players || []).forEach(p => {
-          const isMe = (p === localP || String(p.id) === String(localP?.id));
-          (p.badges || []).forEach(b => {
+        if (localP && localP.badges) {
+          localP.badges.forEach(b => {
             const id = b.id;
-            partyBadgeCounts[id] = (partyBadgeCounts[id] || 0) + 1;
-            totalAllBadges++;
-            if (isMe) {
-              myBadgeCounts[id] = (myBadgeCounts[id] || 0) + 1;
-              totalMyBadges++;
-            }
+            myBadgeCounts[id] = (myBadgeCounts[id] || 0) + 1;
+            totalMyBadges++;
           });
-        });
+        }
       });
 
-      // Update button labels with dynamic counts
-      const btnAll = document.getElementById('btnBadgeScopeAll');
-      if (btnAll) btnAll.innerText = `All Party Badges (${totalAllBadges})`;
-      const btnMy = document.getElementById('btnBadgeScopeMy');
-      if (btnMy) btnMy.innerText = `My Badges Only (${totalMyBadges})`;
+      const countEl = document.getElementById('myBadgesTotalCount');
+      if (countEl) countEl.innerText = `${totalMyBadges} Honors Earned`;
 
-      const activeCounts = (badgeScopeFilter === 'my') ? myBadgeCounts : partyBadgeCounts;
-      const sortedBadges = Object.entries(activeCounts).sort((a,b) => b[1] - a[1]);
+      const sortedBadges = Object.entries(myBadgeCounts).sort((a,b) => b[1] - a[1]);
 
       if (sortedBadges.length === 0) {
-        container.innerHTML = `<span style="color: var(--text-dim); font-size: 13px;">No run accolades recorded yet in this view. Complete climbs to earn special honors!</span>`;
+        container.innerHTML = `<span style="color: var(--text-dim); font-size: 13px;">No personal run accolades recorded yet. Complete climbs to earn special honors!</span>`;
         return;
       }
 
@@ -23514,6 +23719,361 @@
       if (clearBtn) clearBtn.style.display = 'none';
       renderLifetimeBadgesShowcase(rawLocalRuns);
       applyFiltersAndRender();
+    }
+
+    /* HALL OF RECORDS & EXTREMES */
+    function setRecordsCategoryFilter(cat) {
+      currentRecordsCategory = cat;
+      const tabContainer = document.getElementById('recordsFilterTabs');
+      if (tabContainer) {
+        tabContainer.querySelectorAll('.record-tab-btn').forEach(btn => {
+          btn.classList.toggle('active', btn.getAttribute('data-cat') === cat);
+        });
+      }
+      renderRecordsGrid();
+    }
+
+    function renderHallOfRecords(runs) {
+      if (!runs || runs.length === 0) {
+        const showcase = document.getElementById('hallOfRecordsShowcase');
+        if (showcase) showcase.style.display = 'none';
+        return;
+      }
+      const showcase = document.getElementById('hallOfRecordsShowcase');
+      if (showcase) showcase.style.display = 'block';
+
+      hallOfRecordsCache = {};
+
+      // Chronological sort for streaks
+      const chronoRuns = [...runs].sort((a,b) => (a.start_time || 0) - (b.start_time || 0));
+
+      // Streaks calculation
+      let curWin = 0, maxWin = 0, winStreakRun = null;
+      let curLoss = 0, maxLoss = 0, lossStreakRun = null;
+
+      chronoRuns.forEach(r => {
+        if (r.win) {
+          curWin++;
+          curLoss = 0;
+          if (curWin >= maxWin) {
+            maxWin = curWin;
+            winStreakRun = r;
+          }
+        } else {
+          curLoss++;
+          curWin = 0;
+          if (curLoss >= maxLoss) {
+            maxLoss = curLoss;
+            lossStreakRun = r;
+          }
+        }
+      });
+
+      let mostUpg = null, leastUpg = null;
+      let mostRests = null, leastRests = null;
+      let fastestRun = null, slowestRun = null;
+      let highestCards = null, lowestCards = null;
+      let highestRelics = null, lowestRelics = null;
+      let mostElites = null;
+
+      runs.forEach(r => {
+        const p = getPlayer(r);
+        const deck = p.deck || [];
+        const relics = p.relics || [];
+        const floors = getRunFloors(r);
+        const runTime = r.run_time || 0;
+        const isAbandoned = r.was_abandoned;
+
+        // Upgraded cards in deck
+        const upgCount = deck.filter(c => (c.current_upgrade_level || 0) > 0).length;
+
+        // Campfire heals & Elites
+        let heals = 0;
+        let elites = 0;
+        (r.map_point_history || []).forEach(act => {
+          (Array.isArray(act) ? act : [act]).forEach(node => {
+            if (node.map_point_type === 'elite') elites++;
+            (node.player_stats || []).forEach(ps => {
+              if (!p.id || String(ps.player_id) === String(p.id)) {
+                (ps.rest_site_choices || []).forEach(c => {
+                  if (c === 'HEAL' || c === 'REST') heals++;
+                });
+              }
+            });
+          });
+        });
+
+        // 1. Most Cards Upgraded
+        if (!mostUpg || upgCount > mostUpg.val || (upgCount === mostUpg.val && floors > mostUpg.floors)) {
+          mostUpg = { val: upgCount, run: r, floors };
+        }
+
+        // 2. Least Cards Upgraded (tiebreak by most floors survived)
+        if (!leastUpg || upgCount < leastUpg.val || (upgCount === leastUpg.val && floors > leastUpg.floors)) {
+          leastUpg = { val: upgCount, run: r, floors };
+        }
+
+        // 3. Most Campfire Rests
+        if (!mostRests || heals > mostRests.val || (heals === mostRests.val && floors > mostRests.floors)) {
+          mostRests = { val: heals, run: r, floors };
+        }
+
+        // 4. Least Campfire Rests (tiebreak by most floors survived)
+        if (!leastRests || heals < leastRests.val || (heals === leastRests.val && floors > leastRests.floors)) {
+          leastRests = { val: heals, run: r, floors };
+        }
+
+        // 5. Fastest Run (exclude < 30s resets / floor 1 aborts)
+        if (runTime >= 30 && (!isAbandoned || runs.every(x => x.was_abandoned))) {
+          if (!fastestRun || runTime < fastestRun.val) {
+            fastestRun = { val: runTime, run: r, floors };
+          }
+        }
+
+        // 6. Slowest Run
+        if (runTime > 0) {
+          if (!slowestRun || runTime > slowestRun.val) {
+            slowestRun = { val: runTime, run: r, floors };
+          }
+        }
+
+        // 7. Highest Cards in Deck
+        if (deck.length > 0) {
+          if (!highestCards || deck.length > highestCards.val) {
+            highestCards = { val: deck.length, run: r, floors };
+          }
+        }
+
+        // 8. Lowest Cards in Deck (tiebreak by most floors survived)
+        if (deck.length > 0 && (!isAbandoned || runs.every(x => x.was_abandoned))) {
+          if (!lowestCards || deck.length < lowestCards.val || (deck.length === lowestCards.val && floors > lowestCards.floors)) {
+            lowestCards = { val: deck.length, run: r, floors };
+          }
+        }
+
+        // 9. Highest Relics
+        if (relics.length > 0) {
+          if (!highestRelics || relics.length > highestRelics.val) {
+            highestRelics = { val: relics.length, run: r, floors };
+          }
+        }
+
+        // 10. Lowest Relics (tiebreak by most floors survived)
+        if (relics.length > 0 && (!isAbandoned || runs.every(x => x.was_abandoned))) {
+          if (!lowestRelics || relics.length < lowestRelics.val || (relics.length === lowestRelics.val && floors > lowestRelics.floors)) {
+            lowestRelics = { val: relics.length, run: r, floors };
+          }
+        }
+
+        // 11. Most Elites
+        if (!mostElites || elites > mostElites.val || (elites === mostElites.val && r.win)) {
+          mostElites = { val: elites, run: r, floors };
+        }
+      });
+
+      // Fastest Victory check
+      let fastestWin = null;
+      runs.forEach(r => {
+        if (r.win && r.run_time > 0) {
+          if (!fastestWin || r.run_time < fastestWin.run_time) fastestWin = r;
+        }
+      });
+
+      hallOfRecordsData = [
+        {
+          id: 'mostUpgrades',
+          category: 'DECK',
+          icon: '🔨',
+          title: 'Most Cards Upgraded',
+          value: mostUpg ? `${mostUpg.val} Upgrades` : '-',
+          subtext: mostUpg ? `${mostUpg.val} / ${(getPlayer(mostUpg.run).deck || []).length} cards upgraded in deck` : '-',
+          run: mostUpg ? mostUpg.run : null,
+          accent: '#38bdf8'
+        },
+        {
+          id: 'leastUpgrades',
+          category: 'DECK',
+          icon: '⚪',
+          title: 'Least Cards Upgraded',
+          value: leastUpg ? `${leastUpg.val} Upgrades` : '-',
+          subtext: leastUpg ? `Climbed to Floor ${leastUpg.floors} with ${leastUpg.val} upgrades` : '-',
+          run: leastUpg ? leastUpg.run : null,
+          accent: '#94a3b8'
+        },
+        {
+          id: 'mostRests',
+          category: 'CAMPFIRE',
+          icon: '🏕️',
+          title: 'Most Campfire Rests',
+          value: mostRests ? `${mostRests.val} Rests Healed` : '-',
+          subtext: mostRests ? `Healed HP at ${mostRests.val} different campfires` : '-',
+          run: mostRests ? mostRests.run : null,
+          accent: '#f97316'
+        },
+        {
+          id: 'leastRests',
+          category: 'CAMPFIRE',
+          icon: '☕',
+          title: 'Least Campfire Rests',
+          value: leastRests ? `${leastRests.val} Rests (Iron Will)` : '-',
+          subtext: leastRests ? `Reached Floor ${leastRests.floors} without resting to heal once` : '-',
+          run: leastRests ? leastRests.run : null,
+          accent: '#10b981'
+        },
+        {
+          id: 'fastestRun',
+          category: 'TEMPO',
+          icon: '⚡',
+          title: 'Fastest Run',
+          value: fastestRun ? formatDuration(fastestRun.val) : '-',
+          subtext: fastestRun ? `${fastestRun.run.win ? '🏆 Victory' : 'Defeat'} (Floor ${fastestRun.floors})${fastestWin && fastestWin !== fastestRun.run ? ` • Win: ${formatDuration(fastestWin.run_time)}` : ''}` : '-',
+          run: fastestRun ? fastestRun.run : null,
+          accent: '#eab308'
+        },
+        {
+          id: 'slowestRun',
+          category: 'TEMPO',
+          icon: '🐢',
+          title: 'Slowest Run',
+          value: slowestRun ? formatDuration(slowestRun.val) : '-',
+          subtext: slowestRun ? `Deep tactical battle • Floor ${slowestRun.floors}` : '-',
+          run: slowestRun ? slowestRun.run : null,
+          accent: '#c084fc'
+        },
+        {
+          id: 'highestCards',
+          category: 'DECK',
+          icon: '📚',
+          title: 'Largest Deck Size',
+          value: highestCards ? `${highestCards.val} Cards` : '-',
+          subtext: highestCards ? `Massive card archive at run conclusion` : '-',
+          run: highestCards ? highestCards.run : null,
+          accent: '#06b6d4'
+        },
+        {
+          id: 'lowestCards',
+          category: 'DECK',
+          icon: '🎴',
+          title: 'Smallest Deck Size',
+          value: lowestCards ? `${lowestCards.val} Cards (Minimalist)` : '-',
+          subtext: lowestCards ? `Lean trimmed deck • Floor ${lowestCards.floors}` : '-',
+          run: lowestCards ? lowestCards.run : null,
+          accent: '#ec4899'
+        },
+        {
+          id: 'highestRelics',
+          category: 'RELICS',
+          icon: '👑',
+          title: 'Most Relics Collected',
+          value: highestRelics ? `${highestRelics.val} Relics` : '-',
+          subtext: highestRelics ? `Relic treasure hoard at climb finish` : '-',
+          run: highestRelics ? highestRelics.run : null,
+          accent: '#f59e0b'
+        },
+        {
+          id: 'lowestRelics',
+          category: 'RELICS',
+          icon: '🪨',
+          title: 'Fewest Relics Collected',
+          value: lowestRelics ? `${lowestRelics.val} Relic${lowestRelics.val === 1 ? '' : 's'}` : '-',
+          subtext: lowestRelics ? `Minimalist trinket loadout • Floor ${lowestRelics.floors}` : '-',
+          run: lowestRelics ? lowestRelics.run : null,
+          accent: '#64748b'
+        },
+        {
+          id: 'winStreak',
+          category: 'TEMPO',
+          icon: '🏆',
+          title: 'Most Wins in a Row',
+          value: `${maxWin} Wins Streak`,
+          subtext: winStreakRun ? `Peak Win Streak • Capstone: ${cleanId(getPlayer(winStreakRun).character || 'Hero')} A${winStreakRun.ascension || 0}` : 'No victory streak recorded yet',
+          run: winStreakRun,
+          accent: '#10b981'
+        },
+        {
+          id: 'lossStreak',
+          category: 'TEMPO',
+          icon: '💀',
+          title: 'Most Losses in a Row',
+          value: `${maxLoss} Losses Streak`,
+          subtext: lossStreakRun ? `Peak Loss Streak • Concluded: ${cleanId(getPlayer(lossStreakRun).character || 'Hero')} Floor ${getRunFloors(lossStreakRun)}` : '-',
+          run: lossStreakRun,
+          accent: '#f43f5e'
+        },
+        {
+          id: 'mostElites',
+          category: 'COMBAT',
+          icon: '🗡️',
+          title: 'Most Elites Killed',
+          value: mostElites ? `${mostElites.val} Elites Slain` : '-',
+          subtext: mostElites ? `Elite hunts in a single run • Floor ${mostElites.floors}` : '-',
+          run: mostElites ? mostElites.run : null,
+          accent: '#ef4444'
+        }
+      ];
+
+      hallOfRecordsData.forEach(item => {
+        if (item.run) hallOfRecordsCache[item.id] = item.run;
+      });
+
+      renderRecordsGrid();
+    }
+
+    function renderRecordsGrid() {
+      const grid = document.getElementById('recordsGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const filtered = (currentRecordsCategory === 'ALL')
+        ? hallOfRecordsData
+        : hallOfRecordsData.filter(item => item.category === currentRecordsCategory);
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `<span style="color: var(--text-dim); font-size: 13px; grid-column: 1 / -1;">No records found in this category.</span>`;
+        return;
+      }
+
+      filtered.forEach(rec => {
+        const card = document.createElement('div');
+        card.className = 'record-card';
+        card.style.setProperty('--card-accent', rec.accent);
+
+        if (rec.run) {
+          card.onclick = () => openModal(rec.run);
+        }
+
+        let footerHero = '-';
+        if (rec.run) {
+          const cKey = getCharKey(rec.run);
+          const cfg = CHAR_CONFIG[cKey] || { name: cKey, color: '#fff' };
+          const isWin = rec.run.win;
+          const isAb = rec.run.was_abandoned;
+          const outcomeClass = isWin ? 'badge-win' : (isAb ? 'badge-abandoned' : 'badge-loss');
+          const outcomeText = isWin ? 'Victory 🏆' : (isAb ? 'Abandoned 🚪' : 'Defeat 💀');
+          const ascStr = rec.run.ascension ? ` A${rec.run.ascension}` : '';
+          footerHero = `
+            <div class="record-card-hero" style="color: ${cfg.color};">
+              <span>${cfg.name}${ascStr}</span>
+              <span class="run-outcome-badge ${outcomeClass}" style="padding: 1px 6px; font-size: 9.5px; border-radius: 4px;">${outcomeText}</span>
+            </div>
+          `;
+        }
+
+        card.innerHTML = `
+          <div class="record-card-top">
+            <span class="record-card-cat" style="color: ${rec.accent}; background: ${rec.accent}15; border: 1px solid ${rec.accent}30;">${rec.category}</span>
+            <span class="record-card-icon">${rec.icon}</span>
+          </div>
+          <div class="record-card-title">${rec.title}</div>
+          <div class="record-card-value">${rec.value}</div>
+          <div class="record-card-sub">${rec.subtext}</div>
+          <div class="record-card-footer">
+            ${footerHero}
+            <div class="record-card-hint">Inspect Run ↗</div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
     }
 
     function renderCharacterRoster(runs) {
@@ -23641,13 +24201,8 @@
         if (activeFilters.mode === 'DAILY' && !isDaily) return false;
 
         if (activeBadgeFilter) {
-          const hasBadge = (r.players || []).some(pl => {
-            if (badgeScopeFilter === 'my') {
-              const localP = getPlayer(r);
-              if (pl !== localP && String(pl.id) !== String(localP?.id)) return false;
-            }
-            return (pl.badges || []).some(b => b.id === activeBadgeFilter);
-          });
+          const localP = getPlayer(r);
+          const hasBadge = (localP && localP.badges) ? localP.badges.some(b => b.id === activeBadgeFilter) : false;
           if (!hasBadge) return false;
         }
 
