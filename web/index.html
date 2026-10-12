@@ -2182,6 +2182,38 @@
       color: var(--gold-spire);
       font-weight: 700;
     }
+
+    /* Filter Pills (Theme matching dark-glass buttons) */
+    .filter-pill {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      outline: none;
+      user-select: none;
+    }
+    .filter-pill:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-main);
+      border-color: var(--border-light);
+      transform: translateY(-1px);
+    }
+    .filter-pill.active {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.22), rgba(217, 119, 6, 0.18));
+      border-color: var(--gold-spire);
+      color: var(--gold-spire);
+      font-weight: 700;
+      box-shadow: 0 0 14px rgba(234, 179, 8, 0.25);
+    }
   </style>
 </head>
 <body>
@@ -2785,16 +2817,12 @@
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
               <span style="font-size: 26px;">💬</span>
               <h2 style="font-family: var(--font-title); color: var(--gold-spire); font-size: 22px; letter-spacing: 0.5px;">
-                Spire Council Community &amp; Feedback
+                Spire Council Discussions &amp; Feedback
               </h2>
             </div>
             <p style="font-size: 13px; color: var(--text-muted); max-width: 720px; line-height: 1.6;">
-              Have a feature recommendation, gameplay balance idea, or found a bug? Post it below!
-              The creator (<strong>Apocaelypze</strong>) reads and responds directly to community feedback.
+              Share card synergies, ascension balance ideas, telemetry bug reports, or feature recommendations with fellow Slayers.
             </p>
-          </div>
-          <div id="forumOwnerStatusContainer" style="display: flex; align-items: center; gap: 10px;">
-            <!-- Rendered dynamically by updateForumOwnerStatusUI() -->
           </div>
         </div>
 
@@ -2852,16 +2880,17 @@
             <button class="filter-pill" onclick="setForumFilter('GENERAL', this)">💬 General</button>
           </div>
 
-          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-            <input type="text" id="forumSearchInput" class="forum-input" placeholder="Search topics..." style="width: 180px; padding: 6px 12px; font-size: 12px;" oninput="onForumSearch(this.value)" />
-            <select id="forumSortSelect" class="forum-select" style="width: 150px; padding: 6px 12px; font-size: 12px;" onchange="onForumSort(this.value)">
+          <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <input type="text" id="forumSearchInput" class="forum-input" placeholder="Search topics..." style="width: 170px; padding: 6px 12px; font-size: 12px;" oninput="onForumSearch(this.value)" />
+            <select id="forumSortSelect" class="forum-select" style="width: 140px; padding: 6px 12px; font-size: 12px;" onchange="onForumSort(this.value)">
               <option value="newest">🔥 Newest First</option>
               <option value="likes">⭐ Most Upvotes</option>
               <option value="replies">💬 Most Replies</option>
             </select>
-            <button class="btn-secondary" onclick="loadForumData(true)" title="Refresh Posts" style="padding: 6px 12px; font-size: 12px;">
+            <button class="forum-action-btn" onclick="loadForumData(true)" title="Refresh Discussions">
               🔄 Refresh
             </button>
+            <div id="forumOwnerStatusContainer" style="display: inline-flex; align-items: center;"></div>
           </div>
         </div>
 
@@ -3247,25 +3276,76 @@
 
   <!-- OWNER AUTH MODAL -->
   <div id="ownerAuthModal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); z-index: 100000; justify-content: center; align-items: center;" onclick="if(event.target.id === 'ownerAuthModal') closeOwnerLoginModal()">
-    <div style="background: var(--bg-card); border: 1px solid var(--gold-spire); border-radius: 16px; width: 90%; max-width: 440px; padding: 28px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); position: relative;">
-      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-        <span style="font-size: 24px;">👑</span>
-        <h3 style="font-family: var(--font-title); color: var(--gold-spire); font-size: 20px;">Creator Authentication</h3>
-      </div>
-      <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 18px;">
-        Enter the creator passphrase to verify yourself as <strong>Apocaelypze</strong>. Unlocks the Creator Crown badge, highlighted YouTube-style pinned replies, and moderation controls.
-      </p>
+    <div style="background: var(--bg-card); border: 1px solid var(--gold-spire); border-radius: 16px; width: 90%; max-width: 440px; padding: 28px; box-shadow: 0 20px 50px rgba(0,0,0,0.85); position: relative;">
+      
+      <!-- Normal Sign In View -->
+      <div id="ownerLoginView">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 24px;">👑</span>
+            <h3 style="font-family: var(--font-title); color: var(--gold-spire); font-size: 20px;">Creator Authentication</h3>
+          </div>
+          <button onclick="closeOwnerLoginModal()" class="modal-close-btn" style="background: none; border: none; font-size: 24px; color: var(--text-dim); cursor: pointer;">&times;</button>
+        </div>
+        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 18px;">
+          Enter your creator credentials to unlock verified owner badges, moderation, and highlighted replies.
+        </p>
 
-      <div style="margin-bottom: 18px;">
-        <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Passphrase</label>
-        <input type="password" id="ownerPassInput" class="forum-input" placeholder="Enter creator passphrase..." onkeydown="if(event.key==='Enter') verifyOwnerLogin()" />
-        <div id="ownerAuthError" style="display: none; color: var(--loss-color); font-size: 12px; margin-top: 6px;">Incorrect passphrase. Please try again.</div>
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Creator Username</label>
+          <input type="text" id="ownerUserInput" class="forum-input" value="Apocaelypze" />
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Password</label>
+          <input type="password" id="ownerPassInput" class="forum-input" placeholder="Enter password..." onkeydown="if(event.key==='Enter') submitOwnerAuth()" />
+          <div id="ownerAuthError" style="display: none; color: var(--loss-color); font-size: 12px; margin-top: 6px;"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <button onclick="showOwnerChangePasswordView()" style="background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 11px; text-decoration: underline;">Change Password</button>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn-secondary" onclick="closeOwnerLoginModal()" style="padding: 8px 16px; font-size: 12px;">Cancel</button>
+            <button class="btn-primary" onclick="submitOwnerAuth()" style="padding: 8px 20px; font-weight: 600; font-size: 12px;">Sign In</button>
+          </div>
+        </div>
       </div>
 
-      <div style="display: flex; justify-content: flex-end; gap: 10px;">
-        <button class="btn-secondary" onclick="closeOwnerLoginModal()" style="padding: 8px 16px;">Cancel</button>
-        <button class="btn-primary" onclick="verifyOwnerLogin()" style="padding: 8px 20px; font-weight: 600;">👑 Verify &amp; Unlock</button>
+      <!-- Set / Change Password View -->
+      <div id="ownerSetupView" style="display: none;">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 24px;">🔑</span>
+            <h3 style="font-family: var(--font-title); color: var(--gold-spire); font-size: 20px;">Creator Security Setup</h3>
+          </div>
+          <button onclick="closeOwnerLoginModal()" class="modal-close-btn" style="background: none; border: none; font-size: 24px; color: var(--text-dim); cursor: pointer;">&times;</button>
+        </div>
+        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 18px;" id="ownerSetupSubtitle">
+          Create a private password for your Apocaelypze account. This is cryptographically salted and hashed.
+        </p>
+
+        <div id="ownerCurrentPassGroup" style="display: none; margin-bottom: 14px;">
+          <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Current Password</label>
+          <input type="password" id="ownerCurrentPassInput" class="forum-input" placeholder="Enter current password..." />
+        </div>
+
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">New Password</label>
+          <input type="password" id="ownerNewPassInput" class="forum-input" placeholder="Enter new password..." />
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Confirm Password</label>
+          <input type="password" id="ownerConfirmPassInput" class="forum-input" placeholder="Confirm new password..." onkeydown="if(event.key==='Enter') saveOwnerNewPassword()" />
+          <div id="ownerSetupError" style="display: none; color: var(--loss-color); font-size: 12px; margin-top: 6px;"></div>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <button onclick="showOwnerLoginView()" id="ownerBackToLoginBtn" style="background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 11px; text-decoration: underline;">&larr; Back to Sign In</button>
+          <button class="btn-primary" onclick="saveOwnerNewPassword()" style="padding: 8px 20px; font-weight: 600; font-size: 12px;">Save &amp; Activate</button>
+        </div>
       </div>
+
     </div>
   </div>
 
@@ -7163,22 +7243,94 @@
     let forumSortOrder = 'newest';
     let forumExpandedReplies = new Set();
 
+    async function sha256Hash(message) {
+      const msgBuffer = new TextEncoder().encode(message);
+      const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+
     function isOwnerAuthenticated() {
       return localStorage.getItem('sts2_owner_authenticated') === 'true';
     }
 
-    function openOwnerLoginModal() {
+    async function openOwnerLoginModal() {
       const modal = document.getElementById('ownerAuthModal');
-      if (modal) {
-        modal.style.display = 'flex';
-        const err = document.getElementById('ownerAuthError');
-        if (err) err.style.display = 'none';
-        const inp = document.getElementById('ownerPassInput');
-        if (inp) {
-          inp.value = '';
-          setTimeout(() => inp.focus(), 100);
+      if (!modal) return;
+      modal.style.display = 'flex';
+
+      const err = document.getElementById('ownerAuthError');
+      if (err) err.style.display = 'none';
+      const setupErr = document.getElementById('ownerSetupError');
+      if (setupErr) setupErr.style.display = 'none';
+
+      // Check if credentials exist in RTDB
+      try {
+        const resp = await fetch(`${FORUM_RTDB_BASE}/admin/credentials.json`);
+        const creds = resp.ok ? await resp.json() : null;
+        if (!creds || !creds.hash) {
+          // First-time setup
+          showOwnerSetupView(true);
+        } else {
+          showOwnerLoginView();
         }
+      } catch (e) {
+        showOwnerLoginView();
       }
+    }
+
+    function showOwnerLoginView() {
+      const loginView = document.getElementById('ownerLoginView');
+      const setupView = document.getElementById('ownerSetupView');
+      if (loginView) loginView.style.display = 'block';
+      if (setupView) setupView.style.display = 'none';
+      const err = document.getElementById('ownerAuthError');
+      if (err) err.style.display = 'none';
+      const userInp = document.getElementById('ownerUserInput');
+      if (userInp) userInp.value = 'Apocaelypze';
+      const passInp = document.getElementById('ownerPassInput');
+      if (passInp) {
+        passInp.value = '';
+        setTimeout(() => passInp.focus(), 100);
+      }
+    }
+
+    function showOwnerSetupView(isFirstTime = false) {
+      const loginView = document.getElementById('ownerLoginView');
+      const setupView = document.getElementById('ownerSetupView');
+      if (loginView) loginView.style.display = 'none';
+      if (setupView) setupView.style.display = 'block';
+
+      const curGroup = document.getElementById('ownerCurrentPassGroup');
+      const subtitle = document.getElementById('ownerSetupSubtitle');
+      const backBtn = document.getElementById('ownerBackToLoginBtn');
+      const err = document.getElementById('ownerSetupError');
+      if (err) err.style.display = 'none';
+
+      if (isFirstTime) {
+        if (curGroup) curGroup.style.display = 'none';
+        if (subtitle) subtitle.innerText = '👑 Welcome Apocaelypze! Set your private password to permanently secure your Creator account and prevent anyone from impersonating you.';
+        if (backBtn) backBtn.style.display = 'none';
+      } else {
+        if (curGroup) curGroup.style.display = 'block';
+        if (subtitle) subtitle.innerText = 'Enter your current password and choose a new password for your Apocaelypze account.';
+        if (backBtn) backBtn.style.display = 'inline-block';
+      }
+
+      const curPassInp = document.getElementById('ownerCurrentPassInput');
+      const newPassInp = document.getElementById('ownerNewPassInput');
+      const confPassInp = document.getElementById('ownerConfirmPassInput');
+      if (curPassInp) curPassInp.value = '';
+      if (newPassInp) newPassInp.value = '';
+      if (confPassInp) confPassInp.value = '';
+      setTimeout(() => {
+        if (!isFirstTime && curPassInp) curPassInp.focus();
+        else if (newPassInp) newPassInp.focus();
+      }, 100);
+    }
+
+    function showOwnerChangePasswordView() {
+      showOwnerSetupView(false);
     }
 
     function closeOwnerLoginModal() {
@@ -7186,23 +7338,144 @@
       if (modal) modal.style.display = 'none';
     }
 
-    function verifyOwnerLogin() {
-      const inp = document.getElementById('ownerPassInput');
+    async function submitOwnerAuth() {
+      const userInput = document.getElementById('ownerUserInput');
+      const passInput = document.getElementById('ownerPassInput');
       const err = document.getElementById('ownerAuthError');
-      const val = (inp ? inp.value.trim() : '');
-      if (val.toLowerCase() === 'apocaelypze') {
-        localStorage.setItem('sts2_owner_authenticated', 'true');
-        closeOwnerLoginModal();
-        updateForumOwnerStatusUI();
-        renderForumPosts();
-        showToast('👑 Welcome back, Apocaelypze! Creator badge active.');
-      } else {
-        if (err) err.style.display = 'block';
+      const username = (userInput ? userInput.value.trim() : '');
+      const password = (passInput ? passInput.value : '');
+
+      if (!username || !password) {
+        if (err) {
+          err.innerText = 'Please enter both username and password.';
+          err.style.display = 'block';
+        }
+        return;
+      }
+
+      if (username.toLowerCase() !== 'apocaelypze') {
+        if (err) {
+          err.innerText = 'Unrecognized creator username.';
+          err.style.display = 'block';
+        }
+        return;
+      }
+
+      try {
+        const resp = await fetch(`${FORUM_RTDB_BASE}/admin/credentials.json`);
+        const creds = resp.ok ? await resp.json() : null;
+        if (!creds || !creds.hash) {
+          // If not configured, prompt to set password
+          showOwnerSetupView(true);
+          return;
+        }
+
+        const candidateHash = await sha256Hash((creds.salt || '') + password);
+        if (candidateHash === creds.hash) {
+          localStorage.setItem('sts2_owner_authenticated', 'true');
+          localStorage.setItem('sts2_owner_token', creds.hash);
+          closeOwnerLoginModal();
+          updateForumOwnerStatusUI();
+          renderForumPosts();
+          showToast('👑 Welcome back, Apocaelypze! Creator badge active.');
+        } else {
+          if (err) {
+            err.innerText = 'Incorrect password. Please try again.';
+            err.style.display = 'block';
+          }
+        }
+      } catch (e) {
+        console.error('Owner auth check failed:', e);
+        if (err) {
+          err.innerText = 'Authentication error. Please check your network connection.';
+          err.style.display = 'block';
+        }
+      }
+    }
+
+    async function saveOwnerNewPassword() {
+      const curGroup = document.getElementById('ownerCurrentPassGroup');
+      const curPassInp = document.getElementById('ownerCurrentPassInput');
+      const newPassInp = document.getElementById('ownerNewPassInput');
+      const confPassInp = document.getElementById('ownerConfirmPassInput');
+      const err = document.getElementById('ownerSetupError');
+
+      const requiresCurrent = (curGroup && curGroup.style.display !== 'none');
+      const curPass = (curPassInp ? curPassInp.value : '');
+      const newPass = (newPassInp ? newPassInp.value : '');
+      const confPass = (confPassInp ? confPassInp.value : '');
+
+      if (newPass.length < 6) {
+        if (err) {
+          err.innerText = 'Password must be at least 6 characters long.';
+          err.style.display = 'block';
+        }
+        return;
+      }
+
+      if (newPass !== confPass) {
+        if (err) {
+          err.innerText = 'New passwords do not match.';
+          err.style.display = 'block';
+        }
+        return;
+      }
+
+      try {
+        let creds = null;
+        try {
+          const resp = await fetch(`${FORUM_RTDB_BASE}/admin/credentials.json`);
+          creds = resp.ok ? await resp.json() : null;
+        } catch (_) {}
+
+        if (requiresCurrent && creds && creds.hash) {
+          const curHash = await sha256Hash((creds.salt || '') + curPass);
+          if (curHash !== creds.hash) {
+            if (err) {
+              err.innerText = 'Current password is incorrect.';
+              err.style.display = 'block';
+            }
+            return;
+          }
+        }
+
+        const newSalt = Math.random().toString(36).substring(2, 12) + Date.now().toString(36);
+        const newHash = await sha256Hash(newSalt + newPass);
+        const payload = {
+          username: 'Apocaelypze',
+          salt: newSalt,
+          hash: newHash,
+          updatedAt: Date.now()
+        };
+
+        const putResp = await fetch(`${FORUM_RTDB_BASE}/admin/credentials.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        if (putResp.ok) {
+          localStorage.setItem('sts2_owner_authenticated', 'true');
+          localStorage.setItem('sts2_owner_token', newHash);
+          closeOwnerLoginModal();
+          updateForumOwnerStatusUI();
+          renderForumPosts();
+          showToast('👑 Password secured! Welcome, Apocaelypze.');
+        } else {
+          throw new Error('HTTP ' + putResp.status);
+        }
+      } catch (e) {
+        console.error('Failed to save creator password:', e);
+        if (err) {
+          err.innerText = 'Failed to save credentials to cloud database.';
+          err.style.display = 'block';
+        }
       }
     }
 
     function logoutOwner() {
       localStorage.removeItem('sts2_owner_authenticated');
+      localStorage.removeItem('sts2_owner_token');
       updateForumOwnerStatusUI();
       renderForumPosts();
       showToast('Logged out of Creator account.');
@@ -7216,17 +7489,17 @@
       if (statusContainer) {
         if (isOwner) {
           statusContainer.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 8px; background: rgba(234, 179, 8, 0.16); border: 1px solid var(--gold-spire); border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 700; color: var(--gold-spire); box-shadow: 0 0 15px rgba(234, 179, 8, 0.2);">
+            <div style="display: flex; align-items: center; gap: 8px; background: rgba(234, 179, 8, 0.16); border: 1px solid var(--gold-spire); border-radius: 20px; padding: 5px 14px; font-size: 12px; font-weight: 700; color: var(--gold-spire); box-shadow: 0 0 15px rgba(234, 179, 8, 0.25);">
               <span>👑</span>
-              <span>Apocaelypze (Creator Active)</span>
+              <span>Apocaelypze (Creator)</span>
               <button onclick="logoutOwner()" style="background: none; border: none; color: var(--text-dim); cursor: pointer; margin-left: 6px; font-size: 11px; text-decoration: underline;" title="Sign out of Creator privileges">Log Out</button>
             </div>
           `;
         } else {
+          // Discrete subtle lock icon - no public banner or in-your-face creator prompt!
           statusContainer.innerHTML = `
-            <button class="btn-secondary" onclick="openOwnerLoginModal()" style="display: flex; align-items: center; gap: 8px; font-size: 12px; padding: 6px 14px; border-color: rgba(234, 179, 8, 0.4);">
-              <span style="font-size: 14px;">👑</span>
-              <span>Creator Login</span>
+            <button onclick="openOwnerLoginModal()" class="forum-action-btn" title="Creator Access (Ctrl+Shift+L)" style="opacity: 0.35; padding: 6px 10px; font-size: 13px; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.35'">
+              <span>🔒</span>
             </button>
           `;
         }
@@ -7248,6 +7521,14 @@
         }
       }
     }
+
+    // Keyboard shortcut for discrete creator access: Ctrl + Shift + L
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'L' || e.key === 'l')) {
+        e.preventDefault();
+        openOwnerLoginModal();
+      }
+    });
 
     async function loadForumData(forceToast = false) {
       const container = document.getElementById('forumPostsContainer');
@@ -7553,8 +7834,21 @@
       if (isOwner) {
         author = 'Apocaelypze';
         authorRole = 'owner';
-      } else if (!author) {
-        author = 'Anonymous Slayer';
+      } else {
+        const cleanAuthor = author.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const reservedKeywords = ['apocaelypze', 'apocalypze', 'apocalypse', 'creator', 'owner', 'admin', 'administrator', 'moderator', 'mod', 'developer', 'dev', 'system'];
+        const isReserved = reservedKeywords.some(k => cleanAuthor === k || cleanAuthor.startsWith('apocaelypz') || cleanAuthor.startsWith('apocalypz'));
+        if (isReserved) {
+          showToast('⚠️ The handle "' + author + '" is reserved for the verified creator/staff.');
+          if (authorInput) {
+            authorInput.focus();
+            authorInput.select();
+          }
+          return;
+        }
+        if (!author) {
+          author = 'Anonymous Slayer';
+        }
       }
 
       const postData = {
@@ -7613,8 +7907,21 @@
       if (isOwner) {
         author = 'Apocaelypze';
         authorRole = 'owner';
-      } else if (authorInp && authorInp.value.trim()) {
-        author = authorInp.value.trim();
+      } else {
+        if (authorInp && authorInp.value.trim()) {
+          author = authorInp.value.trim();
+        }
+        const cleanAuthor = author.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const reservedKeywords = ['apocaelypze', 'apocalypze', 'apocalypse', 'creator', 'owner', 'admin', 'administrator', 'moderator', 'mod', 'developer', 'dev', 'system'];
+        const isReserved = reservedKeywords.some(k => cleanAuthor === k || cleanAuthor.startsWith('apocaelypz') || cleanAuthor.startsWith('apocalypz'));
+        if (isReserved) {
+          showToast('⚠️ The handle "' + author + '" is reserved for the verified creator/staff.');
+          if (authorInp) {
+            authorInp.focus();
+            authorInp.select();
+          }
+          return;
+        }
       }
 
       const replyData = {
