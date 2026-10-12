@@ -22973,6 +22973,104 @@
       </div>
     </div>
 
+    <!-- TAB 5: COMMUNITY & FEEDBACK FORUM -->
+    <div id="tabContentForum" style="display: none;">
+      <div class="forum-container">
+        <!-- Banner -->
+        <div class="forum-banner">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+              <span style="font-size: 26px;">💬</span>
+              <h2 style="font-family: var(--font-title); color: var(--gold-spire); font-size: 22px; letter-spacing: 0.5px;">
+                Spire Council Community &amp; Feedback
+              </h2>
+            </div>
+            <p style="font-size: 13px; color: var(--text-muted); max-width: 720px; line-height: 1.6;">
+              Have a feature recommendation, gameplay balance idea, or found a bug? Post it below!
+              The creator (<strong>Apocaelypze</strong>) reads and responds directly to community feedback.
+            </p>
+          </div>
+          <div id="forumOwnerStatusContainer" style="display: flex; align-items: center; gap: 10px;">
+            <!-- Rendered dynamically by updateForumOwnerStatusUI() -->
+          </div>
+        </div>
+
+        <!-- Create New Post Composer -->
+        <div class="forum-composer">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <div style="font-weight: 700; color: var(--text-main); font-size: 15px; display: flex; align-items: center; gap: 8px;">
+              <span>✍️</span> <span>Submit a Topic or Feedback</span>
+            </div>
+            <span style="font-size: 12px; color: var(--text-dim);">Publicly visible to all Spire Slayers</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+            <div>
+              <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Your Name / Handle</label>
+              <input type="text" id="forumAuthorInput" class="forum-input" placeholder="e.g. IroncladMain99, Anonymous Slayer" />
+            </div>
+            <div>
+              <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Category</label>
+              <select id="forumCategorySelect" class="forum-select">
+                <option value="SUGGESTION">💡 Feature Recommendation / Suggestion</option>
+                <option value="BUG">🐛 Bug Report / Telemetry Glitch</option>
+                <option value="BALANCE">⚔️ Balance &amp; Strategy Idea</option>
+                <option value="GENERAL">💬 General Discussion</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Topic Title</label>
+            <input type="text" id="forumTitleInput" class="forum-input" placeholder="Brief summary of your topic..." />
+          </div>
+
+          <div style="margin-bottom: 14px;">
+            <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Message Details</label>
+            <textarea id="forumContentInput" class="forum-textarea" rows="3" placeholder="Provide any details, floor numbers, card interactions, or ideas..."></textarea>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <span id="forumSubmitStatus" style="font-size: 12px; color: var(--text-muted);"></span>
+            <button class="btn-primary" onclick="submitForumPost()" id="btnSubmitForumPost" style="padding: 9px 24px; font-weight: 600;">
+              🚀 Publish Post
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter & Search Bar -->
+        <div class="forum-toolbar">
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span style="font-size: 12px; font-weight: 600; color: var(--text-muted);">Filter:</span>
+            <button class="filter-pill active" onclick="setForumFilter('ALL', this)">All</button>
+            <button class="filter-pill" onclick="setForumFilter('SUGGESTION', this)">💡 Suggestions</button>
+            <button class="filter-pill" onclick="setForumFilter('BUG', this)">🐛 Bugs</button>
+            <button class="filter-pill" onclick="setForumFilter('BALANCE', this)">⚔️ Balance</button>
+            <button class="filter-pill" onclick="setForumFilter('GENERAL', this)">💬 General</button>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <input type="text" id="forumSearchInput" class="forum-input" placeholder="Search topics..." style="width: 180px; padding: 6px 12px; font-size: 12px;" oninput="onForumSearch(this.value)" />
+            <select id="forumSortSelect" class="forum-select" style="width: 150px; padding: 6px 12px; font-size: 12px;" onchange="onForumSort(this.value)">
+              <option value="newest">🔥 Newest First</option>
+              <option value="likes">⭐ Most Upvotes</option>
+              <option value="replies">💬 Most Replies</option>
+            </select>
+            <button class="btn-secondary" onclick="loadForumData(true)" title="Refresh Posts" style="padding: 6px 12px; font-size: 12px;">
+              🔄 Refresh
+            </button>
+          </div>
+        </div>
+
+        <!-- Posts Feed Container -->
+        <div id="forumPostsContainer">
+          <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+            Loading community discussions...
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- FOOTER / SIGN-OFF -->
     <footer style="margin-top: 60px; padding: 36px 20px 24px; border-top: 1px solid rgba(212, 175, 55, 0.2); text-align: center; background: radial-gradient(circle at 50% 0%, rgba(217, 119, 6, 0.05) 0%, transparent 70%);">
       <div style="display: flex; align-items: center; justify-content: center; gap: 14px; margin-bottom: 12px;">
@@ -23342,108 +23440,10 @@
         <div id="saveValidationMsg" style="display: none; margin-top: 16px; padding: 12px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; text-align: left; line-height: 1.5;"></div>
       </div>
     </div>
-
-    <!-- TAB 5: COMMUNITY & FEEDBACK FORUM -->
-    <div id="tabContentForum" style="display: none;">
-      <div class="forum-container">
-        <!-- Banner -->
-        <div class="forum-banner">
-          <div>
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-              <span style="font-size: 26px;">💬</span>
-              <h2 style="font-family: var(--font-title); color: var(--gold-spire); font-size: 22px; letter-spacing: 0.5px;">
-                Spire Council Community &amp; Feedback
-              </h2>
-            </div>
-            <p style="font-size: 13px; color: var(--text-muted); max-width: 720px; line-height: 1.6;">
-              Have a feature recommendation, gameplay balance idea, or found a bug? Post it below!
-              The creator (<strong>Apocaelypze</strong>) reads and responds directly to community feedback.
-            </p>
-          </div>
-          <div id="forumOwnerStatusContainer" style="display: flex; align-items: center; gap: 10px;">
-            <!-- Rendered dynamically by updateForumOwnerStatusUI() -->
-          </div>
-        </div>
-
-        <!-- Create New Post Composer -->
-        <div class="forum-composer">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-            <div style="font-weight: 700; color: var(--text-main); font-size: 15px; display: flex; align-items: center; gap: 8px;">
-              <span>✍️</span> <span>Submit a Topic or Feedback</span>
-            </div>
-            <span style="font-size: 12px; color: var(--text-dim);">Publicly visible to all Spire Slayers</span>
-          </div>
-
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
-            <div>
-              <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Your Name / Handle</label>
-              <input type="text" id="forumAuthorInput" class="forum-input" placeholder="e.g. IroncladMain99, Anonymous Slayer" />
-            </div>
-            <div>
-              <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Category</label>
-              <select id="forumCategorySelect" class="forum-select">
-                <option value="SUGGESTION">💡 Feature Recommendation / Suggestion</option>
-                <option value="BUG">🐛 Bug Report / Telemetry Glitch</option>
-                <option value="BALANCE">⚔️ Balance &amp; Strategy Idea</option>
-                <option value="GENERAL">💬 General Discussion</option>
-              </select>
-            </div>
-          </div>
-
-          <div style="margin-bottom: 12px;">
-            <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Topic Title</label>
-            <input type="text" id="forumTitleInput" class="forum-input" placeholder="Brief summary of your topic..." />
-          </div>
-
-          <div style="margin-bottom: 14px;">
-            <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Message Details</label>
-            <textarea id="forumContentInput" class="forum-textarea" rows="3" placeholder="Provide any details, floor numbers, card interactions, or ideas..."></textarea>
-          </div>
-
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; gap: 10px;">
-            <span id="forumSubmitStatus" style="font-size: 12px; color: var(--text-muted);"></span>
-            <button class="btn-primary" onclick="submitForumPost()" id="btnSubmitForumPost" style="padding: 9px 24px; font-weight: 600;">
-              🚀 Publish Post
-            </button>
-          </div>
-        </div>
-
-        <!-- Filter & Search Bar -->
-        <div class="forum-toolbar">
-          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-            <span style="font-size: 12px; font-weight: 600; color: var(--text-muted);">Filter:</span>
-            <button class="filter-pill active" onclick="setForumFilter('ALL', this)">All</button>
-            <button class="filter-pill" onclick="setForumFilter('SUGGESTION', this)">💡 Suggestions</button>
-            <button class="filter-pill" onclick="setForumFilter('BUG', this)">🐛 Bugs</button>
-            <button class="filter-pill" onclick="setForumFilter('BALANCE', this)">⚔️ Balance</button>
-            <button class="filter-pill" onclick="setForumFilter('GENERAL', this)">💬 General</button>
-          </div>
-
-          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
-            <input type="text" id="forumSearchInput" class="forum-input" placeholder="Search topics..." style="width: 180px; padding: 6px 12px; font-size: 12px;" oninput="onForumSearch(this.value)" />
-            <select id="forumSortSelect" class="forum-select" style="width: 150px; padding: 6px 12px; font-size: 12px;" onchange="onForumSort(this.value)">
-              <option value="newest">🔥 Newest First</option>
-              <option value="likes">⭐ Most Upvotes</option>
-              <option value="replies">💬 Most Replies</option>
-            </select>
-            <button class="btn-secondary" onclick="loadForumData(true)" title="Refresh Posts" style="padding: 6px 12px; font-size: 12px;">
-              🔄 Refresh
-            </button>
-          </div>
-        </div>
-
-        <!-- Posts Feed Container -->
-        <div id="forumPostsContainer">
-          <div style="text-align: center; padding: 40px; color: var(--text-muted);">
-            Loading community discussions...
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 
   <!-- OWNER AUTH MODAL -->
-  <div id="ownerAuthModal" class="modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); z-index: 10000; justify-content: center; align-items: center;">
+  <div id="ownerAuthModal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); z-index: 100000; justify-content: center; align-items: center;" onclick="if(event.target.id === 'ownerAuthModal') closeOwnerLoginModal()">
     <div style="background: var(--bg-card); border: 1px solid var(--gold-spire); border-radius: 16px; width: 90%; max-width: 440px; padding: 28px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); position: relative;">
       <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
         <span style="font-size: 24px;">👑</span>
