@@ -2214,6 +2214,96 @@
       font-weight: 700;
       box-shadow: 0 0 14px rgba(234, 179, 8, 0.25);
     }
+
+    /* Header Auth & Account Styles */
+    .header-auth-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 8px;
+      border: 1px solid rgba(234, 179, 8, 0.45);
+      color: var(--gold-spire);
+      background: rgba(234, 179, 8, 0.08);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .header-auth-btn:hover {
+      background: rgba(234, 179, 8, 0.18);
+      border-color: var(--gold-spire);
+      transform: translateY(-1px);
+      box-shadow: 0 0 12px rgba(234, 179, 8, 0.25);
+    }
+    .header-user-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(13, 16, 23, 0.85);
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 4px 12px;
+      font-size: 12px;
+      transition: all 0.2s ease;
+    }
+    .header-user-pill.creator {
+      border-color: var(--gold-spire);
+      box-shadow: 0 0 15px rgba(234, 179, 8, 0.2);
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.12), rgba(13, 16, 23, 0.9));
+    }
+    .auth-provider-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--font-body);
+    }
+    .auth-provider-btn.steam {
+      background: #171a21;
+      border: 1px solid #2a475e;
+      color: #c7d5e0;
+    }
+    .auth-provider-btn.steam:hover {
+      background: #2a475e;
+      color: #ffffff;
+      border-color: #66c0f4;
+      box-shadow: 0 0 14px rgba(102, 192, 244, 0.25);
+    }
+    .auth-provider-btn.google {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+    }
+    .auth-provider-btn.google:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--border-light);
+      color: #ffffff;
+    }
+    .auth-tab-btn {
+      flex: 1;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .auth-tab-btn.active {
+      color: var(--gold-spire);
+      border-bottom-color: var(--gold-spire);
+    }
   </style>
 </head>
 <body>
@@ -2259,6 +2349,9 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
           Refresh
         </button>
+
+        <!-- Optional User Account / Sign In Container at Top -->
+        <div id="headerAuthContainer" style="display: inline-flex; align-items: center;"></div>
 
         <button class="btn-secondary" id="btnExitApp" onclick="exitTrackerApp()" title="Close STS2 Tracker and stop background process" style="border-color: rgba(239, 68, 68, 0.4); color: #f87171; display: none;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -2838,7 +2931,11 @@
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
             <div>
               <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Your Name / Handle</label>
+              <div id="forumAuthorLoggedContainer" style="display: none; align-items: center; gap: 8px; padding: 7px 12px; background: rgba(13, 16, 23, 0.7); border: 1px solid var(--border-subtle); border-radius: 8px;">
+                <span id="forumAuthorLoggedBadge"></span>
+              </div>
               <input type="text" id="forumAuthorInput" class="forum-input" placeholder="e.g. IroncladMain99, Anonymous Slayer" />
+              <div id="forumAuthorVisitorHint" style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">Optional: <a href="javascript:openAuthModal()" style="color: var(--gold-spire); text-decoration: underline;">Sign In at top</a> to link your runs &amp; verify handle.</div>
             </div>
             <div>
               <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Category</label>
@@ -3274,75 +3371,157 @@
     </div>
   </div>
 
-  <!-- OWNER AUTH MODAL -->
-  <div id="ownerAuthModal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); z-index: 100000; justify-content: center; align-items: center;" onclick="if(event.target.id === 'ownerAuthModal') closeOwnerLoginModal()">
-    <div style="background: var(--bg-card); border: 1px solid var(--gold-spire); border-radius: 16px; width: 90%; max-width: 440px; padding: 28px; box-shadow: 0 20px 50px rgba(0,0,0,0.85); position: relative;">
+  <!-- UNIVERSAL APP AUTH MODAL (STEAM, GOOGLE, USERNAME/PASS) -->
+  <div id="appAuthModal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); z-index: 100000; justify-content: center; align-items: center;" onclick="if(event.target.id === 'appAuthModal') closeAuthModal()">
+    <div style="background: var(--bg-card); border: 1px solid var(--border-light); border-radius: 16px; width: 92%; max-width: 440px; padding: 28px; box-shadow: 0 20px 50px rgba(0,0,0,0.85); position: relative;">
       
-      <!-- Normal Sign In View -->
-      <div id="ownerLoginView">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 24px;">👑</span>
-            <h3 style="font-family: var(--font-title); color: var(--gold-spire); font-size: 20px;">Creator Authentication</h3>
+      <!-- Modal Header -->
+      <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <img src="assets/relics/burning_blood.png" alt="Slayer" style="width: 26px; height: 26px; object-fit: contain;" onerror="this.src='assets/relics/neows_talisman.png'" />
+          <h3 style="font-family: var(--font-title); color: var(--gold-spire); font-size: 20px; letter-spacing: 0.5px;">Slayer Sign In</h3>
+        </div>
+        <button onclick="closeAuthModal()" class="modal-close-btn" style="background: none; border: none; font-size: 24px; color: var(--text-dim); cursor: pointer;">&times;</button>
+      </div>
+      <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">
+        Sign in (optional) with Steam, Google, or your Slayer account to link runs and verify your handle on the community forum.
+      </p>
+
+      <!-- Main Method Chooser View -->
+      <div id="authMainView">
+        <!-- Quick Social & Platform Providers -->
+        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px;">
+          <!-- Sign in with Steam -->
+          <button class="auth-provider-btn steam" onclick="startSteamAuth()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2a10 10 0 0 0-10 10c0 4.6 3.1 8.5 7.4 9.6l2.1-3a2.9 2.9 0 0 1-.5-1.6c0-1.6 1.3-2.9 2.9-2.9.3 0 .6 0 .9.1l2.4-3.5A5.5 5.5 0 0 1 17.5 7a5.5 5.5 0 1 1-5.5 5.5c0-.4.1-.7.2-1.1L8.8 13c-.1.3-.2.7-.2 1.1 0 1.9 1.4 3.4 3.2 3.6l-1.3 1.8A8 8 0 1 1 20 12a8 8 0 0 1-8 8v2a10 10 0 0 0 0-20z"/>
+            </svg>
+            <span>Sign in with Steam</span>
+          </button>
+
+          <!-- Sign in with Google -->
+          <button class="auth-provider-btn google" onclick="startGoogleAuth()">
+            <svg width="18" height="18" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+            </svg>
+            <span>Sign in with Google</span>
+          </button>
+        </div>
+
+        <!-- Divider -->
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 18px;">
+          <div style="height: 1px; flex: 1; background: var(--border-subtle);"></div>
+          <span style="font-size: 11px; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.5px;">or with password</span>
+          <div style="height: 1px; flex: 1; background: var(--border-subtle);"></div>
+        </div>
+
+        <!-- Tabs: Sign In / Create Account -->
+        <div style="display: flex; border-bottom: 1px solid var(--border-subtle); margin-bottom: 16px;">
+          <button class="auth-tab-btn active" id="tabBtnSignIn" onclick="switchAuthTab('signin')">Sign In</button>
+          <button class="auth-tab-btn" id="tabBtnRegister" onclick="switchAuthTab('register')">Create Account</button>
+        </div>
+
+        <!-- Sign In Form -->
+        <div id="authSignInForm">
+          <div style="margin-bottom: 12px;">
+            <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Username or Email</label>
+            <input type="text" id="authLoginUser" class="forum-input" placeholder="e.g. Apocaelypze, or Slayer Name..." />
           </div>
-          <button onclick="closeOwnerLoginModal()" class="modal-close-btn" style="background: none; border: none; font-size: 24px; color: var(--text-dim); cursor: pointer;">&times;</button>
-        </div>
-        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 18px;">
-          Enter your creator credentials to unlock verified owner badges, moderation, and highlighted replies.
-        </p>
-
-        <div style="margin-bottom: 14px;">
-          <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Creator Username</label>
-          <input type="text" id="ownerUserInput" class="forum-input" value="Apocaelypze" />
-        </div>
-
-        <div style="margin-bottom: 16px;">
-          <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Password</label>
-          <input type="password" id="ownerPassInput" class="forum-input" placeholder="Enter password..." onkeydown="if(event.key==='Enter') submitOwnerAuth()" />
-          <div id="ownerAuthError" style="display: none; color: var(--loss-color); font-size: 12px; margin-top: 6px;"></div>
-        </div>
-
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <button onclick="showOwnerChangePasswordView()" style="background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 11px; text-decoration: underline;">Change Password</button>
-          <div style="display: flex; gap: 8px;">
-            <button class="btn-secondary" onclick="closeOwnerLoginModal()" style="padding: 8px 16px; font-size: 12px;">Cancel</button>
-            <button class="btn-primary" onclick="submitOwnerAuth()" style="padding: 8px 20px; font-weight: 600; font-size: 12px;">Sign In</button>
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Password</label>
+            <input type="password" id="authLoginPass" class="forum-input" placeholder="Enter password..." onkeydown="if(event.key==='Enter') submitUserLogin()" />
+            <div id="authLoginError" style="display: none; color: var(--loss-color); font-size: 12px; margin-top: 6px;"></div>
           </div>
+          <button class="btn-primary" onclick="submitUserLogin()" style="width: 100%; justify-content: center; padding: 10px; font-weight: 600; font-size: 13px;">
+            Sign In
+          </button>
+        </div>
+
+        <!-- Register Form -->
+        <div id="authRegisterForm" style="display: none;">
+          <div style="margin-bottom: 12px;">
+            <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Slayer Handle / Username</label>
+            <input type="text" id="authRegUser" class="forum-input" placeholder="e.g. IroncladMaster, NeowDisciple" />
+          </div>
+          <div style="margin-bottom: 12px;">
+            <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Email (Optional)</label>
+            <input type="email" id="authRegEmail" class="forum-input" placeholder="name@example.com" />
+          </div>
+          <div style="margin-bottom: 12px;">
+            <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Password</label>
+            <input type="password" id="authRegPass" class="forum-input" placeholder="Choose a password (min 6 chars)..." />
+          </div>
+          <div style="margin-bottom: 16px;">
+            <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Confirm Password</label>
+            <input type="password" id="authRegPassConfirm" class="forum-input" placeholder="Confirm password..." onkeydown="if(event.key==='Enter') submitUserRegistration()" />
+            <div id="authRegError" style="display: none; color: var(--loss-color); font-size: 12px; margin-top: 6px;"></div>
+          </div>
+          <button class="btn-primary" onclick="submitUserRegistration()" style="width: 100%; justify-content: center; padding: 10px; font-weight: 600; font-size: 13px;">
+            Create Slayer Account
+          </button>
         </div>
       </div>
 
-      <!-- Set / Change Password View -->
-      <div id="ownerSetupView" style="display: none;">
-        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 24px;">🔑</span>
-            <h3 style="font-family: var(--font-title); color: var(--gold-spire); font-size: 20px;">Creator Security Setup</h3>
-          </div>
-          <button onclick="closeOwnerLoginModal()" class="modal-close-btn" style="background: none; border: none; font-size: 24px; color: var(--text-dim); cursor: pointer;">&times;</button>
+      <!-- Steam Connect Prompt View -->
+      <div id="authSteamPromptView" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; color: #66c0f4;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-10 10c0 4.6 3.1 8.5 7.4 9.6l2.1-3a2.9 2.9 0 0 1-.5-1.6c0-1.6 1.3-2.9 2.9-2.9.3 0 .6 0 .9.1l2.4-3.5A5.5 5.5 0 0 1 17.5 7a5.5 5.5 0 1 1-5.5 5.5c0-.4.1-.7.2-1.1L8.8 13c-.1.3-.2.7-.2 1.1 0 1.9 1.4 3.4 3.2 3.6l-1.3 1.8A8 8 0 1 1 20 12a8 8 0 0 1-8 8v2a10 10 0 0 0 0-20z"/></svg>
+          <h4 style="font-size: 16px; font-weight: 700;">Connect with Steam</h4>
         </div>
-        <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 18px;" id="ownerSetupSubtitle">
-          Create a private password for your Apocaelypze account. This is cryptographically salted and hashed.
+        <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px;">
+          Enter your Steam Persona Name or Profile ID to link your Slay the Spire 2 climbs directly to your Steam identity.
         </p>
-
-        <div id="ownerCurrentPassGroup" style="display: none; margin-bottom: 14px;">
-          <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Current Password</label>
-          <input type="password" id="ownerCurrentPassInput" class="forum-input" placeholder="Enter current password..." />
-        </div>
-
         <div style="margin-bottom: 14px;">
-          <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">New Password</label>
-          <input type="password" id="ownerNewPassInput" class="forum-input" placeholder="Enter new password..." />
+          <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Steam Persona Name / Profile</label>
+          <input type="text" id="steamPersonaInput" class="forum-input" placeholder="e.g. Apocaelypze, or your Steam username" />
         </div>
-
-        <div style="margin-bottom: 16px;">
-          <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Confirm Password</label>
-          <input type="password" id="ownerConfirmPassInput" class="forum-input" placeholder="Confirm new password..." onkeydown="if(event.key==='Enter') saveOwnerNewPassword()" />
-          <div id="ownerSetupError" style="display: none; color: var(--loss-color); font-size: 12px; margin-top: 6px;"></div>
+        <div id="steamDetectedContainer" style="display: none; background: rgba(102, 192, 244, 0.1); border: 1px solid rgba(102, 192, 244, 0.3); border-radius: 8px; padding: 10px 12px; margin-bottom: 14px; font-size: 12px; color: #bae6fd;">
+          Detected local Steam ID: <span id="detectedSteamIdVal" style="font-weight: 700;"></span>
         </div>
+        <div id="steamPassPrompt" style="display: none; margin-bottom: 14px;">
+          <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--gold-spire); font-weight: 700; margin-bottom: 6px;">👑 Creator Password Verification</label>
+          <input type="password" id="steamCreatorPassInput" class="forum-input" placeholder="Enter creator password to unlock owner badge..." />
+        </div>
+        <div id="steamAuthError" style="display: none; color: var(--loss-color); font-size: 12px; margin-bottom: 12px;"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+          <button class="btn-secondary" onclick="showAuthMainView()" style="font-size: 12px; padding: 8px 14px;">&larr; Back</button>
+          <button class="btn-primary" onclick="confirmSteamAuth()" style="font-size: 12px; padding: 8px 20px;">Link &amp; Connect Steam</button>
+        </div>
+      </div>
 
-        <div style="display: flex; justify-content: space-between; align-items: center;">
-          <button onclick="showOwnerLoginView()" id="ownerBackToLoginBtn" style="background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 11px; text-decoration: underline;">&larr; Back to Sign In</button>
-          <button class="btn-primary" onclick="saveOwnerNewPassword()" style="padding: 8px 20px; font-weight: 600; font-size: 12px;">Save &amp; Activate</button>
+      <!-- Google Connect Prompt View -->
+      <div id="authGooglePromptView" style="display: none;">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+          <svg width="20" height="20" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+          </svg>
+          <h4 style="font-size: 16px; font-weight: 700;">Connect with Google</h4>
+        </div>
+        <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px;">
+          Connect your Google Account / Gmail to sign in effortlessly and personalize your Spire runs.
+        </p>
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Google Display Name / Slayer Handle</label>
+          <input type="text" id="googleNameInput" class="forum-input" placeholder="e.g. Apocaelypze or your Google Name" />
+        </div>
+        <div style="margin-bottom: 14px;">
+          <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Gmail Address</label>
+          <input type="email" id="googleEmailInput" class="forum-input" placeholder="yourname@gmail.com" />
+        </div>
+        <div id="googlePassPrompt" style="display: none; margin-bottom: 14px;">
+          <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--gold-spire); font-weight: 700; margin-bottom: 6px;">👑 Creator Password Verification</label>
+          <input type="password" id="googleCreatorPassInput" class="forum-input" placeholder="Enter creator password to unlock owner badge..." />
+        </div>
+        <div id="googleAuthError" style="display: none; color: var(--loss-color); font-size: 12px; margin-bottom: 12px;"></div>
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+          <button class="btn-secondary" onclick="showAuthMainView()" style="font-size: 12px; padding: 8px 14px;">&larr; Back</button>
+          <button class="btn-primary" onclick="confirmGoogleAuth()" style="font-size: 12px; padding: 8px 20px;">Connect Google Account</button>
         </div>
       </div>
 
@@ -3466,6 +3645,8 @@
     window.addEventListener('DOMContentLoaded', async () => {
       startHeartbeatLoop();
       setupGlobalDragAndDrop();
+      renderHeaderAuthUI();
+      updateForumUserUI();
       await loadGameDatabase();
       loadSharedRunsFromStorage();
       await fetchProgress();
@@ -6939,6 +7120,10 @@
 
         setTimeout(() => {
           updateRunCollections();
+          if (getCurrentUser()) {
+            linkRunsToUser(getCurrentUser().username);
+            renderHeaderAuthUI();
+          }
           closeLoadSavesModal();
           showToast(`✨ Successfully loaded and validated ${verifiedRuns.length} climbs!`);
           const statusText = document.getElementById('liveStatusText');
@@ -7250,283 +7435,464 @@
       return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
-    function isOwnerAuthenticated() {
-      return localStorage.getItem('sts2_owner_authenticated') === 'true';
-    }
-
-    async function openOwnerLoginModal() {
-      const modal = document.getElementById('ownerAuthModal');
-      if (!modal) return;
-      modal.style.display = 'flex';
-
-      const err = document.getElementById('ownerAuthError');
-      if (err) err.style.display = 'none';
-      const setupErr = document.getElementById('ownerSetupError');
-      if (setupErr) setupErr.style.display = 'none';
-
-      // Check if credentials exist in RTDB
+    function getCurrentUser() {
       try {
-        const resp = await fetch(`${FORUM_RTDB_BASE}/admin/credentials.json`);
-        const creds = resp.ok ? await resp.json() : null;
-        if (!creds || !creds.hash) {
-          // First-time setup
-          showOwnerSetupView(true);
+        const str = localStorage.getItem('sts2_active_user');
+        return str ? JSON.parse(str) : null;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function setCurrentUser(user) {
+      if (user) {
+        localStorage.setItem('sts2_active_user', JSON.stringify(user));
+        if (user.isCreator) {
+          localStorage.setItem('sts2_owner_authenticated', 'true');
         } else {
-          showOwnerLoginView();
+          localStorage.removeItem('sts2_owner_authenticated');
         }
-      } catch (e) {
-        showOwnerLoginView();
-      }
-    }
-
-    function showOwnerLoginView() {
-      const loginView = document.getElementById('ownerLoginView');
-      const setupView = document.getElementById('ownerSetupView');
-      if (loginView) loginView.style.display = 'block';
-      if (setupView) setupView.style.display = 'none';
-      const err = document.getElementById('ownerAuthError');
-      if (err) err.style.display = 'none';
-      const userInp = document.getElementById('ownerUserInput');
-      if (userInp) userInp.value = 'Apocaelypze';
-      const passInp = document.getElementById('ownerPassInput');
-      if (passInp) {
-        passInp.value = '';
-        setTimeout(() => passInp.focus(), 100);
-      }
-    }
-
-    function showOwnerSetupView(isFirstTime = false) {
-      const loginView = document.getElementById('ownerLoginView');
-      const setupView = document.getElementById('ownerSetupView');
-      if (loginView) loginView.style.display = 'none';
-      if (setupView) setupView.style.display = 'block';
-
-      const curGroup = document.getElementById('ownerCurrentPassGroup');
-      const subtitle = document.getElementById('ownerSetupSubtitle');
-      const backBtn = document.getElementById('ownerBackToLoginBtn');
-      const err = document.getElementById('ownerSetupError');
-      if (err) err.style.display = 'none';
-
-      if (isFirstTime) {
-        if (curGroup) curGroup.style.display = 'none';
-        if (subtitle) subtitle.innerText = '👑 Welcome Apocaelypze! Set your private password to permanently secure your Creator account and prevent anyone from impersonating you.';
-        if (backBtn) backBtn.style.display = 'none';
       } else {
-        if (curGroup) curGroup.style.display = 'block';
-        if (subtitle) subtitle.innerText = 'Enter your current password and choose a new password for your Apocaelypze account.';
-        if (backBtn) backBtn.style.display = 'inline-block';
+        localStorage.removeItem('sts2_active_user');
+        localStorage.removeItem('sts2_owner_authenticated');
+      }
+      renderHeaderAuthUI();
+      updateForumUserUI();
+      renderForumPosts();
+    }
+
+    function isOwnerAuthenticated() {
+      const u = getCurrentUser();
+      return !!(u && u.isCreator) || localStorage.getItem('sts2_owner_authenticated') === 'true';
+    }
+
+    function getLinkedRunsCount(username) {
+      if (!username || !rawLocalRuns) return 0;
+      return rawLocalRuns.length;
+    }
+
+    function linkRunsToUser(username) {
+      if (!username) return;
+      try {
+        localStorage.setItem('sts2_linked_user_' + username, Date.now().toString());
+      } catch (_) {}
+    }
+
+    function renderHeaderAuthUI() {
+      const container = document.getElementById('headerAuthContainer');
+      if (!container) return;
+      const user = getCurrentUser();
+
+      if (!user) {
+        container.innerHTML = `
+          <button class="header-auth-btn" onclick="openAuthModal()" title="Sign In (Optional: Steam, Google, or Slayer Account)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span>Sign In</span>
+          </button>
+        `;
+        return;
       }
 
-      const curPassInp = document.getElementById('ownerCurrentPassInput');
-      const newPassInp = document.getElementById('ownerNewPassInput');
-      const confPassInp = document.getElementById('ownerConfirmPassInput');
-      if (curPassInp) curPassInp.value = '';
-      if (newPassInp) newPassInp.value = '';
-      if (confPassInp) confPassInp.value = '';
-      setTimeout(() => {
-        if (!isFirstTime && curPassInp) curPassInp.focus();
-        else if (newPassInp) newPassInp.focus();
-      }, 100);
+      const isCreator = !!user.isCreator;
+      let avatarIcon = '🛡️';
+      if (isCreator) avatarIcon = '👑';
+      else if (user.provider === 'steam') avatarIcon = '🎮';
+      else if (user.provider === 'google') avatarIcon = '🌐';
+
+      const linkedCount = getLinkedRunsCount(user.username);
+
+      container.innerHTML = `
+        <div class="header-user-pill ${isCreator ? 'creator' : ''}" title="${user.email ? user.email + ' • ' : ''}${linkedCount} runs linked to account">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span style="font-size: 13px;">${avatarIcon}</span>
+            <span style="font-weight: 700; color: ${isCreator ? 'var(--gold-spire)' : 'var(--text-main)'}; font-size: 12px;">${escapeHtml(user.username)}</span>
+            ${isCreator ? '<span style="background: rgba(234, 179, 8, 0.2); border: 1px solid var(--gold-spire); color: var(--gold-spire); font-size: 9px; font-weight: 800; padding: 1px 5px; border-radius: 6px; letter-spacing: 0.5px;">CREATOR</span>' : (user.provider === 'steam' ? '<span style="background: rgba(42, 71, 94, 0.5); border: 1px solid rgba(102, 192, 244, 0.4); color: #66c0f4; font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 6px;">STEAM</span>' : '')}
+          </div>
+          <span style="color: rgba(255, 255, 255, 0.2); font-size: 11px;">|</span>
+          <button onclick="logoutAppUser()" style="background: none; border: none; color: var(--text-dim); cursor: pointer; font-size: 11px; padding: 2px 4px; text-decoration: underline;" title="Sign out of account">Sign Out</button>
+        </div>
+      `;
     }
 
-    function showOwnerChangePasswordView() {
-      showOwnerSetupView(false);
+    function openAuthModal() {
+      const modal = document.getElementById('appAuthModal');
+      if (modal) {
+        modal.style.display = 'flex';
+        showAuthMainView();
+      }
     }
 
-    function closeOwnerLoginModal() {
-      const modal = document.getElementById('ownerAuthModal');
+    function openOwnerLoginModal() {
+      openAuthModal();
+    }
+
+    function closeAuthModal() {
+      const modal = document.getElementById('appAuthModal');
       if (modal) modal.style.display = 'none';
     }
 
-    async function submitOwnerAuth() {
-      const userInput = document.getElementById('ownerUserInput');
-      const passInput = document.getElementById('ownerPassInput');
-      const err = document.getElementById('ownerAuthError');
-      const username = (userInput ? userInput.value.trim() : '');
-      const password = (passInput ? passInput.value : '');
+    function closeOwnerLoginModal() {
+      closeAuthModal();
+    }
 
-      if (!username || !password) {
-        if (err) {
-          err.innerText = 'Please enter both username and password.';
-          err.style.display = 'block';
-        }
-        return;
+    function showAuthMainView() {
+      const mainView = document.getElementById('authMainView');
+      const steamView = document.getElementById('authSteamPromptView');
+      const googleView = document.getElementById('authGooglePromptView');
+      if (mainView) mainView.style.display = 'block';
+      if (steamView) steamView.style.display = 'none';
+      if (googleView) googleView.style.display = 'none';
+      const err = document.getElementById('authLoginError');
+      if (err) err.style.display = 'none';
+      const regErr = document.getElementById('authRegError');
+      if (regErr) regErr.style.display = 'none';
+    }
+
+    function switchAuthTab(tab) {
+      const btnIn = document.getElementById('tabBtnSignIn');
+      const btnReg = document.getElementById('tabBtnRegister');
+      const formIn = document.getElementById('authSignInForm');
+      const formReg = document.getElementById('authRegisterForm');
+      if (tab === 'signin') {
+        if (btnIn) btnIn.classList.add('active');
+        if (btnReg) btnReg.classList.remove('active');
+        if (formIn) formIn.style.display = 'block';
+        if (formReg) formReg.style.display = 'none';
+      } else {
+        if (btnIn) btnIn.classList.remove('active');
+        if (btnReg) btnReg.classList.add('active');
+        if (formIn) formIn.style.display = 'none';
+        if (formReg) formReg.style.display = 'block';
+      }
+    }
+
+    function startSteamAuth() {
+      const mainView = document.getElementById('authMainView');
+      const steamView = document.getElementById('authSteamPromptView');
+      if (mainView) mainView.style.display = 'none';
+      if (steamView) steamView.style.display = 'block';
+
+      const detectedId = localStorage.getItem('sts2_detected_steam_id') || localStorage.getItem('sts2_steam_id');
+      const detectedBox = document.getElementById('steamDetectedContainer');
+      const detectedSpan = document.getElementById('detectedSteamIdVal');
+      const passPrompt = document.getElementById('steamPassPrompt');
+      const err = document.getElementById('steamAuthError');
+      if (err) err.style.display = 'none';
+      if (passPrompt) passPrompt.style.display = 'none';
+
+      if (detectedId && detectedBox && detectedSpan) {
+        detectedSpan.innerText = detectedId;
+        detectedBox.style.display = 'block';
+      } else if (detectedBox) {
+        detectedBox.style.display = 'none';
       }
 
-      if (username.toLowerCase() !== 'apocaelypze') {
-        if (err) {
-          err.innerText = 'Unrecognized creator username.';
-          err.style.display = 'block';
-        }
-        return;
+      const inp = document.getElementById('steamPersonaInput');
+      if (inp) {
+        inp.value = '';
+        setTimeout(() => inp.focus(), 100);
       }
+    }
 
+    function startGoogleAuth() {
+      const mainView = document.getElementById('authMainView');
+      const googleView = document.getElementById('authGooglePromptView');
+      if (mainView) mainView.style.display = 'none';
+      if (googleView) googleView.style.display = 'block';
+
+      const passPrompt = document.getElementById('googlePassPrompt');
+      const err = document.getElementById('googleAuthError');
+      if (err) err.style.display = 'none';
+      if (passPrompt) passPrompt.style.display = 'none';
+
+      const nameInp = document.getElementById('googleNameInput');
+      if (nameInp) {
+        nameInp.value = '';
+        setTimeout(() => nameInp.focus(), 100);
+      }
+    }
+
+    async function verifyCreatorCredentials(password) {
+      if (!password) return false;
       try {
         const resp = await fetch(`${FORUM_RTDB_BASE}/admin/credentials.json`);
         const creds = resp.ok ? await resp.json() : null;
         if (!creds || !creds.hash) {
-          // If not configured, prompt to set password
-          showOwnerSetupView(true);
-          return;
+          // First-time setup: initialize creator password!
+          const newSalt = Math.random().toString(36).substring(2, 12) + Date.now().toString(36);
+          const newHash = await sha256Hash(newSalt + password);
+          await fetch(`${FORUM_RTDB_BASE}/admin/credentials.json`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username: 'Apocaelypze', salt: newSalt, hash: newHash, updatedAt: Date.now() })
+          });
+          return true;
         }
-
-        const candidateHash = await sha256Hash((creds.salt || '') + password);
-        if (candidateHash === creds.hash) {
-          localStorage.setItem('sts2_owner_authenticated', 'true');
-          localStorage.setItem('sts2_owner_token', creds.hash);
-          closeOwnerLoginModal();
-          updateForumOwnerStatusUI();
-          renderForumPosts();
-          showToast('👑 Welcome back, Apocaelypze! Creator badge active.');
-        } else {
-          if (err) {
-            err.innerText = 'Incorrect password. Please try again.';
-            err.style.display = 'block';
-          }
-        }
+        const candidate = await sha256Hash((creds.salt || '') + password);
+        return candidate === creds.hash;
       } catch (e) {
-        console.error('Owner auth check failed:', e);
-        if (err) {
-          err.innerText = 'Authentication error. Please check your network connection.';
-          err.style.display = 'block';
-        }
+        console.error('Creator verify error:', e);
+        return false;
       }
     }
 
-    async function saveOwnerNewPassword() {
-      const curGroup = document.getElementById('ownerCurrentPassGroup');
-      const curPassInp = document.getElementById('ownerCurrentPassInput');
-      const newPassInp = document.getElementById('ownerNewPassInput');
-      const confPassInp = document.getElementById('ownerConfirmPassInput');
-      const err = document.getElementById('ownerSetupError');
+    async function confirmSteamAuth() {
+      const inp = document.getElementById('steamPersonaInput');
+      const passInp = document.getElementById('steamCreatorPassInput');
+      const passPrompt = document.getElementById('steamPassPrompt');
+      const err = document.getElementById('steamAuthError');
+      const persona = (inp ? inp.value.trim() : '');
 
-      const requiresCurrent = (curGroup && curGroup.style.display !== 'none');
-      const curPass = (curPassInp ? curPassInp.value : '');
-      const newPass = (newPassInp ? newPassInp.value : '');
-      const confPass = (confPassInp ? confPassInp.value : '');
+      if (!persona) {
+        if (err) { err.innerText = 'Please enter your Steam Persona Name.'; err.style.display = 'block'; }
+        return;
+      }
 
-      if (newPass.length < 6) {
-        if (err) {
-          err.innerText = 'Password must be at least 6 characters long.';
-          err.style.display = 'block';
+      const isClaimingCreator = (persona.toLowerCase() === 'apocaelypze');
+      if (isClaimingCreator) {
+        if (passPrompt && passPrompt.style.display === 'none') {
+          passPrompt.style.display = 'block';
+          if (err) { err.innerText = '👑 Creator username detected. Enter your creator password to authenticate.'; err.style.display = 'block'; }
+          if (passInp) setTimeout(() => passInp.focus(), 100);
+          return;
+        }
+        const pass = (passInp ? passInp.value : '');
+        const valid = await verifyCreatorCredentials(pass);
+        if (!valid) {
+          if (err) { err.innerText = 'Incorrect creator password.'; err.style.display = 'block'; }
+          return;
+        }
+        setCurrentUser({ username: 'Apocaelypze', provider: 'steam', isCreator: true });
+        linkRunsToUser('Apocaelypze');
+        closeAuthModal();
+        showToast('👑 Welcome back, Apocaelypze! Verified Creator via Steam.');
+        return;
+      }
+
+      // Normal Steam Slayer
+      setCurrentUser({ username: persona, provider: 'steam', isCreator: false });
+      linkRunsToUser(persona);
+      closeAuthModal();
+      showToast(`🎮 Steam connected! Welcome, Slayer ${persona}.`);
+    }
+
+    async function confirmGoogleAuth() {
+      const nameInp = document.getElementById('googleNameInput');
+      const emailInp = document.getElementById('googleEmailInput');
+      const passInp = document.getElementById('googleCreatorPassInput');
+      const passPrompt = document.getElementById('googlePassPrompt');
+      const err = document.getElementById('googleAuthError');
+
+      const name = (nameInp ? nameInp.value.trim() : '');
+      const email = (emailInp ? emailInp.value.trim().toLowerCase() : '');
+
+      if (!name) {
+        if (err) { err.innerText = 'Please enter your display name.'; err.style.display = 'block'; }
+        return;
+      }
+
+      const isClaimingCreator = (name.toLowerCase() === 'apocaelypze' || email.includes('apocaelypze'));
+      if (isClaimingCreator) {
+        if (passPrompt && passPrompt.style.display === 'none') {
+          passPrompt.style.display = 'block';
+          if (err) { err.innerText = '👑 Creator identity detected. Enter your creator password to authenticate.'; err.style.display = 'block'; }
+          if (passInp) setTimeout(() => passInp.focus(), 100);
+          return;
+        }
+        const pass = (passInp ? passInp.value : '');
+        const valid = await verifyCreatorCredentials(pass);
+        if (!valid) {
+          if (err) { err.innerText = 'Incorrect creator password.'; err.style.display = 'block'; }
+          return;
+        }
+        setCurrentUser({ username: 'Apocaelypze', email, provider: 'google', isCreator: true });
+        linkRunsToUser('Apocaelypze');
+        closeAuthModal();
+        showToast('👑 Welcome back, Apocaelypze! Verified Creator via Google.');
+        return;
+      }
+
+      // Normal Google Slayer
+      setCurrentUser({ username: name, email, provider: 'google', isCreator: false });
+      linkRunsToUser(name);
+      closeAuthModal();
+      showToast(`🌐 Google connected! Welcome, ${name}.`);
+    }
+
+    async function submitUserLogin() {
+      const userInp = document.getElementById('authLoginUser');
+      const passInp = document.getElementById('authLoginPass');
+      const err = document.getElementById('authLoginError');
+      const username = (userInp ? userInp.value.trim() : '');
+      const password = (passInp ? passInp.value : '');
+
+      if (!username || !password) {
+        if (err) { err.innerText = 'Please enter both username and password.'; err.style.display = 'block'; }
+        return;
+      }
+
+      if (username.toLowerCase() === 'apocaelypze') {
+        const valid = await verifyCreatorCredentials(password);
+        if (valid) {
+          setCurrentUser({ username: 'Apocaelypze', provider: 'custom', isCreator: true });
+          linkRunsToUser('Apocaelypze');
+          closeAuthModal();
+          showToast('👑 Welcome back, Apocaelypze! Creator badge active.');
+        } else {
+          if (err) { err.innerText = 'Incorrect creator password.'; err.style.display = 'block'; }
         }
         return;
       }
 
-      if (newPass !== confPass) {
-        if (err) {
-          err.innerText = 'New passwords do not match.';
-          err.style.display = 'block';
+      // Check registered users in RTDB
+      try {
+        const cleanKey = username.toLowerCase().replace(/[^a-z0-9]/g, '_');
+        const resp = await fetch(`${FORUM_RTDB_BASE}/users/${cleanKey}.json`);
+        const userData = resp.ok ? await resp.json() : null;
+        if (!userData || !userData.hash) {
+          if (err) { err.innerText = 'Account not found. Click "Create Account" above to register.'; err.style.display = 'block'; }
+          return;
         }
+        const candidateHash = await sha256Hash((userData.salt || '') + password);
+        if (candidateHash === userData.hash) {
+          setCurrentUser({ username: userData.username || username, email: userData.email, provider: 'custom', isCreator: false });
+          linkRunsToUser(userData.username || username);
+          closeAuthModal();
+          showToast(`🛡️ Welcome back, ${userData.username || username}!`);
+        } else {
+          if (err) { err.innerText = 'Incorrect password.'; err.style.display = 'block'; }
+        }
+      } catch (e) {
+        console.error('Login error:', e);
+        if (err) { err.innerText = 'Network error during sign in.'; err.style.display = 'block'; }
+      }
+    }
+
+    async function submitUserRegistration() {
+      const userInp = document.getElementById('authRegUser');
+      const emailInp = document.getElementById('authRegEmail');
+      const passInp = document.getElementById('authRegPass');
+      const confInp = document.getElementById('authRegPassConfirm');
+      const err = document.getElementById('authRegError');
+
+      const username = (userInp ? userInp.value.trim() : '');
+      const email = (emailInp ? emailInp.value.trim() : '');
+      const pass = (passInp ? passInp.value : '');
+      const conf = (confInp ? confInp.value : '');
+
+      if (!username || username.length < 3) {
+        if (err) { err.innerText = 'Username must be at least 3 characters.'; err.style.display = 'block'; }
+        return;
+      }
+
+      const cleanName = username.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const reserved = ['apocaelypze', 'apocalypze', 'creator', 'owner', 'admin', 'system', 'moderator', 'developer'];
+      if (reserved.some(r => cleanName === r || cleanName.startsWith('apocaelypz'))) {
+        if (err) { err.innerText = '⚠️ That handle is reserved for creator/staff.'; err.style.display = 'block'; }
+        return;
+      }
+
+      if (pass.length < 6) {
+        if (err) { err.innerText = 'Password must be at least 6 characters.'; err.style.display = 'block'; }
+        return;
+      }
+
+      if (pass !== conf) {
+        if (err) { err.innerText = 'Passwords do not match.'; err.style.display = 'block'; }
         return;
       }
 
       try {
-        let creds = null;
-        try {
-          const resp = await fetch(`${FORUM_RTDB_BASE}/admin/credentials.json`);
-          creds = resp.ok ? await resp.json() : null;
-        } catch (_) {}
-
-        if (requiresCurrent && creds && creds.hash) {
-          const curHash = await sha256Hash((creds.salt || '') + curPass);
-          if (curHash !== creds.hash) {
-            if (err) {
-              err.innerText = 'Current password is incorrect.';
-              err.style.display = 'block';
-            }
-            return;
-          }
-        }
-
-        const newSalt = Math.random().toString(36).substring(2, 12) + Date.now().toString(36);
-        const newHash = await sha256Hash(newSalt + newPass);
-        const payload = {
-          username: 'Apocaelypze',
-          salt: newSalt,
-          hash: newHash,
-          updatedAt: Date.now()
+        const cleanKey = username.toLowerCase().replace(/[^a-z0-9]/g, '_');
+        const salt = Math.random().toString(36).substring(2, 12) + Date.now().toString(36);
+        const hash = await sha256Hash(salt + pass);
+        const newUser = {
+          username,
+          email,
+          salt,
+          hash,
+          createdAt: Date.now()
         };
 
-        const putResp = await fetch(`${FORUM_RTDB_BASE}/admin/credentials.json`, {
+        const resp = await fetch(`${FORUM_RTDB_BASE}/users/${cleanKey}.json`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
+          body: JSON.stringify(newUser)
         });
 
-        if (putResp.ok) {
-          localStorage.setItem('sts2_owner_authenticated', 'true');
-          localStorage.setItem('sts2_owner_token', newHash);
-          closeOwnerLoginModal();
-          updateForumOwnerStatusUI();
-          renderForumPosts();
-          showToast('👑 Password secured! Welcome, Apocaelypze.');
+        if (resp.ok) {
+          setCurrentUser({ username, email, provider: 'custom', isCreator: false });
+          linkRunsToUser(username);
+          closeAuthModal();
+          showToast(`🛡️ Slayer account created! Welcome, ${username}.`);
         } else {
-          throw new Error('HTTP ' + putResp.status);
+          throw new Error('HTTP ' + resp.status);
         }
       } catch (e) {
-        console.error('Failed to save creator password:', e);
-        if (err) {
-          err.innerText = 'Failed to save credentials to cloud database.';
-          err.style.display = 'block';
-        }
+        console.error('Registration error:', e);
+        if (err) { err.innerText = 'Could not register account. Check network.'; err.style.display = 'block'; }
       }
     }
 
-    function logoutOwner() {
-      localStorage.removeItem('sts2_owner_authenticated');
-      localStorage.removeItem('sts2_owner_token');
-      updateForumOwnerStatusUI();
-      renderForumPosts();
-      showToast('Logged out of Creator account.');
+    function logoutAppUser() {
+      setCurrentUser(null);
+      showToast('Signed out of account.');
+    }
+
+    function updateForumUserUI() {
+      const user = getCurrentUser();
+      const authorInput = document.getElementById('forumAuthorInput');
+      const authorLoggedContainer = document.getElementById('forumAuthorLoggedContainer');
+      const authorLoggedBadge = document.getElementById('forumAuthorLoggedBadge');
+      const visitorHint = document.getElementById('forumAuthorVisitorHint');
+
+      if (user) {
+        if (authorLoggedContainer) authorLoggedContainer.style.display = 'flex';
+        if (authorInput) {
+          authorInput.style.display = 'none';
+          authorInput.value = user.username;
+        }
+        if (visitorHint) visitorHint.style.display = 'none';
+        if (authorLoggedBadge) {
+          if (user.isCreator) {
+            authorLoggedBadge.innerHTML = `
+              <span class="forum-creator-badge" style="font-size: 12px; padding: 3px 10px;">
+                <span>👑</span>
+                <span>Apocaelypze</span>
+                <span style="font-size: 9px; opacity: 0.85;">CREATOR</span>
+              </span>
+            `;
+          } else {
+            const provIcon = (user.provider === 'steam' ? '🎮' : (user.provider === 'google' ? '🌐' : '🛡️'));
+            authorLoggedBadge.innerHTML = `
+              <span style="font-weight: 700; color: var(--text-main); display: inline-flex; align-items: center; gap: 6px; font-size: 12px;">
+                <span>${provIcon}</span>
+                <span>${escapeHtml(user.username)}</span>
+                <span style="font-size: 10px; color: var(--gold-spire); background: rgba(234, 179, 8, 0.15); border: 1px solid rgba(234, 179, 8, 0.3); border-radius: 6px; padding: 1px 5px;">VERIFIED</span>
+              </span>
+            `;
+          }
+        }
+      } else {
+        if (authorLoggedContainer) authorLoggedContainer.style.display = 'none';
+        if (authorInput) {
+          authorInput.style.display = 'block';
+          authorInput.value = '';
+          authorInput.disabled = false;
+        }
+        if (visitorHint) visitorHint.style.display = 'block';
+      }
     }
 
     function updateForumOwnerStatusUI() {
-      const statusContainer = document.getElementById('forumOwnerStatusContainer');
-      const authorInput = document.getElementById('forumAuthorInput');
-      const isOwner = isOwnerAuthenticated();
-
-      if (statusContainer) {
-        if (isOwner) {
-          statusContainer.innerHTML = `
-            <div style="display: flex; align-items: center; gap: 8px; background: rgba(234, 179, 8, 0.16); border: 1px solid var(--gold-spire); border-radius: 20px; padding: 5px 14px; font-size: 12px; font-weight: 700; color: var(--gold-spire); box-shadow: 0 0 15px rgba(234, 179, 8, 0.25);">
-              <span>👑</span>
-              <span>Apocaelypze (Creator)</span>
-              <button onclick="logoutOwner()" style="background: none; border: none; color: var(--text-dim); cursor: pointer; margin-left: 6px; font-size: 11px; text-decoration: underline;" title="Sign out of Creator privileges">Log Out</button>
-            </div>
-          `;
-        } else {
-          // Discrete subtle lock icon - no public banner or in-your-face creator prompt!
-          statusContainer.innerHTML = `
-            <button onclick="openOwnerLoginModal()" class="forum-action-btn" title="Creator Access (Ctrl+Shift+L)" style="opacity: 0.35; padding: 6px 10px; font-size: 13px; transition: opacity 0.2s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.35'">
-              <span>🔒</span>
-            </button>
-          `;
-        }
-      }
-
-      if (authorInput) {
-        if (isOwner) {
-          authorInput.value = 'Apocaelypze';
-          authorInput.disabled = true;
-          authorInput.style.color = 'var(--gold-spire)';
-          authorInput.style.fontWeight = '700';
-        } else {
-          if (authorInput.disabled) {
-            authorInput.value = '';
-            authorInput.disabled = false;
-            authorInput.style.color = 'var(--text-main)';
-            authorInput.style.fontWeight = 'normal';
-          }
-        }
-      }
+      updateForumUserUI();
     }
 
-    // Keyboard shortcut for discrete creator access: Ctrl + Shift + L
+    // Keyboard shortcut for sign in: Ctrl + Shift + L
     window.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'L' || e.key === 'l')) {
         e.preventDefault();
-        openOwnerLoginModal();
+        openAuthModal();
       }
     });
 
@@ -7666,6 +8032,22 @@
               <span style="font-size: 9px; opacity: 0.85; letter-spacing: 0.5px;">CREATOR</span>
             </span>
           `;
+        } else if (post.authorRole === 'steam') {
+          authorBadgeHtml = `
+            <span style="background: rgba(42, 71, 94, 0.4); border: 1px solid rgba(102, 192, 244, 0.35); color: #bae6fd; font-weight: 700; padding: 3px 10px; border-radius: 12px; display: inline-flex; align-items: center; gap: 5px; font-size: 11px;">
+              <span>🎮</span>
+              <span>${escapeHtml(post.author || 'Steam Slayer')}</span>
+              <span style="font-size: 8px; color: #38bdf8; letter-spacing: 0.5px;">STEAM</span>
+            </span>
+          `;
+        } else if (post.authorRole === 'slayer') {
+          authorBadgeHtml = `
+            <span style="background: rgba(234, 179, 8, 0.1); border: 1px solid rgba(234, 179, 8, 0.25); color: #fef08a; font-weight: 700; padding: 3px 10px; border-radius: 12px; display: inline-flex; align-items: center; gap: 5px; font-size: 11px;">
+              <span>🛡️</span>
+              <span>${escapeHtml(post.author || 'Slayer')}</span>
+              <span style="font-size: 8px; color: var(--gold-spire); letter-spacing: 0.5px;">VERIFIED</span>
+            </span>
+          `;
         } else if (isPostSystem) {
           authorBadgeHtml = `
             <span style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; font-weight: 700; padding: 3px 10px; border-radius: 12px; display: inline-flex; align-items: center; gap: 5px; font-size: 11px;">
@@ -7711,11 +8093,21 @@
                         <span>${rep.author || 'Apocaelypze'}</span>
                         <span style="font-size: 8px; opacity: 0.85;">CREATOR</span>
                       </span>
+                    ` : (rep.authorRole === 'steam' ? `
+                      <span style="background: rgba(42, 71, 94, 0.4); border: 1px solid rgba(102, 192, 244, 0.35); color: #bae6fd; font-weight: 700; padding: 2px 7px; border-radius: 10px; display: inline-flex; align-items: center; gap: 4px; font-size: 11px;">
+                        <span>🎮</span>
+                        <span>${escapeHtml(rep.author || 'Steam Slayer')}</span>
+                      </span>
+                    ` : (rep.authorRole === 'slayer' ? `
+                      <span style="background: rgba(234, 179, 8, 0.1); border: 1px solid rgba(234, 179, 8, 0.25); color: #fef08a; font-weight: 700; padding: 2px 7px; border-radius: 10px; display: inline-flex; align-items: center; gap: 4px; font-size: 11px;">
+                        <span>🛡️</span>
+                        <span>${escapeHtml(rep.author || 'Slayer')}</span>
+                      </span>
                     ` : `
                       <span style="font-weight: 600; font-size: 12px; color: var(--text-main);">
                         🛡️ ${escapeHtml(rep.author || 'Anonymous Slayer')}
                       </span>
-                    `}
+                    `))}
                     <span style="font-size: 11px; color: var(--text-dim);">${formatRelativeTime(rep.timestamp)}</span>
                   </div>
                   ${isOwner ? `
@@ -7786,9 +8178,9 @@
               <div style="background: rgba(13, 16, 23, 0.4); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 12px 14px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                   <span style="font-size: 12px; font-weight: 600; color: var(--text-muted);">
-                    ${isOwner ? '<span style="color: var(--gold-spire);">👑 Responding as Apocaelypze (Creator)</span>' : 'Leave a Response:'}
+                    ${isOwner ? '<span style="color: var(--gold-spire);">👑 Responding as Apocaelypze (Creator)</span>' : (getCurrentUser() ? `<span style="color: var(--text-main); font-weight: 600;">${getCurrentUser().provider === 'steam' ? '🎮' : (getCurrentUser().provider === 'google' ? '🌐' : '🛡️')} Responding as <strong>${escapeHtml(getCurrentUser().username)}</strong></span>` : 'Leave a Response:')}
                   </span>
-                  ${!isOwner ? `
+                  ${!getCurrentUser() ? `
                     <input type="text" id="reply_author_${post.id}" class="forum-input" placeholder="Your Handle (optional)" style="width: 170px; padding: 4px 10px; font-size: 11px;" />
                   ` : ''}
                 </div>
@@ -7830,16 +8222,17 @@
         return;
       }
 
+      const currentUser = getCurrentUser();
       let authorRole = 'visitor';
-      if (isOwner) {
-        author = 'Apocaelypze';
-        authorRole = 'owner';
+      if (currentUser) {
+        author = currentUser.username;
+        authorRole = currentUser.isCreator ? 'owner' : (currentUser.provider === 'steam' ? 'steam' : 'slayer');
       } else {
         const cleanAuthor = author.toLowerCase().replace(/[^a-z0-9]/g, '');
         const reservedKeywords = ['apocaelypze', 'apocalypze', 'apocalypse', 'creator', 'owner', 'admin', 'administrator', 'moderator', 'mod', 'developer', 'dev', 'system'];
         const isReserved = reservedKeywords.some(k => cleanAuthor === k || cleanAuthor.startsWith('apocaelypz') || cleanAuthor.startsWith('apocalypz'));
         if (isReserved) {
-          showToast('⚠️ The handle "' + author + '" is reserved for the verified creator/staff.');
+          showToast('⚠️ The handle "' + author + '" is reserved for the creator. Please sign in at the top.');
           if (authorInput) {
             authorInput.focus();
             authorInput.select();
@@ -7901,12 +8294,13 @@
         return;
       }
 
+      const currentUser = getCurrentUser();
       let author = 'Anonymous Slayer';
       let authorRole = 'visitor';
 
-      if (isOwner) {
-        author = 'Apocaelypze';
-        authorRole = 'owner';
+      if (currentUser) {
+        author = currentUser.username;
+        authorRole = currentUser.isCreator ? 'owner' : (currentUser.provider === 'steam' ? 'steam' : 'slayer');
       } else {
         if (authorInp && authorInp.value.trim()) {
           author = authorInp.value.trim();
@@ -7915,7 +8309,7 @@
         const reservedKeywords = ['apocaelypze', 'apocalypze', 'apocalypse', 'creator', 'owner', 'admin', 'administrator', 'moderator', 'mod', 'developer', 'dev', 'system'];
         const isReserved = reservedKeywords.some(k => cleanAuthor === k || cleanAuthor.startsWith('apocaelypz') || cleanAuthor.startsWith('apocalypz'));
         if (isReserved) {
-          showToast('⚠️ The handle "' + author + '" is reserved for the verified creator/staff.');
+          showToast('⚠️ The handle "' + author + '" is reserved for the creator. Please sign in at the top.');
           if (authorInp) {
             authorInp.focus();
             authorInp.select();
