@@ -22381,18 +22381,25 @@
       <!-- Spire Hall of Records & Feats Showcase -->
       <div class="hall-of-records-showcase" id="hallOfRecordsShowcase">
         <div class="hall-of-records-header">
-          <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 22px;">🏛️</span>
-            <div>
-              <div style="font-family: var(--font-title); font-size: 16px; font-weight: 700; color: var(--gold-spire); letter-spacing: 0.5px;">
-                Spire Hall of Records &bull; Career Feats &amp; Extremes
-              </div>
-              <div style="font-size: 12px; color: var(--text-dim);">
-                Milestone extremes, deck sizes, streaks, and tempo peaks. Click any card to inspect that exact run.
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; width: 100%;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <span style="font-size: 22px;">🏛️</span>
+              <div>
+                <div style="font-family: var(--font-title); font-size: 16px; font-weight: 700; color: var(--gold-spire); letter-spacing: 0.5px;">
+                  Spire Hall of Records &bull; Career Feats &amp; Extremes
+                </div>
+                <div style="font-size: 12px; color: var(--text-dim);">
+                  Milestone extremes, deck sizes, streaks, and tempo peaks. Click any card to inspect that exact run.
+                </div>
               </div>
             </div>
+            <div style="display: flex; gap: 6px; align-items: center; background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.08);">
+              <span style="font-size: 11px; color: var(--text-dim); margin-right: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Scope:</span>
+              <button class="record-tab-btn active" id="btnRecordScopeWins" onclick="setRecordsScope('wins')">🏆 Victories Only</button>
+              <button class="record-tab-btn" id="btnRecordScopeAll" onclick="setRecordsScope('all')">All Climbs</button>
+            </div>
           </div>
-          <div class="records-filter-tabs" id="recordsFilterTabs">
+          <div class="records-filter-tabs" id="recordsFilterTabs" style="margin-top: 10px;">
             <button class="record-tab-btn active" data-cat="ALL" onclick="setRecordsCategoryFilter('ALL')">All Feats (13)</button>
             <button class="record-tab-btn" data-cat="TEMPO" onclick="setRecordsCategoryFilter('TEMPO')">⏱️ Pacing &amp; Streaks</button>
             <button class="record-tab-btn" data-cat="DECK" onclick="setRecordsCategoryFilter('DECK')">🎴 Deck Building</button>
@@ -23175,6 +23182,7 @@
     let currentTimelineTypeFilter = 'all';
     let activeBadgeFilter = null;
     let currentRecordsCategory = 'ALL';
+    let recordsScopeFilter = 'wins'; // 'wins' (default) or 'all'
     let hallOfRecordsData = [];
     let hallOfRecordsCache = {};
 
@@ -23721,6 +23729,25 @@
       applyFiltersAndRender();
     }
 
+    function formatDuration(sec) {
+      if (!sec || isNaN(sec)) return '0m 00s';
+      const totalSec = Math.floor(sec);
+      const h = Math.floor(totalSec / 3600);
+      const m = Math.floor((totalSec % 3600) / 60);
+      const s = totalSec % 60;
+      if (h > 0) return `${h}h ${m.toString().padStart(2, '0')}m ${s.toString().padStart(2, '0')}s`;
+      return `${m}m ${s.toString().padStart(2, '0')}s`;
+    }
+
+    function setRecordsScope(scope) {
+      recordsScopeFilter = scope;
+      const btnWins = document.getElementById('btnRecordScopeWins');
+      const btnAll = document.getElementById('btnRecordScopeAll');
+      if (btnWins) btnWins.classList.toggle('active', scope === 'wins');
+      if (btnAll) btnAll.classList.toggle('active', scope === 'all');
+      renderHallOfRecords(rawLocalRuns);
+    }
+
     /* HALL OF RECORDS & EXTREMES */
     function setRecordsCategoryFilter(cat) {
       currentRecordsCategory = cat;
@@ -23734,289 +23761,289 @@
     }
 
     function renderHallOfRecords(runs) {
-      if (!runs || runs.length === 0) {
-        const showcase = document.getElementById('hallOfRecordsShowcase');
-        if (showcase) showcase.style.display = 'none';
-        return;
-      }
-      const showcase = document.getElementById('hallOfRecordsShowcase');
-      if (showcase) showcase.style.display = 'block';
-
-      hallOfRecordsCache = {};
-
-      // Chronological sort for streaks
-      const chronoRuns = [...runs].sort((a,b) => (a.start_time || 0) - (b.start_time || 0));
-
-      // Streaks calculation
-      let curWin = 0, maxWin = 0, winStreakRun = null;
-      let curLoss = 0, maxLoss = 0, lossStreakRun = null;
-
-      chronoRuns.forEach(r => {
-        if (r.win) {
-          curWin++;
-          curLoss = 0;
-          if (curWin >= maxWin) {
-            maxWin = curWin;
-            winStreakRun = r;
-          }
-        } else {
-          curLoss++;
-          curWin = 0;
-          if (curLoss >= maxLoss) {
-            maxLoss = curLoss;
-            lossStreakRun = r;
-          }
+      try {
+        if (!runs || runs.length === 0) {
+          const showcase = document.getElementById('hallOfRecordsShowcase');
+          if (showcase) showcase.style.display = 'none';
+          return;
         }
-      });
+        const showcase = document.getElementById('hallOfRecordsShowcase');
+        if (showcase) showcase.style.display = 'block';
 
-      let mostUpg = null, leastUpg = null;
-      let mostRests = null, leastRests = null;
-      let fastestRun = null, slowestRun = null;
-      let highestCards = null, lowestCards = null;
-      let highestRelics = null, lowestRelics = null;
-      let mostElites = null;
+        hallOfRecordsCache = {};
 
-      runs.forEach(r => {
-        const p = getPlayer(r);
-        const deck = p.deck || [];
-        const relics = p.relics || [];
-        const floors = getRunFloors(r);
-        const runTime = r.run_time || 0;
-        const isAbandoned = r.was_abandoned;
+        // Filter scope: Default to Victories Only
+        const winRuns = runs.filter(r => r.win);
+        const isWinsMode = (recordsScopeFilter === 'wins' && winRuns.length > 0);
+        const pool = isWinsMode ? winRuns : runs;
+        const scopeBadge = isWinsMode ? '🏆 Victory' : 'Climb';
 
-        // Upgraded cards in deck
-        const upgCount = deck.filter(c => (c.current_upgrade_level || 0) > 0).length;
+        // Streaks calculation (evaluated chronologically across all runs in climb career)
+        const chronoRuns = [...runs].sort((a,b) => (a.start_time || 0) - (b.start_time || 0));
+        let curWin = 0, maxWin = 0, winStreakRun = null;
+        let curLoss = 0, maxLoss = 0, lossStreakRun = null;
 
-        // Campfire heals & Elites
-        let heals = 0;
-        let elites = 0;
-        (r.map_point_history || []).forEach(act => {
-          (Array.isArray(act) ? act : [act]).forEach(node => {
-            if (node.map_point_type === 'elite') elites++;
-            (node.player_stats || []).forEach(ps => {
-              if (!p.id || String(ps.player_id) === String(p.id)) {
-                (ps.rest_site_choices || []).forEach(c => {
-                  if (c === 'HEAL' || c === 'REST') heals++;
-                });
-              }
-            });
-          });
+        chronoRuns.forEach(r => {
+          if (r.win) {
+            curWin++;
+            curLoss = 0;
+            if (curWin >= maxWin) {
+              maxWin = curWin;
+              winStreakRun = r;
+            }
+          } else {
+            curLoss++;
+            curWin = 0;
+            if (curLoss >= maxLoss) {
+              maxLoss = curLoss;
+              lossStreakRun = r;
+            }
+          }
         });
 
-        // 1. Most Cards Upgraded
-        if (!mostUpg || upgCount > mostUpg.val || (upgCount === mostUpg.val && floors > mostUpg.floors)) {
-          mostUpg = { val: upgCount, run: r, floors };
-        }
+        let mostUpg = null, leastUpg = null;
+        let mostRests = null, leastRests = null;
+        let fastestRun = null, slowestRun = null;
+        let highestCards = null, lowestCards = null;
+        let highestRelics = null, lowestRelics = null;
+        let mostElites = null;
 
-        // 2. Least Cards Upgraded (tiebreak by most floors survived)
-        if (!leastUpg || upgCount < leastUpg.val || (upgCount === leastUpg.val && floors > leastUpg.floors)) {
-          leastUpg = { val: upgCount, run: r, floors };
-        }
+        pool.forEach(r => {
+          const p = getPlayer(r);
+          const deck = p.deck || [];
+          const relics = p.relics || [];
+          const floors = getRunFloors(r);
+          const runTime = r.run_time || 0;
+          const isAbandoned = r.was_abandoned;
 
-        // 3. Most Campfire Rests
-        if (!mostRests || heals > mostRests.val || (heals === mostRests.val && floors > mostRests.floors)) {
-          mostRests = { val: heals, run: r, floors };
-        }
+          // Upgraded cards in deck
+          const upgCount = deck.filter(c => (c.current_upgrade_level || 0) > 0).length;
 
-        // 4. Least Campfire Rests (tiebreak by most floors survived)
-        if (!leastRests || heals < leastRests.val || (heals === leastRests.val && floors > leastRests.floors)) {
-          leastRests = { val: heals, run: r, floors };
-        }
+          // Campfire heals & Elites
+          let heals = 0;
+          let elites = 0;
+          (r.map_point_history || []).forEach(act => {
+            (Array.isArray(act) ? act : [act]).forEach(node => {
+              if (node.map_point_type === 'elite') elites++;
+              (node.player_stats || []).forEach(ps => {
+                if (!p.id || String(ps.player_id) === String(p.id)) {
+                  (ps.rest_site_choices || []).forEach(c => {
+                    if (c === 'HEAL' || c === 'REST') heals++;
+                  });
+                }
+              });
+            });
+          });
 
-        // 5. Fastest Run (exclude < 30s resets / floor 1 aborts)
-        if (runTime >= 30 && (!isAbandoned || runs.every(x => x.was_abandoned))) {
-          if (!fastestRun || runTime < fastestRun.val) {
-            fastestRun = { val: runTime, run: r, floors };
+          // 1. Most Cards Upgraded (tiebreak by higher floors)
+          if (!mostUpg || upgCount > mostUpg.val || (upgCount === mostUpg.val && floors > mostUpg.floors)) {
+            mostUpg = { val: upgCount, run: r, floors };
           }
-        }
 
-        // 6. Slowest Run
-        if (runTime > 0) {
-          if (!slowestRun || runTime > slowestRun.val) {
-            slowestRun = { val: runTime, run: r, floors };
+          // 2. Least Cards Upgraded (tiebreak by higher floors)
+          if (!leastUpg || upgCount < leastUpg.val || (upgCount === leastUpg.val && floors > leastUpg.floors)) {
+            leastUpg = { val: upgCount, run: r, floors };
           }
-        }
 
-        // 7. Highest Cards in Deck
-        if (deck.length > 0) {
-          if (!highestCards || deck.length > highestCards.val) {
-            highestCards = { val: deck.length, run: r, floors };
+          // 3. Most Campfire Rests
+          if (!mostRests || heals > mostRests.val || (heals === mostRests.val && floors > mostRests.floors)) {
+            mostRests = { val: heals, run: r, floors };
           }
-        }
 
-        // 8. Lowest Cards in Deck (tiebreak by most floors survived)
-        if (deck.length > 0 && (!isAbandoned || runs.every(x => x.was_abandoned))) {
-          if (!lowestCards || deck.length < lowestCards.val || (deck.length === lowestCards.val && floors > lowestCards.floors)) {
-            lowestCards = { val: deck.length, run: r, floors };
+          // 4. Least Campfire Rests
+          if (!leastRests || heals < leastRests.val || (heals === leastRests.val && floors > leastRests.floors)) {
+            leastRests = { val: heals, run: r, floors };
           }
-        }
 
-        // 9. Highest Relics
-        if (relics.length > 0) {
-          if (!highestRelics || relics.length > highestRelics.val) {
-            highestRelics = { val: relics.length, run: r, floors };
+          // 5. Fastest Run (in climbs mode, skip < 30s aborts)
+          if (runTime >= 30 && (!isAbandoned || pool.every(x => x.was_abandoned))) {
+            if (!fastestRun || runTime < fastestRun.val) {
+              fastestRun = { val: runTime, run: r, floors };
+            }
           }
-        }
 
-        // 10. Lowest Relics (tiebreak by most floors survived)
-        if (relics.length > 0 && (!isAbandoned || runs.every(x => x.was_abandoned))) {
-          if (!lowestRelics || relics.length < lowestRelics.val || (relics.length === lowestRelics.val && floors > lowestRelics.floors)) {
-            lowestRelics = { val: relics.length, run: r, floors };
+          // 6. Slowest Run
+          if (runTime > 0) {
+            if (!slowestRun || runTime > slowestRun.val) {
+              slowestRun = { val: runTime, run: r, floors };
+            }
           }
-        }
 
-        // 11. Most Elites
-        if (!mostElites || elites > mostElites.val || (elites === mostElites.val && r.win)) {
-          mostElites = { val: elites, run: r, floors };
-        }
-      });
+          // 7. Highest Cards in Deck
+          if (deck.length > 0) {
+            if (!highestCards || deck.length > highestCards.val) {
+              highestCards = { val: deck.length, run: r, floors };
+            }
+          }
 
-      // Fastest Victory check
-      let fastestWin = null;
-      runs.forEach(r => {
-        if (r.win && r.run_time > 0) {
-          if (!fastestWin || r.run_time < fastestWin.run_time) fastestWin = r;
-        }
-      });
+          // 8. Lowest Cards in Deck (tiebreak by higher floors)
+          if (deck.length > 0 && (!isAbandoned || pool.every(x => x.was_abandoned))) {
+            if (!lowestCards || deck.length < lowestCards.val || (deck.length === lowestCards.val && floors > lowestCards.floors)) {
+              lowestCards = { val: deck.length, run: r, floors };
+            }
+          }
 
-      hallOfRecordsData = [
-        {
-          id: 'mostUpgrades',
-          category: 'DECK',
-          icon: '🔨',
-          title: 'Most Cards Upgraded',
-          value: mostUpg ? `${mostUpg.val} Upgrades` : '-',
-          subtext: mostUpg ? `${mostUpg.val} / ${(getPlayer(mostUpg.run).deck || []).length} cards upgraded in deck` : '-',
-          run: mostUpg ? mostUpg.run : null,
-          accent: '#38bdf8'
-        },
-        {
-          id: 'leastUpgrades',
-          category: 'DECK',
-          icon: '⚪',
-          title: 'Least Cards Upgraded',
-          value: leastUpg ? `${leastUpg.val} Upgrades` : '-',
-          subtext: leastUpg ? `Climbed to Floor ${leastUpg.floors} with ${leastUpg.val} upgrades` : '-',
-          run: leastUpg ? leastUpg.run : null,
-          accent: '#94a3b8'
-        },
-        {
-          id: 'mostRests',
-          category: 'CAMPFIRE',
-          icon: '🏕️',
-          title: 'Most Campfire Rests',
-          value: mostRests ? `${mostRests.val} Rests Healed` : '-',
-          subtext: mostRests ? `Healed HP at ${mostRests.val} different campfires` : '-',
-          run: mostRests ? mostRests.run : null,
-          accent: '#f97316'
-        },
-        {
-          id: 'leastRests',
-          category: 'CAMPFIRE',
-          icon: '☕',
-          title: 'Least Campfire Rests',
-          value: leastRests ? `${leastRests.val} Rests (Iron Will)` : '-',
-          subtext: leastRests ? `Reached Floor ${leastRests.floors} without resting to heal once` : '-',
-          run: leastRests ? leastRests.run : null,
-          accent: '#10b981'
-        },
-        {
-          id: 'fastestRun',
-          category: 'TEMPO',
-          icon: '⚡',
-          title: 'Fastest Run',
-          value: fastestRun ? formatDuration(fastestRun.val) : '-',
-          subtext: fastestRun ? `${fastestRun.run.win ? '🏆 Victory' : 'Defeat'} (Floor ${fastestRun.floors})${fastestWin && fastestWin !== fastestRun.run ? ` • Win: ${formatDuration(fastestWin.run_time)}` : ''}` : '-',
-          run: fastestRun ? fastestRun.run : null,
-          accent: '#eab308'
-        },
-        {
-          id: 'slowestRun',
-          category: 'TEMPO',
-          icon: '🐢',
-          title: 'Slowest Run',
-          value: slowestRun ? formatDuration(slowestRun.val) : '-',
-          subtext: slowestRun ? `Deep tactical battle • Floor ${slowestRun.floors}` : '-',
-          run: slowestRun ? slowestRun.run : null,
-          accent: '#c084fc'
-        },
-        {
-          id: 'highestCards',
-          category: 'DECK',
-          icon: '📚',
-          title: 'Largest Deck Size',
-          value: highestCards ? `${highestCards.val} Cards` : '-',
-          subtext: highestCards ? `Massive card archive at run conclusion` : '-',
-          run: highestCards ? highestCards.run : null,
-          accent: '#06b6d4'
-        },
-        {
-          id: 'lowestCards',
-          category: 'DECK',
-          icon: '🎴',
-          title: 'Smallest Deck Size',
-          value: lowestCards ? `${lowestCards.val} Cards (Minimalist)` : '-',
-          subtext: lowestCards ? `Lean trimmed deck • Floor ${lowestCards.floors}` : '-',
-          run: lowestCards ? lowestCards.run : null,
-          accent: '#ec4899'
-        },
-        {
-          id: 'highestRelics',
-          category: 'RELICS',
-          icon: '👑',
-          title: 'Most Relics Collected',
-          value: highestRelics ? `${highestRelics.val} Relics` : '-',
-          subtext: highestRelics ? `Relic treasure hoard at climb finish` : '-',
-          run: highestRelics ? highestRelics.run : null,
-          accent: '#f59e0b'
-        },
-        {
-          id: 'lowestRelics',
-          category: 'RELICS',
-          icon: '🪨',
-          title: 'Fewest Relics Collected',
-          value: lowestRelics ? `${lowestRelics.val} Relic${lowestRelics.val === 1 ? '' : 's'}` : '-',
-          subtext: lowestRelics ? `Minimalist trinket loadout • Floor ${lowestRelics.floors}` : '-',
-          run: lowestRelics ? lowestRelics.run : null,
-          accent: '#64748b'
-        },
-        {
-          id: 'winStreak',
-          category: 'TEMPO',
-          icon: '🏆',
-          title: 'Most Wins in a Row',
-          value: `${maxWin} Wins Streak`,
-          subtext: winStreakRun ? `Peak Win Streak • Capstone: ${cleanId(getPlayer(winStreakRun).character || 'Hero')} A${winStreakRun.ascension || 0}` : 'No victory streak recorded yet',
-          run: winStreakRun,
-          accent: '#10b981'
-        },
-        {
-          id: 'lossStreak',
-          category: 'TEMPO',
-          icon: '💀',
-          title: 'Most Losses in a Row',
-          value: `${maxLoss} Losses Streak`,
-          subtext: lossStreakRun ? `Peak Loss Streak • Concluded: ${cleanId(getPlayer(lossStreakRun).character || 'Hero')} Floor ${getRunFloors(lossStreakRun)}` : '-',
-          run: lossStreakRun,
-          accent: '#f43f5e'
-        },
-        {
-          id: 'mostElites',
-          category: 'COMBAT',
-          icon: '🗡️',
-          title: 'Most Elites Killed',
-          value: mostElites ? `${mostElites.val} Elites Slain` : '-',
-          subtext: mostElites ? `Elite hunts in a single run • Floor ${mostElites.floors}` : '-',
-          run: mostElites ? mostElites.run : null,
-          accent: '#ef4444'
-        }
-      ];
+          // 9. Highest Relics
+          if (relics.length > 0) {
+            if (!highestRelics || relics.length > highestRelics.val) {
+              highestRelics = { val: relics.length, run: r, floors };
+            }
+          }
 
-      hallOfRecordsData.forEach(item => {
-        if (item.run) hallOfRecordsCache[item.id] = item.run;
-      });
+          // 10. Lowest Relics (tiebreak by higher floors)
+          if (relics.length > 0 && (!isAbandoned || pool.every(x => x.was_abandoned))) {
+            if (!lowestRelics || relics.length < lowestRelics.val || (relics.length === lowestRelics.val && floors > lowestRelics.floors)) {
+              lowestRelics = { val: relics.length, run: r, floors };
+            }
+          }
 
-      renderRecordsGrid();
+          // 11. Most Elites
+          if (!mostElites || elites > mostElites.val || (elites === mostElites.val && (r.win || floors > mostElites.floors))) {
+            mostElites = { val: elites, run: r, floors };
+          }
+        });
+
+        hallOfRecordsData = [
+          {
+            id: 'mostUpgrades',
+            category: 'DECK',
+            icon: '🔨',
+            title: 'Most Cards Upgraded',
+            value: mostUpg ? `${mostUpg.val} Upgrades` : '-',
+            subtext: mostUpg ? `${mostUpg.val} / ${(getPlayer(mostUpg.run).deck || []).length} cards upgraded in deck (${scopeBadge})` : '-',
+            run: mostUpg ? mostUpg.run : null,
+            accent: '#38bdf8'
+          },
+          {
+            id: 'leastUpgrades',
+            category: 'DECK',
+            icon: '⚪',
+            title: 'Least Cards Upgraded',
+            value: leastUpg ? `${leastUpg.val} Upgrades` : '-',
+            subtext: leastUpg ? `Floor ${leastUpg.floors} ${scopeBadge} with ${leastUpg.val} upgrade${leastUpg.val === 1 ? '' : 's'}` : '-',
+            run: leastUpg ? leastUpg.run : null,
+            accent: '#94a3b8'
+          },
+          {
+            id: 'mostRests',
+            category: 'CAMPFIRE',
+            icon: '🏕️',
+            title: 'Most Campfire Rests',
+            value: mostRests ? `${mostRests.val} Rests Healed` : '-',
+            subtext: mostRests ? `Healed HP at ${mostRests.val} different campfires (${scopeBadge})` : '-',
+            run: mostRests ? mostRests.run : null,
+            accent: '#f97316'
+          },
+          {
+            id: 'leastRests',
+            category: 'CAMPFIRE',
+            icon: '☕',
+            title: 'Least Campfire Rests',
+            value: leastRests ? `${leastRests.val} Rests (Iron Will)` : '-',
+            subtext: leastRests ? `Reached Floor ${leastRests.floors} ${scopeBadge} with ${leastRests.val} rest heals` : '-',
+            run: leastRests ? leastRests.run : null,
+            accent: '#10b981'
+          },
+          {
+            id: 'fastestRun',
+            category: 'TEMPO',
+            icon: '⚡',
+            title: isWinsMode ? 'Fastest Victory' : 'Fastest Run',
+            value: fastestRun ? formatDuration(fastestRun.val) : '-',
+            subtext: fastestRun ? `${fastestRun.run.win ? '🏆 Victory' : 'Defeat'} • Floor ${fastestRun.floors} • Speed Demon` : '-',
+            run: fastestRun ? fastestRun.run : null,
+            accent: '#eab308'
+          },
+          {
+            id: 'slowestRun',
+            category: 'TEMPO',
+            icon: '🐢',
+            title: isWinsMode ? 'Slowest Victory' : 'Slowest Run',
+            value: slowestRun ? formatDuration(slowestRun.val) : '-',
+            subtext: slowestRun ? `Deep tactical battle • Floor ${slowestRun.floors} (${scopeBadge})` : '-',
+            run: slowestRun ? slowestRun.run : null,
+            accent: '#c084fc'
+          },
+          {
+            id: 'highestCards',
+            category: 'DECK',
+            icon: '📚',
+            title: 'Largest Deck Size',
+            value: highestCards ? `${highestCards.val} Cards` : '-',
+            subtext: highestCards ? `Massive card archive at ${scopeBadge.toLowerCase()} conclusion` : '-',
+            run: highestCards ? highestCards.run : null,
+            accent: '#06b6d4'
+          },
+          {
+            id: 'lowestCards',
+            category: 'DECK',
+            icon: '🎴',
+            title: 'Smallest Deck Size',
+            value: lowestCards ? `${lowestCards.val} Cards (Minimalist)` : '-',
+            subtext: lowestCards ? `Lean trimmed deck • Floor ${lowestCards.floors} (${scopeBadge})` : '-',
+            run: lowestCards ? lowestCards.run : null,
+            accent: '#ec4899'
+          },
+          {
+            id: 'highestRelics',
+            category: 'RELICS',
+            icon: '👑',
+            title: 'Most Relics Collected',
+            value: highestRelics ? `${highestRelics.val} Relics` : '-',
+            subtext: highestRelics ? `Relic treasure hoard at ${scopeBadge.toLowerCase()} finish` : '-',
+            run: highestRelics ? highestRelics.run : null,
+            accent: '#f59e0b'
+          },
+          {
+            id: 'lowestRelics',
+            category: 'RELICS',
+            icon: '🪨',
+            title: 'Fewest Relics Collected',
+            value: lowestRelics ? `${lowestRelics.val} Relic${lowestRelics.val === 1 ? '' : 's'}` : '-',
+            subtext: lowestRelics ? `Minimalist trinket loadout • Floor ${lowestRelics.floors} (${scopeBadge})` : '-',
+            run: lowestRelics ? lowestRelics.run : null,
+            accent: '#64748b'
+          },
+          {
+            id: 'winStreak',
+            category: 'TEMPO',
+            icon: '🏆',
+            title: 'Most Wins in a Row',
+            value: `${maxWin} Wins Streak`,
+            subtext: winStreakRun ? `Peak Win Streak • Capstone: ${cleanId(getPlayer(winStreakRun).character || 'Hero')} A${winStreakRun.ascension || 0}` : 'No victory streak recorded yet',
+            run: winStreakRun,
+            accent: '#10b981'
+          },
+          {
+            id: 'lossStreak',
+            category: 'TEMPO',
+            icon: '💀',
+            title: 'Most Losses in a Row',
+            value: `${maxLoss} Losses Streak`,
+            subtext: lossStreakRun ? `Peak Loss Streak across career • Floor ${getRunFloors(lossStreakRun)}` : '-',
+            run: lossStreakRun,
+            accent: '#f43f5e'
+          },
+          {
+            id: 'mostElites',
+            category: 'COMBAT',
+            icon: '🗡️',
+            title: 'Most Elites Killed',
+            value: mostElites ? `${mostElites.val} Elites Slain` : '-',
+            subtext: mostElites ? `Elite hunts in a single run • Floor ${mostElites.floors} (${scopeBadge})` : '-',
+            run: mostElites ? mostElites.run : null,
+            accent: '#ef4444'
+          }
+        ];
+
+        hallOfRecordsData.forEach(item => {
+          if (item.run) hallOfRecordsCache[item.id] = item.run;
+        });
+
+        renderRecordsGrid();
+      } catch (err) {
+        console.error('Error rendering Hall of Records:', err);
+      }
     }
 
     function renderRecordsGrid() {
