@@ -2038,13 +2038,157 @@
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /* Community Forum & Feedback Hub Styles */
+    .forum-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .forum-banner {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.12), rgba(20, 24, 33, 0.95));
+      border: 1px solid rgba(234, 179, 8, 0.35);
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin-bottom: 22px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .forum-composer {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 22px 26px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      transition: border-color 0.2s;
+    }
+    .forum-composer:focus-within {
+      border-color: rgba(234, 179, 8, 0.45);
+    }
+    .forum-input, .forum-select, .forum-textarea {
+      width: 100%;
+      background: rgba(13, 16, 23, 0.7);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .forum-input:focus, .forum-select:focus, .forum-textarea:focus {
+      border-color: var(--gold-spire);
+    }
+    .forum-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      background: rgba(13, 16, 23, 0.5);
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--border-subtle);
+    }
+    .forum-post-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 22px 24px;
+      margin-bottom: 18px;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+    .forum-post-card:hover {
+      border-color: var(--border-light);
+      background: var(--bg-card-hover);
+    }
+    .forum-post-card.pinned {
+      border-color: rgba(234, 179, 8, 0.5);
+      background: linear-gradient(180deg, rgba(234, 179, 8, 0.06) 0%, rgba(20, 24, 33, 0.95) 100%);
+      box-shadow: 0 4px 25px rgba(234, 179, 8, 0.12);
+    }
+    .forum-creator-badge {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.22), rgba(217, 119, 6, 0.2));
+      border: 1px solid var(--gold-spire);
+      color: var(--gold-spire);
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      letter-spacing: 0.3px;
+    }
+    .forum-category-pill {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .cat-SUGGESTION { background: rgba(234, 179, 8, 0.15); color: #fbbf24; border: 1px solid rgba(234, 179, 8, 0.3); }
+    .cat-BUG { background: rgba(244, 63, 94, 0.15); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.3); }
+    .cat-BALANCE { background: rgba(168, 85, 247, 0.15); color: #c084fc; border: 1px solid rgba(168, 85, 247, 0.3); }
+    .cat-GENERAL { background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .cat-ANNOUNCEMENT { background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+
+    .forum-reply-box {
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .forum-reply-item {
+      background: rgba(13, 16, 23, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+    }
+    .forum-reply-item.creator-reply {
+      background: linear-gradient(135deg, rgba(234, 179, 8, 0.08), rgba(20, 24, 33, 0.8));
+      border: 1px solid rgba(234, 179, 8, 0.45);
+      box-shadow: 0 0 15px rgba(234, 179, 8, 0.08);
+    }
+    .forum-action-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .forum-action-btn:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      border-color: var(--border-light);
+    }
+    .forum-action-btn.liked {
+      background: rgba(234, 179, 8, 0.15);
+      border-color: var(--gold-spire);
+      color: var(--gold-spire);
+      font-weight: 700;
+    }
   </style>
 </head>
 <body>
   <div class="app-container">
     <!-- Header -->
     <header>
-      <div class="brand">
+      <div class="brand" onclick="goHome()" style="cursor: pointer;" title="Back to Home / Run History">
         <div class="brand-icon">
           <img src="assets/relics/burning_blood.png" alt="Slay the Spire 2" style="width: 34px; height: 34px; object-fit: contain; filter: drop-shadow(0 0 10px rgba(245, 158, 11, 0.7));" onerror="this.onerror=null; this.src='assets/relics/neows_talisman.png';" />
         </div>
@@ -2128,6 +2272,10 @@
       <button class="nav-tab" id="tabBtnUpload" onclick="switchTab('upload')">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
         Upload &amp; Sync Runs
+      </button>
+      <button class="nav-tab" id="tabBtnForum" onclick="switchTab('forum')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        Community &amp; Feedback
       </button>
     </div>
 
@@ -2997,6 +3145,128 @@
         <div id="saveValidationMsg" style="display: none; margin-top: 16px; padding: 12px 16px; border-radius: 8px; font-size: 12px; font-weight: 600; text-align: left; line-height: 1.5;"></div>
       </div>
     </div>
+
+    <!-- TAB 5: COMMUNITY & FEEDBACK FORUM -->
+    <div id="tabContentForum" style="display: none;">
+      <div class="forum-container">
+        <!-- Banner -->
+        <div class="forum-banner">
+          <div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+              <span style="font-size: 26px;">💬</span>
+              <h2 style="font-family: var(--font-title); color: var(--gold-spire); font-size: 22px; letter-spacing: 0.5px;">
+                Spire Council Community &amp; Feedback
+              </h2>
+            </div>
+            <p style="font-size: 13px; color: var(--text-muted); max-width: 720px; line-height: 1.6;">
+              Have a feature recommendation, gameplay balance idea, or found a bug? Post it below!
+              The creator (<strong>Apocaelypze</strong>) reads and responds directly to community feedback.
+            </p>
+          </div>
+          <div id="forumOwnerStatusContainer" style="display: flex; align-items: center; gap: 10px;">
+            <!-- Rendered dynamically by updateForumOwnerStatusUI() -->
+          </div>
+        </div>
+
+        <!-- Create New Post Composer -->
+        <div class="forum-composer">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <div style="font-weight: 700; color: var(--text-main); font-size: 15px; display: flex; align-items: center; gap: 8px;">
+              <span>✍️</span> <span>Submit a Topic or Feedback</span>
+            </div>
+            <span style="font-size: 12px; color: var(--text-dim);">Publicly visible to all Spire Slayers</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+            <div>
+              <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Your Name / Handle</label>
+              <input type="text" id="forumAuthorInput" class="forum-input" placeholder="e.g. IroncladMain99, Anonymous Slayer" />
+            </div>
+            <div>
+              <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Category</label>
+              <select id="forumCategorySelect" class="forum-select">
+                <option value="SUGGESTION">💡 Feature Recommendation / Suggestion</option>
+                <option value="BUG">🐛 Bug Report / Telemetry Glitch</option>
+                <option value="BALANCE">⚔️ Balance &amp; Strategy Idea</option>
+                <option value="GENERAL">💬 General Discussion</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 12px;">
+            <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Topic Title</label>
+            <input type="text" id="forumTitleInput" class="forum-input" placeholder="Brief summary of your topic..." />
+          </div>
+
+          <div style="margin-bottom: 14px;">
+            <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Message Details</label>
+            <textarea id="forumContentInput" class="forum-textarea" rows="3" placeholder="Provide any details, floor numbers, card interactions, or ideas..."></textarea>
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: gap; gap: 10px;">
+            <span id="forumSubmitStatus" style="font-size: 12px; color: var(--text-muted);"></span>
+            <button class="btn-primary" onclick="submitForumPost()" id="btnSubmitForumPost" style="padding: 9px 24px; font-weight: 600;">
+              🚀 Publish Post
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter & Search Bar -->
+        <div class="forum-toolbar">
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span style="font-size: 12px; font-weight: 600; color: var(--text-muted);">Filter:</span>
+            <button class="filter-pill active" onclick="setForumFilter('ALL', this)">All</button>
+            <button class="filter-pill" onclick="setForumFilter('SUGGESTION', this)">💡 Suggestions</button>
+            <button class="filter-pill" onclick="setForumFilter('BUG', this)">🐛 Bugs</button>
+            <button class="filter-pill" onclick="setForumFilter('BALANCE', this)">⚔️ Balance</button>
+            <button class="filter-pill" onclick="setForumFilter('GENERAL', this)">💬 General</button>
+          </div>
+
+          <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+            <input type="text" id="forumSearchInput" class="forum-input" placeholder="Search topics..." style="width: 180px; padding: 6px 12px; font-size: 12px;" oninput="onForumSearch(this.value)" />
+            <select id="forumSortSelect" class="forum-select" style="width: 150px; padding: 6px 12px; font-size: 12px;" onchange="onForumSort(this.value)">
+              <option value="newest">🔥 Newest First</option>
+              <option value="likes">⭐ Most Upvotes</option>
+              <option value="replies">💬 Most Replies</option>
+            </select>
+            <button class="btn-secondary" onclick="loadForumData(true)" title="Refresh Posts" style="padding: 6px 12px; font-size: 12px;">
+              🔄 Refresh
+            </button>
+          </div>
+        </div>
+
+        <!-- Posts Feed Container -->
+        <div id="forumPostsContainer">
+          <div style="text-align: center; padding: 40px; color: var(--text-muted);">
+            Loading community discussions...
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- OWNER AUTH MODAL -->
+  <div id="ownerAuthModal" class="modal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(8px); z-index: 10000; justify-content: center; align-items: center;">
+    <div style="background: var(--bg-card); border: 1px solid var(--gold-spire); border-radius: 16px; width: 90%; max-width: 440px; padding: 28px; box-shadow: 0 20px 50px rgba(0,0,0,0.8); position: relative;">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+        <span style="font-size: 24px;">👑</span>
+        <h3 style="font-family: var(--font-title); color: var(--gold-spire); font-size: 20px;">Creator Authentication</h3>
+      </div>
+      <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 18px;">
+        Enter the creator passphrase to verify yourself as <strong>Apocaelypze</strong>. Unlocks the Creator Crown badge, highlighted YouTube-style pinned replies, and moderation controls.
+      </p>
+
+      <div style="margin-bottom: 18px;">
+        <label style="display: block; font-size: 11px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; margin-bottom: 6px;">Passphrase</label>
+        <input type="password" id="ownerPassInput" class="forum-input" placeholder="Enter creator passphrase..." onkeydown="if(event.key==='Enter') verifyOwnerLogin()" />
+        <div id="ownerAuthError" style="display: none; color: var(--loss-color); font-size: 12px; margin-top: 6px;">Incorrect passphrase. Please try again.</div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button class="btn-secondary" onclick="closeOwnerLoginModal()" style="padding: 8px 16px;">Cancel</button>
+        <button class="btn-primary" onclick="verifyOwnerLogin()" style="padding: 8px 20px; font-weight: 600;">👑 Verify &amp; Unlock</button>
+      </div>
+    </div>
   </div>
 
   <!-- FLOATING SMART TOOLTIP -->
@@ -3123,6 +3393,8 @@
       checkUrlForSharedRun();
       if (window.location.hash === '#upload' || window.location.pathname.endsWith('/upload')) {
         switchTab('upload');
+      } else if (window.location.hash === '#forum' || window.location.pathname.endsWith('/forum')) {
+        switchTab('forum');
       }
     });
 
@@ -4158,7 +4430,36 @@
           const charName = (CHAR_CONFIG[cKey] ? CHAR_CONFIG[cKey].name : '').toLowerCase();
           const runNumStr = r._runNumber ? String(r._runNumber) : '';
           const matchRun = (runNumStr === q || `#${runNumStr}` === q || `run ${runNumStr}` === q || `run #${runNumStr}` === q);
-          if (!seed.includes(q) && !killedBy.includes(q) && !charName.includes(q) && !matchRun) return false;
+
+          // Card search across all players in the run
+          const matchCard = (r.players || []).some(pl => 
+            (pl.deck || []).some(c => {
+              if (!c) return false;
+              const cId = (typeof c === 'string' ? c : (c.id || (c.card && c.card.id) || ''));
+              if (!cId) return false;
+              const raw = cId.toLowerCase();
+              const clean = cleanId(cId).toLowerCase();
+              const dbCard = (gameDatabase && gameDatabase.cards) ? gameDatabase.cards[cId] : null;
+              const dbTitle = (dbCard && (dbCard.title || dbCard.name)) ? String(dbCard.title || dbCard.name).toLowerCase() : '';
+              return raw.includes(q) || clean.includes(q) || dbTitle.includes(q);
+            })
+          );
+
+          // Relic search across all players in the run
+          const matchRelic = (r.players || []).some(pl => 
+            (pl.relics || []).some(rl => {
+              if (!rl) return false;
+              const rId = (typeof rl === 'string' ? rl : (rl.id || ''));
+              if (!rId) return false;
+              const raw = rId.toLowerCase();
+              const clean = cleanId(rId).toLowerCase();
+              const dbRelic = (gameDatabase && gameDatabase.relics) ? gameDatabase.relics[rId] : null;
+              const dbTitle = (dbRelic && (dbRelic.title || dbRelic.name)) ? String(dbRelic.title || dbRelic.name).toLowerCase() : '';
+              return raw.includes(q) || clean.includes(q) || dbTitle.includes(q);
+            })
+          );
+
+          if (!seed.includes(q) && !killedBy.includes(q) && !charName.includes(q) && !matchRun && !matchCard && !matchRelic) return false;
         }
         return true;
       });
@@ -4342,6 +4643,40 @@
 
         const runNumPill = r._runNumber ? `<span class="run-number-badge">Run #${r._runNumber}</span>` : '';
 
+        let searchMatchBadge = '';
+        if (activeFilters.search) {
+          const q = activeFilters.search;
+          const matchedCard = (r.players || []).flatMap(pl => (pl.deck || []).filter(c => {
+            if (!c) return false;
+            const cId = (typeof c === 'string' ? c : (c.id || (c.card && c.card.id) || ''));
+            if (!cId) return false;
+            const raw = cId.toLowerCase();
+            const clean = cleanId(cId).toLowerCase();
+            const dbCard = (gameDatabase && gameDatabase.cards) ? gameDatabase.cards[cId] : null;
+            const dbTitle = (dbCard && (dbCard.title || dbCard.name)) ? String(dbCard.title || dbCard.name).toLowerCase() : '';
+            return raw.includes(q) || clean.includes(q) || dbTitle.includes(q);
+          }))[0];
+
+          const matchedRelic = (r.players || []).flatMap(pl => (pl.relics || []).filter(rl => {
+            if (!rl) return false;
+            const rId = (typeof rl === 'string' ? rl : (rl.id || ''));
+            if (!rId) return false;
+            const raw = rId.toLowerCase();
+            const clean = cleanId(rId).toLowerCase();
+            const dbRelic = (gameDatabase && gameDatabase.relics) ? gameDatabase.relics[rId] : null;
+            const dbTitle = (dbRelic && (dbRelic.title || dbRelic.name)) ? String(dbRelic.title || dbRelic.name).toLowerCase() : '';
+            return raw.includes(q) || clean.includes(q) || dbTitle.includes(q);
+          }))[0];
+
+          if (matchedCard) {
+            const cId = (typeof matchedCard === 'string' ? matchedCard : (matchedCard.id || ''));
+            searchMatchBadge = `<div style="margin-top: 4px;"><span style="font-size: 11px; color: var(--gold-spire); background: rgba(234, 179, 8, 0.15); border: 1px solid rgba(234, 179, 8, 0.35); border-radius: 4px; padding: 2px 7px; display: inline-flex; align-items: center; gap: 4px;">🃏 Deck: <strong>${cleanId(cId)}</strong></span></div>`;
+          } else if (matchedRelic) {
+            const rId = (typeof matchedRelic === 'string' ? matchedRelic : (matchedRelic.id || ''));
+            searchMatchBadge = `<div style="margin-top: 4px;"><span style="font-size: 11px; color: #38bdf8; background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 4px; padding: 2px 7px; display: inline-flex; align-items: center; gap: 4px;">💍 Relic: <strong>${cleanId(rId)}</strong></span></div>`;
+          }
+        }
+
         const card = document.createElement('div');
         card.className = `run-card ${outcomeClass}`;
         card.onclick = () => openModal(r);
@@ -4378,6 +4713,7 @@
               <span>🗺️ <strong>Floor ${floorCount}</strong></span>
               <span>⚔️ <strong>~${calculateRunTotalDamageDealt(r).toLocaleString()}</strong> DMG</span>
             </div>
+            ${searchMatchBadge}
           </div>
 
           <div class="run-combat-col">
@@ -6753,22 +7089,51 @@
       openLoadSavesModal();
     }
 
+    function goHome() {
+      switchTab('runs');
+      const searchInput = document.getElementById('searchInput');
+      if (searchInput && searchInput.value) {
+        searchInput.value = '';
+        activeFilters.search = '';
+      }
+      activeFilters.character = 'ALL';
+      activeFilters.outcome = 'ALL';
+      activeFilters.mode = 'ALL';
+      activeBadgeFilter = null;
+      document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+      const allPill = document.querySelector('.filter-pill[data-filter="ALL"]');
+      if (allPill) allPill.classList.add('active');
+      currentRunsPage = 1;
+      applyFiltersAndRender();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     function switchTab(tab) {
       currentTab = tab;
       document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
-      document.getElementById('tabContentRuns').style.display = tab === 'runs' ? 'block' : 'none';
-      document.getElementById('tabContentAnalytics').style.display = tab === 'analytics' ? 'block' : 'none';
-      document.getElementById('tabContentNemesis').style.display = tab === 'nemesis' ? 'block' : 'none';
+      const runsTab = document.getElementById('tabContentRuns');
+      if (runsTab) runsTab.style.display = tab === 'runs' ? 'block' : 'none';
+      const analyticsTab = document.getElementById('tabContentAnalytics');
+      if (analyticsTab) analyticsTab.style.display = tab === 'analytics' ? 'block' : 'none';
+      const nemesisTab = document.getElementById('tabContentNemesis');
+      if (nemesisTab) nemesisTab.style.display = tab === 'nemesis' ? 'block' : 'none';
       const uploadTab = document.getElementById('tabContentUpload');
       if (uploadTab) uploadTab.style.display = tab === 'upload' ? 'block' : 'none';
+      const forumTab = document.getElementById('tabContentForum');
+      if (forumTab) forumTab.style.display = tab === 'forum' ? 'block' : 'none';
 
-      if (tab === 'runs') document.getElementById('tabBtnRuns').classList.add('active');
+      if (tab === 'runs') {
+        const btn = document.getElementById('tabBtnRuns');
+        if (btn) btn.classList.add('active');
+      }
       if (tab === 'analytics') {
-        document.getElementById('tabBtnAnalytics').classList.add('active');
+        const btn = document.getElementById('tabBtnAnalytics');
+        if (btn) btn.classList.add('active');
         updateMetaVisibility();
       }
       if (tab === 'nemesis') {
-        document.getElementById('tabBtnNemesis').classList.add('active');
+        const btn = document.getElementById('tabBtnNemesis');
+        if (btn) btn.classList.add('active');
         renderNemesisTable();
       }
       if (tab === 'upload') {
@@ -6777,6 +7142,586 @@
         const summaryCount = document.getElementById('uploadSummaryCount');
         if (summaryCount) summaryCount.innerText = rawLocalRuns.length;
       }
+      if (tab === 'forum') {
+        const btnForum = document.getElementById('tabBtnForum');
+        if (btnForum) btnForum.classList.add('active');
+        updateForumOwnerStatusUI();
+        loadForumData();
+      }
+    }
+
+    /* ======================================================================
+       COMMUNITY FORUM & FEEDBACK HUB (FIREBASE RTDB)
+       ====================================================================== */
+    const FORUM_RTDB_BASE = 'https://slay-the-spire-2-tracker-default-rtdb.firebaseio.com/forum';
+    let forumState = {
+      posts: {},
+      replies: {}
+    };
+    let forumActiveCategory = 'ALL';
+    let forumSearchQuery = '';
+    let forumSortOrder = 'newest';
+    let forumExpandedReplies = new Set();
+
+    function isOwnerAuthenticated() {
+      return localStorage.getItem('sts2_owner_authenticated') === 'true';
+    }
+
+    function openOwnerLoginModal() {
+      const modal = document.getElementById('ownerAuthModal');
+      if (modal) {
+        modal.style.display = 'flex';
+        const err = document.getElementById('ownerAuthError');
+        if (err) err.style.display = 'none';
+        const inp = document.getElementById('ownerPassInput');
+        if (inp) {
+          inp.value = '';
+          setTimeout(() => inp.focus(), 100);
+        }
+      }
+    }
+
+    function closeOwnerLoginModal() {
+      const modal = document.getElementById('ownerAuthModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    function verifyOwnerLogin() {
+      const inp = document.getElementById('ownerPassInput');
+      const err = document.getElementById('ownerAuthError');
+      const val = (inp ? inp.value.trim() : '');
+      if (val.toLowerCase() === 'apocaelypze') {
+        localStorage.setItem('sts2_owner_authenticated', 'true');
+        closeOwnerLoginModal();
+        updateForumOwnerStatusUI();
+        renderForumPosts();
+        showToast('👑 Welcome back, Apocaelypze! Creator badge active.');
+      } else {
+        if (err) err.style.display = 'block';
+      }
+    }
+
+    function logoutOwner() {
+      localStorage.removeItem('sts2_owner_authenticated');
+      updateForumOwnerStatusUI();
+      renderForumPosts();
+      showToast('Logged out of Creator account.');
+    }
+
+    function updateForumOwnerStatusUI() {
+      const statusContainer = document.getElementById('forumOwnerStatusContainer');
+      const authorInput = document.getElementById('forumAuthorInput');
+      const isOwner = isOwnerAuthenticated();
+
+      if (statusContainer) {
+        if (isOwner) {
+          statusContainer.innerHTML = `
+            <div style="display: flex; align-items: center; gap: 8px; background: rgba(234, 179, 8, 0.16); border: 1px solid var(--gold-spire); border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 700; color: var(--gold-spire); box-shadow: 0 0 15px rgba(234, 179, 8, 0.2);">
+              <span>👑</span>
+              <span>Apocaelypze (Creator Active)</span>
+              <button onclick="logoutOwner()" style="background: none; border: none; color: var(--text-dim); cursor: pointer; margin-left: 6px; font-size: 11px; text-decoration: underline;" title="Sign out of Creator privileges">Log Out</button>
+            </div>
+          `;
+        } else {
+          statusContainer.innerHTML = `
+            <button class="btn-secondary" onclick="openOwnerLoginModal()" style="display: flex; align-items: center; gap: 8px; font-size: 12px; padding: 6px 14px; border-color: rgba(234, 179, 8, 0.4);">
+              <span style="font-size: 14px;">👑</span>
+              <span>Creator Login</span>
+            </button>
+          `;
+        }
+      }
+
+      if (authorInput) {
+        if (isOwner) {
+          authorInput.value = 'Apocaelypze';
+          authorInput.disabled = true;
+          authorInput.style.color = 'var(--gold-spire)';
+          authorInput.style.fontWeight = '700';
+        } else {
+          if (authorInput.disabled) {
+            authorInput.value = '';
+            authorInput.disabled = false;
+            authorInput.style.color = 'var(--text-main)';
+            authorInput.style.fontWeight = 'normal';
+          }
+        }
+      }
+    }
+
+    async function loadForumData(forceToast = false) {
+      const container = document.getElementById('forumPostsContainer');
+      try {
+        const resp = await fetch(`${FORUM_RTDB_BASE}.json`);
+        if (resp.ok) {
+          const data = await resp.json();
+          if (data) {
+            forumState.posts = data.posts || {};
+            forumState.replies = data.replies || {};
+          } else {
+            forumState.posts = {};
+            forumState.replies = {};
+          }
+          renderForumPosts();
+          if (forceToast) showToast('Forum refreshed with latest discussions.');
+        } else {
+          throw new Error('HTTP ' + resp.status);
+        }
+      } catch (e) {
+        console.warn('Could not load forum data from Firebase RTDB:', e);
+        if (container && (!forumState.posts || Object.keys(forumState.posts).length === 0)) {
+          container.innerHTML = `
+            <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 24px; text-align: center; color: var(--text-muted);">
+              <div style="font-size: 20px; margin-bottom: 8px;">📡</div>
+              <div>Connecting to Spire Council Community Network...</div>
+              <button class="btn-secondary" onclick="loadForumData(true)" style="margin-top: 12px; padding: 6px 14px; font-size: 12px;">Try Again</button>
+            </div>
+          `;
+        }
+      }
+    }
+
+    function setForumFilter(cat, btn) {
+      forumActiveCategory = cat;
+      document.querySelectorAll('#tabContentForum .filter-pill').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderForumPosts();
+    }
+
+    function onForumSearch(val) {
+      forumSearchQuery = (val || '').trim().toLowerCase();
+      renderForumPosts();
+    }
+
+    function onForumSort(val) {
+      forumSortOrder = val;
+      renderForumPosts();
+    }
+
+    function toggleRepliesView(postId) {
+      if (forumExpandedReplies.has(postId)) {
+        forumExpandedReplies.delete(postId);
+      } else {
+        forumExpandedReplies.add(postId);
+      }
+      renderForumPosts();
+    }
+
+    function renderForumPosts() {
+      const container = document.getElementById('forumPostsContainer');
+      if (!container) return;
+
+      const isOwner = isOwnerAuthenticated();
+      const postsObj = forumState.posts || {};
+      const repliesObj = forumState.replies || {};
+
+      let postsList = Object.entries(postsObj).map(([id, post]) => {
+        return { id, ...post };
+      });
+
+      // Filter by category
+      if (forumActiveCategory !== 'ALL') {
+        postsList = postsList.filter(p => p.category === forumActiveCategory);
+      }
+
+      // Filter by search query
+      if (forumSearchQuery) {
+        postsList = postsList.filter(p => {
+          const t = (p.title || '').toLowerCase();
+          const c = (p.content || '').toLowerCase();
+          const a = (p.author || '').toLowerCase();
+          return t.includes(forumSearchQuery) || c.includes(forumSearchQuery) || a.includes(forumSearchQuery);
+        });
+      }
+
+      // Sort
+      postsList.sort((a, b) => {
+        // Pinned posts always first
+        const pinA = a.pinned ? 1 : 0;
+        const pinB = b.pinned ? 1 : 0;
+        if (pinA !== pinB) return pinB - pinA;
+
+        if (forumSortOrder === 'likes') {
+          const lA = a.likes || 0;
+          const lB = b.likes || 0;
+          if (lA !== lB) return lB - lA;
+        } else if (forumSortOrder === 'replies') {
+          const rA = repliesObj[a.id] ? Object.keys(repliesObj[a.id]).length : 0;
+          const rB = repliesObj[b.id] ? Object.keys(repliesObj[b.id]).length : 0;
+          if (rA !== rB) return rB - rA;
+        }
+        // Default: newest first
+        return (b.timestamp || 0) - (a.timestamp || 0);
+      });
+
+      if (postsList.length === 0) {
+        container.innerHTML = `
+          <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 40px; text-align: center; color: var(--text-muted);">
+            <div style="font-size: 32px; margin-bottom: 12px;">🗡️</div>
+            <div style="font-size: 16px; font-weight: 600; color: var(--text-main); margin-bottom: 6px;">No topics found in this category</div>
+            <p style="font-size: 13px;">Be the first Slayer to post a recommendation or feedback topic using the composer above!</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = postsList.map(post => {
+        const postRepliesObj = repliesObj[post.id] || {};
+        const replyKeys = Object.keys(postRepliesObj);
+        const replyCount = replyKeys.length;
+        const isPinned = !!post.pinned;
+        const isPostOwner = (post.authorRole === 'owner');
+        const isPostSystem = (post.authorRole === 'system');
+        const isLiked = localStorage.getItem('sts2_liked_' + post.id) === 'true';
+        const likesCount = post.likes || 0;
+        const showReplies = forumExpandedReplies.has(post.id) || replyCount > 0;
+
+        let authorBadgeHtml = '';
+        if (isPostOwner) {
+          authorBadgeHtml = `
+            <span class="forum-creator-badge" title="Verified Tracker Creator">
+              <span>👑</span>
+              <span>${post.author || 'Apocaelypze'}</span>
+              <span style="font-size: 9px; opacity: 0.85; letter-spacing: 0.5px;">CREATOR</span>
+            </span>
+          `;
+        } else if (isPostSystem) {
+          authorBadgeHtml = `
+            <span style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.4); color: #38bdf8; font-weight: 700; padding: 3px 10px; border-radius: 12px; display: inline-flex; align-items: center; gap: 5px; font-size: 11px;">
+              <span>⚙️</span>
+              <span>${post.author || 'Spire System'}</span>
+            </span>
+          `;
+        } else {
+          authorBadgeHtml = `
+            <span style="color: var(--text-main); font-weight: 600; font-size: 13px; display: inline-flex; align-items: center; gap: 6px;">
+              <span>🛡️</span>
+              <span>${escapeHtml(post.author || 'Anonymous Slayer')}</span>
+            </span>
+          `;
+        }
+
+        const catClass = 'cat-' + (post.category || 'GENERAL');
+        const catLabels = {
+          'SUGGESTION': '💡 Suggestion',
+          'BUG': '🐛 Bug Report',
+          'BALANCE': '⚔️ Balance',
+          'GENERAL': '💬 General',
+          'ANNOUNCEMENT': '📢 Announcement'
+        };
+        const catLabel = catLabels[post.category] || post.category || '💬 General';
+
+        // Format replies list
+        const repliesSorted = Object.entries(postRepliesObj)
+          .map(([rId, rData]) => ({ id: rId, ...rData }))
+          .sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+
+        let repliesListHtml = '';
+        if (repliesSorted.length > 0) {
+          repliesListHtml = repliesSorted.map(rep => {
+            const isRepOwner = (rep.authorRole === 'owner');
+            return `
+              <div class="forum-reply-item ${isRepOwner ? 'creator-reply' : ''}">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; flex-wrap: wrap; gap: 8px;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    ${isRepOwner ? `
+                      <span class="forum-creator-badge" style="font-size: 11px; padding: 2px 8px;">
+                        <span>👑</span>
+                        <span>${rep.author || 'Apocaelypze'}</span>
+                        <span style="font-size: 8px; opacity: 0.85;">CREATOR</span>
+                      </span>
+                    ` : `
+                      <span style="font-weight: 600; font-size: 12px; color: var(--text-main);">
+                        🛡️ ${escapeHtml(rep.author || 'Anonymous Slayer')}
+                      </span>
+                    `}
+                    <span style="font-size: 11px; color: var(--text-dim);">${formatRelativeTime(rep.timestamp)}</span>
+                  </div>
+                  ${isOwner ? `
+                    <button onclick="deleteForumReply('${post.id}', '${rep.id}')" style="background: none; border: none; color: #f87171; cursor: pointer; font-size: 11px;" title="Delete reply">🗑️ Remove</button>
+                  ` : ''}
+                </div>
+                <div style="font-size: 13px; color: ${isRepOwner ? '#fef08a' : 'var(--text-main)'}; line-height: 1.5; white-space: pre-wrap;">${escapeHtml(rep.content || '')}</div>
+              </div>
+            `;
+          }).join('');
+        }
+
+        return `
+          <div class="forum-post-card ${isPinned ? 'pinned' : ''}" id="post_${post.id}">
+            ${isPinned ? `
+              <div style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: var(--gold-spire); letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 10px;">
+                <span>📌</span> <span>PINNED ANNOUNCEMENT</span>
+              </div>
+            ` : ''}
+
+            <!-- Post Header -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 10px;">
+              <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                ${authorBadgeHtml}
+                <span class="forum-category-pill ${catClass}">${catLabel}</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <span style="font-size: 11px; color: var(--text-dim);">${formatRelativeTime(post.timestamp)}</span>
+                ${isOwner ? `
+                  <button onclick="togglePinForumPost('${post.id}', ${isPinned})" class="forum-action-btn" title="Toggle Pin">
+                    ${isPinned ? '📌 Unpin' : '📍 Pin'}
+                  </button>
+                  <button onclick="deleteForumPost('${post.id}')" class="forum-action-btn" style="color: #f87171;" title="Delete Post">
+                    🗑️
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+
+            <!-- Post Title & Content -->
+            <h3 style="font-size: 16px; font-weight: 700; color: var(--text-main); margin-bottom: 8px; line-height: 1.4;">
+              ${escapeHtml(post.title || '')}
+            </h3>
+            <div style="font-size: 13px; color: #cbd5e1; line-height: 1.6; margin-bottom: 16px; white-space: pre-wrap;">${escapeHtml(post.content || '')}</div>
+
+            <!-- Post Action Bar -->
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.05);">
+              <div style="display: flex; gap: 8px;">
+                <button class="forum-action-btn ${isLiked ? 'liked' : ''}" onclick="toggleForumLike('${post.id}')">
+                  <span>${isLiked ? '👍' : '🤍'}</span>
+                  <span>Upvote (${likesCount})</span>
+                </button>
+                <button class="forum-action-btn" onclick="toggleRepliesView('${post.id}')">
+                  <span>💬</span>
+                  <span>${replyCount} ${replyCount === 1 ? 'Response' : 'Responses'}</span>
+                </button>
+              </div>
+              <button onclick="document.getElementById('reply_inp_${post.id}').focus()" style="background: none; border: none; font-size: 12px; color: var(--gold-spire); cursor: pointer; text-decoration: underline;">
+                Reply to Topic
+              </button>
+            </div>
+
+            <!-- Threaded Replies Section -->
+            <div class="forum-reply-box" style="display: ${showReplies ? 'block' : 'none'};">
+              ${repliesListHtml ? `<div style="margin-bottom: 14px;">${repliesListHtml}</div>` : ''}
+
+              <!-- Inline Reply Composer -->
+              <div style="background: rgba(13, 16, 23, 0.4); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 12px 14px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <span style="font-size: 12px; font-weight: 600; color: var(--text-muted);">
+                    ${isOwner ? '<span style="color: var(--gold-spire);">👑 Responding as Apocaelypze (Creator)</span>' : 'Leave a Response:'}
+                  </span>
+                  ${!isOwner ? `
+                    <input type="text" id="reply_author_${post.id}" class="forum-input" placeholder="Your Handle (optional)" style="width: 170px; padding: 4px 10px; font-size: 11px;" />
+                  ` : ''}
+                </div>
+                <div style="display: flex; gap: 8px;">
+                  <textarea id="reply_inp_${post.id}" class="forum-textarea" rows="2" placeholder="${isOwner ? 'Reply as verified creator...' : 'Add to this discussion...'}" style="padding: 8px 12px; font-size: 12px;"></textarea>
+                  <button class="btn-primary" onclick="submitForumReply('${post.id}')" style="align-self: flex-end; padding: 8px 16px; font-size: 12px; white-space: nowrap;">
+                    Reply
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function submitForumPost() {
+      const isOwner = isOwnerAuthenticated();
+      const authorInput = document.getElementById('forumAuthorInput');
+      const catSelect = document.getElementById('forumCategorySelect');
+      const titleInput = document.getElementById('forumTitleInput');
+      const contentInput = document.getElementById('forumContentInput');
+      const statusSpan = document.getElementById('forumSubmitStatus');
+      const btn = document.getElementById('btnSubmitForumPost');
+
+      const title = (titleInput ? titleInput.value.trim() : '');
+      const content = (contentInput ? contentInput.value.trim() : '');
+      const category = (catSelect ? catSelect.value : 'GENERAL');
+      let author = (authorInput ? authorInput.value.trim() : '');
+
+      if (!title) {
+        showToast('⚠️ Please enter a topic title.');
+        if (titleInput) titleInput.focus();
+        return;
+      }
+      if (!content) {
+        showToast('⚠️ Please enter details for your post.');
+        if (contentInput) contentInput.focus();
+        return;
+      }
+
+      let authorRole = 'visitor';
+      if (isOwner) {
+        author = 'Apocaelypze';
+        authorRole = 'owner';
+      } else if (!author) {
+        author = 'Anonymous Slayer';
+      }
+
+      const postData = {
+        title,
+        content,
+        category,
+        author,
+        authorRole,
+        timestamp: Date.now(),
+        likes: 0
+      };
+
+      if (btn) btn.disabled = true;
+      if (statusSpan) statusSpan.innerText = 'Publishing topic...';
+
+      try {
+        const resp = await fetch(`${FORUM_RTDB_BASE}/posts.json`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(postData)
+        });
+
+        if (resp.ok) {
+          if (titleInput) titleInput.value = '';
+          if (contentInput) contentInput.value = '';
+          if (statusSpan) statusSpan.innerText = '';
+          showToast('🚀 Topic published successfully!');
+          await loadForumData();
+        } else {
+          throw new Error('HTTP ' + resp.status);
+        }
+      } catch (e) {
+        console.error('Error submitting forum post:', e);
+        showToast('❌ Could not publish topic. Check connection.');
+        if (statusSpan) statusSpan.innerText = 'Failed to publish topic.';
+      } finally {
+        if (btn) btn.disabled = false;
+      }
+    }
+
+    async function submitForumReply(postId) {
+      const isOwner = isOwnerAuthenticated();
+      const replyInp = document.getElementById(`reply_inp_${postId}`);
+      const authorInp = document.getElementById(`reply_author_${postId}`);
+
+      const content = (replyInp ? replyInp.value.trim() : '');
+      if (!content) {
+        showToast('⚠️ Reply cannot be empty.');
+        if (replyInp) replyInp.focus();
+        return;
+      }
+
+      let author = 'Anonymous Slayer';
+      let authorRole = 'visitor';
+
+      if (isOwner) {
+        author = 'Apocaelypze';
+        authorRole = 'owner';
+      } else if (authorInp && authorInp.value.trim()) {
+        author = authorInp.value.trim();
+      }
+
+      const replyData = {
+        author,
+        authorRole,
+        content,
+        timestamp: Date.now()
+      };
+
+      try {
+        const resp = await fetch(`${FORUM_RTDB_BASE}/replies/${postId}.json`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(replyData)
+        });
+
+        if (resp.ok) {
+          if (replyInp) replyInp.value = '';
+          forumExpandedReplies.add(postId);
+          showToast(isOwner ? '👑 Creator reply posted!' : '💬 Reply posted!');
+          await loadForumData();
+        } else {
+          throw new Error('HTTP ' + resp.status);
+        }
+      } catch (e) {
+        console.error('Error submitting reply:', e);
+        showToast('❌ Failed to post reply.');
+      }
+    }
+
+    async function toggleForumLike(postId) {
+      const isLiked = localStorage.getItem('sts2_liked_' + postId) === 'true';
+      const post = forumState.posts[postId];
+      let currentLikes = (post && typeof post.likes === 'number') ? post.likes : 0;
+
+      if (!isLiked) {
+        currentLikes += 1;
+        localStorage.setItem('sts2_liked_' + postId, 'true');
+      } else {
+        currentLikes = Math.max(0, currentLikes - 1);
+        localStorage.removeItem('sts2_liked_' + postId);
+      }
+
+      if (post) post.likes = currentLikes;
+      renderForumPosts();
+
+      try {
+        await fetch(`${FORUM_RTDB_BASE}/posts/${postId}/likes.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(currentLikes)
+        });
+      } catch (e) {
+        console.warn('Could not sync like to RTDB:', e);
+      }
+    }
+
+    async function togglePinForumPost(postId, currentPinned) {
+      if (!isOwnerAuthenticated()) return;
+      try {
+        const resp = await fetch(`${FORUM_RTDB_BASE}/posts/${postId}/pinned.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(!currentPinned)
+        });
+        if (resp.ok) {
+          showToast(!currentPinned ? '📌 Topic pinned!' : 'Topic unpinned.');
+          await loadForumData();
+        }
+      } catch (e) {
+        console.error('Failed to toggle pin:', e);
+      }
+    }
+
+    async function deleteForumPost(postId) {
+      if (!isOwnerAuthenticated()) return;
+      if (!confirm('Are you sure you want to permanently delete this topic and all its responses?')) return;
+      try {
+        await fetch(`${FORUM_RTDB_BASE}/posts/${postId}.json`, { method: 'DELETE' });
+        await fetch(`${FORUM_RTDB_BASE}/replies/${postId}.json`, { method: 'DELETE' });
+        showToast('🗑️ Topic deleted.');
+        await loadForumData();
+      } catch (e) {
+        console.error('Failed to delete topic:', e);
+      }
+    }
+
+    async function deleteForumReply(postId, replyId) {
+      if (!isOwnerAuthenticated()) return;
+      if (!confirm('Delete this response?')) return;
+      try {
+        await fetch(`${FORUM_RTDB_BASE}/replies/${postId}/${replyId}.json`, { method: 'DELETE' });
+        showToast('🗑️ Response deleted.');
+        await loadForumData();
+      } catch (e) {
+        console.error('Failed to delete reply:', e);
+      }
+    }
+
+    function escapeHtml(text) {
+      if (!text) return '';
+      return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
     }
 
     function setPlatformTab(p) {
