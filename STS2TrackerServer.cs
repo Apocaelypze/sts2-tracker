@@ -28,7 +28,7 @@ namespace STS2Tracker
         private static DateTime lastHeartbeat = DateTime.UtcNow;
         private static bool clientConnected = false;
         private static readonly DateTime serverStartTime = DateTime.UtcNow;
-        private static readonly string AppVersion = "v0.19";
+        private static readonly string AppVersion = "v1.1.0";
 
         static void Main(string[] args)
         {
@@ -854,10 +854,10 @@ namespace STS2Tracker
                     wc.Headers.Add("User-Agent", "STS2Tracker-AutoUpdater/" + AppVersion);
                     if (File.Exists(newExePath)) { try { File.Delete(newExePath); } catch {} }
 
-                    // 1. Try downloading direct STS2Tracker.exe
+                    // 1. Try downloading direct STS2Tracker.exe from GitHub Releases
                     try
                     {
-                        wc.DownloadFile("https://slay-the-spire-2-tracker.web.app/STS2Tracker.exe", newExePath);
+                        wc.DownloadFile("https://github.com/Apocaelypze/sts2-tracker/releases/latest/download/STS2Tracker.exe", newExePath);
                     }
                     catch (Exception exDl)
                     {

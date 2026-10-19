@@ -377,8 +377,15 @@
 
     /* Zero-flicker immediate desktop companion styling */
     .desktop-app-env #btnHeaderDesktopApp { display: none !important; }
+    .desktop-app-env #btnHeaderUploadRun { display: none !important; }
+    .desktop-app-env #tabBtnUpload { display: none !important; }
+    .desktop-app-env #tabContentUpload { display: none !important; }
+    .desktop-app-env #loadSavesModal { display: none !important; }
+    .desktop-app-env .web-only-cta { display: none !important; }
     .desktop-app-env #desktopAppHeaderControls { display: inline-flex !important; }
     .desktop-app-env #btnExitApp { display: inline-flex !important; }
+    #btnDesktopUpdate { display: none; }
+    @keyframes slideDownUpdate { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 
     .status-badge {
       display: flex;
@@ -3338,6 +3345,22 @@
     <input type="password" name="chrome_autofill_trap_pass" autocomplete="current-password" tabindex="-1" />
   </div>
   <div class="app-container">
+    <!-- Discord-Style Auto-Update Banner (Hidden until a newer release is detected) -->
+    <div id="discordUpdateBanner" style="display: none; width: 100%; background: linear-gradient(90deg, #1e3a8a, #0369a1, #0284c7); color: #ffffff; padding: 10px 18px; align-items: center; justify-content: space-between; gap: 14px; font-size: 13px; font-weight: 600; box-shadow: 0 4px 16px rgba(0,0,0,0.4); border-bottom: 1px solid rgba(56, 189, 248, 0.4); z-index: 1000; border-radius: 8px; margin-bottom: 12px; animation: slideDownUpdate 0.3s ease-out;">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 16px;">🚀</span>
+        <span>An update is ready to install! (<strong id="discordUpdateVer">v1.1.0</strong> is available)</span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <button onclick="triggerAppUpdate(true)" style="background: #22c55e; color: #0f172a; border: none; font-weight: 700; font-size: 12px; padding: 6px 16px; border-radius: 6px; cursor: pointer; box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4); display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease;">
+          <span>🔄</span> <span>Restart to Update</span>
+        </button>
+        <button onclick="dismissUpdateBanner()" style="background: transparent; border: none; color: rgba(255,255,255,0.7); font-size: 16px; cursor: pointer; padding: 4px 8px; line-height: 1;" title="Dismiss notification">
+          ✕
+        </button>
+      </div>
+    </div>
+
     <!-- Header -->
     <header>
       <div class="brand" onclick="goHome()" style="cursor: pointer;" title="Back to Home / Run History">
@@ -3358,10 +3381,10 @@
 
       <div class="header-actions">
         <!-- Web Download Desktop App Button (hidden when running inside Desktop App) -->
-        <button class="btn-desktop-app" id="btnHeaderDesktopApp" onclick="openAppDownloadModal()" title="Download standalone Desktop App companion (v0.18)">
+        <button class="btn-desktop-app" id="btnHeaderDesktopApp" onclick="openAppDownloadModal()" title="Download standalone Desktop App companion (v1.1.0)">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
           <span id="headerDesktopAppText">Desktop App</span>
-          <span id="headerDesktopAppVersion" style="font-size: 10px; opacity: 0.75; font-family: var(--font-mono); font-weight: 700; margin-left: 2px;">v0.18</span>
+          <span id="headerDesktopAppVersion" style="font-size: 10px; opacity: 0.75; font-family: var(--font-mono); font-weight: 700; margin-left: 2px;">v1.1.0</span>
         </button>
 
         <button class="btn-primary" id="btnHeaderUploadRun" onclick="openLoadSavesModal()" title="Upload your runs and join the global leaderboard" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; font-size: 12px; font-weight: 700; background: linear-gradient(135deg, #10b981, #059669); border: 1px solid #34d399; box-shadow: 0 2px 10px rgba(16, 185, 129, 0.25);">
@@ -3372,10 +3395,10 @@
         <!-- Exclusive Desktop App Controls (Version Ribbon & 1-Click Cloud Updater on Right Side) -->
         <div id="desktopAppHeaderControls" style="display: none; align-items: center; gap: 6px;">
           <span id="desktopAppVersionPill" style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: #38bdf8; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); padding: 4px 8px; border-radius: 6px; letter-spacing: 0.3px;" title="Current Desktop App Version">
-            v0.18
+            v1.1.0
           </span>
-          <button class="btn-primary" id="btnDesktopUpdate" onclick="triggerAppUpdate()" title="Check for updates or auto-download latest release" style="display: inline-flex; align-items: center; gap: 5px; padding: 5px 12px; font-size: 11px; font-weight: 700; background: linear-gradient(135deg, #0284c7, #0369a1); border: 1px solid #38bdf8; border-radius: 6px; box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);">
-            <span id="btnUpdateIcon">🔄</span> <span id="btnUpdateText">Update App</span>
+          <button class="btn-primary" id="btnDesktopUpdate" onclick="triggerAppUpdate()" title="Restart and auto-update companion to latest version" style="display: none; align-items: center; gap: 5px; padding: 5px 12px; font-size: 11px; font-weight: 700; background: linear-gradient(135deg, #22c55e, #16a34a); border: 1px solid #4ade80; border-radius: 6px; box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4);">
+            <span id="btnUpdateIcon">🔄</span> <span id="btnUpdateText">Restart to Update</span>
           </button>
         </div>
 
@@ -4654,7 +4677,7 @@
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <div>
           <h2 style="font-family: var(--font-title); color: var(--gold-spire); font-size: 22px; display: flex; align-items: center; gap: 10px;">
-            <span>⚡ Standalone Desktop App <span style="font-size: 13px; color: #38bdf8; font-family: var(--font-mono); border: 1px solid rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.15); padding: 1px 6px; border-radius: 4px;">v0.18</span></span>
+            <span>⚡ Standalone Desktop App <span style="font-size: 13px; color: #38bdf8; font-family: var(--font-mono); border: 1px solid rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.15); padding: 1px 6px; border-radius: 4px;">v1.1.0</span></span>
           </h2>
           <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Zero setup &bull; 100% self-contained &bull; Real-time background sync</p>
         </div>
@@ -4665,7 +4688,7 @@
         <div style="background: linear-gradient(135deg, rgba(217, 119, 6, 0.12), rgba(20, 24, 33, 0.95)); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 12px; padding: 20px;">
           <div style="font-weight: 700; color: #fbbf24; font-size: 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
             <span>🚀 1-Click Desktop Companion</span>
-            <span style="font-size: 10px; background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: 700;">RECOMMENDED &bull; v0.19</span>
+            <span style="font-size: 10px; background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: 700;">RECOMMENDED &bull; v1.1.0</span>
           </div>
           <p style="font-size: 13px; color: var(--text-main); line-height: 1.5; margin-bottom: 14px;">
             Direct 1-click standalone executable (<code>STS2Tracker.exe</code>). Just download and double-click to run &mdash; zero unzipping, zero installation, and includes built-in auto-updating:
@@ -5513,17 +5536,22 @@
       }
     }
 
-    let currentAppVersion = 'v0.18';
+    let currentAppVersion = 'v1.1.0';
     let isDesktopAppMode = false;
     let cloudUpdateAvailable = false;
-    let latestCloudVersion = 'v0.18';
+    let latestCloudVersion = 'v1.1.0';
+
+    function dismissUpdateBanner() {
+      const banner = document.getElementById('discordUpdateBanner');
+      if (banner) banner.style.display = 'none';
+    }
 
     async function checkCloudUpdate(localVer) {
       try {
         const resp = await fetch('https://slay-the-spire-2-tracker.web.app/version.json?t=' + Date.now());
         if (resp.ok) {
           const vData = await resp.json();
-          latestCloudVersion = vData.version || 'v0.18';
+          latestCloudVersion = vData.version || 'v1.1.0';
           const cleanLocal = (localVer || '').replace(/^v/, '');
           const cleanRemote = (latestCloudVersion || '').replace(/^v/, '');
           const localNum = parseFloat(cleanLocal) || 0;
@@ -5532,26 +5560,36 @@
           const updateBtn = document.getElementById('btnDesktopUpdate');
           const updateText = document.getElementById('btnUpdateText');
           const updatePill = document.getElementById('desktopAppVersionPill');
+          const banner = document.getElementById('discordUpdateBanner');
+          const bannerVer = document.getElementById('discordUpdateVer');
 
           if (remoteNum > localNum) {
             cloudUpdateAvailable = true;
-            if (updateText) updateText.innerHTML = `Update to ${latestCloudVersion} ⚡`;
-            if (updateBtn) {
-              updateBtn.style.background = 'linear-gradient(135deg, #f59e0b, #d97706)';
-              updateBtn.style.borderColor = '#fbbf24';
-              updateBtn.style.boxShadow = '0 0 14px rgba(245, 158, 11, 0.6)';
-              updateBtn.title = `New release ${latestCloudVersion} available! Click to auto-update.`;
+            if (bannerVer) bannerVer.innerText = latestCloudVersion;
+            if (banner && isDesktopAppMode) {
+              banner.style.display = 'flex';
             }
+            if (updateBtn) {
+              updateBtn.style.display = 'inline-flex';
+              updateBtn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
+              updateBtn.style.borderColor = '#4ade80';
+              updateBtn.style.boxShadow = '0 0 14px rgba(34, 197, 94, 0.6)';
+              updateBtn.title = `New release ${latestCloudVersion} available! Click to auto-update and restart.`;
+            }
+            if (updateText) updateText.innerHTML = `Restart to Update (${latestCloudVersion}) ⚡`;
             if (updatePill) {
               updatePill.title = `Your version: ${localVer} (Latest: ${latestCloudVersion})`;
-              updatePill.style.borderColor = '#f59e0b';
-              updatePill.style.color = '#f59e0b';
+              updatePill.style.borderColor = '#22c55e';
+              updatePill.style.color = '#4ade80';
             }
           } else {
             cloudUpdateAvailable = false;
-            if (updateText) updateText.innerText = 'Update App';
-            if (updateBtn) {
-              updateBtn.title = `You are on the latest release (${localVer}). Click to force re-download/repair.`;
+            if (banner) banner.style.display = 'none';
+            if (updateBtn) updateBtn.style.display = 'none';
+            if (updatePill) {
+              updatePill.title = `Up to date (${localVer})`;
+              updatePill.style.borderColor = 'rgba(56, 189, 248, 0.35)';
+              updatePill.style.color = '#38bdf8';
             }
           }
         }
@@ -5562,15 +5600,23 @@
 
     function enableDesktopAppUI(version) {
       isDesktopAppMode = true;
-      currentAppVersion = version || 'v0.18';
+      currentAppVersion = version || 'v1.1.0';
 
-      // Hide web download CTA since running inside the native companion
+      // Hide web download CTA and upload buttons since running inside native companion with auto-sync
       const webDlBtn = document.getElementById('btnHeaderDesktopApp');
       if (webDlBtn) webDlBtn.style.display = 'none';
+      const uploadHeaderBtn = document.getElementById('btnHeaderUploadRun');
+      if (uploadHeaderBtn) uploadHeaderBtn.style.display = 'none';
+      const uploadTabBtn = document.getElementById('tabBtnUpload');
+      if (uploadTabBtn) uploadTabBtn.style.display = 'none';
 
-      // Reveal desktop-exclusive version badge and 1-click cloud updater
+      // Reveal desktop-exclusive version badge
       const deskControls = document.getElementById('desktopAppHeaderControls');
       if (deskControls) deskControls.style.display = 'inline-flex';
+
+      // Ensure update button is hidden initially until update check confirms newer release
+      const updateBtn = document.getElementById('btnDesktopUpdate');
+      if (updateBtn) updateBtn.style.display = 'none';
 
       const pill = document.getElementById('desktopAppVersionPill');
       if (pill) pill.innerText = currentAppVersion;
@@ -5579,7 +5625,7 @@
       const exitBtn = document.getElementById('btnExitApp');
       if (exitBtn) exitBtn.style.display = 'inline-flex';
 
-      // Query cloud version to notify user if an update is available
+      // Query cloud version to notify user ONLY if an update is available (Discord style)
       checkCloudUpdate(currentAppVersion);
     }
 
@@ -5600,12 +5646,14 @@
       } catch (e) {}
     }
 
-    async function triggerAppUpdate() {
-      const confirmMsg = cloudUpdateAvailable
-        ? `A newer version (${latestCloudVersion}) is available!\n\nWould you like to automatically download ${latestCloudVersion} and restart STS2 Tracker now?`
-        : `You are currently on version ${currentAppVersion}.\n\nWould you like to auto-download and reinstall STS2 Tracker from the cloud release now?`;
+    async function triggerAppUpdate(skipConfirm = false) {
+      if (!skipConfirm) {
+        const confirmMsg = cloudUpdateAvailable
+          ? `A newer version (${latestCloudVersion}) is available!\n\nWould you like to automatically download ${latestCloudVersion} and restart STS2 Tracker now?`
+          : `You are currently on version ${currentAppVersion}.\n\nWould you like to auto-download and reinstall STS2 Tracker from the cloud release now?`;
 
-      if (!confirm(confirmMsg)) return;
+        if (!confirm(confirmMsg)) return;
+      }
 
       // Show sleek updating overlay
       let overlay = document.getElementById('appUpdateOverlay');
@@ -5698,7 +5746,7 @@
             setLocalSteamId(st.local_player_id);
           }
           if (st.is_desktop_app || st.version) {
-            enableDesktopAppUI(st.version || 'v0.18');
+            enableDesktopAppUI(st.version || 'v1.1.0');
           }
         } else {
           fetchCloudVersionForWeb();
@@ -6911,6 +6959,21 @@
       if (totalRuns === 0) {
         if (countHeader) countHeader.innerText = `Runs History (0 of ${allRuns.length})`;
         if (allRuns.length === 0) {
+          if (isDesktopAppMode) {
+            container.innerHTML = `
+              <div style="text-align: center; padding: 50px 24px; background: rgba(255,255,255,0.02); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 16px; margin: 20px 0;">
+                <div style="font-size: 48px; margin-bottom: 12px;">🗡️</div>
+                <h2 style="font-family: var(--font-title); color: #38bdf8; font-size: 24px; margin-bottom: 8px;">Watching Spire Runs in Real-Time</h2>
+                <p style="color: var(--text-muted); max-width: 580px; margin: 0 auto 18px auto; font-size: 14px; line-height: 1.5;">
+                  The desktop companion is automatically watching your Steam save directory. As soon as you complete or abandon a run in Slay the Spire 2, your climb telemetry will appear here instantly!
+                </p>
+                <div style="display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 12px; color: #34d399; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 8px 16px; border-radius: 20px;">
+                  <span class="pulse-dot"></span> Live Save Folder Sync Active
+                </div>
+              </div>
+            `;
+            return;
+          }
           container.innerHTML = `
             <div style="text-align: center; padding: 50px 24px; background: rgba(255,255,255,0.02); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 16px; margin: 20px 0;">
               <div style="font-size: 48px; margin-bottom: 12px;">🗡️</div>
@@ -10961,6 +11024,9 @@
     }
 
     function switchTab(tab) {
+      if (tab === 'upload' && isDesktopAppMode) {
+        tab = 'runs';
+      }
       currentTab = tab;
       document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
       const runsTab = document.getElementById('tabContentRuns');

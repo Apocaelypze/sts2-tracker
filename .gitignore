@@ -14,6 +14,7 @@ _Backups/
 
 # Dependencies
 node_modules/
+scripts/
 
 # OS artifacts
 Thumbs.db
