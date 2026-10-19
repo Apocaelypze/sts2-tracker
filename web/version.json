@@ -1,0 +1,14 @@
+{
+  "version": "v0.19",
+  "versionNumber": 0.19,
+  "releaseDate": "2026-10-16",
+  "title": "Spire Run Showcase & Direct 1-Click Desktop v0.19",
+  "changelog": [
+    "Direct 1-click standalone desktop executable (STS2Tracker.exe) with embedded assets",
+    "Community Forum Run Showcase integration with interactive run card inspector",
+    "Card Meta & Relics Meta comprehensive origin attribution (Chests, Drops, Bosses, Shops, Ancients)",
+    "In-app auto-updater direct executable upgrade support"
+  ],
+  "downloadExe": "https://slay-the-spire-2-tracker.web.app/STS2Tracker.exe",
+  "downloadZip": "https://slay-the-spire-2-tracker.web.app/STS2Tracker.zip"
+}

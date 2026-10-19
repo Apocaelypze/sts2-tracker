@@ -28,6 +28,7 @@ namespace STS2Tracker
         private static DateTime lastHeartbeat = DateTime.UtcNow;
         private static bool clientConnected = false;
         private static readonly DateTime serverStartTime = DateTime.UtcNow;
+        private static readonly string AppVersion = "v0.19";
 
         static void Main(string[] args)
         {
@@ -581,10 +582,27 @@ namespace STS2Tracker
                     lock (cacheLock)
                     {
                         string safeDir = historyDir != null ? historyDir.Replace("\\", "\\\\") : "";
-                        statusJson = string.Format("{{\"status\":\"ok\",\"run_count\":{0},\"history_dir\":\"{1}\",\"local_player_id\":\"{2}\",\"last_update\":{3}}}",
-                            cachedRunCount, safeDir, localPlayerId, lastCacheUpdate);
+                        statusJson = string.Format("{{\"status\":\"ok\",\"version\":\"{0}\",\"is_desktop_app\":true,\"run_count\":{1},\"history_dir\":\"{2}\",\"local_player_id\":\"{3}\",\"last_update\":{4}}}",
+                            AppVersion, cachedRunCount, safeDir, localPlayerId, lastCacheUpdate);
                     }
                     ServeString(resp, statusJson, "application/json; charset=utf-8", true);
+                    return;
+                }
+
+                if (rawUrl.Equals("/api/version", StringComparison.OrdinalIgnoreCase))
+                {
+                    ServeString(resp, "{\"version\":\"" + AppVersion + "\",\"is_desktop_app\":true}", "application/json; charset=utf-8", true);
+                    return;
+                }
+
+                if (rawUrl.Equals("/api/update", StringComparison.OrdinalIgnoreCase))
+                {
+                    SafeLog("[API] /api/update triggered from desktop client.");
+                    ThreadPool.QueueUserWorkItem(delegate
+                    {
+                        PerformAppUpdate();
+                    });
+                    ServeString(resp, "{\"status\":\"updating\",\"message\":\"Downloading update and restarting...\"}", "application/json; charset=utf-8", true);
                     return;
                 }
 
@@ -818,6 +836,92 @@ namespace STS2Tracker
             return ext == ".html" || ext == ".json" || ext == ".js" || ext == ".css";
         }
 
+
+        private static void PerformAppUpdate()
+        {
+            try
+            {
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072 | SecurityProtocolType.Tls12;
+                string exePath = Assembly.GetExecutingAssembly().Location;
+                string exeDir = Path.GetDirectoryName(exePath);
+                string newExePath = Path.Combine(exeDir, "STS2Tracker_new.exe");
+                string tempZipPath = Path.Combine(exeDir, "STS2Tracker_update.zip");
+                string batPath = Path.Combine(exeDir, "update_sts2tracker.bat");
+
+                SafeLog("[UPDATE] Downloading latest STS2Tracker from cloud...", ConsoleColor.Cyan);
+                using (WebClient wc = new WebClient())
+                {
+                    wc.Headers.Add("User-Agent", "STS2Tracker-AutoUpdater/" + AppVersion);
+                    if (File.Exists(newExePath)) { try { File.Delete(newExePath); } catch {} }
+
+                    // 1. Try downloading direct STS2Tracker.exe
+                    try
+                    {
+                        wc.DownloadFile("https://slay-the-spire-2-tracker.web.app/STS2Tracker.exe", newExePath);
+                    }
+                    catch (Exception exDl)
+                    {
+                        SafeLog("[UPDATE] Direct exe download notice: " + exDl.Message, ConsoleColor.Yellow);
+                    }
+
+                    // 2. Fallback: If direct exe download failed or is too small, fetch STS2Tracker.zip
+                    if (!File.Exists(newExePath) || new FileInfo(newExePath).Length < 1000000)
+                    {
+                        SafeLog("[UPDATE] Falling back to update archive package...", ConsoleColor.Cyan);
+                        if (File.Exists(tempZipPath)) { try { File.Delete(tempZipPath); } catch {} }
+                        wc.DownloadFile("https://slay-the-spire-2-tracker.web.app/STS2Tracker.zip", tempZipPath);
+
+                        if (File.Exists(tempZipPath) && new FileInfo(tempZipPath).Length > 10000)
+                        {
+                            using (ZipArchive archive = ZipFile.OpenRead(tempZipPath))
+                            {
+                                ZipArchiveEntry entry = archive.GetEntry("STS2Tracker.exe");
+                                if (entry != null)
+                                {
+                                    if (File.Exists(newExePath)) { try { File.Delete(newExePath); } catch {} }
+                                    entry.ExtractToFile(newExePath, true);
+                                }
+                            }
+                            try { File.Delete(tempZipPath); } catch {}
+                        }
+                    }
+                }
+
+                if (!File.Exists(newExePath) || new FileInfo(newExePath).Length < 1000000)
+                {
+                    SafeLog("[UPDATE ERROR] Downloaded executable is invalid or incomplete.", ConsoleColor.Red);
+                    return;
+                }
+
+                long sizeMb = new FileInfo(newExePath).Length / 1024 / 1024;
+                SafeLog("[UPDATE] Update download complete (" + sizeMb + " MB). Spawning updater script...", ConsoleColor.Green);
+
+                string batContent =
+                    "@echo off\r\n" +
+                    "timeout /t 1 /nobreak >nul\r\n" +
+                    "taskkill /f /im STS2Tracker.exe >nul 2>&1\r\n" +
+                    "timeout /t 1 /nobreak >nul\r\n" +
+                    "move /y \"" + newExePath + "\" \"" + exePath + "\" >nul\r\n" +
+                    "start \"\" \"" + exePath + "\"\r\n" +
+                    "del \"%~f0\"\r\n";
+
+                File.WriteAllText(batPath, batContent, Encoding.ASCII);
+
+                ProcessStartInfo psi = new ProcessStartInfo();
+                psi.FileName = "cmd.exe";
+                psi.Arguments = "/c \"" + batPath + "\"";
+                psi.CreateNoWindow = true;
+                psi.UseShellExecute = false;
+                Process.Start(psi);
+
+                SafeLog("[UPDATE] Updater launched successfully. Shutting down current instance...", ConsoleColor.Yellow);
+                Environment.Exit(0);
+            }
+            catch (Exception ex)
+            {
+                SafeLog("[UPDATE EXCEPTION] " + ex.Message, ConsoleColor.Red);
+            }
+        }
 
         private static void SafeLog(string msg, ConsoleColor? color = null)
         {

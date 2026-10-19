@@ -38,7 +38,7 @@ Built for instant speed, deep climb analytics, and zero-compromise privacy: **no
 3. Click **Copy Path**, open the folder in Windows Explorer, and select your `history` folder!
 
 ### Option 2: Standalone Desktop App (.exe)
-1. Download **`STS2Tracker.exe`** from [Releases](https://github.com/Apocaelypze/sts2-tracker/releases/latest).
+1. Download **`STS2Tracker.exe`** directly from the web app or [Direct Download](https://slay-the-spire-2-tracker.web.app/STS2Tracker.exe).
 2. Double-click `STS2Tracker.exe` to launch.
 3. It automatically detects your Steam saves and syncs climbs in real time!
 
@@ -81,6 +81,6 @@ npx firebase-tools deploy --only hosting
 
 ## 📜 Credits & License
 
-- Created by **Johnathon Barrett**.
+- Created by **Apocaelypze**.
 - *“The Spire sleeps, and so shall its foes.”*
 - Unofficial community climb telemetry tool. Slay the Spire 2 is © Mega Crit Games. All card, relic, and character artwork are property of Mega Crit.
