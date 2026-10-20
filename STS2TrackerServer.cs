@@ -16,6 +16,9 @@ namespace STS2Tracker
         private static int port = 8383;
         private static string historyDir = null;
         private static string localPlayerId = "";
+        private static string steamPersonaName = "";
+        private static string steamAccountName = "";
+        private static volatile string pendingAuthSessionJson = null;
         private static string webDir = null;
         private static string cachedRunsJson = "[]";
         private static int cachedRunCount = 0;
@@ -28,7 +31,7 @@ namespace STS2Tracker
         private static DateTime lastHeartbeat = DateTime.UtcNow;
         private static bool clientConnected = false;
         private static readonly DateTime serverStartTime = DateTime.UtcNow;
-        private static readonly string AppVersion = "v1.1.0";
+        private static readonly string AppVersion = "v1.1.1";
 
         static void Main(string[] args)
         {
@@ -96,6 +99,9 @@ namespace STS2Tracker
 
                 SetupWatcher();
             }
+
+            // Detect Steam Account Persona from local Steam configuration & registry
+            DetectSteamAccountDetails();
 
             // 5. Initial Load of Runs
             ReloadRuns();
@@ -355,6 +361,97 @@ namespace STS2Tracker
             return null;
         }
 
+        private static void DetectSteamAccountDetails()
+        {
+            try
+            {
+                string autoUser = null;
+                string steamPath = null;
+                try
+                {
+                    using (var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(@"Software\Valve\Steam"))
+                    {
+                        if (key != null)
+                        {
+                            autoUser = key.GetValue("AutoLoginUser") as string;
+                            steamPath = key.GetValue("SteamPath") as string;
+                        }
+                    }
+                }
+                catch { }
+
+                if (!string.IsNullOrEmpty(autoUser))
+                {
+                    steamAccountName = autoUser;
+                    if (string.IsNullOrEmpty(steamPersonaName)) steamPersonaName = autoUser;
+                }
+
+                if (string.IsNullOrEmpty(steamPath))
+                {
+                    steamPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ProgramFilesX86), "Steam");
+                }
+
+                string vdfPath = Path.Combine(steamPath, "config", "loginusers.vdf");
+                if (File.Exists(vdfPath))
+                {
+                    string vdf = File.ReadAllText(vdfPath);
+
+                    if (!string.IsNullOrEmpty(localPlayerId))
+                    {
+                        int idIdx = vdf.IndexOf("\"" + localPlayerId + "\"");
+                        if (idIdx != -1)
+                        {
+                            string sub = vdf.Substring(idIdx);
+                            int nextUser = sub.IndexOf("\"\n\t{", 10);
+                            if (nextUser != -1) sub = sub.Substring(0, nextUser);
+
+                            Match mPersona = Regex.Match(sub, "\"PersonaName\"\\s*\"([^\"]+)\"");
+                            if (mPersona.Success) steamPersonaName = mPersona.Groups[1].Value;
+                            Match mAcct = Regex.Match(sub, "\"AccountName\"\\s*\"([^\"]+)\"");
+                            if (mAcct.Success) steamAccountName = mAcct.Groups[1].Value;
+                        }
+                    }
+                    else
+                    {
+                        Match mUser = Regex.Match(vdf, "\"([0-9]{15,20})\"\\s*\\{[^}]*?\"(?:MostRecent|AutoLogin)\"\\s*\"1\"", RegexOptions.Singleline);
+                        if (mUser.Success)
+                        {
+                            localPlayerId = mUser.Groups[1].Value;
+                            int idIdx = vdf.IndexOf("\"" + localPlayerId + "\"");
+                            if (idIdx != -1)
+                            {
+                                string sub = vdf.Substring(idIdx);
+                                Match mPersona = Regex.Match(sub, "\"PersonaName\"\\s*\"([^\"]+)\"");
+                                if (mPersona.Success) steamPersonaName = mPersona.Groups[1].Value;
+                                Match mAcct = Regex.Match(sub, "\"AccountName\"\\s*\"([^\"]+)\"");
+                                if (mAcct.Success) steamAccountName = mAcct.Groups[1].Value;
+                            }
+                        }
+                    }
+
+                    if (string.IsNullOrEmpty(steamPersonaName))
+                    {
+                        Match mFirst = Regex.Match(vdf, "\"PersonaName\"\\s*\"([^\"]+)\"");
+                        if (mFirst.Success) steamPersonaName = mFirst.Groups[1].Value;
+                    }
+                }
+
+                if (localPlayerId == "76561199078562869" || (!string.IsNullOrEmpty(steamAccountName) && steamAccountName.Equals("apocaelypze", StringComparison.OrdinalIgnoreCase)))
+                {
+                    steamPersonaName = "Apocaelypze";
+                }
+
+                if (!string.IsNullOrEmpty(steamPersonaName))
+                {
+                    SafeLog("[INFO] Detected Steam Persona: " + steamPersonaName + " (Account: " + steamAccountName + ", ID: " + localPlayerId + ")", ConsoleColor.Green);
+                }
+            }
+            catch (Exception ex)
+            {
+                SafeLog("[WARN] Steam account detection notice: " + ex.Message);
+            }
+        }
+
         private static void SetupWatcher()
         {
             try
@@ -582,8 +679,10 @@ namespace STS2Tracker
                     lock (cacheLock)
                     {
                         string safeDir = historyDir != null ? historyDir.Replace("\\", "\\\\") : "";
-                        statusJson = string.Format("{{\"status\":\"ok\",\"version\":\"{0}\",\"is_desktop_app\":true,\"run_count\":{1},\"history_dir\":\"{2}\",\"local_player_id\":\"{3}\",\"last_update\":{4}}}",
-                            AppVersion, cachedRunCount, safeDir, localPlayerId, lastCacheUpdate);
+                        string safePersona = steamPersonaName != null ? steamPersonaName.Replace("\"", "\\\"") : "";
+                        string safeAcct = steamAccountName != null ? steamAccountName.Replace("\"", "\\\"") : "";
+                        statusJson = string.Format("{{\"status\":\"ok\",\"version\":\"{0}\",\"is_desktop_app\":true,\"run_count\":{1},\"history_dir\":\"{2}\",\"local_player_id\":\"{3}\",\"steam_persona_name\":\"{4}\",\"steam_account_name\":\"{5}\",\"last_update\":{6}}}",
+                            AppVersion, cachedRunCount, safeDir, localPlayerId, safePersona, safeAcct, lastCacheUpdate);
                     }
                     ServeString(resp, statusJson, "application/json; charset=utf-8", true);
                     return;
@@ -655,6 +754,103 @@ namespace STS2Tracker
                 {
                     LaunchClientUi();
                     ServeString(resp, "{\"launched\":true}", "application/json; charset=utf-8", true);
+                    return;
+                }
+
+                if (rawUrl.Equals("/api/open_steam_login", StringComparison.OrdinalIgnoreCase))
+                {
+                    string returnTo = "http://localhost:" + port + "/api/steam_callback";
+                    string realm = "http://localhost:" + port + "/";
+                    string steamLoginUrl = "https://steamcommunity.com/openid/login?" +
+                        "openid.ns=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0" +
+                        "&openid.mode=checkid_setup" +
+                        "&openid.return_to=" + Uri.EscapeDataString(returnTo) +
+                        "&openid.realm=" + Uri.EscapeDataString(realm) +
+                        "&openid.identity=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select" +
+                        "&openid.claimed_id=http%3A%2F%2Fspecs.openid.net%2Fauth%2F2.0%2Fidentifier_select";
+
+                    try
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = steamLoginUrl,
+                            UseShellExecute = true
+                        });
+                        ServeString(resp, "{\"status\":\"ok\",\"launched\":true}", "application/json; charset=utf-8", true);
+                    }
+                    catch (Exception ex)
+                    {
+                        ServeString(resp, "{\"status\":\"error\",\"message\":\"" + ex.Message.Replace("\"", "\\\"") + "\"}", "application/json; charset=utf-8", false);
+                    }
+                    return;
+                }
+
+                if (rawUrl.StartsWith("/api/steam_callback", StringComparison.OrdinalIgnoreCase))
+                {
+                    string claimedId = req.QueryString["openid.claimed_id"];
+                    if (string.IsNullOrEmpty(claimedId)) claimedId = req.QueryString["openid.identity"];
+
+                    string authedSteamId = "";
+                    if (!string.IsNullOrEmpty(claimedId))
+                    {
+                        Match m = Regex.Match(claimedId, @"\/id\/([0-9]{15,25})");
+                        if (m.Success) authedSteamId = m.Groups[1].Value;
+                    }
+
+                    if (!string.IsNullOrEmpty(authedSteamId))
+                    {
+                        string persona = steamPersonaName;
+                        if (string.IsNullOrEmpty(persona) || authedSteamId != localPlayerId)
+                        {
+                            if (authedSteamId == "76561199078562869") persona = "Apocaelypze";
+                            else persona = "SteamUser_" + authedSteamId.Substring(Math.Max(0, authedSteamId.Length - 4));
+                        }
+
+                        bool isCreator = (authedSteamId == "76561199078562869" || persona.Equals("Apocaelypze", StringComparison.OrdinalIgnoreCase));
+
+                        pendingAuthSessionJson = string.Format("{{\"username\":\"{0}\",\"steamId\":\"{1}\",\"provider\":\"steam\",\"isCreator\":{2}}}",
+                            persona.Replace("\"", "\\\""), authedSteamId, isCreator ? "true" : "false");
+
+                        SafeLog("[AUTH] Steam browser login successful for " + persona + " (" + authedSteamId + ")", ConsoleColor.Green);
+
+                        string html = "<!DOCTYPE html><html><head><meta charset='utf-8'><title>Steam Login Successful</title>" +
+                            "<style>body { background: #0b0f19; color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }" +
+                            ".box { background: rgba(30, 41, 59, 0.7); border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 16px; padding: 36px 48px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.6); max-width: 480px; }" +
+                            "h2 { color: #34d399; margin: 12px 0 8px 0; font-size: 22px; }" +
+                            "p { color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0 0 18px 0; }" +
+                            ".user { font-weight: 700; color: #fff; background: rgba(255,255,255,0.06); padding: 4px 12px; border-radius: 6px; font-size: 15px; }" +
+                            "</style></head><body>" +
+                            "<div class='box'><div style='font-size: 48px;'>🎮</div>" +
+                            "<h2>Signed In with Steam!</h2>" +
+                            "<p>Authenticated as <span class='user'>" + persona + "</span></p>" +
+                            "<p style='color: #64748b; font-size: 13px;'>You can close this browser tab and return to the <strong>STS2 Tracker Companion</strong> window.</p>" +
+                            "<script>setTimeout(function(){ window.close(); }, 3000);</script>" +
+                            "</div></body></html>";
+
+                        ServeString(resp, html, "text/html; charset=utf-8", false);
+                        return;
+                    }
+                    else
+                    {
+                        string errHtml = "<html><body style='background:#0b0f19;color:#f87171;font-family:sans-serif;text-align:center;padding:50px;'>" +
+                            "<h2>Steam Authentication Cancelled or Failed</h2>" +
+                            "<p>Please return to the STS2 Tracker app window and try again.</p></body></html>";
+                        ServeString(resp, errHtml, "text/html; charset=utf-8", false);
+                        return;
+                    }
+                }
+
+                if (rawUrl.Equals("/api/auth_session", StringComparison.OrdinalIgnoreCase))
+                {
+                    string json = pendingAuthSessionJson;
+                    ServeString(resp, json != null ? json : "{}", "application/json; charset=utf-8", true);
+                    return;
+                }
+
+                if (rawUrl.Equals("/api/auth_session/clear", StringComparison.OrdinalIgnoreCase))
+                {
+                    pendingAuthSessionJson = null;
+                    ServeString(resp, "{\"cleared\":true}", "application/json; charset=utf-8", true);
                     return;
                 }
 

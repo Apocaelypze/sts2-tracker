@@ -1,13 +1,13 @@
 {
-  "version": "v1.1.0",
-  "versionNumber": 1.10,
+  "version": "v1.1.1",
+  "versionNumber": 1.11,
   "releaseDate": "2026-10-19",
-  "title": "STS2 Tracker v1.1.0 - Silent Companion & Discord Auto-Update",
+  "title": "STS2 Tracker v1.1.1 - On-Device Steam Auto-Detection & External Browser Login",
   "changelog": [
-    "Pure GUI background runtime (zero console / command prompt windows)",
-    "Discord-style seamless top update banner with instant 1-click restart",
-    "Automatic save detection and auto-sync without redundant upload prompts",
-    "High-speed GitHub Releases direct binary mirror"
+    "Direct on-device Steam account auto-detection (1-click connect as active Steam user)",
+    "External default browser Steam OpenID handoff (uses existing Steam cookies with zero re-login)",
+    "Seamless background auth session synchronizer between browser and companion app",
+    "Pure GUI winexe background runtime (zero command prompt windows)"
   ],
   "downloadExe": "https://github.com/Apocaelypze/sts2-tracker/releases/latest/download/STS2Tracker.exe",
   "downloadZip": "https://slay-the-spire-2-tracker.web.app/STS2Tracker.zip"
