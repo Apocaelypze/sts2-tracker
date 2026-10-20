@@ -31,7 +31,8 @@ namespace STS2Tracker
         private static DateTime lastHeartbeat = DateTime.UtcNow;
         private static bool clientConnected = false;
         private static readonly DateTime serverStartTime = DateTime.UtcNow;
-        private static readonly string AppVersion = "v1.2.1";
+        private static readonly string AppVersion = "v1.2.2";
+        private static HttpListener httpListener = null;
 
         static void Main(string[] args)
         {
@@ -117,6 +118,7 @@ namespace STS2Tracker
 
             // 6. Start Resilient HTTP Server (Port scanning from 8383 to 8390)
             HttpListener listener = StartHttpServer();
+            httpListener = listener;
             if (listener == null)
             {
                 SafeLog("[ERROR] Could not bind HTTP listener to any port between 8383 and 8390.", ConsoleColor.Red);
@@ -231,7 +233,29 @@ namespace STS2Tracker
 
         private static HttpListener StartHttpServer()
         {
-            for (int tryPort = 8383; tryPort <= 8390; tryPort++)
+            // Aggressively retry preferred port 8383 across 12 attempts (3 seconds) to ensure seamless binary handoffs
+            for (int attempt = 0; attempt < 12; attempt++)
+            {
+                HttpListener l = new HttpListener();
+                try
+                {
+                    l.Prefixes.Add("http://localhost:8383/");
+                    l.Prefixes.Add("http://127.0.0.1:8383/");
+                    l.Start();
+                    port = 8383;
+                    httpListener = l;
+                    SafeLog("[SERVER] Live Dashboard active at: http://localhost:8383/");
+                    return l;
+                }
+                catch (Exception)
+                {
+                    l.Close();
+                    Thread.Sleep(250);
+                }
+            }
+
+            // Fallback ports 8384-8390 only if 8383 is permanently occupied by an external application
+            for (int tryPort = 8384; tryPort <= 8390; tryPort++)
             {
                 HttpListener l = new HttpListener();
                 try
@@ -240,7 +264,8 @@ namespace STS2Tracker
                     l.Prefixes.Add("http://127.0.0.1:" + tryPort + "/");
                     l.Start();
                     port = tryPort;
-                    SafeLog("[SERVER] Live Dashboard active at: http://localhost:" + port + "/");
+                    httpListener = l;
+                    SafeLog("[SERVER] Live Dashboard active at fallback: http://localhost:" + port + "/");
                     return l;
                 }
                 catch (Exception)
@@ -1100,7 +1125,7 @@ namespace STS2Tracker
                     "goto retry_loop\r\n" +
                     ":move_ok\r\n" +
                     "if exist \"%~dp0tracker_runtime.log\" del \"%~dp0tracker_runtime.log\" >nul 2>&1\r\n" +
-                    "start \"\" \"" + exePath + "\"\r\n" +
+                    "start \"\" \"" + exePath + "\" --no-browser\r\n" +
                     "del \"%~f0\"\r\n" +
                     "exit\r\n" +
                     ":move_timeout\r\n" +
@@ -1117,6 +1142,7 @@ namespace STS2Tracker
                 Process.Start(psi);
 
                 SafeLog("[UPDATE] Updater launched successfully. Shutting down current instance...", ConsoleColor.Yellow);
+                try { if (httpListener != null) { httpListener.Stop(); httpListener.Close(); } } catch { }
                 Environment.Exit(0);
             }
             catch (Exception ex)
@@ -1125,7 +1151,7 @@ namespace STS2Tracker
             }
         }
 
-        private static string cachedRemoteVersion = "v1.2.1";
+        private static string cachedRemoteVersion = "v1.2.2";
         private static DateTime lastRemoteCheck = DateTime.MinValue;
 
         private static string GetCachedRemoteVersion()
