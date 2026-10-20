@@ -31,7 +31,7 @@ namespace STS2Tracker
         private static DateTime lastHeartbeat = DateTime.UtcNow;
         private static bool clientConnected = false;
         private static readonly DateTime serverStartTime = DateTime.UtcNow;
-        private static readonly string AppVersion = "v1.1.2";
+        private static readonly string AppVersion = "v1.2.0";
 
         static void Main(string[] args)
         {
@@ -59,6 +59,13 @@ namespace STS2Tracker
 
             // 1. Terminate any previous instances automatically (eliminates need for .bat / taskkill)
             KillPreviousInstances();
+
+            try
+            {
+                string strayLog = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tracker_runtime.log");
+                if (File.Exists(strayLog)) File.Delete(strayLog);
+            }
+            catch { }
 
             // 2. Pre-load embedded assets (characters & relics) into memory
             LoadEmbeddedAssets();
@@ -1098,6 +1105,7 @@ namespace STS2Tracker
                     "taskkill /f /im STS2Tracker.exe >nul 2>&1\r\n" +
                     "timeout /t 1 /nobreak >nul\r\n" +
                     "move /y \"" + newExePath + "\" \"" + exePath + "\" >nul\r\n" +
+                    "if exist \"%~dp0tracker_runtime.log\" del \"%~dp0tracker_runtime.log\" >nul 2>&1\r\n" +
                     "start \"\" \"" + exePath + "\"\r\n" +
                     "del \"%~f0\"\r\n";
 
@@ -1126,12 +1134,6 @@ namespace STS2Tracker
                 if (color.HasValue) Console.ForegroundColor = color.Value;
                 Console.WriteLine(msg);
                 if (color.HasValue) Console.ResetColor();
-            }
-            catch { }
-            try
-            {
-                string logFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tracker_runtime.log");
-                File.AppendAllText(logFile, "[" + DateTime.UtcNow.ToString("HH:mm:ss.fff") + "] " + msg + "\r\n");
             }
             catch { }
         }

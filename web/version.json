@@ -1,14 +1,15 @@
 {
-  "version": "v1.1.2",
-  "versionNumber": 1.12,
+  "version": "v1.2.0",
+  "versionNumber": 1.2,
   "releaseDate": "2026-10-19",
-  "title": "STS2 Tracker v1.1.2 - Character Roster Polish & Local Steam Auto-Detection",
+  "title": "STS2 Tracker v1.2.0 - Discord Instant Auto-Updater & Clean Runtime",
   "changelog": [
-    "Removed errant Colorless card category card from Character Roster (restoring clean 5-hero layout)",
+    "Instant Discord-style top update banner with recurring 30-second background checks",
+    "Accurate multi-part semver version comparison engine",
+    "Clean runtime: zero disk log files created (tracker_runtime.log completely removed)",
+    "Removed errant Colorless card category from Character Roster",
     "Direct on-device Steam account auto-detection (1-click connect as active Steam user)",
-    "External default browser Steam OpenID handoff (uses existing Steam cookies with zero re-login)",
-    "Seamless background auth session synchronizer between browser and companion app",
-    "Pure GUI winexe background runtime (zero command prompt windows)"
+    "External default browser Steam OpenID handoff with zero isolated Edge profile prompts"
   ],
   "downloadExe": "https://github.com/Apocaelypze/sts2-tracker/releases/latest/download/STS2Tracker.exe",
   "downloadZip": "https://slay-the-spire-2-tracker.web.app/STS2Tracker.zip"
