@@ -1,14 +1,12 @@
 {
-  "version": "v1.2.2",
-  "versionNumber": 1.22,
-  "releaseDate": "2026-10-19",
-  "title": "STS2 Tracker v1.2.2 - Seamless In-Place Companion Update & Matchup Telemetry",
+  "version": "v1.2.3",
+  "versionNumber": 1.23,
+  "releaseDate": "2026-10-20",
+  "title": "STS2 Tracker v1.2.3 - Single-Instance Lock & Live Matchup Telemetry",
   "changelog": [
-    "Seamless In-Place Auto-Update: Companion refreshes your existing window without spawning duplicate browser instances",
-    "Resilient Port 8383 Engine: Rapid socket handoff prevents connection drops and manual reload errors",
-    "Smart Update Poller: Waits for cloud package download to complete before triggering in-place dashboard reload",
-    "Head-to-Head Slayer Profile Comparison: Side-by-side stats and Matchup Scorecard against your career telemetry on every slayer profile",
-    "Comparative KPI Badges (Playtime 'You: 89h 42m', Bosses 'vs You: 147 Bosses', Win Rate, Highest Ascension, and more)"
+    "Triple-Redundant Single-Instance Guard: Prevents duplicate browser sessions via CLI flag, update marker, and active heartbeat detection",
+    "Seamless In-Place Auto-Update: Refreshes your active window without spawning a second window",
+    "Head-to-Head Slayer Profile Comparison: Side-by-side stats and Matchup Scorecard against your career telemetry on every slayer profile"
   ],
   "downloadExe": "https://github.com/Apocaelypze/sts2-tracker/releases/latest/download/STS2Tracker.exe",
   "downloadZip": "https://slay-the-spire-2-tracker.web.app/STS2Tracker.zip"

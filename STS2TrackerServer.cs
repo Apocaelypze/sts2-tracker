@@ -31,7 +31,7 @@ namespace STS2Tracker
         private static DateTime lastHeartbeat = DateTime.UtcNow;
         private static bool clientConnected = false;
         private static readonly DateTime serverStartTime = DateTime.UtcNow;
-        private static readonly string AppVersion = "v1.2.2";
+        private static readonly string AppVersion = "v1.2.3";
         private static HttpListener httpListener = null;
 
         static void Main(string[] args)
@@ -152,6 +152,16 @@ namespace STS2Tracker
             {
                 if (a.Equals("--no-browser", StringComparison.OrdinalIgnoreCase)) noBrowser = true;
             }
+            try
+            {
+                string updateMarker = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ".sts2_updating");
+                if (File.Exists(updateMarker))
+                {
+                    noBrowser = true;
+                    File.Delete(updateMarker);
+                }
+            }
+            catch { }
 
             if (!noBrowser)
             {
@@ -276,11 +286,16 @@ namespace STS2Tracker
             return null;
         }
 
-        private static void LaunchClientUi()
+        private static void LaunchClientUi(bool forceOpen = false)
         {
             ThreadPool.QueueUserWorkItem(delegate
             {
-                Thread.Sleep(300);
+                Thread.Sleep(forceOpen ? 200 : 1200);
+                if (!forceOpen && clientConnected)
+                {
+                    SafeLog("[APP] Active browser session already connected; skipping duplicate window launch.");
+                    return;
+                }
                 string targetUrl = "http://localhost:" + port + "/?v=" + Environment.TickCount;
                 bool edgeAppStarted = false;
 
@@ -641,6 +656,8 @@ namespace STS2Tracker
 
                 string rawUrl = req.Url.AbsolutePath;
                 if (rawUrl == "/") rawUrl = "/index.html";
+                clientConnected = true;
+                lastHeartbeat = DateTime.UtcNow;
 
                 if (rawUrl.Equals("/api/heartbeat", StringComparison.OrdinalIgnoreCase))
                 {
@@ -770,7 +787,7 @@ namespace STS2Tracker
 
                 if (rawUrl.Equals("/api/open_browser", StringComparison.OrdinalIgnoreCase))
                 {
-                    LaunchClientUi();
+                    LaunchClientUi(true);
                     ServeString(resp, "{\"launched\":true}", "application/json; charset=utf-8", true);
                     return;
                 }
@@ -1132,6 +1149,7 @@ namespace STS2Tracker
                     "del \"%~f0\"\r\n" +
                     "exit\r\n";
 
+                try { File.WriteAllText(Path.Combine(exeDir, ".sts2_updating"), "1", Encoding.ASCII); } catch { }
                 File.WriteAllText(batPath, batContent, Encoding.ASCII);
 
                 ProcessStartInfo psi = new ProcessStartInfo();
@@ -1151,7 +1169,7 @@ namespace STS2Tracker
             }
         }
 
-        private static string cachedRemoteVersion = "v1.2.2";
+        private static string cachedRemoteVersion = "v1.2.3";
         private static DateTime lastRemoteCheck = DateTime.MinValue;
 
         private static string GetCachedRemoteVersion()
