@@ -1,9 +1,10 @@
 {
-  "version": "v1.1.1",
-  "versionNumber": 1.11,
+  "version": "v1.1.2",
+  "versionNumber": 1.12,
   "releaseDate": "2026-10-19",
-  "title": "STS2 Tracker v1.1.1 - On-Device Steam Auto-Detection & External Browser Login",
+  "title": "STS2 Tracker v1.1.2 - Character Roster Polish & Local Steam Auto-Detection",
   "changelog": [
+    "Removed errant Colorless card category card from Character Roster (restoring clean 5-hero layout)",
     "Direct on-device Steam account auto-detection (1-click connect as active Steam user)",
     "External default browser Steam OpenID handoff (uses existing Steam cookies with zero re-login)",
     "Seamless background auth session synchronizer between browser and companion app",
