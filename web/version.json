@@ -1,15 +1,14 @@
 {
-  "version": "v1.2.0",
-  "versionNumber": 1.2,
+  "version": "v1.2.1",
+  "versionNumber": 1.21,
   "releaseDate": "2026-10-19",
-  "title": "STS2 Tracker v1.2.0 - Discord Instant Auto-Updater & Clean Runtime",
+  "title": "STS2 Tracker v1.2.1 - Head-to-Head Slayer Profile Comparison & Live Matchup Telemetry",
   "changelog": [
-    "Instant Discord-style top update banner with recurring 30-second background checks",
-    "Accurate multi-part semver version comparison engine",
-    "Clean runtime: zero disk log files created (tracker_runtime.log completely removed)",
-    "Removed errant Colorless card category from Character Roster",
-    "Direct on-device Steam account auto-detection (1-click connect as active Steam user)",
-    "External default browser Steam OpenID handoff with zero isolated Edge profile prompts"
+    "Head-to-Head Slayer Profile Comparison: Side-by-side stats against your career telemetry on every slayer profile",
+    "Comparative KPI Badges (Playtime 'You: 89h 42m', Bosses 'vs You: 147 Bosses', Win Rate, Highest Ascension, and more)",
+    "Per-hero head-to-head comparison across Ironclad, Silent, Defect, Regent, and Necrobinder",
+    "Matchup Scorecard overview showing category leads when scoping rival slayers",
+    "Robust local auto-update engine with zero-delay companion check"
   ],
   "downloadExe": "https://github.com/Apocaelypze/sts2-tracker/releases/latest/download/STS2Tracker.exe",
   "downloadZip": "https://slay-the-spire-2-tracker.web.app/STS2Tracker.zip"

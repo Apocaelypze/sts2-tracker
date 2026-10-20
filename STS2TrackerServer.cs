@@ -31,7 +31,7 @@ namespace STS2Tracker
         private static DateTime lastHeartbeat = DateTime.UtcNow;
         private static bool clientConnected = false;
         private static readonly DateTime serverStartTime = DateTime.UtcNow;
-        private static readonly string AppVersion = "v1.2.0";
+        private static readonly string AppVersion = "v1.2.1";
 
         static void Main(string[] args)
         {
@@ -58,7 +58,9 @@ namespace STS2Tracker
             SafeLog("=================================================", ConsoleColor.Cyan);
 
             // 1. Terminate any previous instances automatically (eliminates need for .bat / taskkill)
+            SafeLog("[STEP 1] Starting KillPreviousInstances...");
             KillPreviousInstances();
+            SafeLog("[STEP 2] KillPreviousInstances finished.");
 
             try
             {
@@ -67,9 +69,9 @@ namespace STS2Tracker
             }
             catch { }
 
-            // 2. Pre-load embedded assets (characters & relics) into memory
+            SafeLog("[STEP 3] Starting LoadEmbeddedAssets...");
             LoadEmbeddedAssets();
-
+            
             // 3. Locate Web Directory (optional override if web folder exists next to exe)
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
             string candidateWeb = Path.Combine(baseDir, "web");
@@ -160,33 +162,8 @@ namespace STS2Tracker
             SafeLog("Hotkeys: [R] Refresh  [O] Open Folder  [B] Re-open Window  [Q] Exit");
             SafeLog("-------------------------------------------------");
 
-            // 8. Start Watchdog Thread for Auto-Shutdown when App Window Closes
-            ThreadPool.QueueUserWorkItem(delegate
-            {
-                while (!shutdownEvent.WaitOne(1500))
-                {
-                    double elapsedSinceStart = (DateTime.UtcNow - serverStartTime).TotalSeconds;
-                    double elapsedSinceHeartbeat = (DateTime.UtcNow - lastHeartbeat).TotalSeconds;
-
-                    // If client connected and hasn't pinged for 6 seconds -> window closed!
-                    if (clientConnected && elapsedSinceHeartbeat > 6.0)
-                    {
-                        SafeLog("[WATCHDOG] Client disconnected for " + elapsedSinceHeartbeat.ToString("F1") + "s. Window closed. Shutting down.");
-                        shutdownEvent.Set();
-                        break;
-                    }
-
-                    // If no browser connected within 45 seconds after launch -> orphan protection
-                    if (!clientConnected && elapsedSinceStart > 45.0)
-                    {
-                        SafeLog("[WATCHDOG] No client connected within 45s of launch. Triggering orphan shutdown.");
-                        shutdownEvent.Set();
-                        break;
-                    }
-                }
-            });
-
-            // 9. Wait for Shutdown Signal (Window closed or API shutdown)
+            // 8. Companion Background Persistence
+            // Keep background server alive while user plays Slay the Spire 2.
             SafeLog("[SERVER] Server running. Waiting for shutdown signal...");
             shutdownEvent.WaitOne();
             SafeLog("[SERVER] Shutdown signal received. Exiting process.");
@@ -650,21 +627,20 @@ namespace STS2Tracker
 
                 if (rawUrl.Equals("/api/shutdown", StringComparison.OrdinalIgnoreCase))
                 {
-                    SafeLog("[API] /api/shutdown endpoint reached from browser.");
+                    string action = req.QueryString["action"];
+                    if (action != "exit_app")
+                    {
+                        SafeLog("[API] Ignored unconfirmed shutdown ping (missing action=exit_app).");
+                        ServeString(resp, "{\"status\":\"ignored\"}", "application/json; charset=utf-8", true);
+                        return;
+                    }
+
+                    SafeLog("[API] /api/shutdown confirmed by user Exit App button. Shutting down companion...");
                     ServeString(resp, "{\"status\":\"shutting_down\"}", "application/json; charset=utf-8", true);
                     ThreadPool.QueueUserWorkItem(delegate
                     {
-                        Thread.Sleep(2000);
-                        double gap = (DateTime.UtcNow - lastHeartbeat).TotalSeconds;
-                        if (gap > 1.8)
-                        {
-                            SafeLog("[API] Shutdown confirmed (heartbeat gap " + gap.ToString("F1") + "s > 1.8s). Setting shutdownEvent.");
-                            shutdownEvent.Set();
-                        }
-                        else
-                        {
-                            SafeLog("[API] Shutdown aborted: browser reconnected (heartbeat gap " + gap.ToString("F1") + "s).");
-                        }
+                        Thread.Sleep(500);
+                        shutdownEvent.Set();
                     });
                     return;
                 }
@@ -698,6 +674,16 @@ namespace STS2Tracker
                 if (rawUrl.Equals("/api/version", StringComparison.OrdinalIgnoreCase))
                 {
                     ServeString(resp, "{\"version\":\"" + AppVersion + "\",\"is_desktop_app\":true}", "application/json; charset=utf-8", true);
+                    return;
+                }
+
+                if (rawUrl.StartsWith("/api/check_update", StringComparison.OrdinalIgnoreCase) || rawUrl.StartsWith("/version.json", StringComparison.OrdinalIgnoreCase))
+                {
+                    string remoteVer = GetCachedRemoteVersion();
+                    bool updateAvail = IsNewerVersion(remoteVer, AppVersion);
+                    string json = string.Format("{{\"version\":\"{0}\",\"current_version\":\"{1}\",\"update_available\":{2},\"is_desktop_app\":true}}",
+                        remoteVer, AppVersion, updateAvail ? "true" : "false");
+                    ServeString(resp, json, "application/json; charset=utf-8", true);
                     return;
                 }
 
@@ -1103,11 +1089,23 @@ namespace STS2Tracker
                     "@echo off\r\n" +
                     "timeout /t 1 /nobreak >nul\r\n" +
                     "taskkill /f /im STS2Tracker.exe >nul 2>&1\r\n" +
+                    "set retry_count=0\r\n" +
+                    ":retry_loop\r\n" +
+                    "set /a retry_count+=1\r\n" +
+                    "move /y \"" + newExePath + "\" \"" + exePath + "\" >nul 2>&1\r\n" +
+                    "if not errorlevel 1 goto move_ok\r\n" +
+                    "if %retry_count% geq 25 goto move_timeout\r\n" +
                     "timeout /t 1 /nobreak >nul\r\n" +
-                    "move /y \"" + newExePath + "\" \"" + exePath + "\" >nul\r\n" +
+                    "taskkill /f /im STS2Tracker.exe >nul 2>&1\r\n" +
+                    "goto retry_loop\r\n" +
+                    ":move_ok\r\n" +
                     "if exist \"%~dp0tracker_runtime.log\" del \"%~dp0tracker_runtime.log\" >nul 2>&1\r\n" +
                     "start \"\" \"" + exePath + "\"\r\n" +
-                    "del \"%~f0\"\r\n";
+                    "del \"%~f0\"\r\n" +
+                    "exit\r\n" +
+                    ":move_timeout\r\n" +
+                    "del \"%~f0\"\r\n" +
+                    "exit\r\n";
 
                 File.WriteAllText(batPath, batContent, Encoding.ASCII);
 
@@ -1125,6 +1123,61 @@ namespace STS2Tracker
             {
                 SafeLog("[UPDATE EXCEPTION] " + ex.Message, ConsoleColor.Red);
             }
+        }
+
+        private static string cachedRemoteVersion = "v1.2.1";
+        private static DateTime lastRemoteCheck = DateTime.MinValue;
+
+        private static string GetCachedRemoteVersion()
+        {
+            if ((DateTime.UtcNow - lastRemoteCheck).TotalSeconds < 60)
+            {
+                return cachedRemoteVersion;
+            }
+
+            try
+            {
+                lastRemoteCheck = DateTime.UtcNow;
+                ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072 | SecurityProtocolType.Tls12;
+                using (WebClient wc = new WebClient())
+                {
+                    wc.Headers.Add("User-Agent", "STS2Tracker/" + AppVersion);
+                    string ghJson = wc.DownloadString("https://api.github.com/repos/Apocaelypze/sts2-tracker/releases/latest");
+                    int tagIdx = ghJson.IndexOf("\"tag_name\":");
+                    if (tagIdx != -1)
+                    {
+                        int startQuote = ghJson.IndexOf('"', tagIdx + 11);
+                        int endQuote = ghJson.IndexOf('"', startQuote + 1);
+                        if (startQuote != -1 && endQuote != -1)
+                        {
+                            string tag = ghJson.Substring(startQuote + 1, endQuote - startQuote - 1).Trim();
+                            if (tag.StartsWith("v"))
+                            {
+                                cachedRemoteVersion = tag;
+                            }
+                        }
+                    }
+                }
+            }
+            catch { }
+
+            return cachedRemoteVersion;
+        }
+
+        private static bool IsNewerVersion(string remote, string local)
+        {
+            if (string.IsNullOrEmpty(remote) || string.IsNullOrEmpty(local)) return false;
+            string[] rParts = remote.TrimStart('v', 'V').Split('.');
+            string[] lParts = local.TrimStart('v', 'V').Split('.');
+            for (int i = 0; i < Math.Max(rParts.Length, lParts.Length); i++)
+            {
+                int r = 0, l = 0;
+                if (i < rParts.Length) int.TryParse(rParts[i], out r);
+                if (i < lParts.Length) int.TryParse(lParts[i], out l);
+                if (r > l) return true;
+                if (r < l) return false;
+            }
+            return false;
         }
 
         private static void SafeLog(string msg, ConsoleColor? color = null)

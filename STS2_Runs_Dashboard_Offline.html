@@ -3349,7 +3349,7 @@
     <div id="discordUpdateBanner" style="display: none; width: 100%; background: linear-gradient(90deg, #1e3a8a, #0369a1, #0284c7); color: #ffffff; padding: 10px 18px; align-items: center; justify-content: space-between; gap: 14px; font-size: 13px; font-weight: 600; box-shadow: 0 4px 16px rgba(0,0,0,0.4); border-bottom: 1px solid rgba(56, 189, 248, 0.4); z-index: 1000; border-radius: 8px; margin-bottom: 12px; animation: slideDownUpdate 0.3s ease-out;">
       <div style="display: flex; align-items: center; gap: 10px;">
         <span style="font-size: 16px;">🚀</span>
-        <span>An update is ready to install! (<strong id="discordUpdateVer">v1.1.0</strong> is available)</span>
+        <span>An update is ready to install! (<strong id="discordUpdateVer">v1.2.0</strong> is available)</span>
       </div>
       <div style="display: flex; align-items: center; gap: 10px;">
         <button onclick="triggerAppUpdate(true)" style="background: #22c55e; color: #0f172a; border: none; font-weight: 700; font-size: 12px; padding: 6px 16px; border-radius: 6px; cursor: pointer; box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4); display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease;">
@@ -3381,10 +3381,10 @@
 
       <div class="header-actions">
         <!-- Web Download Desktop App Button (hidden when running inside Desktop App) -->
-        <button class="btn-desktop-app" id="btnHeaderDesktopApp" onclick="openAppDownloadModal()" title="Download standalone Desktop App companion (v1.1.0)">
+        <button class="btn-desktop-app" id="btnHeaderDesktopApp" onclick="openAppDownloadModal()" title="Download standalone Desktop App companion (v1.2.0)">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
           <span id="headerDesktopAppText">Desktop App</span>
-          <span id="headerDesktopAppVersion" style="font-size: 10px; opacity: 0.75; font-family: var(--font-mono); font-weight: 700; margin-left: 2px;">v1.1.0</span>
+          <span id="headerDesktopAppVersion" style="font-size: 10px; opacity: 0.75; font-family: var(--font-mono); font-weight: 700; margin-left: 2px;">v1.2.0</span>
         </button>
 
         <button class="btn-primary" id="btnHeaderUploadRun" onclick="openLoadSavesModal()" title="Upload your runs and join the global leaderboard" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; font-size: 12px; font-weight: 700; background: linear-gradient(135deg, #10b981, #059669); border: 1px solid #34d399; box-shadow: 0 2px 10px rgba(16, 185, 129, 0.25);">
@@ -4688,7 +4688,7 @@
         <div style="background: linear-gradient(135deg, rgba(217, 119, 6, 0.12), rgba(20, 24, 33, 0.95)); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 12px; padding: 20px;">
           <div style="font-weight: 700; color: #fbbf24; font-size: 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
             <span>🚀 1-Click Desktop Companion</span>
-            <span style="font-size: 10px; background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: 700;">RECOMMENDED &bull; v1.1.0</span>
+            <span style="font-size: 10px; background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: 700;">RECOMMENDED &bull; v1.2.0</span>
           </div>
           <p style="font-size: 13px; color: var(--text-main); line-height: 1.5; margin-bottom: 14px;">
             Direct 1-click standalone executable (<code>STS2Tracker.exe</code>). Just download and double-click to run &mdash; zero unzipping, zero installation, and includes built-in auto-updating:
@@ -5058,6 +5058,26 @@
 
       <!-- Main Method Chooser View -->
       <div id="authMainView">
+        <!-- Detected Local Steam Account (Desktop Mode 1-Click Fast Connect) -->
+        <div id="authDetectedSteamContainer" style="display: none; background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(6, 78, 59, 0.35)); border: 1px solid rgba(16, 185, 129, 0.45); border-radius: 12px; padding: 14px 16px; margin-bottom: 18px; text-align: left; box-shadow: 0 4px 16px rgba(16, 185, 129, 0.2);">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+            <div style="display: flex; align-items: center; gap: 6px;">
+              <span style="font-size: 16px;">🎮</span>
+              <span style="font-size: 12px; font-weight: 700; color: #34d399; text-transform: uppercase; letter-spacing: 0.5px;">Local Steam Account Detected</span>
+            </div>
+            <span style="font-family: var(--font-mono); font-size: 10px; background: rgba(16, 185, 129, 0.25); color: #6ee7b7; padding: 1px 6px; border-radius: 4px; font-weight: 700;">ON DEVICE</span>
+          </div>
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 8px;">
+            <div>
+              <div id="authDetectedPersona" style="font-size: 16px; font-weight: 800; color: #ffffff;">Apocaelypze</div>
+              <div id="authDetectedSteamId" style="font-size: 11px; color: #94a3b8; font-family: var(--font-mono);">76561199078562869</div>
+            </div>
+            <button type="button" class="btn-primary" onclick="connectDetectedSteamAccount(true)" style="padding: 8px 16px; font-size: 12px; font-weight: 700; background: linear-gradient(135deg, #10b981, #059669); border: 1px solid #34d399; box-shadow: 0 2px 10px rgba(16, 185, 129, 0.35); white-space: nowrap;">
+              ⚡ 1-Click Connect
+            </button>
+          </div>
+        </div>
+
         <!-- Quick Social & Platform Providers -->
         <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px;">
           <!-- Sign in with Steam -->
@@ -5065,7 +5085,7 @@
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
               <path d="M12 2a10 10 0 0 0-10 10c0 4.6 3.1 8.5 7.4 9.6l2.1-3a2.9 2.9 0 0 1-.5-1.6c0-1.6 1.3-2.9 2.9-2.9.3 0 .6 0 .9.1l2.4-3.5A5.5 5.5 0 0 1 17.5 7a5.5 5.5 0 1 1-5.5 5.5c0-.4.1-.7.2-1.1L8.8 13c-.1.3-.2.7-.2 1.1 0 1.9 1.4 3.4 3.2 3.6l-1.3 1.8A8 8 0 1 1 20 12a8 8 0 0 1-8 8v2a10 10 0 0 0 0-20z"/>
             </svg>
-            <span>Sign in with Steam</span>
+            <span id="btnAuthSteamLabel">Sign in with Steam</span>
           </button>
         </div>
 
@@ -5342,8 +5362,7 @@
       'SILENT': { name: 'The Silent', color: 'var(--char-silent)', rgb: '16, 185, 129', class: 'Assassin / Poison', img: 'silent.webp' },
       'DEFECT': { name: 'The Defect', color: 'var(--char-defect)', rgb: '56, 189, 248', class: 'Automaton / Orbs', img: 'defect.webp' },
       'REGENT': { name: 'The Regent', color: 'var(--char-regent)', rgb: '168, 85, 247', class: 'Temporal / Royalty', img: 'regent.webp' },
-      'NECROBINDER': { name: 'The Necrobinder', color: 'var(--char-necrobinder)', rgb: '20, 184, 166', class: 'Summoner / Souls', img: 'necrobinder.webp' },
-      'COLORLESS': { name: 'Colorless', color: '#cbd5e1', rgb: '203, 213, 225', class: 'Neutral / Universal', img: 'colorless.webp' }
+      'NECROBINDER': { name: 'The Necrobinder', color: 'var(--char-necrobinder)', rgb: '20, 184, 166', class: 'Summoner / Souls', img: 'necrobinder.webp' }
     };
 
     function enforceCleanSearchInput() {
@@ -5469,7 +5488,7 @@
             if (resp.ok) {
               const st = await resp.json();
               if (st.is_desktop_app || st.version) {
-                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v0.18');
+                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.2.0');
               }
               if (st.local_player_id && !getLocalSteamId()) {
                 setLocalSteamId(st.local_player_id);
@@ -5509,26 +5528,15 @@
           }
         }, 20000);
 
-        window.addEventListener('beforeunload', () => {
-          try {
-            if (navigator.sendBeacon) {
-              navigator.sendBeacon('/api/shutdown');
-            } else {
-              fetch('/api/shutdown', { method: 'POST', keepalive: true }).catch(() => {});
-            }
-          } catch (e) {}
-        });
+        // Companion session persistence: Keep background companion active during refreshes (Ctrl+R)
+        // Explicit shutdown is triggered via the 'Exit App' button (exitTrackerApp())
       }
     }
 
     function exitTrackerApp() {
       if (confirm('Close STS2 Tracker and stop the background service?')) {
         try {
-          if (navigator.sendBeacon) {
-            navigator.sendBeacon('/api/shutdown');
-          } else {
-            fetch('/api/shutdown', { method: 'POST' }).catch(() => {});
-          }
+          fetch('/api/shutdown?action=exit_app', { method: 'POST' }).catch(() => {});
         } catch (e) {}
         setTimeout(() => {
           window.close();
@@ -5536,26 +5544,74 @@
       }
     }
 
-    let currentAppVersion = 'v1.1.0';
+    let currentAppVersion = 'v1.2.1';
     let isDesktopAppMode = false;
+    let detectedSteamPlayerId = null;
+    let detectedSteamPersona = null;
+    let detectedSteamAccount = null;
+    let authSessionPollInterval = null;
     let cloudUpdateAvailable = false;
-    let latestCloudVersion = 'v1.1.0';
+    let latestCloudVersion = 'v1.2.1';
 
     function dismissUpdateBanner() {
       const banner = document.getElementById('discordUpdateBanner');
       if (banner) banner.style.display = 'none';
     }
 
+    function isNewerVersion(remote, local) {
+      if (!remote || !local) return false;
+      const rParts = (remote || '').replace(/^v/, '').split('.').map(x => parseInt(x, 10) || 0);
+      const lParts = (local || '').replace(/^v/, '').split('.').map(x => parseInt(x, 10) || 0);
+      for (let i = 0; i < Math.max(rParts.length, lParts.length); i++) {
+        const r = rParts[i] || 0;
+        const l = lParts[i] || 0;
+        if (r > l) return true;
+        if (r < l) return false;
+      }
+      return false;
+    }
+
     async function checkCloudUpdate(localVer) {
       try {
-        const resp = await fetch('https://slay-the-spire-2-tracker.web.app/version.json?t=' + Date.now());
-        if (resp.ok) {
-          const vData = await resp.json();
-          latestCloudVersion = vData.version || 'v1.1.0';
-          const cleanLocal = (localVer || '').replace(/^v/, '');
-          const cleanRemote = (latestCloudVersion || '').replace(/^v/, '');
-          const localNum = parseFloat(cleanLocal) || 0;
-          const remoteNum = parseFloat(cleanRemote) || 0;
+        const verToCompare = localVer || currentAppVersion || 'v1.0.0';
+        let vData = null;
+
+        // 1. Direct companion check if running locally (zero-CORS same-origin call)
+        try {
+          const localCheck = await fetch('/api/check_update?t=' + Date.now());
+          if (localCheck.ok) {
+            vData = await localCheck.json();
+          }
+        } catch (eLocal) {}
+
+        // 2. Direct GitHub Releases API (CORS enabled by GitHub globally)
+        if (!vData || !vData.version) {
+          try {
+            const ghResp = await fetch('https://api.github.com/repos/Apocaelypze/sts2-tracker/releases/latest', {
+              headers: { 'Accept': 'application/vnd.github.v3+json' }
+            });
+            if (ghResp.ok) {
+              const gh = await ghResp.json();
+              if (gh.tag_name) {
+                vData = { version: gh.tag_name };
+              }
+            }
+          } catch (eGh) {}
+        }
+
+        // 3. Fallback to Firebase Hosting version.json
+        if (!vData || !vData.version) {
+          try {
+            const fbResp = await fetch('https://slay-the-spire-2-tracker.web.app/version.json?t=' + Date.now());
+            if (fbResp.ok) {
+              vData = await fbResp.json();
+            }
+          } catch (eFb) {}
+        }
+
+        if (vData && vData.version) {
+          latestCloudVersion = vData.version;
+          const hasUpdate = isNewerVersion(latestCloudVersion, verToCompare);
 
           const updateBtn = document.getElementById('btnDesktopUpdate');
           const updateText = document.getElementById('btnUpdateText');
@@ -5563,7 +5619,7 @@
           const banner = document.getElementById('discordUpdateBanner');
           const bannerVer = document.getElementById('discordUpdateVer');
 
-          if (remoteNum > localNum) {
+          if (hasUpdate) {
             cloudUpdateAvailable = true;
             if (bannerVer) bannerVer.innerText = latestCloudVersion;
             if (banner && isDesktopAppMode) {
@@ -5578,7 +5634,7 @@
             }
             if (updateText) updateText.innerHTML = `Restart to Update (${latestCloudVersion}) ⚡`;
             if (updatePill) {
-              updatePill.title = `Your version: ${localVer} (Latest: ${latestCloudVersion})`;
+              updatePill.title = `Your version: ${verToCompare} (Latest: ${latestCloudVersion})`;
               updatePill.style.borderColor = '#22c55e';
               updatePill.style.color = '#4ade80';
             }
@@ -5587,7 +5643,7 @@
             if (banner) banner.style.display = 'none';
             if (updateBtn) updateBtn.style.display = 'none';
             if (updatePill) {
-              updatePill.title = `Up to date (${localVer})`;
+              updatePill.title = `Up to date (${verToCompare})`;
               updatePill.style.borderColor = 'rgba(56, 189, 248, 0.35)';
               updatePill.style.color = '#38bdf8';
             }
@@ -5625,8 +5681,12 @@
       const exitBtn = document.getElementById('btnExitApp');
       if (exitBtn) exitBtn.style.display = 'inline-flex';
 
-      // Query cloud version to notify user ONLY if an update is available (Discord style)
+      // Query cloud version immediately and check every 30 seconds
       checkCloudUpdate(currentAppVersion);
+      if (window._desktopUpdateInterval) clearInterval(window._desktopUpdateInterval);
+      window._desktopUpdateInterval = setInterval(() => {
+        checkCloudUpdate(currentAppVersion);
+      }, 30 * 1000);
     }
 
     async function fetchCloudVersionForWeb() {
@@ -5743,10 +5803,29 @@
         if (resp.ok) {
           const st = await resp.json();
           if (st.local_player_id) {
+            detectedSteamPlayerId = st.local_player_id;
             setLocalSteamId(st.local_player_id);
           }
+          if (st.steam_persona_name) {
+            detectedSteamPersona = st.steam_persona_name;
+          } else if (st.local_player_id === '76561199078562869') {
+            detectedSteamPersona = 'Apocaelypze';
+          }
+          if (st.steam_account_name) {
+            detectedSteamAccount = st.steam_account_name;
+          }
+
+          updateDetectedSteamUI();
+
+          // Auto-login on launch in desktop app mode if user is not yet signed in and did not explicitly log out
+          if (isDesktopAppMode && !getCurrentUser() && !localStorage.getItem('sts2_logged_out')) {
+            if (detectedSteamPlayerId) {
+              connectDetectedSteamAccount(false);
+            }
+          }
+
           if (st.is_desktop_app || st.version) {
-            enableDesktopAppUI(st.version || 'v1.1.0');
+            enableDesktopAppUI(st.version || 'v1.2.0');
           }
         } else {
           fetchCloudVersionForWeb();
@@ -31755,6 +31834,7 @@
 
     function openAuthModal() {
       window._authSavedTab = currentTab || 'runs';
+      updateDetectedSteamUI();
       const modal = document.getElementById('appAuthModal');
       if (modal) {
         modal.style.display = 'flex';
@@ -31804,8 +31884,107 @@
       }
     }
 
+    function updateDetectedSteamUI() {
+      const container = document.getElementById('authDetectedSteamContainer');
+      const personaEl = document.getElementById('authDetectedPersona');
+      const idEl = document.getElementById('authDetectedSteamId');
+      const steamBtnLabel = document.getElementById('btnAuthSteamLabel');
+
+      if (detectedSteamPlayerId) {
+        if (container) container.style.display = 'block';
+        if (personaEl) personaEl.innerText = detectedSteamPersona || (detectedSteamPlayerId === '76561199078562869' ? 'Apocaelypze' : 'Steam Slayer');
+        if (idEl) idEl.innerText = detectedSteamPlayerId;
+        if (steamBtnLabel) steamBtnLabel.innerText = isDesktopAppMode ? 'Sign in with Another Account (Browser)' : 'Sign in with Steam';
+      } else {
+        if (container) container.style.display = 'none';
+        if (steamBtnLabel) steamBtnLabel.innerText = isDesktopAppMode ? 'Sign in with Steam (Web Browser)' : 'Sign in with Steam';
+      }
+    }
+
+    async function connectDetectedSteamAccount(showFeedback = true) {
+      if (!detectedSteamPlayerId) return;
+      const persona = detectedSteamPersona || (detectedSteamPlayerId === '76561199078562869' ? 'Apocaelypze' : ('SteamSlayer_' + detectedSteamPlayerId.slice(-4)));
+      const isCreator = (detectedSteamPlayerId === '76561199078562869' || persona.toLowerCase() === 'apocaelypze');
+
+      try {
+        localStorage.setItem('sts2_steam_persona_' + detectedSteamPlayerId, persona);
+        await fetch(`${FORUM_RTDB_BASE}/steam_users/${detectedSteamPlayerId}.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ steamId: detectedSteamPlayerId, persona, updatedAt: Date.now() })
+        }).catch(() => {});
+      } catch (e) {}
+
+      setCurrentUser({
+        username: persona,
+        steamId: detectedSteamPlayerId,
+        provider: 'steam',
+        isCreator: isCreator
+      });
+      setLocalSteamId(detectedSteamPlayerId);
+      linkRunsToUser(persona);
+      closeAuthModal();
+
+      if (showFeedback) {
+        showToast(isCreator ? '👑 Welcome back, Apocaelypze! Profile & climbs connected.' : `🎮 Connected via Steam (${persona})!`);
+      }
+      await syncUserRunsFromCloud(persona, showFeedback);
+    }
+
     function startSteamAuth() {
+      if (isDesktopAppMode) {
+        // 1. If local Steam account is detected on device, connect instantly without browser
+        if (detectedSteamPlayerId && detectedSteamPersona) {
+          connectDetectedSteamAccount(true);
+          return;
+        }
+        // 2. Otherwise open in external browser where user already has Steam cookies
+        openExternalSteamLogin();
+        return;
+      }
       initiateSteamLogin();
+    }
+
+    async function openExternalSteamLogin() {
+      showToast('🌐 Opening Steam in your web browser...');
+      try {
+        const resp = await fetch('/api/open_steam_login');
+        if (resp.ok) {
+          startAuthSessionPolling();
+        } else {
+          initiateSteamLogin();
+        }
+      } catch (e) {
+        initiateSteamLogin();
+      }
+    }
+
+    function startAuthSessionPolling() {
+      if (authSessionPollInterval) clearInterval(authSessionPollInterval);
+      let attempts = 0;
+      authSessionPollInterval = setInterval(async () => {
+        attempts++;
+        if (attempts > 120) {
+          clearInterval(authSessionPollInterval);
+          return;
+        }
+        try {
+          const resp = await fetch('/api/auth_session', { cache: 'no-store' });
+          if (resp.ok) {
+            const data = await resp.json();
+            if (data && data.username && data.steamId) {
+              clearInterval(authSessionPollInterval);
+              fetch('/api/auth_session/clear').catch(() => {});
+              setCurrentUser(data);
+              setLocalSteamId(data.steamId);
+              linkRunsToUser(data.username);
+              closeAuthModal();
+              showToast(data.isCreator ? '👑 Welcome back, Apocaelypze!' : `🎮 Signed in via Steam as ${data.username}!`);
+              await syncUserRunsFromCloud(data.username, true);
+            }
+          }
+        } catch (e) {}
+      }, 1500);
     }
 
     function initiateSteamLogin() {
@@ -35495,6 +35674,46 @@
       }
     };
 
+        function getMyProfileData() {
+      const localUser = getCurrentUser();
+      const localHandle = (localUser ? localUser.username : "") || localStorage.getItem("sts2_slayer_handle") || (typeof detectedSteamPersona !== "undefined" ? detectedSteamPersona : null) || "Apocaelypze";
+      let myRuns = (Array.isArray(rawLocalRuns) && rawLocalRuns.length > 0) ? rawLocalRuns : ((Array.isArray(allRuns) && allRuns.length > 0) ? allRuns : []);
+      if (!myRuns || myRuns.length === 0) {
+        try {
+          const saved = localStorage.getItem("sts2_saved_runs");
+          if (saved) myRuns = JSON.parse(saved);
+        } catch (e) {}
+      }
+      const isCreator = isOwnerAuthenticated() || (localUser && localUser.isCreator) || (localHandle.toLowerCase() === "apocaelypze");
+      const role = isCreator ? "owner" : (localUser ? (localUser.provider === "steam" ? "steam" : "slayer") : "slayer");
+      return buildPlayerProfileData(myRuns || [], localHandle, isCreator, role);
+    }
+
+    function renderVsPill(myValText, status = "neutral") {
+      if (!myValText) return "";
+      let borderCol = "rgba(56, 189, 248, 0.3)";
+      let bgCol = "rgba(56, 189, 248, 0.08)";
+      let textCol = "#38bdf8";
+      let badgeIcon = "";
+
+      if (status === "ahead") {
+        borderCol = "rgba(34, 197, 94, 0.35)";
+        bgCol = "rgba(34, 197, 94, 0.1)";
+        textCol = "#4ade80";
+        badgeIcon = "▲ ";
+      } else if (status === "behind") {
+        borderCol = "rgba(148, 163, 184, 0.2)";
+        bgCol = "rgba(255, 255, 255, 0.03)";
+        textCol = "#94a3b8";
+        badgeIcon = "▼ ";
+      }
+
+      return "<div class=\"profile-vs-badge\" style=\"display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 6px; padding: 3px 8px; background: " + bgCol + "; border: 1px solid " + borderCol + "; border-radius: 6px; font-size: 11px; font-weight: 700; color: " + textCol + ";\">" +
+        "<span style=\"font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.75; color: var(--text-dim);\">YOU:</span>" +
+        "<span>" + badgeIcon + escapeHtml(String(myValText)) + "</span>" +
+      "</div>";
+    }
+
     function renderPlayerProfile(data) {
       const hEl = document.getElementById('profHandle');
       if (hEl) {
@@ -35532,6 +35751,98 @@
       const content = document.getElementById('playerProfileContent');
       if (!content) return;
 
+      // Comparative Player Telemetry (Head-to-Head)
+      const myData = getMyProfileData();
+      const localHandle = (myData && myData.handle) ? myData.handle.toLowerCase() : '';
+      const targetHandle = (data && data.handle) ? data.handle.toLowerCase() : '';
+      const isSelf = (localHandle && targetHandle && (localHandle === targetHandle || (isOwnerAuthenticated() && targetHandle === 'apocaelypze')));
+      const hasMyData = myData && (myData.totalRuns > 0);
+      const canCompare = hasMyData && !isSelf;
+
+      // Comparative values calculation
+      const theirBosses = data.epochs?.totalBosses || data.bossesSlain || 0;
+      const myBosses = myData.epochs?.totalBosses || myData.bossesSlain || 0;
+
+      const theirElites = data.epochs?.totalElites || data.elitesSlain || 0;
+      const myElites = myData.epochs?.totalElites || myData.elitesSlain || 0;
+
+      const theirDmg = data.lifetimeDamageDealt || 0;
+      const myDmg = myData.lifetimeDamageDealt || 0;
+
+      const theirPlaySec = data.totalPlaytimeSec || 0;
+      const myPlaySec = myData.totalPlaytimeSec || 0;
+      const myPlayText = myData.playtimeText || (myPlaySec ? `${Math.floor(myPlaySec/3600)}h ${Math.floor((myPlaySec%3600)/60)}m` : '0h 0m');
+
+      const theirFloors = data.epochs?.totalFloors || data.floorsClimbed || 0;
+      const myFloors = myData.epochs?.totalFloors || myData.floorsClimbed || 0;
+
+      const theirStreak = data.longestStreak || 0;
+      const myStreak = myData.longestStreak || 0;
+
+      const theirSpeed = data.fastestWinSeconds || 0;
+      const mySpeed = myData.fastestWinSeconds || 0;
+      const mySpeedText = mySpeed > 0 ? formatTime(mySpeed) : '-';
+      const speedAhead = (mySpeed > 0 && (theirSpeed === 0 || mySpeed < theirSpeed));
+      const speedBehind = (theirSpeed > 0 && (mySpeed === 0 || mySpeed > theirSpeed));
+
+      let leadCount = 0;
+      if (canCompare) {
+        if ((myData.powerScore || 0) > (data.powerScore || 0)) leadCount++;
+        if ((myData.totalRuns || 0) > (data.totalRuns || 0)) leadCount++;
+        if ((parseFloat(myData.winRate) || 0) > (parseFloat(data.winRate) || 0)) leadCount++;
+        if ((myData.maxAscension || 0) > (data.maxAscension || 0)) leadCount++;
+        if (myBosses > theirBosses) leadCount++;
+        if (myElites > theirElites) leadCount++;
+        if (myDmg > theirDmg) leadCount++;
+        if (myPlaySec > theirPlaySec) leadCount++;
+        if (myFloors > theirFloors) leadCount++;
+        if (myStreak > theirStreak) leadCount++;
+        if (speedAhead) leadCount++;
+      }
+
+      // Head-to-Head Matchup Banner
+      let matchupBannerHtml = '';
+      if (canCompare) {
+        matchupBannerHtml = `
+          <div class="profile-matchup-banner" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.85)); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 12px; padding: 14px 20px; margin-bottom: 22px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.45);">
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <div style="width: 44px; height: 44px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid #38bdf8; display: flex; align-items: center; justify-content: center; font-size: 22px;">
+                ⚔️
+              </div>
+              <div>
+                <div style="font-size: 11px; font-weight: 700; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.8px;">Head-to-Head Slayer Matchup</div>
+                <div style="font-size: 16px; font-weight: 800; color: #fff; margin-top: 2px;">
+                  ${escapeHtml(data.handle)} <span style="color: var(--text-muted); font-size: 13px; font-weight: 600;">vs</span> You (<span style="color: var(--gold-spire);">${escapeHtml(myData.handle)}</span>)
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div style="background: rgba(0, 0, 0, 0.35); padding: 8px 14px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08); text-align: right;">
+                <div style="font-size: 10.5px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Matchup Scorecard</div>
+                <div style="font-size: 13px; font-weight: 800; color: ${leadCount >= 6 ? "#4ade80" : "#fbbf24"}; margin-top: 2px;">
+                  ${leadCount >= 6 ? `🏆 You lead in ${leadCount} of 11 core metrics` : `⚔️ You lead in ${leadCount} of 11 core metrics`}
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (isSelf) {
+        matchupBannerHtml = `
+          <div class="profile-self-banner" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(15, 23, 42, 0.85)); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 12px; padding: 14px 20px; margin-bottom: 22px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="font-size: 24px;">👑</span>
+              <div>
+                <div style="font-size: 11px; font-weight: 700; color: var(--gold-spire); text-transform: uppercase; letter-spacing: 0.8px;">Personal Career Ledger</div>
+                <div style="font-size: 15px; font-weight: 800; color: #fff;">Your Verified Slay the Spire 2 Telemetry &amp; Ascendance Records</div>
+              </div>
+            </div>
+            <div style="font-size: 12px; color: var(--text-dim); background: rgba(0,0,0,0.3); padding: 6px 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.06);">
+              📊 <strong>${myData.totalRuns || 0}</strong> climbs tracked from local saves
+            </div>
+          </div>
+        `;
+      }
+
       // 1. KPI Overview Strip (12 Top Cards combining Climbs & History summary + Profile metrics)
       const kpisHtml = `
         <div class="profile-kpi-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px;">
@@ -35539,61 +35850,73 @@
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Power Score <span style="cursor: help; color: #38bdf8;" title="Formula: 150/win + 120/asc + 200/streak + exp">ℹ️</span></div>
             <div style="font-size: 24px; font-weight: 800; color: var(--gold-spire); margin-top: 4px;">${(data.powerScore || 0).toLocaleString()}</div>
             <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">Spire Prestige Rank</div>
+            ${canCompare ? renderVsPill(myData.powerScore.toLocaleString(), myData.powerScore > (data.powerScore || 0) ? 'ahead' : (myData.powerScore < (data.powerScore || 0) ? 'behind' : 'neutral')) : ''}
           </div>
           <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Total Runs</div>
             <div style="font-size: 24px; font-weight: 800; color: #fff; margin-top: 4px;">${data.totalRuns || 0}</div>
             <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">${data.soloRuns !== undefined ? data.soloRuns : data.totalRuns || 0} Solo &bull; ${data.coopRuns || 0} Co-op &bull; ${data.dailyRuns || 0} Daily</div>
+            ${canCompare ? renderVsPill(`${myData.totalRuns} Runs`, myData.totalRuns > (data.totalRuns || 0) ? 'ahead' : (myData.totalRuns < (data.totalRuns || 0) ? 'behind' : 'neutral')) : ''}
           </div>
           <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Win Rate</div>
-            <div style="font-size: 24px; font-weight: 800; color: var(--win-color); margin-top: 4px;">${data.winRate || '0.0'}%</div>
+            <div style="font-size: 24px; font-weight: 800; color: var(--win-color); margin-top: 4px;">${data.winRate || "0.0"}%</div>
             <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">${data.totalVictories || 0} Wins &bull; ${Math.max(0, (data.totalRuns || 0) - (data.totalVictories || 0))} Defeats</div>
+            ${canCompare ? renderVsPill(`${myData.winRate}%`, parseFloat(myData.winRate) > parseFloat(data.winRate || 0) ? 'ahead' : (parseFloat(myData.winRate) < parseFloat(data.winRate || 0) ? 'behind' : 'neutral')) : ''}
           </div>
           <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Highest Ascension Won</div>
             <div style="font-size: 24px; font-weight: 800; color: var(--win-color); margin-top: 4px;">A${data.maxAscension || 0}</div>
-            <div style="font-size: 10.5px; color: var(--text-dim); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(data.highestWonHeroText || 'Highest Victory Level')}">${escapeHtml(data.highestWonHeroText || 'Highest Victory Level')}</div>
+            <div style="font-size: 10.5px; color: var(--text-dim); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(data.highestWonHeroText || "Highest Victory Level")}">${escapeHtml(data.highestWonHeroText || "Highest Victory Level")}</div>
+            ${canCompare ? renderVsPill(`A${myData.maxAscension}`, myData.maxAscension > (data.maxAscension || 0) ? 'ahead' : (myData.maxAscension < (data.maxAscension || 0) ? 'behind' : 'neutral')) : ''}
           </div>
           <div style="background: rgba(234, 179, 8, 0.08); border: 1px solid rgba(234, 179, 8, 0.35); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">👑 Bosses Slain</div>
-            <div style="font-size: 24px; font-weight: 800; color: var(--gold-spire); margin-top: 4px;">${(data.epochs?.totalBosses || data.bossesSlain || 0).toLocaleString()}</div>
+            <div style="font-size: 24px; font-weight: 800; color: var(--gold-spire); margin-top: 4px;">${(theirBosses).toLocaleString()}</div>
             <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">Epoch Milestones Target</div>
+            ${canCompare ? renderVsPill(`${myBosses.toLocaleString()} Bosses`, myBosses > theirBosses ? 'ahead' : (myBosses < theirBosses ? 'behind' : 'neutral')) : ''}
           </div>
           <div style="background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.35); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">💀 Elites Slain</div>
-            <div style="font-size: 24px; font-weight: 800; color: #f43f5e; margin-top: 4px;">${(data.epochs?.totalElites || data.elitesSlain || 0).toLocaleString()}</div>
+            <div style="font-size: 24px; font-weight: 800; color: #f43f5e; margin-top: 4px;">${(theirElites).toLocaleString()}</div>
             <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">High-Threat Takedowns</div>
+            ${canCompare ? renderVsPill(`${myElites.toLocaleString()} Elites`, myElites > theirElites ? 'ahead' : (myElites < theirElites ? 'behind' : 'neutral')) : ''}
           </div>
           <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Lifetime DMG Dealt</div>
-            <div style="font-size: 24px; font-weight: 800; color: #38bdf8; margin-top: 4px;">${(data.lifetimeDamageDealt || 0).toLocaleString()}</div>
+            <div style="font-size: 24px; font-weight: 800; color: #38bdf8; margin-top: 4px;">${(theirDmg).toLocaleString()}</div>
             <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">Across all enemy encounters</div>
+            ${canCompare ? renderVsPill(myDmg.toLocaleString(), myDmg > theirDmg ? 'ahead' : (myDmg < theirDmg ? 'behind' : 'neutral')) : ''}
           </div>
           <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Total Playtime</div>
-            <div style="font-size: 22px; font-weight: 800; color: #fff; margin-top: 4px;">${data.playtimeText || (data.totalPlaytimeSec ? `${Math.floor(data.totalPlaytimeSec/3600)}h ${Math.floor((data.totalPlaytimeSec%3600)/60)}m` : '0h 0m')}</div>
-            <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">${data.avgClimbTimeText || 'Avg: 0m per climb'}</div>
+            <div style="font-size: 22px; font-weight: 800; color: #fff; margin-top: 4px;">${data.playtimeText || (theirPlaySec ? `${Math.floor(theirPlaySec/3600)}h ${Math.floor((theirPlaySec%3600)/60)}m` : "0h 0m")}</div>
+            <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">${data.avgClimbTimeText || "Avg: 0m per climb"}</div>
+            ${canCompare ? renderVsPill(myPlayText, myPlaySec > theirPlaySec ? 'ahead' : (myPlaySec < theirPlaySec ? 'behind' : 'neutral')) : ''}
           </div>
           <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Floors Climbed</div>
-            <div style="font-size: 24px; font-weight: 800; color: #fff; margin-top: 4px;">${(data.epochs?.totalFloors || data.floorsClimbed || 0).toLocaleString()}</div>
+            <div style="font-size: 24px; font-weight: 800; color: #fff; margin-top: 4px;">${(theirFloors).toLocaleString()}</div>
             <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">Across all excursions</div>
+            ${canCompare ? renderVsPill(`${myFloors.toLocaleString()} Floors`, myFloors > theirFloors ? 'ahead' : (myFloors < theirFloors ? 'behind' : 'neutral')) : ''}
           </div>
           <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Top Hero</div>
-            <div style="font-size: 20px; font-weight: 800; color: #fff; margin-top: 4px;">${data.topHeroName || '-'}</div>
-            <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">${data.topHeroRunsText || 'Most played hero'}</div>
+            <div style="font-size: 20px; font-weight: 800; color: #fff; margin-top: 4px;">${data.topHeroName || "-"}</div>
+            <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">${data.topHeroRunsText || "Most played hero"}</div>
+            ${canCompare ? renderVsPill(myData.topHeroName || '-', 'neutral') : ''}
           </div>
           <div style="background: rgba(168, 85, 247, 0.08); border: 1px solid rgba(168, 85, 247, 0.35); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Top Win Streak</div>
             <div style="font-size: 24px; font-weight: 800; color: #c084fc; margin-top: 4px;">🔥 ${data.longestStreak || 0}</div>
             <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">Consecutive Wins</div>
+            ${canCompare ? renderVsPill(`🔥 ${myStreak}`, myStreak > theirStreak ? 'ahead' : (myStreak < theirStreak ? 'behind' : 'neutral')) : ''}
           </div>
           <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Best Speedrun</div>
-            <div style="font-size: 22px; font-weight: 800; color: #38bdf8; margin-top: 4px; font-family: monospace;">${data.fastestWinSeconds ? formatTime(data.fastestWinSeconds) : '-'}</div>
+            <div style="font-size: 22px; font-weight: 800; color: #38bdf8; margin-top: 4px; font-family: monospace;">${data.fastestWinSeconds ? formatTime(data.fastestWinSeconds) : "-"}</div>
             <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">Fastest Clear</div>
+            ${canCompare ? renderVsPill(mySpeedText, speedAhead ? 'ahead' : (speedBehind ? 'behind' : 'neutral')) : ''}
           </div>
         </div>
       `;
@@ -35602,12 +35925,22 @@
       let charGridHtml = '';
       if (data.charStats) {
         Object.entries(data.charStats).forEach(([cKey, cData]) => {
-          const cfg = CHAR_CONFIG[cKey] || { name: cKey, color: '#fff', img: 'ironclad.webp' };
+          const cfg = CHAR_CONFIG[cKey] || { name: cKey, color: "#fff", img: "ironclad.webp" };
           const rate = cData.runs > 0 ? ((cData.wins / cData.runs) * 100).toFixed(1) : '0.0';
+          const myChar = (myData.charStats && myData.charStats[cKey]) || { runs: 0, wins: 0, maxAscWon: 0, bosses: 0, elites: 0 };
+          const myCharRate = myChar.runs > 0 ? ((myChar.wins / myChar.runs) * 100).toFixed(1) : '0.0';
+
+          const charVsHtml = canCompare ? `
+            <div style="margin-top: 6px; padding: 4px 8px; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 6px; font-size: 10.5px; display: flex; justify-content: space-between; align-items: center;">
+              <span style="color: #94a3b8; font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px;">VS YOU:</span>
+              <span style="color: #38bdf8; font-weight: 700;">${myChar.wins}W/${myChar.runs}R (${myCharRate}%) &bull; A${myChar.maxAscWon || 0}</span>
+            </div>
+          ` : '';
+
           charGridHtml += `
             <div style="background: var(--bg-darker); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 8px;">
               <div style="display: flex; align-items: center; gap: 8px;">
-                <img src="${getAssetUrl('assets/characters/' + cfg.img)}" alt="${cfg.name}" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid ${cfg.color};" onerror="this.style.display='none'">
+                <img src="${getAssetUrl("assets/characters/" + cfg.img)}" alt="${cfg.name}" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid ${cfg.color};" onerror="this.style.display='none'">
                 <div>
                   <div style="font-weight: 700; color: ${cfg.color}; font-size: 13px;">${cfg.name}</div>
                   <div style="font-size: 10.5px; color: var(--text-dim);">${cData.wins}W / ${cData.runs}R (${rate}%)</div>
@@ -35621,12 +35954,13 @@
                 <span>👑 ${cData.bosses || 0} Bosses</span>
                 <span>💀 ${cData.elites || 0} Elites</span>
               </div>
+              ${charVsHtml}
             </div>
           `;
         });
       }
 
-      // 3. Spire Hall of Records (All 15 Feats in Simplified Quick-Overview Format without Run Numbers)
+            // 3. Spire Hall of Records (All 15 Feats in Simplified Quick-Overview Format without Run Numbers)
       const rec = data.records || {};
       const unupgCount = Math.max(0, (rec.leastUpgDeck || 0) - (rec.leastUpg || 0));
 
@@ -35775,6 +36109,7 @@
       `;
 
       content.innerHTML = `
+        ${matchupBannerHtml}
         ${kpisHtml}
 
         <div style="margin-bottom: 24px;">

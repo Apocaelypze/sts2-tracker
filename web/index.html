@@ -5528,26 +5528,15 @@
           }
         }, 20000);
 
-        window.addEventListener('beforeunload', () => {
-          try {
-            if (navigator.sendBeacon) {
-              navigator.sendBeacon('/api/shutdown');
-            } else {
-              fetch('/api/shutdown', { method: 'POST', keepalive: true }).catch(() => {});
-            }
-          } catch (e) {}
-        });
+        // Companion session persistence: Keep background companion active during refreshes (Ctrl+R)
+        // Explicit shutdown is triggered via the 'Exit App' button (exitTrackerApp())
       }
     }
 
     function exitTrackerApp() {
       if (confirm('Close STS2 Tracker and stop the background service?')) {
         try {
-          if (navigator.sendBeacon) {
-            navigator.sendBeacon('/api/shutdown');
-          } else {
-            fetch('/api/shutdown', { method: 'POST' }).catch(() => {});
-          }
+          fetch('/api/shutdown?action=exit_app', { method: 'POST' }).catch(() => {});
         } catch (e) {}
         setTimeout(() => {
           window.close();
@@ -5555,14 +5544,14 @@
       }
     }
 
-    let currentAppVersion = 'v1.2.0';
+    let currentAppVersion = 'v1.2.1';
     let isDesktopAppMode = false;
     let detectedSteamPlayerId = null;
     let detectedSteamPersona = null;
     let detectedSteamAccount = null;
     let authSessionPollInterval = null;
     let cloudUpdateAvailable = false;
-    let latestCloudVersion = 'v1.2.0';
+    let latestCloudVersion = 'v1.2.1';
 
     function dismissUpdateBanner() {
       const banner = document.getElementById('discordUpdateBanner');
@@ -5585,10 +5574,43 @@
     async function checkCloudUpdate(localVer) {
       try {
         const verToCompare = localVer || currentAppVersion || 'v1.0.0';
-        const resp = await fetch('https://slay-the-spire-2-tracker.web.app/version.json?t=' + Date.now());
-        if (resp.ok) {
-          const vData = await resp.json();
-          latestCloudVersion = vData.version || 'v1.2.0';
+        let vData = null;
+
+        // 1. Direct companion check if running locally (zero-CORS same-origin call)
+        try {
+          const localCheck = await fetch('/api/check_update?t=' + Date.now());
+          if (localCheck.ok) {
+            vData = await localCheck.json();
+          }
+        } catch (eLocal) {}
+
+        // 2. Direct GitHub Releases API (CORS enabled by GitHub globally)
+        if (!vData || !vData.version) {
+          try {
+            const ghResp = await fetch('https://api.github.com/repos/Apocaelypze/sts2-tracker/releases/latest', {
+              headers: { 'Accept': 'application/vnd.github.v3+json' }
+            });
+            if (ghResp.ok) {
+              const gh = await ghResp.json();
+              if (gh.tag_name) {
+                vData = { version: gh.tag_name };
+              }
+            }
+          } catch (eGh) {}
+        }
+
+        // 3. Fallback to Firebase Hosting version.json
+        if (!vData || !vData.version) {
+          try {
+            const fbResp = await fetch('https://slay-the-spire-2-tracker.web.app/version.json?t=' + Date.now());
+            if (fbResp.ok) {
+              vData = await fbResp.json();
+            }
+          } catch (eFb) {}
+        }
+
+        if (vData && vData.version) {
+          latestCloudVersion = vData.version;
           const hasUpdate = isNewerVersion(latestCloudVersion, verToCompare);
 
           const updateBtn = document.getElementById('btnDesktopUpdate');
@@ -15360,6 +15382,46 @@
       }
     };
 
+        function getMyProfileData() {
+      const localUser = getCurrentUser();
+      const localHandle = (localUser ? localUser.username : "") || localStorage.getItem("sts2_slayer_handle") || (typeof detectedSteamPersona !== "undefined" ? detectedSteamPersona : null) || "Apocaelypze";
+      let myRuns = (Array.isArray(rawLocalRuns) && rawLocalRuns.length > 0) ? rawLocalRuns : ((Array.isArray(allRuns) && allRuns.length > 0) ? allRuns : []);
+      if (!myRuns || myRuns.length === 0) {
+        try {
+          const saved = localStorage.getItem("sts2_saved_runs");
+          if (saved) myRuns = JSON.parse(saved);
+        } catch (e) {}
+      }
+      const isCreator = isOwnerAuthenticated() || (localUser && localUser.isCreator) || (localHandle.toLowerCase() === "apocaelypze");
+      const role = isCreator ? "owner" : (localUser ? (localUser.provider === "steam" ? "steam" : "slayer") : "slayer");
+      return buildPlayerProfileData(myRuns || [], localHandle, isCreator, role);
+    }
+
+    function renderVsPill(myValText, status = "neutral") {
+      if (!myValText) return "";
+      let borderCol = "rgba(56, 189, 248, 0.3)";
+      let bgCol = "rgba(56, 189, 248, 0.08)";
+      let textCol = "#38bdf8";
+      let badgeIcon = "";
+
+      if (status === "ahead") {
+        borderCol = "rgba(34, 197, 94, 0.35)";
+        bgCol = "rgba(34, 197, 94, 0.1)";
+        textCol = "#4ade80";
+        badgeIcon = "▲ ";
+      } else if (status === "behind") {
+        borderCol = "rgba(148, 163, 184, 0.2)";
+        bgCol = "rgba(255, 255, 255, 0.03)";
+        textCol = "#94a3b8";
+        badgeIcon = "▼ ";
+      }
+
+      return "<div class=\"profile-vs-badge\" style=\"display: flex; align-items: center; justify-content: center; gap: 4px; margin-top: 6px; padding: 3px 8px; background: " + bgCol + "; border: 1px solid " + borderCol + "; border-radius: 6px; font-size: 11px; font-weight: 700; color: " + textCol + ";\">" +
+        "<span style=\"font-size: 9px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.75; color: var(--text-dim);\">YOU:</span>" +
+        "<span>" + badgeIcon + escapeHtml(String(myValText)) + "</span>" +
+      "</div>";
+    }
+
     function renderPlayerProfile(data) {
       const hEl = document.getElementById('profHandle');
       if (hEl) {
@@ -15397,6 +15459,98 @@
       const content = document.getElementById('playerProfileContent');
       if (!content) return;
 
+      // Comparative Player Telemetry (Head-to-Head)
+      const myData = getMyProfileData();
+      const localHandle = (myData && myData.handle) ? myData.handle.toLowerCase() : '';
+      const targetHandle = (data && data.handle) ? data.handle.toLowerCase() : '';
+      const isSelf = (localHandle && targetHandle && (localHandle === targetHandle || (isOwnerAuthenticated() && targetHandle === 'apocaelypze')));
+      const hasMyData = myData && (myData.totalRuns > 0);
+      const canCompare = hasMyData && !isSelf;
+
+      // Comparative values calculation
+      const theirBosses = data.epochs?.totalBosses || data.bossesSlain || 0;
+      const myBosses = myData.epochs?.totalBosses || myData.bossesSlain || 0;
+
+      const theirElites = data.epochs?.totalElites || data.elitesSlain || 0;
+      const myElites = myData.epochs?.totalElites || myData.elitesSlain || 0;
+
+      const theirDmg = data.lifetimeDamageDealt || 0;
+      const myDmg = myData.lifetimeDamageDealt || 0;
+
+      const theirPlaySec = data.totalPlaytimeSec || 0;
+      const myPlaySec = myData.totalPlaytimeSec || 0;
+      const myPlayText = myData.playtimeText || (myPlaySec ? `${Math.floor(myPlaySec/3600)}h ${Math.floor((myPlaySec%3600)/60)}m` : '0h 0m');
+
+      const theirFloors = data.epochs?.totalFloors || data.floorsClimbed || 0;
+      const myFloors = myData.epochs?.totalFloors || myData.floorsClimbed || 0;
+
+      const theirStreak = data.longestStreak || 0;
+      const myStreak = myData.longestStreak || 0;
+
+      const theirSpeed = data.fastestWinSeconds || 0;
+      const mySpeed = myData.fastestWinSeconds || 0;
+      const mySpeedText = mySpeed > 0 ? formatTime(mySpeed) : '-';
+      const speedAhead = (mySpeed > 0 && (theirSpeed === 0 || mySpeed < theirSpeed));
+      const speedBehind = (theirSpeed > 0 && (mySpeed === 0 || mySpeed > theirSpeed));
+
+      let leadCount = 0;
+      if (canCompare) {
+        if ((myData.powerScore || 0) > (data.powerScore || 0)) leadCount++;
+        if ((myData.totalRuns || 0) > (data.totalRuns || 0)) leadCount++;
+        if ((parseFloat(myData.winRate) || 0) > (parseFloat(data.winRate) || 0)) leadCount++;
+        if ((myData.maxAscension || 0) > (data.maxAscension || 0)) leadCount++;
+        if (myBosses > theirBosses) leadCount++;
+        if (myElites > theirElites) leadCount++;
+        if (myDmg > theirDmg) leadCount++;
+        if (myPlaySec > theirPlaySec) leadCount++;
+        if (myFloors > theirFloors) leadCount++;
+        if (myStreak > theirStreak) leadCount++;
+        if (speedAhead) leadCount++;
+      }
+
+      // Head-to-Head Matchup Banner
+      let matchupBannerHtml = '';
+      if (canCompare) {
+        matchupBannerHtml = `
+          <div class="profile-matchup-banner" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.85)); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 12px; padding: 14px 20px; margin-bottom: 22px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; box-shadow: 0 4px 20px rgba(0,0,0,0.45);">
+            <div style="display: flex; align-items: center; gap: 14px;">
+              <div style="width: 44px; height: 44px; border-radius: 50%; background: rgba(56, 189, 248, 0.15); border: 1px solid #38bdf8; display: flex; align-items: center; justify-content: center; font-size: 22px;">
+                ⚔️
+              </div>
+              <div>
+                <div style="font-size: 11px; font-weight: 700; color: #38bdf8; text-transform: uppercase; letter-spacing: 0.8px;">Head-to-Head Slayer Matchup</div>
+                <div style="font-size: 16px; font-weight: 800; color: #fff; margin-top: 2px;">
+                  ${escapeHtml(data.handle)} <span style="color: var(--text-muted); font-size: 13px; font-weight: 600;">vs</span> You (<span style="color: var(--gold-spire);">${escapeHtml(myData.handle)}</span>)
+                </div>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 16px;">
+              <div style="background: rgba(0, 0, 0, 0.35); padding: 8px 14px; border-radius: 8px; border: 1px solid rgba(255, 255, 255, 0.08); text-align: right;">
+                <div style="font-size: 10.5px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Matchup Scorecard</div>
+                <div style="font-size: 13px; font-weight: 800; color: ${leadCount >= 6 ? "#4ade80" : "#fbbf24"}; margin-top: 2px;">
+                  ${leadCount >= 6 ? `🏆 You lead in ${leadCount} of 11 core metrics` : `⚔️ You lead in ${leadCount} of 11 core metrics`}
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (isSelf) {
+        matchupBannerHtml = `
+          <div class="profile-self-banner" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), rgba(15, 23, 42, 0.85)); border: 1px solid rgba(245, 158, 11, 0.35); border-radius: 12px; padding: 14px 20px; margin-bottom: 22px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <span style="font-size: 24px;">👑</span>
+              <div>
+                <div style="font-size: 11px; font-weight: 700; color: var(--gold-spire); text-transform: uppercase; letter-spacing: 0.8px;">Personal Career Ledger</div>
+                <div style="font-size: 15px; font-weight: 800; color: #fff;">Your Verified Slay the Spire 2 Telemetry &amp; Ascendance Records</div>
+              </div>
+            </div>
+            <div style="font-size: 12px; color: var(--text-dim); background: rgba(0,0,0,0.3); padding: 6px 12px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.06);">
+              📊 <strong>${myData.totalRuns || 0}</strong> climbs tracked from local saves
+            </div>
+          </div>
+        `;
+      }
+
       // 1. KPI Overview Strip (12 Top Cards combining Climbs & History summary + Profile metrics)
       const kpisHtml = `
         <div class="profile-kpi-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px;">
@@ -15404,61 +15558,73 @@
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Power Score <span style="cursor: help; color: #38bdf8;" title="Formula: 150/win + 120/asc + 200/streak + exp">ℹ️</span></div>
             <div style="font-size: 24px; font-weight: 800; color: var(--gold-spire); margin-top: 4px;">${(data.powerScore || 0).toLocaleString()}</div>
             <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">Spire Prestige Rank</div>
+            ${canCompare ? renderVsPill(myData.powerScore.toLocaleString(), myData.powerScore > (data.powerScore || 0) ? 'ahead' : (myData.powerScore < (data.powerScore || 0) ? 'behind' : 'neutral')) : ''}
           </div>
           <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Total Runs</div>
             <div style="font-size: 24px; font-weight: 800; color: #fff; margin-top: 4px;">${data.totalRuns || 0}</div>
             <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">${data.soloRuns !== undefined ? data.soloRuns : data.totalRuns || 0} Solo &bull; ${data.coopRuns || 0} Co-op &bull; ${data.dailyRuns || 0} Daily</div>
+            ${canCompare ? renderVsPill(`${myData.totalRuns} Runs`, myData.totalRuns > (data.totalRuns || 0) ? 'ahead' : (myData.totalRuns < (data.totalRuns || 0) ? 'behind' : 'neutral')) : ''}
           </div>
           <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Win Rate</div>
-            <div style="font-size: 24px; font-weight: 800; color: var(--win-color); margin-top: 4px;">${data.winRate || '0.0'}%</div>
+            <div style="font-size: 24px; font-weight: 800; color: var(--win-color); margin-top: 4px;">${data.winRate || "0.0"}%</div>
             <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">${data.totalVictories || 0} Wins &bull; ${Math.max(0, (data.totalRuns || 0) - (data.totalVictories || 0))} Defeats</div>
+            ${canCompare ? renderVsPill(`${myData.winRate}%`, parseFloat(myData.winRate) > parseFloat(data.winRate || 0) ? 'ahead' : (parseFloat(myData.winRate) < parseFloat(data.winRate || 0) ? 'behind' : 'neutral')) : ''}
           </div>
           <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Highest Ascension Won</div>
             <div style="font-size: 24px; font-weight: 800; color: var(--win-color); margin-top: 4px;">A${data.maxAscension || 0}</div>
-            <div style="font-size: 10.5px; color: var(--text-dim); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(data.highestWonHeroText || 'Highest Victory Level')}">${escapeHtml(data.highestWonHeroText || 'Highest Victory Level')}</div>
+            <div style="font-size: 10.5px; color: var(--text-dim); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(data.highestWonHeroText || "Highest Victory Level")}">${escapeHtml(data.highestWonHeroText || "Highest Victory Level")}</div>
+            ${canCompare ? renderVsPill(`A${myData.maxAscension}`, myData.maxAscension > (data.maxAscension || 0) ? 'ahead' : (myData.maxAscension < (data.maxAscension || 0) ? 'behind' : 'neutral')) : ''}
           </div>
           <div style="background: rgba(234, 179, 8, 0.08); border: 1px solid rgba(234, 179, 8, 0.35); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">👑 Bosses Slain</div>
-            <div style="font-size: 24px; font-weight: 800; color: var(--gold-spire); margin-top: 4px;">${(data.epochs?.totalBosses || data.bossesSlain || 0).toLocaleString()}</div>
+            <div style="font-size: 24px; font-weight: 800; color: var(--gold-spire); margin-top: 4px;">${(theirBosses).toLocaleString()}</div>
             <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">Epoch Milestones Target</div>
+            ${canCompare ? renderVsPill(`${myBosses.toLocaleString()} Bosses`, myBosses > theirBosses ? 'ahead' : (myBosses < theirBosses ? 'behind' : 'neutral')) : ''}
           </div>
           <div style="background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.35); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">💀 Elites Slain</div>
-            <div style="font-size: 24px; font-weight: 800; color: #f43f5e; margin-top: 4px;">${(data.epochs?.totalElites || data.elitesSlain || 0).toLocaleString()}</div>
+            <div style="font-size: 24px; font-weight: 800; color: #f43f5e; margin-top: 4px;">${(theirElites).toLocaleString()}</div>
             <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">High-Threat Takedowns</div>
+            ${canCompare ? renderVsPill(`${myElites.toLocaleString()} Elites`, myElites > theirElites ? 'ahead' : (myElites < theirElites ? 'behind' : 'neutral')) : ''}
           </div>
           <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Lifetime DMG Dealt</div>
-            <div style="font-size: 24px; font-weight: 800; color: #38bdf8; margin-top: 4px;">${(data.lifetimeDamageDealt || 0).toLocaleString()}</div>
+            <div style="font-size: 24px; font-weight: 800; color: #38bdf8; margin-top: 4px;">${(theirDmg).toLocaleString()}</div>
             <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">Across all enemy encounters</div>
+            ${canCompare ? renderVsPill(myDmg.toLocaleString(), myDmg > theirDmg ? 'ahead' : (myDmg < theirDmg ? 'behind' : 'neutral')) : ''}
           </div>
           <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Total Playtime</div>
-            <div style="font-size: 22px; font-weight: 800; color: #fff; margin-top: 4px;">${data.playtimeText || (data.totalPlaytimeSec ? `${Math.floor(data.totalPlaytimeSec/3600)}h ${Math.floor((data.totalPlaytimeSec%3600)/60)}m` : '0h 0m')}</div>
-            <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">${data.avgClimbTimeText || 'Avg: 0m per climb'}</div>
+            <div style="font-size: 22px; font-weight: 800; color: #fff; margin-top: 4px;">${data.playtimeText || (theirPlaySec ? `${Math.floor(theirPlaySec/3600)}h ${Math.floor((theirPlaySec%3600)/60)}m` : "0h 0m")}</div>
+            <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">${data.avgClimbTimeText || "Avg: 0m per climb"}</div>
+            ${canCompare ? renderVsPill(myPlayText, myPlaySec > theirPlaySec ? 'ahead' : (myPlaySec < theirPlaySec ? 'behind' : 'neutral')) : ''}
           </div>
           <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Floors Climbed</div>
-            <div style="font-size: 24px; font-weight: 800; color: #fff; margin-top: 4px;">${(data.epochs?.totalFloors || data.floorsClimbed || 0).toLocaleString()}</div>
+            <div style="font-size: 24px; font-weight: 800; color: #fff; margin-top: 4px;">${(theirFloors).toLocaleString()}</div>
             <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">Across all excursions</div>
+            ${canCompare ? renderVsPill(`${myFloors.toLocaleString()} Floors`, myFloors > theirFloors ? 'ahead' : (myFloors < theirFloors ? 'behind' : 'neutral')) : ''}
           </div>
           <div style="background: rgba(255, 255, 255, 0.04); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Top Hero</div>
-            <div style="font-size: 20px; font-weight: 800; color: #fff; margin-top: 4px;">${data.topHeroName || '-'}</div>
-            <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">${data.topHeroRunsText || 'Most played hero'}</div>
+            <div style="font-size: 20px; font-weight: 800; color: #fff; margin-top: 4px;">${data.topHeroName || "-"}</div>
+            <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">${data.topHeroRunsText || "Most played hero"}</div>
+            ${canCompare ? renderVsPill(myData.topHeroName || '-', 'neutral') : ''}
           </div>
           <div style="background: rgba(168, 85, 247, 0.08); border: 1px solid rgba(168, 85, 247, 0.35); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Top Win Streak</div>
             <div style="font-size: 24px; font-weight: 800; color: #c084fc; margin-top: 4px;">🔥 ${data.longestStreak || 0}</div>
             <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">Consecutive Wins</div>
+            ${canCompare ? renderVsPill(`🔥 ${myStreak}`, myStreak > theirStreak ? 'ahead' : (myStreak < theirStreak ? 'behind' : 'neutral')) : ''}
           </div>
           <div style="background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.35); border-radius: 12px; padding: 14px 16px; text-align: center;">
             <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Best Speedrun</div>
-            <div style="font-size: 22px; font-weight: 800; color: #38bdf8; margin-top: 4px; font-family: monospace;">${data.fastestWinSeconds ? formatTime(data.fastestWinSeconds) : '-'}</div>
+            <div style="font-size: 22px; font-weight: 800; color: #38bdf8; margin-top: 4px; font-family: monospace;">${data.fastestWinSeconds ? formatTime(data.fastestWinSeconds) : "-"}</div>
             <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">Fastest Clear</div>
+            ${canCompare ? renderVsPill(mySpeedText, speedAhead ? 'ahead' : (speedBehind ? 'behind' : 'neutral')) : ''}
           </div>
         </div>
       `;
@@ -15467,12 +15633,22 @@
       let charGridHtml = '';
       if (data.charStats) {
         Object.entries(data.charStats).forEach(([cKey, cData]) => {
-          const cfg = CHAR_CONFIG[cKey] || { name: cKey, color: '#fff', img: 'ironclad.webp' };
+          const cfg = CHAR_CONFIG[cKey] || { name: cKey, color: "#fff", img: "ironclad.webp" };
           const rate = cData.runs > 0 ? ((cData.wins / cData.runs) * 100).toFixed(1) : '0.0';
+          const myChar = (myData.charStats && myData.charStats[cKey]) || { runs: 0, wins: 0, maxAscWon: 0, bosses: 0, elites: 0 };
+          const myCharRate = myChar.runs > 0 ? ((myChar.wins / myChar.runs) * 100).toFixed(1) : '0.0';
+
+          const charVsHtml = canCompare ? `
+            <div style="margin-top: 6px; padding: 4px 8px; background: rgba(56, 189, 248, 0.08); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 6px; font-size: 10.5px; display: flex; justify-content: space-between; align-items: center;">
+              <span style="color: #94a3b8; font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px;">VS YOU:</span>
+              <span style="color: #38bdf8; font-weight: 700;">${myChar.wins}W/${myChar.runs}R (${myCharRate}%) &bull; A${myChar.maxAscWon || 0}</span>
+            </div>
+          ` : '';
+
           charGridHtml += `
             <div style="background: var(--bg-darker); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 14px; display: flex; flex-direction: column; gap: 8px;">
               <div style="display: flex; align-items: center; gap: 8px;">
-                <img src="${getAssetUrl('assets/characters/' + cfg.img)}" alt="${cfg.name}" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid ${cfg.color};" onerror="this.style.display='none'">
+                <img src="${getAssetUrl("assets/characters/" + cfg.img)}" alt="${cfg.name}" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 1px solid ${cfg.color};" onerror="this.style.display='none'">
                 <div>
                   <div style="font-weight: 700; color: ${cfg.color}; font-size: 13px;">${cfg.name}</div>
                   <div style="font-size: 10.5px; color: var(--text-dim);">${cData.wins}W / ${cData.runs}R (${rate}%)</div>
@@ -15486,12 +15662,13 @@
                 <span>👑 ${cData.bosses || 0} Bosses</span>
                 <span>💀 ${cData.elites || 0} Elites</span>
               </div>
+              ${charVsHtml}
             </div>
           `;
         });
       }
 
-      // 3. Spire Hall of Records (All 15 Feats in Simplified Quick-Overview Format without Run Numbers)
+            // 3. Spire Hall of Records (All 15 Feats in Simplified Quick-Overview Format without Run Numbers)
       const rec = data.records || {};
       const unupgCount = Math.max(0, (rec.leastUpgDeck || 0) - (rec.leastUpg || 0));
 
@@ -15640,6 +15817,7 @@
       `;
 
       content.innerHTML = `
+        ${matchupBannerHtml}
         ${kpisHtml}
 
         <div style="margin-bottom: 24px;">
