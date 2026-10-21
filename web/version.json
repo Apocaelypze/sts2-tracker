@@ -1,12 +1,13 @@
 {
-  "version": "v1.2.3",
-  "versionNumber": 1.23,
-  "releaseDate": "2026-10-20",
-  "title": "STS2 Tracker v1.2.3 - Single-Instance Lock & Live Matchup Telemetry",
+  "version": "v1.2.4",
+  "versionNumber": 1.24,
+  "releaseDate": "2026-10-21",
+  "title": "STS2 Tracker v1.2.4 - Custom Spire App Icon & Native Window Close Lifecycle",
   "changelog": [
-    "Triple-Redundant Single-Instance Guard: Prevents duplicate browser sessions via CLI flag, update marker, and active heartbeat detection",
-    "Seamless In-Place Auto-Update: Refreshes your active window without spawning a second window",
-    "Head-to-Head Slayer Profile Comparison: Side-by-side stats and Matchup Scorecard against your career telemetry on every slayer profile"
+    "Custom Slay the Spire II Multi-Resolution App Icon (.ico & window titlebar/taskbar icon)",
+    "Native Window X-Close Lifecycle: Removed 'Exit App' button and 'localhost:8383 says' dialog; closing via top-right X shuts down the background service automatically",
+    "Instant Shell Icon Cache Refresh so Windows Desktop & Explorer immediately display the new app icon",
+    "Head-to-Head Slayer Profile Comparison & Matchup Scorecard"
   ],
   "downloadExe": "https://github.com/Apocaelypze/sts2-tracker/releases/latest/download/STS2Tracker.exe",
   "downloadZip": "https://slay-the-spire-2-tracker.web.app/STS2Tracker.zip"

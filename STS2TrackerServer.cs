@@ -5,6 +5,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -31,8 +32,13 @@ namespace STS2Tracker
         private static DateTime lastHeartbeat = DateTime.UtcNow;
         private static bool clientConnected = false;
         private static readonly DateTime serverStartTime = DateTime.UtcNow;
-        private static readonly string AppVersion = "v1.2.3";
+        private static readonly string AppVersion = "v1.2.4";
         private static HttpListener httpListener = null;
+        private static int closeSequenceId = 0;
+        private static volatile bool isUpdatingCompanion = false;
+
+        [DllImport("shell32.dll")]
+        private static extern void SHChangeNotify(int wEventId, int uFlags, IntPtr dwItem1, IntPtr dwItem2);
 
         static void Main(string[] args)
         {
@@ -72,6 +78,7 @@ namespace STS2Tracker
 
             SafeLog("[STEP 3] Starting LoadEmbeddedAssets...");
             LoadEmbeddedAssets();
+            try { SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero); } catch { }
             
             // 3. Locate Web Directory (optional override if web folder exists next to exe)
             string baseDir = AppDomain.CurrentDomain.BaseDirectory;
@@ -654,10 +661,31 @@ namespace STS2Tracker
                     return;
                 }
 
-                string rawUrl = req.Url.AbsolutePath;
+                                string rawUrl = req.Url.AbsolutePath;
                 if (rawUrl == "/") rawUrl = "/index.html";
+
+                if (rawUrl.Equals("/api/client_closed", StringComparison.OrdinalIgnoreCase))
+                {
+                    ServeString(resp, "{\"status\":\"closing\"}", "application/json; charset=utf-8", true);
+                    if (isUpdatingCompanion) return;
+                    int seq = Interlocked.Increment(ref closeSequenceId);
+                    ThreadPool.QueueUserWorkItem(delegate
+                    {
+                        Thread.Sleep(2000);
+                        if (!isUpdatingCompanion && closeSequenceId == seq)
+                        {
+                            SafeLog("[LIFECYCLE] Window closed via X button. Shutting down companion cleanly...");
+                            try { if (httpListener != null) { httpListener.Stop(); httpListener.Close(); } } catch { }
+                            shutdownEvent.Set();
+                            Environment.Exit(0);
+                        }
+                    });
+                    return;
+                }
+
                 clientConnected = true;
                 lastHeartbeat = DateTime.UtcNow;
+                Interlocked.Increment(ref closeSequenceId);
 
                 if (rawUrl.Equals("/api/heartbeat", StringComparison.OrdinalIgnoreCase))
                 {
@@ -732,6 +760,8 @@ namespace STS2Tracker
                 if (rawUrl.Equals("/api/update", StringComparison.OrdinalIgnoreCase))
                 {
                     SafeLog("[API] /api/update triggered from desktop client.");
+                    isUpdatingCompanion = true;
+                    isUpdatingCompanion = true;
                     ThreadPool.QueueUserWorkItem(delegate
                     {
                         PerformAppUpdate();
@@ -946,6 +976,16 @@ namespace STS2Tracker
                     }
                 }
 
+                if (relPath.Equals("favicon.ico", StringComparison.OrdinalIgnoreCase))
+                {
+                    byte[] icoBytes = GetEmbeddedBytes("favicon.ico");
+                    if (icoBytes != null)
+                    {
+                        ServeBytes(resp, icoBytes, "image/x-icon", false);
+                        return;
+                    }
+                }
+
                 if (relPath.Equals("data/sts2_data.json", StringComparison.OrdinalIgnoreCase))
                 {
                     byte[] fileBytes = GetEmbeddedBytes("sts2_data.json");
@@ -1142,6 +1182,7 @@ namespace STS2Tracker
                     "goto retry_loop\r\n" +
                     ":move_ok\r\n" +
                     "if exist \"%~dp0tracker_runtime.log\" del \"%~dp0tracker_runtime.log\" >nul 2>&1\r\n" +
+                    "ie4uinit.exe -show >nul 2>&1\r\n" +
                     "start \"\" \"" + exePath + "\" --no-browser\r\n" +
                     "del \"%~f0\"\r\n" +
                     "exit\r\n" +
@@ -1169,7 +1210,7 @@ namespace STS2Tracker
             }
         }
 
-        private static string cachedRemoteVersion = "v1.2.3";
+        private static string cachedRemoteVersion = "v1.2.4";
         private static DateTime lastRemoteCheck = DateTime.MinValue;
 
         private static string GetCachedRemoteVersion()
