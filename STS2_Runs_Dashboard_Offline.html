@@ -5504,7 +5504,7 @@
             if (resp.ok) {
               const st = await resp.json();
               if (st.is_desktop_app || st.version) {
-                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.2.4');
+                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.2.5');
               }
               if (st.local_player_id && !getLocalSteamId()) {
                 setLocalSteamId(st.local_player_id);
@@ -5546,14 +5546,14 @@
       }
     }
 
-    let currentAppVersion = 'v1.2.4';
+    let currentAppVersion = 'v1.2.5';
     let isDesktopAppMode = false;
     let detectedSteamPlayerId = null;
     let detectedSteamPersona = null;
     let detectedSteamAccount = null;
     let authSessionPollInterval = null;
     let cloudUpdateAvailable = false;
-    let latestCloudVersion = 'v1.2.4';
+    let latestCloudVersion = 'v1.2.5';
 
     function dismissUpdateBanner() {
       const banner = document.getElementById('discordUpdateBanner');
@@ -5709,7 +5709,7 @@
     async function triggerAppUpdate(skipConfirm = true) {
       isUpdatingCompanion = true;
       const originalVersion = currentAppVersion || 'v1.2.3';
-      const targetVersion = latestCloudVersion || 'v1.2.4';
+      const targetVersion = latestCloudVersion || 'v1.2.5';
 
       // Show sleek updating overlay
       let overlay = document.getElementById('appUpdateOverlay');

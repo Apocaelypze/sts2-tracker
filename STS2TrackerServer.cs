@@ -32,7 +32,7 @@ namespace STS2Tracker
         private static DateTime lastHeartbeat = DateTime.UtcNow;
         private static bool clientConnected = false;
         private static readonly DateTime serverStartTime = DateTime.UtcNow;
-        private static readonly string AppVersion = "v1.2.4";
+        private static readonly string AppVersion = "v1.2.5";
         private static HttpListener httpListener = null;
         private static int closeSequenceId = 0;
         private static volatile bool isUpdatingCompanion = false;
@@ -78,6 +78,7 @@ namespace STS2Tracker
 
             SafeLog("[STEP 3] Starting LoadEmbeddedAssets...");
             LoadEmbeddedAssets();
+            EnsureDesktopShortcut();
             try { SHChangeNotify(0x08000000, 0x0000, IntPtr.Zero, IntPtr.Zero); } catch { }
             
             // 3. Locate Web Directory (optional override if web folder exists next to exe)
@@ -212,6 +213,142 @@ namespace STS2Tracker
                 }
             }
             catch { }
+        }
+
+        private static void EnsureDesktopShortcut()
+        {
+            try
+            {
+                string localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+                string appInstallDir = Path.Combine(localAppData, "STS2Tracker");
+                if (!Directory.Exists(appInstallDir))
+                {
+                    Directory.CreateDirectory(appInstallDir);
+                }
+
+                string currentExe = Assembly.GetExecutingAssembly().Location;
+                string installedExe = Path.Combine(appInstallDir, "STS2Tracker.exe");
+                string installedIco = Path.Combine(appInstallDir, "sts2_tracker.ico");
+
+                // 1. Extract embedded high-res .ico to %LocalAppData%\STS2Tracker\sts2_tracker.ico
+                byte[] icoBytes = GetEmbeddedBytes("favicon.ico");
+                if (icoBytes != null && icoBytes.Length > 0)
+                {
+                    try
+                    {
+                        if (!File.Exists(installedIco) || new FileInfo(installedIco).Length != icoBytes.Length)
+                        {
+                            File.WriteAllBytes(installedIco, icoBytes);
+                        }
+                    }
+                    catch { }
+                }
+
+                // 2. Sync running executable to permanent %LocalAppData%\STS2Tracker\STS2Tracker.exe
+                string targetExe = currentExe;
+                if (!string.Equals(Path.GetFullPath(currentExe), Path.GetFullPath(installedExe), StringComparison.OrdinalIgnoreCase))
+                {
+                    try
+                    {
+                        File.Copy(currentExe, installedExe, true);
+                        targetExe = installedExe;
+                    }
+                    catch
+                    {
+                        if (File.Exists(installedExe)) targetExe = installedExe;
+                    }
+                }
+
+                // 3. Check Desktop for any existing STS2 Tracker shortcut to prevent duplicates
+                string desktopDir = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+                if (string.IsNullOrEmpty(desktopDir) || !Directory.Exists(desktopDir)) return;
+
+                Type shellType = Type.GetTypeFromProgID("WScript.Shell");
+                if (shellType == null) return;
+                object shell = Activator.CreateInstance(shellType);
+
+                string defaultShortcutPath = Path.Combine(desktopDir, "Slay the Spire 2 Tracker.lnk");
+                string existingShortcutPath = null;
+
+                if (File.Exists(defaultShortcutPath))
+                {
+                    existingShortcutPath = defaultShortcutPath;
+                }
+                else
+                {
+                    // Scan all .lnk files on Desktop to see if one already targets STS2Tracker.exe (even if renamed by user)
+                    try
+                    {
+                        string[] lnkFiles = Directory.GetFiles(desktopDir, "*.lnk");
+                        foreach (string lnk in lnkFiles)
+                        {
+                            try
+                            {
+                                object scObj = shellType.InvokeMember("CreateShortcut", BindingFlags.InvokeMethod, null, shell, new object[] { lnk });
+                                string tPath = scObj.GetType().InvokeMember("TargetPath", BindingFlags.GetProperty, null, scObj, null) as string;
+                                if (!string.IsNullOrEmpty(tPath) && tPath.EndsWith("STS2Tracker.exe", StringComparison.OrdinalIgnoreCase))
+                                {
+                                    existingShortcutPath = lnk;
+                                    break;
+                                }
+                            }
+                            catch { }
+                        }
+                    }
+                    catch { }
+                }
+
+                // If a shortcut already exists on the Desktop, never create a second one!
+                // Only update in place if its TargetPath is missing/broken; otherwise leave it untouched.
+                bool needsCreateOrRepair = false;
+                string shortcutToWrite = existingShortcutPath;
+
+                if (existingShortcutPath == null)
+                {
+                    shortcutToWrite = defaultShortcutPath;
+                    needsCreateOrRepair = true;
+                }
+                else
+                {
+                    try
+                    {
+                        object scObj = shellType.InvokeMember("CreateShortcut", BindingFlags.InvokeMethod, null, shell, new object[] { existingShortcutPath });
+                        Type scType = scObj.GetType();
+                        string tPath = scType.InvokeMember("TargetPath", BindingFlags.GetProperty, null, scObj, null) as string;
+                        string iLoc = scType.InvokeMember("IconLocation", BindingFlags.GetProperty, null, scObj, null) as string;
+                        if (string.IsNullOrEmpty(tPath) || !File.Exists(tPath) ||
+                            !string.Equals(Path.GetFullPath(tPath), Path.GetFullPath(targetExe), StringComparison.OrdinalIgnoreCase) ||
+                            string.IsNullOrEmpty(iLoc) || !iLoc.StartsWith(installedIco, StringComparison.OrdinalIgnoreCase))
+                        {
+                            needsCreateOrRepair = true;
+                        }
+                    }
+                    catch { }
+                }
+
+                if (needsCreateOrRepair && !string.IsNullOrEmpty(shortcutToWrite))
+                {
+                    object shortcut = shellType.InvokeMember("CreateShortcut", BindingFlags.InvokeMethod, null, shell, new object[] { shortcutToWrite });
+                    Type scType = shortcut.GetType();
+                    scType.InvokeMember("TargetPath", BindingFlags.SetProperty, null, shortcut, new object[] { targetExe });
+                    scType.InvokeMember("WorkingDirectory", BindingFlags.SetProperty, null, shortcut, new object[] { Path.GetDirectoryName(targetExe) });
+                    scType.InvokeMember("Description", BindingFlags.SetProperty, null, shortcut, new object[] { "Slay the Spire 2 Run Tracker & Analytics Companion" });
+                    if (File.Exists(installedIco))
+                    {
+                        scType.InvokeMember("IconLocation", BindingFlags.SetProperty, null, shortcut, new object[] { installedIco + ",0" });
+                    }
+                    else
+                    {
+                        scType.InvokeMember("IconLocation", BindingFlags.SetProperty, null, shortcut, new object[] { targetExe + ",0" });
+                    }
+                    scType.InvokeMember("Save", BindingFlags.InvokeMethod, null, shortcut, null);
+                    SafeLog("[INSTALL] Desktop shortcut ready: " + shortcutToWrite);
+                }
+            }
+            catch (Exception ex)
+            {
+                SafeLog("[WARN] Desktop shortcut check: " + ex.Message);
+            }
         }
 
         private static void LoadEmbeddedAssets()
@@ -1210,7 +1347,7 @@ namespace STS2Tracker
             }
         }
 
-        private static string cachedRemoteVersion = "v1.2.4";
+        private static string cachedRemoteVersion = "v1.2.5";
         private static DateTime lastRemoteCheck = DateTime.MinValue;
 
         private static string GetCachedRemoteVersion()
