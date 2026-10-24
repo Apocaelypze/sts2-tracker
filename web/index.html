@@ -3488,10 +3488,21 @@
           <div class="kpi-value" id="kpiFavoriteChar" style="font-size: 20px;">-</div>
           <div class="kpi-sub" id="kpiFavoriteCharSub">Most played hero</div>
         </div>
-        <div class="kpi-card">
-          <div class="kpi-label">🏺 Relics Collected</div>
+        <div class="kpi-card" id="kpiCardRelics" onclick="openCompendiumModal('relics')" style="cursor: pointer; border-color: rgba(192, 132, 252, 0.35); transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;" onmouseenter="this.style.transform='translateY(-2px)';this.style.borderColor='#c084fc';this.style.boxShadow='0 6px 20px rgba(192,132,252,0.2)';" onmouseleave="this.style.transform='';this.style.borderColor='rgba(192, 132, 252, 0.35)';this.style.boxShadow='';" title="Click to inspect all 295 Relics by category (Starter, Common, Uncommon, Rare, Shop, Ancient, Event)">
+          <div class="kpi-label" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;">
+            <span>🏺 Relics Collected</span>
+            <span style="font-size: 9.5px; background: rgba(192, 132, 252, 0.18); color: #e9d5ff; border: 1px solid rgba(192, 132, 252, 0.45); padding: 1px 6px; border-radius: 999px; font-weight: 700;">🔍 Select</span>
+          </div>
           <div class="kpi-value" id="kpiUniqueRelics" style="color: #c084fc;">0</div>
-          <div class="kpi-sub" id="kpiRelicsSub">Unique relics discovered</div>
+          <div class="kpi-sub" id="kpiRelicsSub">Click to view Obtained &amp; Missing</div>
+        </div>
+        <div class="kpi-card" id="kpiCardCards" onclick="openCompendiumModal('cards')" style="cursor: pointer; border-color: rgba(56, 189, 248, 0.35); transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;" onmouseenter="this.style.transform='translateY(-2px)';this.style.borderColor='#38bdf8';this.style.boxShadow='0 6px 20px rgba(56,189,248,0.2)';" onmouseleave="this.style.transform='';this.style.borderColor='rgba(56, 189, 248, 0.35)';this.style.boxShadow='';" title="Click to inspect all 576 Cards &amp; reveal Unknown / Undiscovered cards">
+          <div class="kpi-label" style="display: flex; align-items: center; justify-content: space-between; gap: 4px;">
+            <span>🃏 Cards Discovered</span>
+            <span style="font-size: 9.5px; background: rgba(56, 189, 248, 0.18); color: #bae6fd; border: 1px solid rgba(56, 189, 248, 0.45); padding: 1px 6px; border-radius: 999px; font-weight: 700;">🔍 Select</span>
+          </div>
+          <div class="kpi-value" id="kpiUniqueCards" style="color: #38bdf8;">0</div>
+          <div class="kpi-sub" id="kpiCardsSub">Click to reveal Unknown cards</div>
         </div>
       </div>
 
@@ -3806,10 +3817,13 @@
         <div style="margin-bottom: 16px; display: flex; flex-direction: column; gap: 12px;">
           <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
             <input type="text" class="search-input" id="cardSearchInput" placeholder="Filter cards by name..." oninput="renderCardMetaTable()" style="max-width: 280px;" />
-            <div class="meta-filter-group" id="cardStarterFilterGroup" style="margin-bottom: 0;">
+            <div class="meta-filter-group" id="cardStarterFilterGroup" style="margin-bottom: 0; display: flex; flex-wrap: wrap; gap: 6px;">
               <button class="meta-pill-btn active" id="btnFilterExcludeStarters" onclick="setCardStarterFilter('exclude')">Exclude Starters</button>
-              <button class="meta-pill-btn" id="btnFilterAllCards" onclick="setCardStarterFilter('all')">All Cards</button>
+              <button class="meta-pill-btn" id="btnFilterAllCards" onclick="setCardStarterFilter('all')">All Cards (576)</button>
+              <button class="meta-pill-btn" id="btnFilterDiscoveredCards" onclick="setCardStarterFilter('discovered')" style="color: #4ade80;">✅ Discovered</button>
+              <button class="meta-pill-btn" id="btnFilterUnknownCards" onclick="setCardStarterFilter('unknown')" style="color: #fbbf24;">🔒 Unknown / Not Found Yet</button>
               <button class="meta-pill-btn" id="btnFilterUpgradedOnly" onclick="setCardStarterFilter('upgraded_only')">✨ Upgraded Only</button>
+              <button class="meta-pill-btn" onclick="openCompendiumModal('cards', 'missing')" style="background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.45); color: #38bdf8; font-weight: 700;">📖 Visual Card Compendium</button>
             </div>
           </div>
 
@@ -3836,6 +3850,8 @@
             <button class="meta-pill-btn" onclick="setCardCharFilter('REGENT')" style="color: var(--char-regent);">Regent</button>
             <button class="meta-pill-btn" onclick="setCardCharFilter('NECROBINDER')" style="color: var(--char-necrobinder);">Necrobinder</button>
             <button class="meta-pill-btn" onclick="setCardCharFilter('COLORLESS')" style="color: #cbd5e1;">Colorless</button>
+            <button class="meta-pill-btn" onclick="setCardCharFilter('ANCIENT')" style="color: #c084fc;">🏛️ Ancient</button>
+            <button class="meta-pill-btn" onclick="setCardCharFilter('EVENT')" style="color: #f472b6;">✨ Event &amp; Quest</button>
           </div>
         </div>
 
@@ -3880,12 +3896,19 @@
         <div style="margin-bottom: 16px; display: flex; flex-direction: column; gap: 12px;">
           <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
             <input type="text" class="search-input" id="relicSearchInput" placeholder="Filter relics by name or effect..." oninput="renderRelicMetaTable()" style="max-width: 280px;" />
-            <div class="meta-filter-group" id="relicStarterFilterGroup" style="margin-bottom: 0;">
+            <div class="meta-filter-group" id="relicStarterFilterGroup" style="margin-bottom: 0; display: flex; flex-wrap: wrap; gap: 6px;">
               <button class="meta-pill-btn active" id="btnRelicExcludeStarters" onclick="setRelicStarterFilter('exclude')">Exclude Starters</button>
-              <button class="meta-pill-btn" id="btnRelicAll" onclick="setRelicStarterFilter('all')">All Relics</button>
-              <button class="meta-pill-btn" id="btnRelicBoss" onclick="setRelicStarterFilter('boss')" style="color: var(--gold-spire);">👑 Boss Relics</button>
-              <button class="meta-pill-btn" id="btnRelicAncient" onclick="setRelicStarterFilter('ancient')" style="color: #c084fc;">🏛️ Ancient Relics</button>
-              <button class="meta-pill-btn" id="btnRelicShop" onclick="setRelicStarterFilter('shop')" style="color: #34d399;">🛒 Shop Relics</button>
+              <button class="meta-pill-btn" id="btnRelicAll" onclick="setRelicStarterFilter('all')">All Relics (295)</button>
+              <button class="meta-pill-btn" id="btnRelicObtained" onclick="setRelicStarterFilter('obtained')" style="color: #4ade80;">✅ Obtained</button>
+              <button class="meta-pill-btn" id="btnRelicUnobtained" onclick="setRelicStarterFilter('unobtained')" style="color: #fbbf24;">🔒 Not Obtained</button>
+              <button class="meta-pill-btn" id="btnRelicStarter" onclick="setRelicStarterFilter('starter')" style="color: #94a3b8;">🌱 Starter</button>
+              <button class="meta-pill-btn" id="btnRelicCommon" onclick="setRelicStarterFilter('common')" style="color: #e2e8f0;">⚪ Common</button>
+              <button class="meta-pill-btn" id="btnRelicUncommon" onclick="setRelicStarterFilter('uncommon')" style="color: #38bdf8;">🔵 Uncommon</button>
+              <button class="meta-pill-btn" id="btnRelicRare" onclick="setRelicStarterFilter('rare')" style="color: var(--gold-spire);">🟡 Rare</button>
+              <button class="meta-pill-btn" id="btnRelicShop" onclick="setRelicStarterFilter('shop')" style="color: #34d399;">🛒 Shop</button>
+              <button class="meta-pill-btn" id="btnRelicAncient" onclick="setRelicStarterFilter('ancient')" style="color: #c084fc;">🏛️ Ancient</button>
+              <button class="meta-pill-btn" id="btnRelicEvent" onclick="setRelicStarterFilter('event')" style="color: #f472b6;">📜 Event</button>
+              <button class="meta-pill-btn" onclick="openCompendiumModal('relics')" style="background: rgba(192, 132, 252, 0.15); border-color: rgba(192, 132, 252, 0.45); color: #e9d5ff; font-weight: 700;">🏺 Visual Relic Codex</button>
             </div>
           </div>
 
@@ -5155,6 +5178,105 @@
     </div>
   </div>
 
+  <!-- SPIRE COMPENDIUM & DISCOVERY CODEX MODAL (RELICS & CARDS) -->
+  <div id="compendiumCodexModal" class="modal-backdrop" onclick="if(event.target===this) closeCompendiumModal()" style="z-index: 9500;">
+    <div class="modal-container" style="max-width: 1220px; width: 95%; max-height: 90vh; display: flex; flex-direction: column; background: var(--bg-panel); border: 1px solid rgba(192, 132, 252, 0.35); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);">
+      <div class="modal-header" style="padding: 16px 24px; background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.92)); border-bottom: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+        <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+          <div style="display: flex; gap: 8px;">
+            <button id="compTabBtnRelics" class="meta-pill-btn active" onclick="switchCompendiumTab('relics')" style="font-size: 13px; padding: 8px 16px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+              <span>🏺 Relics Compendium</span>
+              <span id="compTabRelicsCountBadge" style="font-size: 11px; background: rgba(192, 132, 252, 0.2); color: #e9d5ff; padding: 1px 8px; border-radius: 999px;">0 / 295</span>
+            </button>
+            <button id="compTabBtnCards" class="meta-pill-btn" onclick="switchCompendiumTab('cards')" style="font-size: 13px; padding: 8px 16px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+              <span>🃏 Cards Compendium</span>
+              <span id="compTabCardsCountBadge" style="font-size: 11px; background: rgba(56, 189, 248, 0.2); color: #bae6fd; padding: 1px 8px; border-radius: 999px;">0 / 576</span>
+            </button>
+          </div>
+          <div id="compHeaderSummary" style="font-size: 12px; color: var(--text-dim);">
+            Verify mid-run whether you have obtained a relic or reveal cards marked as Unknown in-game
+          </div>
+        </div>
+        <button class="modal-close" onclick="closeCompendiumModal()" title="Close Compendium">&times;</button>
+      </div>
+
+      <!-- Filter & Search Controls -->
+      <div style="padding: 14px 24px; background: rgba(10, 14, 24, 0.75); border-bottom: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+          <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; flex: 1; min-width: 260px;">
+            <input type="text" id="compendiumSearchInput" class="search-input" placeholder="Search by name, effect, or Ancient (e.g. Winged Boots, Fishing Rod, Outmaneuver)..." oninput="renderCompendiumModalContent()" style="max-width: 380px; width: 100%;" />
+            <div class="meta-filter-group" id="compStatusFilterGroup" style="margin-bottom: 0; display: flex; flex-wrap: wrap; gap: 6px;">
+              <button class="meta-pill-btn active" id="btnCompStatus_all" onclick="setCompendiumStatusFilter('all')">All</button>
+              <button class="meta-pill-btn" id="btnCompStatus_missing" onclick="setCompendiumStatusFilter('missing')" style="color: #fbbf24; border-color: rgba(251, 191, 36, 0.4);">🔒 Not Obtained / Unknown</button>
+              <button class="meta-pill-btn" id="btnCompStatus_obtained" onclick="setCompendiumStatusFilter('obtained')" style="color: #4ade80; border-color: rgba(74, 222, 128, 0.4);">✅ Obtained / Found</button>
+            </div>
+          </div>
+          <div id="compProgressPill" style="font-size: 12px; font-weight: 700; color: var(--gold-spire); background: rgba(234, 179, 8, 0.1); border: 1px solid rgba(234, 179, 8, 0.3); padding: 6px 12px; border-radius: 8px;"></div>
+        </div>
+
+        <!-- Relic Categories Filter Bar (Starter, Common, Uncommon, Rare, Shop, Ancient, Event) -->
+        <div id="compRelicCategoryBar" style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center;">
+          <span style="font-size: 11px; color: var(--text-dim); font-weight: 700; text-transform: uppercase; margin-right: 4px;">In-Game Category:</span>
+          <button class="meta-pill-btn active" id="btnCompRelicCat_ALL" onclick="setCompendiumRelicCategory('ALL')">All Categories</button>
+          <button class="meta-pill-btn" id="btnCompRelicCat_Starter" onclick="setCompendiumRelicCategory('Starter')" style="color: #94a3b8;">🌱 Starter</button>
+          <button class="meta-pill-btn" id="btnCompRelicCat_Common" onclick="setCompendiumRelicCategory('Common')" style="color: #e2e8f0;">⚪ Common</button>
+          <button class="meta-pill-btn" id="btnCompRelicCat_Uncommon" onclick="setCompendiumRelicCategory('Uncommon')" style="color: #38bdf8;">🔵 Uncommon</button>
+          <button class="meta-pill-btn" id="btnCompRelicCat_Rare" onclick="setCompendiumRelicCategory('Rare')" style="color: var(--gold-spire);">🟡 Rare</button>
+          <button class="meta-pill-btn" id="btnCompRelicCat_Shop" onclick="setCompendiumRelicCategory('Shop')" style="color: #34d399;">🛒 Shop</button>
+          <button class="meta-pill-btn" id="btnCompRelicCat_Ancient" onclick="setCompendiumRelicCategory('Ancient')" style="color: #c084fc;">🏛️ Ancient</button>
+          <button class="meta-pill-btn" id="btnCompRelicCat_Event" onclick="setCompendiumRelicCategory('Event')" style="color: #f472b6;">📜 Event</button>
+        </div>
+
+        <!-- Card Filters Bar (Matching In-Game Card Library: Pool, Type, Rarity, Cost, Multiplayer) -->
+        <div id="compCardFilterBar" style="display: none; flex-direction: column; gap: 8px;">
+          <div style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center;">
+            <span style="font-size: 11px; color: var(--text-dim); font-weight: 700; text-transform: uppercase; margin-right: 4px;">Card Pool:</span>
+            <button class="meta-pill-btn active" id="btnCompCardPool_ALL" onclick="setCompendiumCardPool('ALL')">All Pools</button>
+            <button class="meta-pill-btn" id="btnCompCardPool_Ironclad" onclick="setCompendiumCardPool('Ironclad')" style="color: var(--char-ironclad);">🔴 Ironclad</button>
+            <button class="meta-pill-btn" id="btnCompCardPool_Silent" onclick="setCompendiumCardPool('Silent')" style="color: var(--char-silent);">🟢 Silent</button>
+            <button class="meta-pill-btn" id="btnCompCardPool_Defect" onclick="setCompendiumCardPool('Defect')" style="color: var(--char-defect);">🔵 Defect</button>
+            <button class="meta-pill-btn" id="btnCompCardPool_Regent" onclick="setCompendiumCardPool('Regent')" style="color: var(--char-regent);">👑 Regent</button>
+            <button class="meta-pill-btn" id="btnCompCardPool_Necrobinder" onclick="setCompendiumCardPool('Necrobinder')" style="color: var(--char-necrobinder);">💀 Necrobinder</button>
+            <button class="meta-pill-btn" id="btnCompCardPool_Colorless" onclick="setCompendiumCardPool('Colorless')" style="color: #cbd5e1;">⚪ Colorless</button>
+            <button class="meta-pill-btn" id="btnCompCardPool_Ancient" onclick="setCompendiumCardPool('Ancient')" style="color: #c084fc;">🏛️ Ancient</button>
+            <button class="meta-pill-btn" id="btnCompCardPool_Misc" onclick="setCompendiumCardPool('Misc')" style="color: #f472b6;">✨ Event / Quest / Curse / Status</button>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 14px; align-items: center;">
+            <div style="display: flex; flex-wrap: wrap; gap: 5px; align-items: center;">
+              <span style="font-size: 11px; color: var(--text-dim); font-weight: 700; text-transform: uppercase;">Card Type:</span>
+              <button class="meta-pill-btn active" id="btnCompCardType_ALL" onclick="setCompendiumCardType('ALL')">All</button>
+              <button class="meta-pill-btn" id="btnCompCardType_Attack" onclick="setCompendiumCardType('Attack')">⚔️ Attack</button>
+              <button class="meta-pill-btn" id="btnCompCardType_Skill" onclick="setCompendiumCardType('Skill')">🛡️ Skill</button>
+              <button class="meta-pill-btn" id="btnCompCardType_Power" onclick="setCompendiumCardType('Power')">⚡ Power</button>
+              <button class="meta-pill-btn" id="btnCompCardType_Other" onclick="setCompendiumCardType('Other')">❓ Other (Quest/Status/Curse)</button>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 5px; align-items: center;">
+              <span style="font-size: 11px; color: var(--text-dim); font-weight: 700; text-transform: uppercase;">Rarity:</span>
+              <button class="meta-pill-btn active" id="btnCompCardRarity_ALL" onclick="setCompendiumCardRarity('ALL')">All</button>
+              <button class="meta-pill-btn" id="btnCompCardRarity_Common" onclick="setCompendiumCardRarity('Common')">Common</button>
+              <button class="meta-pill-btn" id="btnCompCardRarity_Uncommon" onclick="setCompendiumCardRarity('Uncommon')" style="color: #38bdf8;">Uncommon</button>
+              <button class="meta-pill-btn" id="btnCompCardRarity_Rare" onclick="setCompendiumCardRarity('Rare')" style="color: var(--gold-spire);">Rare</button>
+              <button class="meta-pill-btn" id="btnCompCardRarity_Other" onclick="setCompendiumCardRarity('Other')" style="color: #c084fc;">Other (Basic/Event/Ancient/Quest)</button>
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 5px; align-items: center;">
+              <span style="font-size: 11px; color: var(--text-dim); font-weight: 700; text-transform: uppercase;">Cost:</span>
+              <button class="meta-pill-btn active" id="btnCompCardCost_ALL" onclick="setCompendiumCardCost('ALL')">All</button>
+              <button class="meta-pill-btn" id="btnCompCardCost_0" onclick="setCompendiumCardCost('0')">0</button>
+              <button class="meta-pill-btn" id="btnCompCardCost_1" onclick="setCompendiumCardCost('1')">1</button>
+              <button class="meta-pill-btn" id="btnCompCardCost_2" onclick="setCompendiumCardCost('2')">2</button>
+              <button class="meta-pill-btn" id="btnCompCardCost_3+" onclick="setCompendiumCardCost('3+')">3+</button>
+              <button class="meta-pill-btn" id="btnCompCardCost_X" onclick="setCompendiumCardCost('X')">X</button>
+              <button class="meta-pill-btn" id="btnCompCardMultiplayer" onclick="toggleCompendiumMultiplayerCards()" style="margin-left: 6px;">🤝 Multiplayer Only</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scrollable Codex Body -->
+      <div id="compendiumModalBody" class="modal-body" style="padding: 20px 24px; overflow-y: auto; flex: 1;"></div>
+    </div>
+  </div>
+
   <!-- FORUM MEDIA LIGHTBOX MODAL -->
   <div id="forumLightboxModal" class="media-lightbox-modal" onclick="closeImageLightbox()">
     <img id="lightboxImage" class="media-lightbox-content" src="" alt="Enlarged Artwork" onclick="event.stopPropagation()" />
@@ -5315,16 +5437,23 @@
 
     function setRelicStarterFilter(mode) {
       relicStarterFilter = mode;
-      const btnEx = document.getElementById('btnRelicExcludeStarters');
-      if (btnEx) btnEx.classList.toggle('active', mode === 'exclude');
-      const btnAll = document.getElementById('btnRelicAll');
-      if (btnAll) btnAll.classList.toggle('active', mode === 'all');
-      const btnBoss = document.getElementById('btnRelicBoss');
-      if (btnBoss) btnBoss.classList.toggle('active', mode === 'boss');
-      const btnAnc = document.getElementById('btnRelicAncient');
-      if (btnAnc) btnAnc.classList.toggle('active', mode === 'ancient');
-      const btnShop = document.getElementById('btnRelicShop');
-      if (btnShop) btnShop.classList.toggle('active', mode === 'shop');
+      const map = {
+        exclude: 'btnRelicExcludeStarters',
+        all: 'btnRelicAll',
+        obtained: 'btnRelicObtained',
+        unobtained: 'btnRelicUnobtained',
+        starter: 'btnRelicStarter',
+        common: 'btnRelicCommon',
+        uncommon: 'btnRelicUncommon',
+        rare: 'btnRelicRare',
+        shop: 'btnRelicShop',
+        ancient: 'btnRelicAncient',
+        event: 'btnRelicEvent'
+      };
+      Object.entries(map).forEach(([k, id]) => {
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle('active', mode === k);
+      });
       renderRelicMetaTable();
     }
 
@@ -5504,7 +5633,7 @@
             if (resp.ok) {
               const st = await resp.json();
               if (st.is_desktop_app || st.version) {
-                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.2.5');
+                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.2.6');
               }
               if (st.local_player_id && !getLocalSteamId()) {
                 setLocalSteamId(st.local_player_id);
@@ -5546,14 +5675,14 @@
       }
     }
 
-    let currentAppVersion = 'v1.2.5';
+    let currentAppVersion = 'v1.2.6';
     let isDesktopAppMode = false;
     let detectedSteamPlayerId = null;
     let detectedSteamPersona = null;
     let detectedSteamAccount = null;
     let authSessionPollInterval = null;
     let cloudUpdateAvailable = false;
-    let latestCloudVersion = 'v1.2.5';
+    let latestCloudVersion = 'v1.2.6';
 
     function dismissUpdateBanner() {
       const banner = document.getElementById('discordUpdateBanner');
@@ -5709,7 +5838,7 @@
     async function triggerAppUpdate(skipConfirm = true) {
       isUpdatingCompanion = true;
       const originalVersion = currentAppVersion || 'v1.2.3';
-      const targetVersion = latestCloudVersion || 'v1.2.5';
+      const targetVersion = latestCloudVersion || 'v1.2.6';
 
       // Show sleek updating overlay
       let overlay = document.getElementById('appUpdateOverlay');
@@ -6226,17 +6355,18 @@
       document.getElementById('kpiFavoriteChar').innerText = favChar;
       document.getElementById('kpiFavoriteCharSub').innerText = `${maxRuns} runs played`;
 
-      const uniqueRelics = new Set();
-      runs.forEach(r => {
-        const p = getPlayer(r);
-        if (p && p.relics) {
-          p.relics.forEach(rl => uniqueRelics.add(rl.id));
-        }
-      });
+      const compState = getCompendiumDiscoveryState(runs);
       const relEl = document.getElementById('kpiUniqueRelics');
-      if (relEl) relEl.innerText = `${uniqueRelics.size} / 309`;
+      if (relEl) relEl.innerText = `${compState.obtainedRelicsCount} / ${compState.totalRelicsCount}`;
       const relSub = document.getElementById('kpiRelicsSub');
-      if (relSub) relSub.innerText = `${Math.round((uniqueRelics.size / 309) * 100)}% Codex Discovered`;
+      const missingRelics = Math.max(0, compState.totalRelicsCount - compState.obtainedRelicsCount);
+      if (relSub) relSub.innerHTML = `${Math.round((compState.obtainedRelicsCount / Math.max(1, compState.totalRelicsCount)) * 100)}% Discovered &bull; <span style="color:#fbbf24;font-weight:700;">${missingRelics} Missing</span>`;
+
+      const cardEl = document.getElementById('kpiUniqueCards');
+      if (cardEl) cardEl.innerText = `${compState.discoveredCardsCount} / ${compState.totalCardsCount}`;
+      const cardSub = document.getElementById('kpiCardsSub');
+      const missingCards = Math.max(0, compState.totalCardsCount - compState.discoveredCardsCount);
+      if (cardSub) cardSub.innerHTML = `${Math.round((compState.discoveredCardsCount / Math.max(1, compState.totalCardsCount)) * 100)}% Found &bull; <span style="color:#fbbf24;font-weight:700;">${missingCards} Unknown</span>`;
 
       renderLifetimeBadgesShowcase(runs);
       renderHallOfRecords(runs);
@@ -13104,10 +13234,16 @@
 
     function setCardStarterFilter(mode) {
       cardStarterFilter = mode;
-      document.querySelectorAll('#cardStarterFilterGroup .meta-pill-btn').forEach(b => b.classList.remove('active'));
-      if (mode === 'exclude') document.getElementById('btnFilterExcludeStarters').classList.add('active');
-      else if (mode === 'all') document.getElementById('btnFilterAllCards').classList.add('active');
-      else if (mode === 'upgraded_only') document.getElementById('btnFilterUpgradedOnly').classList.add('active');
+      const btnEx = document.getElementById('btnFilterExcludeStarters');
+      if (btnEx) btnEx.classList.toggle('active', mode === 'exclude');
+      const btnAll = document.getElementById('btnFilterAllCards');
+      if (btnAll) btnAll.classList.toggle('active', mode === 'all');
+      const btnDisc = document.getElementById('btnFilterDiscoveredCards');
+      if (btnDisc) btnDisc.classList.toggle('active', mode === 'discovered');
+      const btnUnk = document.getElementById('btnFilterUnknownCards');
+      if (btnUnk) btnUnk.classList.toggle('active', mode === 'unknown');
+      const btnUpg = document.getElementById('btnFilterUpgradedOnly');
+      if (btnUpg) btnUpg.classList.toggle('active', mode === 'upgraded_only');
       renderCardMetaTable();
     }
 
@@ -13236,6 +13372,27 @@
         return cardStats[cId];
       }
 
+      const compDiscovery = getCompendiumDiscoveryState(rawLocalRuns);
+      if (gameDatabase && gameDatabase.cards) {
+        Object.entries(gameDatabase.cards).forEach(([cId, cMeta]) => {
+          if (cMeta.inCompendium === false) return;
+          if (isCurseOrStatusCard(cId)) return;
+          const poolUp = (cMeta.pool || '').toUpperCase();
+          let fallback = 'COLORLESS';
+          if (['IRONCLAD', 'SILENT', 'DEFECT', 'REGENT', 'NECROBINDER', 'COLORLESS'].includes(poolUp)) {
+            fallback = poolUp;
+          } else if (cMeta.rarity === 'Ancient') {
+            fallback = 'ANCIENT';
+          } else {
+            fallback = 'EVENT';
+          }
+          const st = getOrCreateCard(cId, fallback);
+          if (cMeta.rarity === 'Ancient') st.character = 'ANCIENT';
+          else if (poolUp === 'EVENT' || poolUp === 'QUEST' || poolUp === 'TOKEN') st.character = 'EVENT';
+          else if (['IRONCLAD', 'SILENT', 'DEFECT', 'REGENT', 'NECROBINDER', 'COLORLESS'].includes(poolUp)) st.character = poolUp;
+        });
+      }
+
       rawLocalRuns.forEach(r => {
         const p = getPlayer(r);
         if (!p || !p.deck) return;
@@ -13350,9 +13507,16 @@
         // Character filter
         if (cardCharFilter !== 'ALL' && c.character.toUpperCase() !== cardCharFilter) return false;
 
-        // Starter card filter
+        const isDisc = compDiscovery.discoveredCardIds.has(c.id) || c.runsPresent > 0 || c.picks > 0;
+        c.isDiscovered = isDisc;
+
+        // Starter / Discovery card filter
         if (cardStarterFilter === 'exclude') {
           if (c.isStarter) return false;
+        } else if (cardStarterFilter === 'discovered') {
+          if (!isDisc) return false;
+        } else if (cardStarterFilter === 'unknown') {
+          if (isDisc) return false;
         } else if (cardStarterFilter === 'upgraded_only') {
           if (c.upgrades === 0) return false;
         }
@@ -13417,6 +13581,9 @@
           if (c.upgrades > 0) starterBadge = `<span class="starter-tag">Upgraded Starter</span>`;
           else if (c.picks > 0) starterBadge = `<span class="starter-tag">Drafted Starter</span>`;
           else starterBadge = `<span class="starter-tag" style="opacity: 0.6;">Starter</span>`;
+        }
+        if (!c.isDiscovered) {
+          starterBadge += `<span style="font-size: 10px; background: rgba(251, 191, 36, 0.2); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.45); padding: 1px 6px; border-radius: 4px; font-weight: 800; margin-left: 6px;">🔒 UNKNOWN IN-GAME</span>`;
         }
 
         const isLowSample = c.runsPresent < 3;
@@ -13560,6 +13727,14 @@
         return relicStats[rId];
       }
 
+      const compRelicDiscovery = getCompendiumDiscoveryState(rawLocalRuns);
+      if (gameDatabase && gameDatabase.relics) {
+        Object.entries(gameDatabase.relics).forEach(([rId, rMeta]) => {
+          if (rMeta.inCompendium === false) return;
+          getOrCreateRelic(rId);
+        });
+      }
+
       rawLocalRuns.forEach(r => {
         const p = getPlayer(r);
         const finalFloor = getRunFloors(r) || (r.map_point_history ? r.map_point_history.flat().length : 1);
@@ -13649,15 +13824,28 @@
       });
 
       let items = Object.values(relicStats).filter(r => {
-        if (relicStarterFilter === 'exclude' && STARTER_RELIC_IDS.has(r.id)) return false;
-        if (relicStarterFilter === 'boss' && r.bossCount === 0 && r.bossOffered === 0) return false;
-        if (relicStarterFilter === 'ancient' && (!r.isAncient && r.ancientOffered === 0)) return false;
-        if (relicStarterFilter === 'shop' && r.shopCount === 0) return false;
-
         const meta = (gameDatabase.relics && gameDatabase.relics[r.id]) || {};
+        if (meta.inCompendium === false && r.count === 0) return false;
+        const cat = (meta.rarity || (STARTER_RELIC_IDS.has(r.id) ? 'Starter' : 'Common')).toLowerCase();
+        const isObtained = compRelicDiscovery.obtainedRelicIds.has(r.id) || r.count > 0;
+        r.isObtained = isObtained;
+        r.category = meta.rarity || (STARTER_RELIC_IDS.has(r.id) ? 'Starter' : 'Common');
+
+        if (relicStarterFilter === 'exclude' && (STARTER_RELIC_IDS.has(r.id) || cat === 'starter')) return false;
+        if (relicStarterFilter === 'obtained' && !isObtained) return false;
+        if (relicStarterFilter === 'unobtained' && isObtained) return false;
+        if (relicStarterFilter === 'starter' && cat !== 'starter') return false;
+        if (relicStarterFilter === 'common' && cat !== 'common') return false;
+        if (relicStarterFilter === 'uncommon' && cat !== 'uncommon') return false;
+        if (relicStarterFilter === 'rare' && cat !== 'rare') return false;
+        if (relicStarterFilter === 'shop' && cat !== 'shop' && r.shopCount === 0) return false;
+        if (relicStarterFilter === 'ancient' && cat !== 'ancient' && !r.isAncient && r.ancientOffered === 0) return false;
+        if (relicStarterFilter === 'event' && cat !== 'event') return false;
+
         const name = (meta.name || cleanId(r.id)).toLowerCase();
         const desc = (meta.desc || '').toLowerCase();
-        if (query && !name.includes(query) && !desc.includes(query)) return false;
+        const anc = (meta.ancient || '').toLowerCase();
+        if (query && !name.includes(query) && !desc.includes(query) && !anc.includes(query)) return false;
         return true;
       });
 
@@ -13698,15 +13886,21 @@
         const rAsset = cleanIdForAsset(rl.id);
         const meta = (gameDatabase.relics && gameDatabase.relics[rl.id]) || { name: cleanId(rl.id), desc: 'Mysterious Spire relic.' };
         
-        let relicBadge = '';
-        if (rl.isStarter) {
-          relicBadge = `<span style="font-size: 10px; background: rgba(148, 163, 184, 0.2); color: #94a3b8; padding: 1px 6px; border-radius: 4px; font-weight: 700; margin-left: 6px;">STARTER</span>`;
-        } else if (rl.isAncient || rl.ancientOffered > 0) {
-          relicBadge = `<span style="font-size: 10px; background: rgba(192, 132, 252, 0.2); color: #c084fc; padding: 1px 6px; border-radius: 4px; font-weight: 700; margin-left: 6px;">ANCIENT</span>`;
-        } else if (rl.bossCount > 0 || rl.bossOffered > 0) {
-          relicBadge = `<span style="font-size: 10px; background: rgba(234, 179, 8, 0.2); color: var(--gold-spire); padding: 1px 6px; border-radius: 4px; font-weight: 700; margin-left: 6px;">BOSS</span>`;
-        } else if (rl.shopCount > 0) {
-          relicBadge = `<span style="font-size: 10px; background: rgba(52, 211, 153, 0.2); color: #34d399; padding: 1px 6px; border-radius: 4px; font-weight: 700; margin-left: 6px;">SHOP</span>`;
+        const catColors = {
+          Starter: { bg: 'rgba(148, 163, 184, 0.2)', col: '#94a3b8', label: 'STARTER' },
+          Common: { bg: 'rgba(226, 232, 240, 0.14)', col: '#cbd5e1', label: 'COMMON' },
+          Uncommon: { bg: 'rgba(56, 189, 248, 0.18)', col: '#38bdf8', label: 'UNCOMMON' },
+          Rare: { bg: 'rgba(234, 179, 8, 0.2)', col: 'var(--gold-spire)', label: 'RARE' },
+          Shop: { bg: 'rgba(52, 211, 153, 0.2)', col: '#34d399', label: 'SHOP' },
+          Ancient: { bg: 'rgba(192, 132, 252, 0.2)', col: '#c084fc', label: meta.ancient ? ('ANCIENT • ' + meta.ancient.toUpperCase()) : 'ANCIENT' },
+          Event: { bg: 'rgba(244, 114, 182, 0.2)', col: '#f472b6', label: 'EVENT' }
+        };
+        const cStyle = catColors[rl.category] || catColors.Common;
+        let relicBadge = `<span style="font-size: 9.5px; background: ${cStyle.bg}; color: ${cStyle.col}; padding: 1px 6px; border-radius: 4px; font-weight: 700; margin-left: 6px;">${cStyle.label}</span>`;
+        if (rl.isObtained) {
+          relicBadge += `<span style="font-size: 9.5px; background: rgba(34, 197, 94, 0.16); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.35); padding: 1px 6px; border-radius: 4px; font-weight: 700; margin-left: 5px;">✅ OBTAINED</span>`;
+        } else {
+          relicBadge += `<span style="font-size: 9.5px; background: rgba(251, 191, 36, 0.18); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.45); padding: 1px 6px; border-radius: 4px; font-weight: 800; margin-left: 5px;">🔒 NOT OBTAINED</span>`;
         }
 
         // Chests & Drops Cell
@@ -15859,6 +16053,631 @@
           ${epochsHtml}
         </div>
       `;
+    }
+
+    // =========================================================================
+    // SPIRE COMPENDIUM & DISCOVERY CODEX (RELICS & CARDS)
+    // =========================================================================
+    let compendiumActiveTab = 'relics';
+    let compendiumStatusFilter = 'all'; // 'all' | 'missing' | 'obtained'
+    let compendiumRelicCategory = 'ALL'; // 'ALL' | 'Starter' | 'Common' | 'Uncommon' | 'Rare' | 'Shop' | 'Ancient' | 'Event'
+    let compendiumCardPool = 'ALL'; // 'ALL' | 'Ironclad' | 'Silent' | 'Defect' | 'Regent' | 'Necrobinder' | 'Colorless' | 'Ancient' | 'Misc'
+    let compendiumCardType = 'ALL'; // 'ALL' | 'Attack' | 'Skill' | 'Power' | 'Other'
+    let compendiumCardRarity = 'ALL'; // 'ALL' | 'Common' | 'Uncommon' | 'Rare' | 'Other'
+    let compendiumCardCost = 'ALL'; // 'ALL' | '0' | '1' | '2' | '3+' | 'X'
+    let compendiumCardMultiplayerOnly = false;
+
+    const RELIC_CATEGORY_ORDER = ['Starter', 'Common', 'Uncommon', 'Rare', 'Shop', 'Ancient', 'Event'];
+    const RELIC_CATEGORY_META = {
+      Starter: { icon: '🌱', title: 'Starter Relics', color: '#94a3b8', desc: 'Starting character loadouts and Touch of Orobas refinements' },
+      Common: { icon: '⚪', title: 'Common Relics', color: '#e2e8f0', desc: 'Standard relics found in chests, elites, and shops' },
+      Uncommon: { icon: '🔵', title: 'Uncommon Relics', color: '#38bdf8', desc: 'Upgraded combat and utility trinkets' },
+      Rare: { icon: '🟡', title: 'Rare Relics', color: '#fbbf24', desc: 'High-impact rare artifacts' },
+      Shop: { icon: '🛒', title: 'Shop Relics', color: '#34d399', desc: 'Merchant-exclusive relics sold for gold' },
+      Ancient: { icon: '🏛️', title: 'Ancient Relics', color: '#c084fc', desc: 'Blessings & relics from Neow, Orobas, Pael, Tezcatara, Darv, Nonupeipe, Tanx & Vakuu' },
+      Event: { icon: '📜', title: 'Event Relics', color: '#f472b6', desc: 'Mystery event rewards and special encounters' }
+    };
+
+    function getCompendiumDiscoveryState(runsInput) {
+      const runs = Array.isArray(runsInput) && runsInput.length > 0 ? runsInput : (Array.isArray(rawLocalRuns) ? rawLocalRuns : []);
+      const obtainedRelicIds = new Set();
+      const discoveredCardIds = new Set();
+      const relicCarryCounts = {};
+      const relicWinCounts = {};
+      const relicOfferedCounts = {};
+      const relicAncientNames = {};
+      const cardRunCounts = {};
+      const cardWinCounts = {};
+      const cardPickCounts = {};
+      const cardOfferCounts = {};
+
+      // 1. Seed from progress.save (progressData)
+      if (progressData) {
+        if (Array.isArray(progressData.discovered_relics)) {
+          progressData.discovered_relics.forEach(id => {
+            if (id) obtainedRelicIds.add(id);
+          });
+        }
+        if (Array.isArray(progressData.discovered_cards)) {
+          progressData.discovered_cards.forEach(id => {
+            if (id) discoveredCardIds.add(id);
+          });
+        }
+      }
+
+      // 2. Scan all player runs
+      runs.forEach(r => {
+        const p = getPlayer(r);
+        if (!p) return;
+
+        const runRelics = new Set();
+        if (Array.isArray(p.relics)) {
+          p.relics.forEach(rl => {
+            if (!rl || !rl.id) return;
+            obtainedRelicIds.add(rl.id);
+            if (!runRelics.has(rl.id)) {
+              runRelics.add(rl.id);
+              relicCarryCounts[rl.id] = (relicCarryCounts[rl.id] || 0) + 1;
+              if (r.win) relicWinCounts[rl.id] = (relicWinCounts[rl.id] || 0) + 1;
+            }
+          });
+        }
+
+        const runCards = new Set();
+        if (Array.isArray(p.deck)) {
+          p.deck.forEach(c => {
+            if (!c || !c.id) return;
+            discoveredCardIds.add(c.id);
+            if (!runCards.has(c.id)) {
+              runCards.add(c.id);
+              cardRunCounts[c.id] = (cardRunCounts[c.id] || 0) + 1;
+              if (r.win) cardWinCounts[c.id] = (cardWinCounts[c.id] || 0) + 1;
+            }
+          });
+        }
+
+        if (Array.isArray(r.map_point_history)) {
+          r.map_point_history.forEach(act => {
+            (Array.isArray(act) ? act : [act]).forEach(node => {
+              const ps = (p.id && node.player_stats)
+                ? (node.player_stats.find(s => String(s.player_id) === String(p.id)) || node.player_stats[0])
+                : (node.player_stats && node.player_stats[0]);
+              if (!ps) return;
+
+              if (Array.isArray(ps.bought_relics)) {
+                ps.bought_relics.forEach(bId => {
+                  if (bId) obtainedRelicIds.add(bId);
+                });
+              }
+
+              if (Array.isArray(ps.ancient_choice)) {
+                const rmModel = (node.rooms && node.rooms[0] && node.rooms[0].model_id) || 'EVENT.NEOW';
+                const ancLabel = cleanId(rmModel);
+                ps.ancient_choice.forEach(ch => {
+                  const rId = ch.TextKey ? (ch.TextKey.startsWith('RELIC.') ? ch.TextKey : ('RELIC.' + ch.TextKey)) : '';
+                  if (!rId) return;
+                  relicOfferedCounts[rId] = (relicOfferedCounts[rId] || 0) + 1;
+                  if (!relicAncientNames[rId]) relicAncientNames[rId] = ancLabel;
+                  if (ch.was_chosen) obtainedRelicIds.add(rId);
+                });
+              }
+
+              if (Array.isArray(ps.relic_choices)) {
+                ps.relic_choices.forEach(rc => {
+                  if (!rc || !rc.choice) return;
+                  relicOfferedCounts[rc.choice] = (relicOfferedCounts[rc.choice] || 0) + 1;
+                  if (rc.was_picked) obtainedRelicIds.add(rc.choice);
+                });
+              }
+
+              if (Array.isArray(ps.card_choices)) {
+                ps.card_choices.forEach(cc => {
+                  const cId = cc.card ? cc.card.id : (cc.id || cc);
+                  if (!cId) return;
+                  cardOfferCounts[cId] = (cardOfferCounts[cId] || 0) + 1;
+                  if (cc.was_picked) {
+                    cardPickCounts[cId] = (cardPickCounts[cId] || 0) + 1;
+                    discoveredCardIds.add(cId);
+                  }
+                });
+              }
+
+              if (Array.isArray(ps.cards_gained)) {
+                ps.cards_gained.forEach(cg => {
+                  const cId = (typeof cg === 'object' && cg.id) ? cg.id : cg;
+                  if (cId) discoveredCardIds.add(cId);
+                });
+              }
+            });
+          });
+        }
+      });
+
+      // 3. Compute exact totals against Compendium items in gameDatabase
+      let totalRelicsCount = 0;
+      let obtainedRelicsCount = 0;
+      if (gameDatabase && gameDatabase.relics) {
+        Object.entries(gameDatabase.relics).forEach(([rId, rMeta]) => {
+          if (rMeta.inCompendium === false) return;
+          totalRelicsCount++;
+          if (obtainedRelicIds.has(rId)) obtainedRelicsCount++;
+        });
+      } else {
+        totalRelicsCount = 295;
+        obtainedRelicsCount = obtainedRelicIds.size;
+      }
+
+      let totalCardsCount = 0;
+      let discoveredCardsCount = 0;
+      if (gameDatabase && gameDatabase.cards) {
+        Object.entries(gameDatabase.cards).forEach(([cId, cMeta]) => {
+          if (cMeta.inCompendium === false) return;
+          totalCardsCount++;
+          if (discoveredCardIds.has(cId)) discoveredCardsCount++;
+        });
+      } else {
+        totalCardsCount = 576;
+        discoveredCardsCount = discoveredCardIds.size;
+      }
+
+      return {
+        obtainedRelicIds,
+        discoveredCardIds,
+        relicCarryCounts,
+        relicWinCounts,
+        relicOfferedCounts,
+        relicAncientNames,
+        cardRunCounts,
+        cardWinCounts,
+        cardPickCounts,
+        cardOfferCounts,
+        totalRelicsCount,
+        obtainedRelicsCount,
+        totalCardsCount,
+        discoveredCardsCount
+      };
+    }
+
+    function openCompendiumModal(tab = 'relics', initialStatus = 'all') {
+      compendiumActiveTab = tab === 'cards' ? 'cards' : 'relics';
+      compendiumStatusFilter = initialStatus || 'all';
+      const modal = document.getElementById('compendiumCodexModal');
+      if (modal) modal.classList.add('open');
+
+      syncCompendiumFilterUI();
+      renderCompendiumModalContent();
+
+      setTimeout(() => {
+        const searchEl = document.getElementById('compendiumSearchInput');
+        if (searchEl) searchEl.focus();
+      }, 60);
+    }
+
+    function closeCompendiumModal() {
+      const modal = document.getElementById('compendiumCodexModal');
+      if (modal) modal.classList.remove('open');
+    }
+
+    function switchCompendiumTab(tab) {
+      compendiumActiveTab = tab === 'cards' ? 'cards' : 'relics';
+      syncCompendiumFilterUI();
+      renderCompendiumModalContent();
+    }
+
+    function setCompendiumStatusFilter(status) {
+      compendiumStatusFilter = status;
+      syncCompendiumFilterUI();
+      renderCompendiumModalContent();
+    }
+
+    function setCompendiumRelicCategory(cat) {
+      compendiumRelicCategory = cat;
+      syncCompendiumFilterUI();
+      renderCompendiumModalContent();
+    }
+
+    function setCompendiumCardPool(pool) {
+      compendiumCardPool = pool;
+      syncCompendiumFilterUI();
+      renderCompendiumModalContent();
+    }
+
+    function setCompendiumCardType(type) {
+      compendiumCardType = type;
+      syncCompendiumFilterUI();
+      renderCompendiumModalContent();
+    }
+
+    function setCompendiumCardRarity(rarity) {
+      compendiumCardRarity = rarity;
+      syncCompendiumFilterUI();
+      renderCompendiumModalContent();
+    }
+
+    function setCompendiumCardCost(cost) {
+      compendiumCardCost = cost;
+      syncCompendiumFilterUI();
+      renderCompendiumModalContent();
+    }
+
+    function toggleCompendiumMultiplayerCards() {
+      compendiumCardMultiplayerOnly = !compendiumCardMultiplayerOnly;
+      syncCompendiumFilterUI();
+      renderCompendiumModalContent();
+    }
+
+    function syncCompendiumFilterUI() {
+      const btnRelics = document.getElementById('compTabBtnRelics');
+      const btnCards = document.getElementById('compTabBtnCards');
+      if (btnRelics) btnRelics.classList.toggle('active', compendiumActiveTab === 'relics');
+      if (btnCards) btnCards.classList.toggle('active', compendiumActiveTab === 'cards');
+
+      const relicBar = document.getElementById('compRelicCategoryBar');
+      const cardBar = document.getElementById('compCardFilterBar');
+      if (relicBar) relicBar.style.display = compendiumActiveTab === 'relics' ? 'flex' : 'none';
+      if (cardBar) cardBar.style.display = compendiumActiveTab === 'cards' ? 'flex' : 'none';
+
+      ['all', 'missing', 'obtained'].forEach(st => {
+        const el = document.getElementById('btnCompStatus_' + st);
+        if (el) el.classList.toggle('active', compendiumStatusFilter === st);
+      });
+
+      ['ALL', ...RELIC_CATEGORY_ORDER].forEach(cat => {
+        const el = document.getElementById('btnCompRelicCat_' + cat);
+        if (el) el.classList.toggle('active', compendiumRelicCategory === cat);
+      });
+
+      ['ALL', 'Ironclad', 'Silent', 'Defect', 'Regent', 'Necrobinder', 'Colorless', 'Ancient', 'Misc'].forEach(p => {
+        const el = document.getElementById('btnCompCardPool_' + p);
+        if (el) el.classList.toggle('active', compendiumCardPool === p);
+      });
+
+      ['ALL', 'Attack', 'Skill', 'Power', 'Other'].forEach(t => {
+        const el = document.getElementById('btnCompCardType_' + t);
+        if (el) el.classList.toggle('active', compendiumCardType === t);
+      });
+
+      ['ALL', 'Common', 'Uncommon', 'Rare', 'Other'].forEach(r => {
+        const el = document.getElementById('btnCompCardRarity_' + r);
+        if (el) el.classList.toggle('active', compendiumCardRarity === r);
+      });
+
+      ['ALL', '0', '1', '2', '3+', 'X'].forEach(c => {
+        const el = document.getElementById('btnCompCardCost_' + c);
+        if (el) el.classList.toggle('active', compendiumCardCost === c);
+      });
+
+      const mpBtn = document.getElementById('btnCompCardMultiplayer');
+      if (mpBtn) mpBtn.classList.toggle('active', compendiumCardMultiplayerOnly);
+    }
+
+    function renderCompendiumModalContent() {
+      const body = document.getElementById('compendiumModalBody');
+      if (!body) return;
+
+      const state = getCompendiumDiscoveryState(rawLocalRuns);
+      const query = (document.getElementById('compendiumSearchInput')?.value || '').trim().toLowerCase();
+
+      const rBadge = document.getElementById('compTabRelicsCountBadge');
+      if (rBadge) rBadge.innerText = `${state.obtainedRelicsCount} / ${state.totalRelicsCount}`;
+      const cBadge = document.getElementById('compTabCardsCountBadge');
+      if (cBadge) cBadge.innerText = `${state.discoveredCardsCount} / ${state.totalCardsCount}`;
+
+      const progPill = document.getElementById('compProgressPill');
+      if (compendiumActiveTab === 'relics') {
+        const miss = Math.max(0, state.totalRelicsCount - state.obtainedRelicsCount);
+        const pct = Math.round((state.obtainedRelicsCount / Math.max(1, state.totalRelicsCount)) * 100);
+        if (progPill) {
+          progPill.innerHTML = `✅ <strong>${state.obtainedRelicsCount}</strong> Obtained &bull; 🔒 <strong style="color:#fbbf24;">${miss}</strong> Not Obtained (${pct}%)`;
+        }
+        renderCompendiumRelicsView(body, state, query);
+      } else {
+        const miss = Math.max(0, state.totalCardsCount - state.discoveredCardsCount);
+        const pct = Math.round((state.discoveredCardsCount / Math.max(1, state.totalCardsCount)) * 100);
+        if (progPill) {
+          progPill.innerHTML = `✅ <strong>${state.discoveredCardsCount}</strong> Discovered &bull; 🔒 <strong style="color:#fbbf24;">${miss}</strong> Unknown In-Game (${pct}%)`;
+        }
+        renderCompendiumCardsView(body, state, query);
+      }
+    }
+
+    function renderCompendiumRelicsView(body, state, query) {
+      if (!gameDatabase || !gameDatabase.relics) {
+        body.innerHTML = `<div style="text-align:center; padding:40px; color:var(--text-dim);">Loading Relic Compendium database...</div>`;
+        return;
+      }
+
+      // Update category button counts
+      const catTotals = {};
+      const catObtained = {};
+      RELIC_CATEGORY_ORDER.forEach(c => { catTotals[c] = 0; catObtained[c] = 0; });
+
+      const allRelics = [];
+      Object.entries(gameDatabase.relics).forEach(([rId, meta]) => {
+        if (meta.inCompendium === false) return;
+        const cat = RELIC_CATEGORY_ORDER.includes(meta.rarity) ? meta.rarity : 'Common';
+        const isObtained = state.obtainedRelicIds.has(rId);
+        catTotals[cat] = (catTotals[cat] || 0) + 1;
+        if (isObtained) catObtained[cat] = (catObtained[cat] || 0) + 1;
+
+        allRelics.push({
+          id: rId,
+          name: meta.name || cleanId(rId),
+          desc: meta.desc || '',
+          rarity: cat,
+          pool: meta.pool || 'Shared',
+          ancient: meta.ancient || state.relicAncientNames[rId] || '',
+          isObtained,
+          carries: state.relicCarryCounts[rId] || 0,
+          wins: state.relicWinCounts[rId] || 0,
+          offered: state.relicOfferedCounts[rId] || 0
+        });
+      });
+
+      RELIC_CATEGORY_ORDER.forEach(cat => {
+        const btn = document.getElementById('btnCompRelicCat_' + cat);
+        if (btn) {
+          const info = RELIC_CATEGORY_META[cat];
+          btn.innerHTML = `${info.icon} ${cat} <span style="opacity:0.75;font-size:10px;margin-left:3px;">(${catObtained[cat]}/${catTotals[cat]})</span>`;
+        }
+      });
+
+      // Filter relics
+      const filtered = allRelics.filter(r => {
+        if (compendiumStatusFilter === 'missing' && r.isObtained) return false;
+        if (compendiumStatusFilter === 'obtained' && !r.isObtained) return false;
+        if (compendiumRelicCategory !== 'ALL' && r.rarity !== compendiumRelicCategory) return false;
+        if (query) {
+          const qMatch = r.name.toLowerCase().includes(query) ||
+                         r.desc.toLowerCase().includes(query) ||
+                         r.ancient.toLowerCase().includes(query) ||
+                         r.pool.toLowerCase().includes(query) ||
+                         r.rarity.toLowerCase().includes(query);
+          if (!qMatch) return false;
+        }
+        return true;
+      });
+
+      if (filtered.length === 0) {
+        body.innerHTML = `<div style="text-align:center; padding:48px 20px; color:var(--text-dim); font-size:14px;">No relics match your current search or filter selection.</div>`;
+        return;
+      }
+
+      const categoriesToRender = compendiumRelicCategory === 'ALL'
+        ? RELIC_CATEGORY_ORDER
+        : [compendiumRelicCategory];
+
+      let htmlOut = '';
+      categoriesToRender.forEach(cat => {
+        const catItems = filtered.filter(r => r.rarity === cat);
+        if (catItems.length === 0) return;
+
+        catItems.sort((a, b) => a.name.localeCompare(b.name));
+        const info = RELIC_CATEGORY_META[cat] || { icon: '🏺', title: cat, color: '#fff', desc: '' };
+        const missInCat = catTotals[cat] - catObtained[cat];
+
+        htmlOut += `
+          <div style="margin-bottom: 26px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; padding-bottom: 8px; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.08);">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 18px;">${info.icon}</span>
+                <div>
+                  <span style="font-family: var(--font-title); font-size: 15px; font-weight: 800; color: ${info.color};">${info.title}</span>
+                  <span style="font-size: 11.5px; color: var(--text-dim); margin-left: 8px;">${info.desc}</span>
+                </div>
+              </div>
+              <div style="font-size: 11.5px; font-weight: 700; background: rgba(0,0,0,0.35); padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.06);">
+                <span style="color: #4ade80;">${catObtained[cat]} / ${catTotals[cat]} Obtained</span>
+                ${missInCat > 0 ? ` &bull; <span style="color: #fbbf24;">${missInCat} Not Obtained</span>` : ` &bull; <span style="color: #4ade80;">100% Complete 🏆</span>`}
+              </div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px;">
+        `;
+
+        catItems.forEach(r => {
+          const rAsset = cleanIdForAsset(r.id);
+          const borderCol = r.isObtained ? 'rgba(255, 255, 255, 0.08)' : 'rgba(251, 191, 36, 0.45)';
+          const bgCol = r.isObtained ? 'rgba(15, 23, 42, 0.7)' : 'linear-gradient(135deg, rgba(45, 27, 10, 0.45), rgba(15, 23, 42, 0.85))';
+
+          let statusBadge = '';
+          if (r.isObtained) {
+            const sub = r.carries > 0 ? `Carried in ${r.carries} ${r.carries === 1 ? 'climb' : 'climbs'}` : 'Discovered in Save';
+            statusBadge = `<span style="font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 5px; background: rgba(34, 197, 94, 0.16); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.35);">✅ OBTAINED (${sub})</span>`;
+          } else {
+            const offerNote = r.offered > 0 ? ` &bull; Offered ${r.offered}x, Picked 0x` : '';
+            statusBadge = `<span style="font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 5px; background: rgba(251, 191, 36, 0.2); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.5);">🔒 NOT OBTAINED${offerNote}</span>`;
+          }
+
+          let sourceTag = '';
+          if (r.ancient) {
+            sourceTag = `<span style="font-size: 9.5px; font-weight: 700; color: #c084fc; background: rgba(192, 132, 252, 0.15); padding: 1px 6px; border-radius: 4px;">🏛️ ${escapeHtml(r.ancient)}</span>`;
+          } else if (r.pool && r.pool !== 'Shared' && r.pool !== 'Event') {
+            sourceTag = `<span style="font-size: 9.5px; font-weight: 700; color: #38bdf8; background: rgba(56, 189, 248, 0.14); padding: 1px 6px; border-radius: 4px;">${escapeHtml(r.pool)}</span>`;
+          }
+
+          htmlOut += `
+            <div style="background: ${bgCol}; border: 1px solid ${borderCol}; border-radius: 10px; padding: 12px 14px; display: flex; gap: 12px; align-items: flex-start;">
+              <div style="width: 44px; height: 44px; border-radius: 8px; background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <img src="${getAssetUrl('assets/relics/' + rAsset + '.png')}" style="width: 36px; height: 36px; object-fit: contain; ${r.isObtained ? '' : 'filter: drop-shadow(0 0 4px rgba(251,191,36,0.4));'}" onerror="if(!this.dataset.t1){this.dataset.t1='1';this.src='web/assets/relics/${rAsset}.png';}else{this.style.display='none';}" alt="${escapeHtml(r.name)}" />
+              </div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="display: flex; align-items: center; justify-content: space-between; gap: 6px; flex-wrap: wrap;">
+                  <span style="font-weight: 800; font-size: 13.5px; color: #fff;">${escapeHtml(r.name)}</span>
+                  ${sourceTag}
+                </div>
+                <div style="margin-top: 4px; margin-bottom: 6px;">
+                  ${statusBadge}
+                </div>
+                <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.45;">
+                  ${escapeHtml(r.desc || 'No description available.')}
+                </div>
+              </div>
+            </div>
+          `;
+        });
+
+        htmlOut += `</div></div>`;
+      });
+
+      body.innerHTML = htmlOut;
+    }
+
+    function renderCompendiumCardsView(body, state, query) {
+      if (!gameDatabase || !gameDatabase.cards) {
+        body.innerHTML = `<div style="text-align:center; padding:40px; color:var(--text-dim);">Loading Card Compendium database...</div>`;
+        return;
+      }
+
+      const allCards = [];
+      Object.entries(gameDatabase.cards).forEach(([cId, meta]) => {
+        if (meta.inCompendium === false) return;
+        const isDiscovered = state.discoveredCardIds.has(cId) || (state.cardRunCounts[cId] > 0) || (state.cardPickCounts[cId] > 0);
+        const pool = meta.pool || 'Colorless';
+        const rarity = meta.rarity || 'Common';
+        const type = meta.type || 'Skill';
+        const cost = meta.cost !== undefined ? meta.cost : 1;
+        const costsX = !!meta.costsX;
+        const mp = meta.multiplayer || 'None';
+
+        // Map to in-game Card Library pool filter bucket
+        let poolBucket = pool;
+        if (rarity === 'Ancient') {
+          poolBucket = 'Ancient';
+        } else if (['Event', 'Quest', 'Curse', 'Status', 'Token'].includes(pool) || ['Event', 'Quest', 'Curse', 'Status', 'Token'].includes(rarity)) {
+          poolBucket = 'Misc';
+        }
+
+        allCards.push({
+          id: cId,
+          name: meta.name || cleanId(cId),
+          desc: meta.desc || '',
+          pool,
+          poolBucket,
+          rarity,
+          type,
+          cost,
+          costsX,
+          mp,
+          isDiscovered,
+          runs: state.cardRunCounts[cId] || 0,
+          picks: state.cardPickCounts[cId] || 0,
+          offered: state.cardOfferCounts[cId] || 0
+        });
+      });
+
+      const filtered = allCards.filter(c => {
+        if (compendiumStatusFilter === 'missing' && c.isDiscovered) return false;
+        if (compendiumStatusFilter === 'obtained' && !c.isDiscovered) return false;
+
+        if (compendiumCardPool !== 'ALL' && c.poolBucket !== compendiumCardPool) return false;
+
+        if (compendiumCardType !== 'ALL') {
+          if (compendiumCardType === 'Other') {
+            if (['Attack', 'Skill', 'Power'].includes(c.type)) return false;
+          } else if (c.type !== compendiumCardType) {
+            return false;
+          }
+        }
+
+        if (compendiumCardRarity !== 'ALL') {
+          if (compendiumCardRarity === 'Other') {
+            if (['Common', 'Uncommon', 'Rare'].includes(c.rarity)) return false;
+          } else if (c.rarity !== compendiumCardRarity) {
+            return false;
+          }
+        }
+
+        if (compendiumCardCost !== 'ALL') {
+          if (compendiumCardCost === 'X') {
+            if (!c.costsX && c.cost !== -1) return false;
+          } else if (compendiumCardCost === '0') {
+            if (c.costsX || c.cost > 0) return false;
+          } else if (compendiumCardCost === '1') {
+            if (c.costsX || c.cost !== 1) return false;
+          } else if (compendiumCardCost === '2') {
+            if (c.costsX || c.cost !== 2) return false;
+          } else if (compendiumCardCost === '3+') {
+            if (c.costsX || c.cost < 3) return false;
+          }
+        }
+
+        if (compendiumCardMultiplayerOnly && c.mp !== 'MultiplayerOnly') return false;
+
+        if (query) {
+          const qMatch = c.name.toLowerCase().includes(query) ||
+                         c.desc.toLowerCase().includes(query) ||
+                         c.pool.toLowerCase().includes(query) ||
+                         c.rarity.toLowerCase().includes(query) ||
+                         c.type.toLowerCase().includes(query);
+          if (!qMatch) return false;
+        }
+        return true;
+      });
+
+      filtered.sort((a, b) => {
+        if (a.isDiscovered !== b.isDiscovered && compendiumStatusFilter === 'all') {
+          // Keep alphabetical order matching in-game Compendium
+        }
+        return a.name.localeCompare(b.name);
+      });
+
+      if (filtered.length === 0) {
+        body.innerHTML = `<div style="text-align:center; padding:48px 20px; color:var(--text-dim); font-size:14px;">No cards match your current search or filter selection.</div>`;
+        return;
+      }
+
+      const poolColors = {
+        Ironclad: 'var(--char-ironclad)',
+        Silent: 'var(--char-silent)',
+        Defect: 'var(--char-defect)',
+        Regent: 'var(--char-regent)',
+        Necrobinder: 'var(--char-necrobinder)',
+        Colorless: '#cbd5e1',
+        Event: '#f472b6',
+        Quest: '#fbbf24',
+        Curse: '#ef4444',
+        Status: '#94a3b8',
+        Token: '#38bdf8'
+      };
+
+      let htmlOut = `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(235px, 1fr)); gap: 14px;">`;
+      filtered.forEach(c => {
+        const cAsset = cleanIdForAsset(c.id);
+        const pCol = poolColors[c.pool] || '#cbd5e1';
+        const costDisp = c.costsX ? 'X' : (c.cost >= 0 ? c.cost : '-');
+        const borderCol = c.isDiscovered ? 'rgba(255,255,255,0.09)' : 'rgba(251, 191, 36, 0.6)';
+        const bgCol = c.isDiscovered ? 'rgba(15, 23, 42, 0.78)' : 'linear-gradient(145deg, rgba(45, 27, 10, 0.55), rgba(15, 23, 42, 0.92))';
+
+        const statusBanner = c.isDiscovered
+          ? `<span style="font-size: 9.5px; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.35);">✅ DISCOVERED (${c.runs} runs)</span>`
+          : `<span style="font-size: 9.5px; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: rgba(251, 191, 36, 0.22); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.55);">🔒 UNKNOWN IN-GAME (NOT FOUND)</span>`;
+
+        htmlOut += `
+          <div style="background: ${bgCol}; border: 1px solid ${borderCol}; border-top: 3px solid ${pCol}; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column;">
+            <div style="position: relative; height: 118px; background: #090d16; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,0.06);">
+              ${getCardArtImg(cAsset, '', 'width: 100%; height: 100%; object-fit: cover;', c.name)}
+              <div style="position: absolute; top: 8px; left: 8px; width: 26px; height: 26px; border-radius: 50%; background: rgba(15, 23, 42, 0.92); border: 1.5px solid ${pCol}; color: #fff; font-weight: 800; font-size: 12px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.6);">
+                ${costDisp}
+              </div>
+              <div style="position: absolute; top: 8px; right: 8px; background: rgba(15, 23, 42, 0.88); border: 1px solid rgba(255,255,255,0.12); padding: 2px 7px; border-radius: 999px; font-size: 10px; font-weight: 700; color: ${pCol};">
+                ${escapeHtml(c.pool)} &bull; ${escapeHtml(c.rarity)}
+              </div>
+              <div style="position: absolute; bottom: 6px; left: 8px; background: rgba(15, 23, 42, 0.88); padding: 1px 7px; border-radius: 4px; font-size: 10px; font-weight: 700; color: #e2e8f0;">
+                ${escapeHtml(c.type)}${c.mp === 'MultiplayerOnly' ? ' &bull; 🤝 Co-op' : ''}
+              </div>
+            </div>
+            <div style="padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; flex: 1;">
+              <div style="font-weight: 800; font-size: 14px; color: #fff;">${escapeHtml(c.name)}</div>
+              <div>${statusBanner}</div>
+              <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.45; margin-top: 2px;">
+                ${escapeHtml(c.desc || 'No description available.')}
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      htmlOut += `</div>`;
+      body.innerHTML = htmlOut;
     }
 
     async function inspectPlayerTopRun(handle) {

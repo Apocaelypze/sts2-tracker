@@ -1,5 +1,5 @@
 {
-  "version": "v1.2.5",
+  "version": "1.2.6",
   "versionNumber": 1.25,
   "releaseDate": "2026-10-21",
   "title": "STS2 Tracker v1.2.5 - Automatic Single Desktop Shortcut & AppData Installer",
@@ -9,5 +9,6 @@
     "Custom Slay the Spire II Multi-Resolution App Icon & Native X-Close Lifecycle"
   ],
   "downloadExe": "https://github.com/Apocaelypze/sts2-tracker/releases/latest/download/STS2Tracker.exe",
-  "downloadZip": "https://slay-the-spire-2-tracker.web.app/STS2Tracker.zip"
+  "downloadZip": "https://slay-the-spire-2-tracker.web.app/STS2Tracker.zip",
+  "notes": "Added selectable Relic & Card Compendium Codex with all 7 in-game Relic categories (Starter, Common, Uncommon, Rare, Shop, Ancient, Event) and Unknown Card revealer."
 }
