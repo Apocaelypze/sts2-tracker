@@ -5632,8 +5632,13 @@
             const resp = await fetch('/api/status', { cache: 'no-store' });
             if (resp.ok) {
               const st = await resp.json();
+              if (st.version && typeof LOADED_UI_VERSION !== 'undefined' && st.version !== LOADED_UI_VERSION && !isUpdatingCompanion) {
+                isReloadingPage = true;
+                window.location.reload();
+                return;
+              }
               if (st.is_desktop_app || st.version) {
-                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.2.7');
+                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.2.8');
               }
               if (st.local_player_id && !getLocalSteamId()) {
                 setLocalSteamId(st.local_player_id);
@@ -5675,14 +5680,15 @@
       }
     }
 
-    let currentAppVersion = 'v1.2.7';
+    const LOADED_UI_VERSION = 'v1.2.8';
+    let currentAppVersion = 'v1.2.8';
     let isDesktopAppMode = false;
     let detectedSteamPlayerId = null;
     let detectedSteamPersona = null;
     let detectedSteamAccount = null;
     let authSessionPollInterval = null;
     let cloudUpdateAvailable = false;
-    let latestCloudVersion = 'v1.2.7';
+    let latestCloudVersion = 'v1.2.8';
 
     function dismissUpdateBanner() {
       const banner = document.getElementById('discordUpdateBanner');
@@ -5838,7 +5844,7 @@
     async function triggerAppUpdate(skipConfirm = true) {
       isUpdatingCompanion = true;
       const originalVersion = currentAppVersion || 'v1.2.3';
-      const targetVersion = latestCloudVersion || 'v1.2.7';
+      const targetVersion = latestCloudVersion || 'v1.2.8';
 
       // Show sleek updating overlay
       let overlay = document.getElementById('appUpdateOverlay');
@@ -5960,8 +5966,13 @@
             }
           }
 
+          if (st.version && typeof LOADED_UI_VERSION !== 'undefined' && st.version !== LOADED_UI_VERSION && !isUpdatingCompanion) {
+            isReloadingPage = true;
+            window.location.reload();
+            return;
+          }
           if (st.is_desktop_app || st.version) {
-            enableDesktopAppUI(st.version || 'v1.2.0');
+            enableDesktopAppUI(st.version || 'v1.2.8');
           }
         } else {
           fetchCloudVersionForWeb();
