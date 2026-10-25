@@ -3821,7 +3821,7 @@
               <button class="meta-pill-btn active" id="btnFilterExcludeStarters" onclick="setCardStarterFilter('exclude')">Exclude Starters</button>
               <button class="meta-pill-btn" id="btnFilterAllCards" onclick="setCardStarterFilter('all')">All Cards (576)</button>
               <button class="meta-pill-btn" id="btnFilterDiscoveredCards" onclick="setCardStarterFilter('discovered')" style="color: #4ade80;">✅ Discovered</button>
-              <button class="meta-pill-btn" id="btnFilterUnknownCards" onclick="setCardStarterFilter('unknown')" style="color: #fbbf24;">🔒 Unknown / Not Found Yet</button>
+              <button class="meta-pill-btn" id="btnFilterUnknownCards" onclick="setCardStarterFilter('unknown')" style="color: #fbbf24;">🔒 Not Discovered</button>
               <button class="meta-pill-btn" id="btnFilterUpgradedOnly" onclick="setCardStarterFilter('upgraded_only')">✨ Upgraded Only</button>
               <button class="meta-pill-btn" onclick="openCompendiumModal('cards', 'missing')" style="background: rgba(56, 189, 248, 0.15); border-color: rgba(56, 189, 248, 0.45); color: #38bdf8; font-weight: 700;">📖 Visual Card Compendium</button>
             </div>
@@ -3899,8 +3899,8 @@
             <div class="meta-filter-group" id="relicStarterFilterGroup" style="margin-bottom: 0; display: flex; flex-wrap: wrap; gap: 6px;">
               <button class="meta-pill-btn active" id="btnRelicExcludeStarters" onclick="setRelicStarterFilter('exclude')">Exclude Starters</button>
               <button class="meta-pill-btn" id="btnRelicAll" onclick="setRelicStarterFilter('all')">All Relics (295)</button>
-              <button class="meta-pill-btn" id="btnRelicObtained" onclick="setRelicStarterFilter('obtained')" style="color: #4ade80;">✅ Obtained</button>
-              <button class="meta-pill-btn" id="btnRelicUnobtained" onclick="setRelicStarterFilter('unobtained')" style="color: #fbbf24;">🔒 Not Obtained</button>
+              <button class="meta-pill-btn" id="btnRelicObtained" onclick="setRelicStarterFilter('obtained')" style="color: #4ade80;">✅ Discovered</button>
+              <button class="meta-pill-btn" id="btnRelicUnobtained" onclick="setRelicStarterFilter('unobtained')" style="color: #fbbf24;">🔒 Not Discovered</button>
               <button class="meta-pill-btn" id="btnRelicStarter" onclick="setRelicStarterFilter('starter')" style="color: #94a3b8;">🌱 Starter</button>
               <button class="meta-pill-btn" id="btnRelicCommon" onclick="setRelicStarterFilter('common')" style="color: #e2e8f0;">⚪ Common</button>
               <button class="meta-pill-btn" id="btnRelicUncommon" onclick="setRelicStarterFilter('uncommon')" style="color: #38bdf8;">🔵 Uncommon</button>
@@ -5179,8 +5179,8 @@
   </div>
 
   <!-- SPIRE COMPENDIUM & DISCOVERY CODEX MODAL (RELICS & CARDS) -->
-  <div id="compendiumCodexModal" class="modal-backdrop" onclick="if(event.target===this) closeCompendiumModal()" style="z-index: 9500;">
-    <div class="modal-container" style="max-width: 1220px; width: 95%; max-height: 90vh; display: flex; flex-direction: column; background: var(--bg-panel); border: 1px solid rgba(192, 132, 252, 0.35); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.85);">
+  <div id="compendiumCodexModal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); z-index: 100000; justify-content: center; align-items: center; padding: 20px;" onclick="if(event.target===this) closeCompendiumModal()">
+    <div class="modal-content" style="max-width: 1220px; width: 96%; max-height: 90vh; display: flex; flex-direction: column; background: var(--bg-card); border-radius: 16px; border: 1px solid rgba(192, 132, 252, 0.4); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9); overflow: hidden; padding: 0;">
       <div class="modal-header" style="padding: 16px 24px; background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.92)); border-bottom: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
         <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
           <div style="display: flex; gap: 8px;">
@@ -5194,21 +5194,21 @@
             </button>
           </div>
           <div id="compHeaderSummary" style="font-size: 12px; color: var(--text-dim);">
-            Verify mid-run whether you have obtained a relic or reveal cards marked as Unknown in-game
+            Check mid-run whether a Relic or Card is Discovered or Not Discovered, plus its Event or Ancient source
           </div>
         </div>
-        <button class="modal-close" onclick="closeCompendiumModal()" title="Close Compendium">&times;</button>
+        <button class="modal-close-btn" onclick="closeCompendiumModal()" title="Close Compendium" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: #fff; width: 34px; height: 34px; border-radius: 8px; font-size: 22px; cursor: pointer; display: flex; align-items: center; justify-content: center; line-height: 1;">&times;</button>
       </div>
 
       <!-- Filter & Search Controls -->
       <div style="padding: 14px 24px; background: rgba(10, 14, 24, 0.75); border-bottom: 1px solid var(--border-subtle); display: flex; flex-direction: column; gap: 10px;">
         <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: space-between;">
           <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center; flex: 1; min-width: 260px;">
-            <input type="text" id="compendiumSearchInput" class="search-input" placeholder="Search by name, effect, or Ancient (e.g. Winged Boots, Fishing Rod, Outmaneuver)..." oninput="renderCompendiumModalContent()" style="max-width: 380px; width: 100%;" />
+            <input type="text" id="compendiumSearchInput" class="search-input" placeholder="Search by name, effect, Event, or Ancient (e.g. Caltrops, Trash Heap, Winged Boots)..." oninput="renderCompendiumModalContent()" style="max-width: 400px; width: 100%;" />
             <div class="meta-filter-group" id="compStatusFilterGroup" style="margin-bottom: 0; display: flex; flex-wrap: wrap; gap: 6px;">
               <button class="meta-pill-btn active" id="btnCompStatus_all" onclick="setCompendiumStatusFilter('all')">All</button>
-              <button class="meta-pill-btn" id="btnCompStatus_missing" onclick="setCompendiumStatusFilter('missing')" style="color: #fbbf24; border-color: rgba(251, 191, 36, 0.4);">🔒 Not Obtained / Unknown</button>
-              <button class="meta-pill-btn" id="btnCompStatus_obtained" onclick="setCompendiumStatusFilter('obtained')" style="color: #4ade80; border-color: rgba(74, 222, 128, 0.4);">✅ Obtained / Found</button>
+              <button class="meta-pill-btn" id="btnCompStatus_missing" onclick="setCompendiumStatusFilter('missing')" style="color: #fbbf24; border-color: rgba(251, 191, 36, 0.4);">🔒 Not Discovered</button>
+              <button class="meta-pill-btn" id="btnCompStatus_obtained" onclick="setCompendiumStatusFilter('obtained')" style="color: #4ade80; border-color: rgba(74, 222, 128, 0.4);">✅ Discovered</button>
             </div>
           </div>
           <div id="compProgressPill" style="font-size: 12px; font-weight: 700; color: var(--gold-spire); background: rgba(234, 179, 8, 0.1); border: 1px solid rgba(234, 179, 8, 0.3); padding: 6px 12px; border-radius: 8px;"></div>
@@ -5633,7 +5633,7 @@
             if (resp.ok) {
               const st = await resp.json();
               if (st.is_desktop_app || st.version) {
-                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.2.6');
+                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.2.7');
               }
               if (st.local_player_id && !getLocalSteamId()) {
                 setLocalSteamId(st.local_player_id);
@@ -5675,14 +5675,14 @@
       }
     }
 
-    let currentAppVersion = 'v1.2.6';
+    let currentAppVersion = 'v1.2.7';
     let isDesktopAppMode = false;
     let detectedSteamPlayerId = null;
     let detectedSteamPersona = null;
     let detectedSteamAccount = null;
     let authSessionPollInterval = null;
     let cloudUpdateAvailable = false;
-    let latestCloudVersion = 'v1.2.6';
+    let latestCloudVersion = 'v1.2.7';
 
     function dismissUpdateBanner() {
       const banner = document.getElementById('discordUpdateBanner');
@@ -5838,7 +5838,7 @@
     async function triggerAppUpdate(skipConfirm = true) {
       isUpdatingCompanion = true;
       const originalVersion = currentAppVersion || 'v1.2.3';
-      const targetVersion = latestCloudVersion || 'v1.2.6';
+      const targetVersion = latestCloudVersion || 'v1.2.7';
 
       // Show sleek updating overlay
       let overlay = document.getElementById('appUpdateOverlay');
@@ -6360,13 +6360,13 @@
       if (relEl) relEl.innerText = `${compState.obtainedRelicsCount} / ${compState.totalRelicsCount}`;
       const relSub = document.getElementById('kpiRelicsSub');
       const missingRelics = Math.max(0, compState.totalRelicsCount - compState.obtainedRelicsCount);
-      if (relSub) relSub.innerHTML = `${Math.round((compState.obtainedRelicsCount / Math.max(1, compState.totalRelicsCount)) * 100)}% Discovered &bull; <span style="color:#fbbf24;font-weight:700;">${missingRelics} Missing</span>`;
+      if (relSub) relSub.innerHTML = `${Math.round((compState.obtainedRelicsCount / Math.max(1, compState.totalRelicsCount)) * 100)}% Discovered &bull; <span style="color:#fbbf24;font-weight:700;">${missingRelics} Not Discovered</span>`;
 
       const cardEl = document.getElementById('kpiUniqueCards');
       if (cardEl) cardEl.innerText = `${compState.discoveredCardsCount} / ${compState.totalCardsCount}`;
       const cardSub = document.getElementById('kpiCardsSub');
       const missingCards = Math.max(0, compState.totalCardsCount - compState.discoveredCardsCount);
-      if (cardSub) cardSub.innerHTML = `${Math.round((compState.discoveredCardsCount / Math.max(1, compState.totalCardsCount)) * 100)}% Found &bull; <span style="color:#fbbf24;font-weight:700;">${missingCards} Unknown</span>`;
+      if (cardSub) cardSub.innerHTML = `${Math.round((compState.discoveredCardsCount / Math.max(1, compState.totalCardsCount)) * 100)}% Discovered &bull; <span style="color:#fbbf24;font-weight:700;">${missingCards} Not Discovered</span>`;
 
       renderLifetimeBadgesShowcase(runs);
       renderHallOfRecords(runs);
@@ -9002,6 +9002,9 @@
     function showCardTooltip(cardId, element, e, upgradeLvl = 0) {
       const c = gameDatabase.cards[cardId] || { name: cleanId(cardId), cost: 1, type: 'Skill', rarity: 'Common', desc: 'Slay the Spire 2 Card' };
       const cAsset = cleanIdForAsset(cardId);
+      const evLine = c.eventSource
+        ? `<div style="font-size: 11px; color: #f472b6; font-weight: 700; margin-top: 3px;">${c.rarity === 'Ancient' ? '🏛️ Ancient:' : '📜 Event:'} ${escapeHtml(c.eventSource)}</div>`
+        : '';
 
       tt.innerHTML = `
         <div class="tt-header">
@@ -9013,6 +9016,7 @@
               <span>${c.type}</span> &bull; 
               <span style="color: #fff;">${c.rarity}</span>
             </div>
+            ${evLine}
           </div>
         </div>
         <div class="tt-body">${c.desc}</div>
@@ -9024,13 +9028,17 @@
     function showRelicTooltip(relicId, element, e, floor = 1) {
       const r = gameDatabase.relics[relicId] || { name: cleanId(relicId), desc: 'Mysterious Spire artifact.', flavor: '' };
       const rAsset = cleanIdForAsset(relicId);
+      const evLine = r.eventSource
+        ? `<div style="font-size: 11px; color: ${r.rarity === 'Ancient' ? '#c084fc' : '#f472b6'}; font-weight: 700; margin-top: 3px;">${r.rarity === 'Ancient' ? '🏛️ Ancient:' : '📜 Event:'} ${escapeHtml(r.eventSource)}</div>`
+        : '';
 
       tt.innerHTML = `
         <div class="tt-header">
           <img src="${getAssetUrl('assets/relics/' + rAsset + '.png')}" class="tt-relic-art" onerror="if(!this.dataset.t1){this.dataset.t1='1';this.src='web/assets/relics/${rAsset}.png';}else{this.style.display='none';}">
           <div>
             <div class="tt-title" style="color: var(--gold-spire);">${r.name}</div>
-            <div class="tt-type-row">Relic &bull; Floor ${floor || 1}</div>
+            <div class="tt-type-row">${r.rarity ? r.rarity + ' Relic' : 'Relic'}${floor ? ` &bull; Floor ${floor}` : ''}</div>
+            ${evLine}
           </div>
         </div>
         <div class="tt-body">${r.desc}</div>
@@ -13582,8 +13590,12 @@
           else if (c.picks > 0) starterBadge = `<span class="starter-tag">Drafted Starter</span>`;
           else starterBadge = `<span class="starter-tag" style="opacity: 0.6;">Starter</span>`;
         }
+        if (cardDb.eventSource) {
+          const isAnc = cardDb.rarity === 'Ancient';
+          starterBadge += `<span style="font-size: 9.5px; background: ${isAnc ? 'rgba(192, 132, 252, 0.18)' : 'rgba(244, 114, 182, 0.18)'}; color: ${isAnc ? '#c084fc' : '#f472b6'}; border: 1px solid ${isAnc ? 'rgba(192, 132, 252, 0.35)' : 'rgba(244, 114, 182, 0.35)'}; padding: 1px 6px; border-radius: 4px; font-weight: 700; margin-left: 6px;">${isAnc ? '🏛️ ' : '📜 Event: '}${escapeHtml(cardDb.eventSource)}</span>`;
+        }
         if (!c.isDiscovered) {
-          starterBadge += `<span style="font-size: 10px; background: rgba(251, 191, 36, 0.2); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.45); padding: 1px 6px; border-radius: 4px; font-weight: 800; margin-left: 6px;">🔒 UNKNOWN IN-GAME</span>`;
+          starterBadge += `<span style="font-size: 10px; background: rgba(251, 191, 36, 0.2); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.45); padding: 1px 6px; border-radius: 4px; font-weight: 800; margin-left: 6px;">🔒 NOT DISCOVERED</span>`;
         }
 
         const isLowSample = c.runsPresent < 3;
@@ -13886,21 +13898,22 @@
         const rAsset = cleanIdForAsset(rl.id);
         const meta = (gameDatabase.relics && gameDatabase.relics[rl.id]) || { name: cleanId(rl.id), desc: 'Mysterious Spire relic.' };
         
+        const evSourceLabel = meta.eventSource || meta.ancient || '';
         const catColors = {
-          Starter: { bg: 'rgba(148, 163, 184, 0.2)', col: '#94a3b8', label: 'STARTER' },
+          Starter: { bg: 'rgba(148, 163, 184, 0.2)', col: '#94a3b8', label: evSourceLabel ? ('STARTER • ' + evSourceLabel) : 'STARTER' },
           Common: { bg: 'rgba(226, 232, 240, 0.14)', col: '#cbd5e1', label: 'COMMON' },
           Uncommon: { bg: 'rgba(56, 189, 248, 0.18)', col: '#38bdf8', label: 'UNCOMMON' },
           Rare: { bg: 'rgba(234, 179, 8, 0.2)', col: 'var(--gold-spire)', label: 'RARE' },
           Shop: { bg: 'rgba(52, 211, 153, 0.2)', col: '#34d399', label: 'SHOP' },
-          Ancient: { bg: 'rgba(192, 132, 252, 0.2)', col: '#c084fc', label: meta.ancient ? ('ANCIENT • ' + meta.ancient.toUpperCase()) : 'ANCIENT' },
-          Event: { bg: 'rgba(244, 114, 182, 0.2)', col: '#f472b6', label: 'EVENT' }
+          Ancient: { bg: 'rgba(192, 132, 252, 0.2)', col: '#c084fc', label: evSourceLabel ? ('🏛️ ANCIENT • ' + evSourceLabel) : '🏛️ ANCIENT' },
+          Event: { bg: 'rgba(244, 114, 182, 0.2)', col: '#f472b6', label: evSourceLabel ? ('📜 EVENT • ' + evSourceLabel) : '📜 EVENT' }
         };
         const cStyle = catColors[rl.category] || catColors.Common;
-        let relicBadge = `<span style="font-size: 9.5px; background: ${cStyle.bg}; color: ${cStyle.col}; padding: 1px 6px; border-radius: 4px; font-weight: 700; margin-left: 6px;">${cStyle.label}</span>`;
+        let relicBadge = `<span style="font-size: 9.5px; background: ${cStyle.bg}; color: ${cStyle.col}; padding: 1px 6px; border-radius: 4px; font-weight: 700; margin-left: 6px;">${escapeHtml(cStyle.label)}</span>`;
         if (rl.isObtained) {
-          relicBadge += `<span style="font-size: 9.5px; background: rgba(34, 197, 94, 0.16); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.35); padding: 1px 6px; border-radius: 4px; font-weight: 700; margin-left: 5px;">✅ OBTAINED</span>`;
+          relicBadge += `<span style="font-size: 9.5px; background: rgba(34, 197, 94, 0.16); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.35); padding: 1px 6px; border-radius: 4px; font-weight: 700; margin-left: 5px;">✅ DISCOVERED</span>`;
         } else {
-          relicBadge += `<span style="font-size: 9.5px; background: rgba(251, 191, 36, 0.18); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.45); padding: 1px 6px; border-radius: 4px; font-weight: 800; margin-left: 5px;">🔒 NOT OBTAINED</span>`;
+          relicBadge += `<span style="font-size: 9.5px; background: rgba(251, 191, 36, 0.18); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.45); padding: 1px 6px; border-radius: 4px; font-weight: 800; margin-left: 5px;">🔒 NOT DISCOVERED</span>`;
         }
 
         // Chests & Drops Cell
@@ -16242,7 +16255,10 @@
       compendiumActiveTab = tab === 'cards' ? 'cards' : 'relics';
       compendiumStatusFilter = initialStatus || 'all';
       const modal = document.getElementById('compendiumCodexModal');
-      if (modal) modal.classList.add('open');
+      if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
 
       syncCompendiumFilterUI();
       renderCompendiumModalContent();
@@ -16255,8 +16271,20 @@
 
     function closeCompendiumModal() {
       const modal = document.getElementById('compendiumCodexModal');
-      if (modal) modal.classList.remove('open');
+      if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
     }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('compendiumCodexModal');
+        if (modal && modal.style.display === 'flex') {
+          closeCompendiumModal();
+        }
+      }
+    });
 
     function switchCompendiumTab(tab) {
       compendiumActiveTab = tab === 'cards' ? 'cards' : 'relics';
@@ -16368,14 +16396,14 @@
         const miss = Math.max(0, state.totalRelicsCount - state.obtainedRelicsCount);
         const pct = Math.round((state.obtainedRelicsCount / Math.max(1, state.totalRelicsCount)) * 100);
         if (progPill) {
-          progPill.innerHTML = `✅ <strong>${state.obtainedRelicsCount}</strong> Obtained &bull; 🔒 <strong style="color:#fbbf24;">${miss}</strong> Not Obtained (${pct}%)`;
+          progPill.innerHTML = `✅ <strong>${state.obtainedRelicsCount}</strong> Discovered &bull; 🔒 <strong style="color:#fbbf24;">${miss}</strong> Not Discovered (${pct}%)`;
         }
         renderCompendiumRelicsView(body, state, query);
       } else {
         const miss = Math.max(0, state.totalCardsCount - state.discoveredCardsCount);
         const pct = Math.round((state.discoveredCardsCount / Math.max(1, state.totalCardsCount)) * 100);
         if (progPill) {
-          progPill.innerHTML = `✅ <strong>${state.discoveredCardsCount}</strong> Discovered &bull; 🔒 <strong style="color:#fbbf24;">${miss}</strong> Unknown In-Game (${pct}%)`;
+          progPill.innerHTML = `✅ <strong>${state.discoveredCardsCount}</strong> Discovered &bull; 🔒 <strong style="color:#fbbf24;">${miss}</strong> Not Discovered (${pct}%)`;
         }
         renderCompendiumCardsView(body, state, query);
       }
@@ -16387,7 +16415,6 @@
         return;
       }
 
-      // Update category button counts
       const catTotals = {};
       const catObtained = {};
       RELIC_CATEGORY_ORDER.forEach(c => { catTotals[c] = 0; catObtained[c] = 0; });
@@ -16407,6 +16434,7 @@
           rarity: cat,
           pool: meta.pool || 'Shared',
           ancient: meta.ancient || state.relicAncientNames[rId] || '',
+          eventSource: meta.eventSource || meta.ancient || state.relicAncientNames[rId] || '',
           isObtained,
           carries: state.relicCarryCounts[rId] || 0,
           wins: state.relicWinCounts[rId] || 0,
@@ -16422,7 +16450,6 @@
         }
       });
 
-      // Filter relics
       const filtered = allRelics.filter(r => {
         if (compendiumStatusFilter === 'missing' && r.isObtained) return false;
         if (compendiumStatusFilter === 'obtained' && !r.isObtained) return false;
@@ -16430,6 +16457,7 @@
         if (query) {
           const qMatch = r.name.toLowerCase().includes(query) ||
                          r.desc.toLowerCase().includes(query) ||
+                         r.eventSource.toLowerCase().includes(query) ||
                          r.ancient.toLowerCase().includes(query) ||
                          r.pool.toLowerCase().includes(query) ||
                          r.rarity.toLowerCase().includes(query);
@@ -16467,11 +16495,11 @@
                 </div>
               </div>
               <div style="font-size: 11.5px; font-weight: 700; background: rgba(0,0,0,0.35); padding: 4px 10px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.06);">
-                <span style="color: #4ade80;">${catObtained[cat]} / ${catTotals[cat]} Obtained</span>
-                ${missInCat > 0 ? ` &bull; <span style="color: #fbbf24;">${missInCat} Not Obtained</span>` : ` &bull; <span style="color: #4ade80;">100% Complete 🏆</span>`}
+                <span style="color: #4ade80;">${catObtained[cat]} / ${catTotals[cat]} Discovered</span>
+                ${missInCat > 0 ? ` &bull; <span style="color: #fbbf24;">${missInCat} Not Discovered</span>` : ` &bull; <span style="color: #4ade80;">100% Complete 🏆</span>`}
               </div>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 12px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(295px, 1fr)); gap: 12px;">
         `;
 
         catItems.forEach(r => {
@@ -16481,18 +16509,20 @@
 
           let statusBadge = '';
           if (r.isObtained) {
-            const sub = r.carries > 0 ? `Carried in ${r.carries} ${r.carries === 1 ? 'climb' : 'climbs'}` : 'Discovered in Save';
-            statusBadge = `<span style="font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 5px; background: rgba(34, 197, 94, 0.16); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.35);">✅ OBTAINED (${sub})</span>`;
+            const sub = r.carries > 0 ? `Carried in ${r.carries} ${r.carries === 1 ? 'climb' : 'climbs'}` : 'Saved in Compendium';
+            statusBadge = `<span style="font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 5px; background: rgba(34, 197, 94, 0.16); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.35);">✅ DISCOVERED (${sub})</span>`;
           } else {
             const offerNote = r.offered > 0 ? ` &bull; Offered ${r.offered}x, Picked 0x` : '';
-            statusBadge = `<span style="font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 5px; background: rgba(251, 191, 36, 0.2); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.5);">🔒 NOT OBTAINED${offerNote}</span>`;
+            statusBadge = `<span style="font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 5px; background: rgba(251, 191, 36, 0.2); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.5);">🔒 NOT DISCOVERED${offerNote}</span>`;
           }
 
           let sourceTag = '';
-          if (r.ancient) {
-            sourceTag = `<span style="font-size: 9.5px; font-weight: 700; color: #c084fc; background: rgba(192, 132, 252, 0.15); padding: 1px 6px; border-radius: 4px;">🏛️ ${escapeHtml(r.ancient)}</span>`;
+          if (r.rarity === 'Ancient' && r.eventSource) {
+            sourceTag = `<span style="font-size: 10px; font-weight: 700; color: #c084fc; background: rgba(192, 132, 252, 0.16); border: 1px solid rgba(192, 132, 252, 0.35); padding: 1px 7px; border-radius: 4px;">🏛️ Ancient: ${escapeHtml(r.eventSource)}</span>`;
+          } else if (r.eventSource) {
+            sourceTag = `<span style="font-size: 10px; font-weight: 700; color: #f472b6; background: rgba(244, 114, 182, 0.16); border: 1px solid rgba(244, 114, 182, 0.35); padding: 1px 7px; border-radius: 4px;">📜 Event: ${escapeHtml(r.eventSource)}</span>`;
           } else if (r.pool && r.pool !== 'Shared' && r.pool !== 'Event') {
-            sourceTag = `<span style="font-size: 9.5px; font-weight: 700; color: #38bdf8; background: rgba(56, 189, 248, 0.14); padding: 1px 6px; border-radius: 4px;">${escapeHtml(r.pool)}</span>`;
+            sourceTag = `<span style="font-size: 10px; font-weight: 700; color: #38bdf8; background: rgba(56, 189, 248, 0.14); padding: 1px 7px; border-radius: 4px;">${escapeHtml(r.pool)}</span>`;
           }
 
           htmlOut += `
@@ -16505,7 +16535,7 @@
                   <span style="font-weight: 800; font-size: 13.5px; color: #fff;">${escapeHtml(r.name)}</span>
                   ${sourceTag}
                 </div>
-                <div style="margin-top: 4px; margin-bottom: 6px;">
+                <div style="margin-top: 5px; margin-bottom: 6px;">
                   ${statusBadge}
                 </div>
                 <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.45;">
@@ -16538,8 +16568,8 @@
         const cost = meta.cost !== undefined ? meta.cost : 1;
         const costsX = !!meta.costsX;
         const mp = meta.multiplayer || 'None';
+        const eventSource = meta.eventSource || '';
 
-        // Map to in-game Card Library pool filter bucket
         let poolBucket = pool;
         if (rarity === 'Ancient') {
           poolBucket = 'Ancient';
@@ -16558,6 +16588,7 @@
           cost,
           costsX,
           mp,
+          eventSource,
           isDiscovered,
           runs: state.cardRunCounts[cId] || 0,
           picks: state.cardPickCounts[cId] || 0,
@@ -16606,6 +16637,7 @@
         if (query) {
           const qMatch = c.name.toLowerCase().includes(query) ||
                          c.desc.toLowerCase().includes(query) ||
+                         c.eventSource.toLowerCase().includes(query) ||
                          c.pool.toLowerCase().includes(query) ||
                          c.rarity.toLowerCase().includes(query) ||
                          c.type.toLowerCase().includes(query);
@@ -16614,12 +16646,7 @@
         return true;
       });
 
-      filtered.sort((a, b) => {
-        if (a.isDiscovered !== b.isDiscovered && compendiumStatusFilter === 'all') {
-          // Keep alphabetical order matching in-game Compendium
-        }
-        return a.name.localeCompare(b.name);
-      });
+      filtered.sort((a, b) => a.name.localeCompare(b.name));
 
       if (filtered.length === 0) {
         body.innerHTML = `<div style="text-align:center; padding:48px 20px; color:var(--text-dim); font-size:14px;">No cards match your current search or filter selection.</div>`;
@@ -16640,7 +16667,7 @@
         Token: '#38bdf8'
       };
 
-      let htmlOut = `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(235px, 1fr)); gap: 14px;">`;
+      let htmlOut = `<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(245px, 1fr)); gap: 14px;">`;
       filtered.forEach(c => {
         const cAsset = cleanIdForAsset(c.id);
         const pCol = poolColors[c.pool] || '#cbd5e1';
@@ -16649,8 +16676,14 @@
         const bgCol = c.isDiscovered ? 'rgba(15, 23, 42, 0.78)' : 'linear-gradient(145deg, rgba(45, 27, 10, 0.55), rgba(15, 23, 42, 0.92))';
 
         const statusBanner = c.isDiscovered
-          ? `<span style="font-size: 9.5px; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.35);">✅ DISCOVERED (${c.runs} runs)</span>`
-          : `<span style="font-size: 9.5px; font-weight: 800; padding: 2px 6px; border-radius: 4px; background: rgba(251, 191, 36, 0.22); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.55);">🔒 UNKNOWN IN-GAME (NOT FOUND)</span>`;
+          ? `<span style="font-size: 9.5px; font-weight: 800; padding: 2px 7px; border-radius: 4px; background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.35);">✅ DISCOVERED${c.runs > 0 ? ` (${c.runs} ${c.runs === 1 ? 'run' : 'runs'})` : ''}</span>`
+          : `<span style="font-size: 9.5px; font-weight: 800; padding: 2px 7px; border-radius: 4px; background: rgba(251, 191, 36, 0.22); color: #fbbf24; border: 1px solid rgba(251, 191, 36, 0.55);">🔒 NOT DISCOVERED</span>`;
+
+        let eventBadge = '';
+        if (c.eventSource) {
+          const isAnc = c.rarity === 'Ancient';
+          eventBadge = `<div style="margin-top: 2px;"><span style="display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 4px; background: ${isAnc ? 'rgba(192, 132, 252, 0.16)' : 'rgba(244, 114, 182, 0.16)'}; color: ${isAnc ? '#c084fc' : '#f472b6'}; border: 1px solid ${isAnc ? 'rgba(192, 132, 252, 0.35)' : 'rgba(244, 114, 182, 0.35)'};">${isAnc ? '🏛️ Ancient:' : '📜 Event:'} ${escapeHtml(c.eventSource)}</span></div>`;
+        }
 
         htmlOut += `
           <div style="background: ${bgCol}; border: 1px solid ${borderCol}; border-top: 3px solid ${pCol}; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column;">
@@ -16660,7 +16693,7 @@
                 ${costDisp}
               </div>
               <div style="position: absolute; top: 8px; right: 8px; background: rgba(15, 23, 42, 0.88); border: 1px solid rgba(255,255,255,0.12); padding: 2px 7px; border-radius: 999px; font-size: 10px; font-weight: 700; color: ${pCol};">
-                ${escapeHtml(c.pool)} &bull; ${escapeHtml(c.rarity)}
+                ${escapeHtml(c.pool === c.rarity ? c.pool : (c.pool + ' • ' + c.rarity))}
               </div>
               <div style="position: absolute; bottom: 6px; left: 8px; background: rgba(15, 23, 42, 0.88); padding: 1px 7px; border-radius: 4px; font-size: 10px; font-weight: 700; color: #e2e8f0;">
                 ${escapeHtml(c.type)}${c.mp === 'MultiplayerOnly' ? ' &bull; 🤝 Co-op' : ''}
@@ -16668,7 +16701,8 @@
             </div>
             <div style="padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; flex: 1;">
               <div style="font-weight: 800; font-size: 14px; color: #fff;">${escapeHtml(c.name)}</div>
-              <div>${statusBanner}</div>
+              <div style="display: flex; flex-wrap: wrap; gap: 4px; align-items: center;">${statusBanner}</div>
+              ${eventBadge}
               <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.45; margin-top: 2px;">
                 ${escapeHtml(c.desc || 'No description available.')}
               </div>
