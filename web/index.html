@@ -3403,6 +3403,13 @@
           </button>
         </div>
 
+        <!-- Slayer Direct Inbox & Shared Runs Notification Bell -->
+        <button id="btnHeaderInbox" onclick="openSlayerInboxModal('received')" title="Slayer Inbox • View runs shared directly with you" style="position: relative; background: rgba(30, 41, 59, 0.78); border: 1px solid rgba(192, 132, 252, 0.35); color: #e2e8f0; padding: 6px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease;" onmouseenter="this.style.borderColor='#c084fc';this.style.background='rgba(192, 132, 252, 0.15)';" onmouseleave="this.style.borderColor='rgba(192, 132, 252, 0.35)';this.style.background='rgba(30, 41, 59, 0.78)';">
+          <span id="headerInboxBellIcon" style="font-size: 14px;">🔔</span>
+          <span>Inbox</span>
+          <span id="inboxUnreadBadge" style="display: none; background: linear-gradient(135deg, #f43f5e, #e11d48); color: #fff; font-size: 10px; font-weight: 800; padding: 1px 6px; border-radius: 999px; box-shadow: 0 0 10px rgba(244, 63, 94, 0.7); line-height: 1.3;">0</span>
+        </button>
+
         <!-- Optional User Account / Sign In Container at Top -->
         <div id="headerAuthContainer" style="display: inline-flex; align-items: center;"></div>
       </div>
@@ -4425,8 +4432,11 @@
         </div>
 
         <div style="display: flex; gap: 10px; align-items: center;">
+          <button class="btn-share-modal" onclick="openDirectShareModal(currentInspectedRun)" title="Send this run directly to another Slayer's Inbox or copy a direct share link" style="background: linear-gradient(135deg, rgba(192, 132, 252, 0.2), rgba(124, 58, 237, 0.25)); border: 1px solid rgba(192, 132, 252, 0.55); color: #e9d5ff; padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease; box-shadow: 0 2px 10px rgba(168, 85, 247, 0.2);">
+            <span>📨</span> <span>Send to Slayer</span>
+          </button>
           <button class="btn-share-modal" onclick="initiateShareRunToForum(currentInspectedRun)" title="Share this run on the Spire Council Community Forum" style="background: rgba(234, 179, 8, 0.12); border: 1px solid rgba(234, 179, 8, 0.35); color: var(--gold-spire); padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease;">
-            <span>💬</span> <span>Share to Forum</span>
+            <span>💬</span> <span>Forum</span>
           </button>
           <button class="modal-close-btn" onclick="closeModal()">&times;</button>
         </div>
@@ -4595,7 +4605,12 @@
             </div>
           </div>
         </div>
-        <button class="modal-close-btn" onclick="closePlayerProfileModal()">&times;</button>
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <button id="btnProfileSendRun" onclick="openDirectShareFromProfile()" style="background: linear-gradient(135deg, rgba(192, 132, 252, 0.2), rgba(124, 58, 237, 0.25)); border: 1px solid rgba(192, 132, 252, 0.5); color: #e9d5ff; padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s;">
+            <span>📨</span> <span>Send Run to Slayer</span>
+          </button>
+          <button class="modal-close-btn" onclick="closePlayerProfileModal()">&times;</button>
+        </div>
       </div>
 
       <div id="playerProfileContent">
@@ -5277,6 +5292,105 @@
     </div>
   </div>
 
+  <!-- DIRECT SHARE RUN TO SLAYER MODAL -->
+  <div id="directShareRunModal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); z-index: 100005; justify-content: center; align-items: center; padding: 20px;" onclick="if(event.target===this) closeDirectShareModal()">
+    <div class="modal-content" style="max-width: 620px; width: 95%; max-height: 90vh; overflow-y: auto; background: var(--bg-card); border-radius: 16px; border: 1px solid rgba(192, 132, 252, 0.45); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9); padding: 26px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border-subtle);">
+        <div>
+          <h2 style="font-family: var(--font-title); color: #e9d5ff; font-size: 20px; margin: 0; display: flex; align-items: center; gap: 8px;">
+            <span>📨</span> <span>Share Run Directly with a Slayer</span>
+          </h2>
+          <p style="font-size: 12.5px; color: var(--text-muted); margin: 4px 0 0 0;">
+            Send this climb straight to another Slayer's on-site Inbox, or copy a direct inspect link
+          </p>
+        </div>
+        <button class="modal-close-btn" onclick="closeDirectShareModal()" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: #fff; width: 32px; height: 32px; border-radius: 8px; font-size: 20px; cursor: pointer;">&times;</button>
+      </div>
+
+      <!-- Run Selector (shown if user has multiple runs and wants to pick/switch) -->
+      <div id="directShareRunPickerWrap" style="margin-bottom: 12px; display: none;">
+        <label style="display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-dim); font-weight: 700; margin-bottom: 5px;">Select Climb to Share</label>
+        <select id="directShareRunSelect" class="select-dropdown" style="width: 100%; padding: 8px 12px; font-size: 12.5px;" onchange="onDirectShareRunSelectChange(this.value)"></select>
+      </div>
+
+      <!-- Selected Run Preview Banner -->
+      <div id="directShareRunPreviewCard" style="background: linear-gradient(135deg, rgba(15, 23, 42, 0.95), rgba(30, 41, 59, 0.85)); border: 1px solid rgba(192, 132, 252, 0.35); border-radius: 12px; padding: 14px 16px; margin-bottom: 18px; display: flex; align-items: center; gap: 14px;">
+      </div>
+
+      <!-- Step 1: Choose Recipient Slayer -->
+      <div style="margin-bottom: 16px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <label style="font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.5px; color: #e9d5ff; font-weight: 700;">1. Recipient Slayer Handle</label>
+          <span style="font-size: 11px; color: var(--text-dim);">Click a Slayer below or type their handle</span>
+        </div>
+        <input type="text" id="directShareRecipientInput" class="forum-input" placeholder="Type Slayer handle (e.g. Kratos77x, Apocaelypze, jopiosquorz)..." style="width: 100%; box-sizing: border-box; font-size: 13.5px; padding: 10px 14px; background: var(--bg-darker); border: 1px solid var(--border-light); border-radius: 8px; color: #fff; margin-bottom: 10px;" oninput="renderDirectShareSlayerDirectory(this.value)" />
+        <div id="directShareSlayerDirectory" style="display: flex; flex-wrap: wrap; gap: 7px; max-height: 135px; overflow-y: auto; padding: 4px 2px;">
+        </div>
+      </div>
+
+      <!-- Step 2: Optional Personal Note -->
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--text-muted); font-weight: 700; margin-bottom: 6px;">2. Optional Message / Note</label>
+        <input type="text" id="directShareNoteInput" class="forum-input" placeholder="e.g. Check out how Winged Boots + Caltrops saved Floor 42!" maxlength="220" style="width: 100%; box-sizing: border-box; font-size: 13px; padding: 10px 14px; background: var(--bg-darker); border: 1px solid var(--border-subtle); border-radius: 8px; color: #fff;" onkeydown="if(event.key==='Enter') submitDirectShareRun()" />
+      </div>
+
+      <!-- Primary Action: Send to Slayer's Inbox -->
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <button id="btnSubmitDirectShare" onclick="submitDirectShareRun()" class="btn-primary" style="width: 100%; justify-content: center; padding: 12px 20px; font-size: 14px; font-weight: 800; background: linear-gradient(135deg, #a855f7, #7c3aed); border: 1px solid #c084fc; box-shadow: 0 4px 18px rgba(168, 85, 247, 0.35); display: flex; align-items: center; gap: 8px;">
+          <span>📨</span> <span>Send Directly to Slayer's Inbox</span>
+        </button>
+
+        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+          <button onclick="copyDirectRunShareLink()" class="btn-secondary" style="flex: 1; justify-content: center; padding: 9px 14px; font-size: 12.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; border-color: rgba(56, 189, 248, 0.4); color: #38bdf8;">
+            <span>🔗</span> <span>Copy Direct Share Link</span>
+          </button>
+          <button onclick="closeDirectShareModal(); initiateShareRunToForum(currentDirectShareRun);" class="btn-secondary" style="flex: 1; justify-content: center; padding: 9px 14px; font-size: 12.5px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; border-color: rgba(234, 179, 8, 0.35); color: var(--gold-spire);">
+            <span>💬</span> <span>Post to Community Forum Instead</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SLAYER INBOX & NOTIFICATIONS MODAL -->
+  <div id="slayerInboxModal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); z-index: 100004; justify-content: center; align-items: center; padding: 20px;" onclick="if(event.target===this) closeSlayerInboxModal()">
+    <div class="modal-content" style="max-width: 780px; width: 96%; max-height: 88vh; display: flex; flex-direction: column; background: var(--bg-card); border-radius: 16px; border: 1px solid rgba(192, 132, 252, 0.45); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9); overflow: hidden; padding: 0;">
+      <div style="padding: 18px 24px; background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.92)); border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+          <h2 style="font-family: var(--font-title); color: #e9d5ff; font-size: 20px; margin: 0; display: flex; align-items: center; gap: 8px;">
+            <span>🔔</span> <span>Slayer Inbox &amp; Shared Runs</span>
+          </h2>
+          <div style="display: flex; gap: 6px;">
+            <button id="inboxTabBtnReceived" class="meta-pill-btn active" onclick="switchSlayerInboxTab('received')" style="font-size: 12px; padding: 6px 14px; font-weight: 800;">
+              📥 Received Runs <span id="inboxReceivedCountPill" style="margin-left: 4px; font-size: 10.5px; opacity: 0.85;">(0)</span>
+            </button>
+            <button id="inboxTabBtnSent" class="meta-pill-btn" onclick="switchSlayerInboxTab('sent')" style="font-size: 12px; padding: 6px 14px; font-weight: 800;">
+              📤 Sent Runs <span id="inboxSentCountPill" style="margin-left: 4px; font-size: 10.5px; opacity: 0.85;">(0)</span>
+            </button>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <button onclick="openDirectShareModal(rawLocalRuns && rawLocalRuns[0] ? rawLocalRuns[0] : null)" class="btn-primary" style="padding: 6px 12px; font-size: 11.5px; font-weight: 700; background: linear-gradient(135deg, #a855f7, #7c3aed); border: 1px solid #c084fc;">
+            📨 Share a Run
+          </button>
+          <button onclick="markAllSlayerInboxRead()" class="btn-secondary" style="padding: 6px 10px; font-size: 11.5px;" title="Mark all received runs as read">
+            ✓ Mark All Read
+          </button>
+          <button onclick="fetchSlayerInbox(true)" class="btn-secondary" style="padding: 6px 10px; font-size: 11.5px;" title="Refresh Inbox">
+            🔄
+          </button>
+          <button class="modal-close-btn" onclick="closeSlayerInboxModal()" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: #fff; width: 32px; height: 32px; border-radius: 8px; font-size: 20px; cursor: pointer;">&times;</button>
+        </div>
+      </div>
+
+      <div id="slayerInboxIdentityBar" style="padding: 10px 24px; background: rgba(10, 14, 24, 0.75); border-bottom: 1px solid var(--border-subtle); font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+      </div>
+
+      <div id="slayerInboxBody" class="modal-body" style="padding: 20px 24px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; gap: 12px;">
+      </div>
+    </div>
+  </div>
+
   <!-- FORUM MEDIA LIGHTBOX MODAL -->
   <div id="forumLightboxModal" class="media-lightbox-modal" onclick="closeImageLightbox()">
     <img id="lightboxImage" class="media-lightbox-content" src="" alt="Enlarged Artwork" onclick="event.stopPropagation()" />
@@ -5543,6 +5657,7 @@
         switchTab('leaderboard');
       }
       loadLeaderboardData(false);
+      initSlayerInboxPolling();
     });
 
     async function fetchProgress() {
@@ -5638,7 +5753,7 @@
                 return;
               }
               if (st.is_desktop_app || st.version) {
-                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.2.8');
+                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.2.9');
               }
               if (st.local_player_id && !getLocalSteamId()) {
                 setLocalSteamId(st.local_player_id);
@@ -5680,15 +5795,15 @@
       }
     }
 
-    const LOADED_UI_VERSION = 'v1.2.8';
-    let currentAppVersion = 'v1.2.8';
+    const LOADED_UI_VERSION = 'v1.2.9';
+    let currentAppVersion = 'v1.2.9';
     let isDesktopAppMode = false;
     let detectedSteamPlayerId = null;
     let detectedSteamPersona = null;
     let detectedSteamAccount = null;
     let authSessionPollInterval = null;
     let cloudUpdateAvailable = false;
-    let latestCloudVersion = 'v1.2.8';
+    let latestCloudVersion = 'v1.2.9';
 
     function dismissUpdateBanner() {
       const banner = document.getElementById('discordUpdateBanner');
@@ -5844,7 +5959,7 @@
     async function triggerAppUpdate(skipConfirm = true) {
       isUpdatingCompanion = true;
       const originalVersion = currentAppVersion || 'v1.2.3';
-      const targetVersion = latestCloudVersion || 'v1.2.8';
+      const targetVersion = latestCloudVersion || 'v1.2.9';
 
       // Show sleek updating overlay
       let overlay = document.getElementById('appUpdateOverlay');
@@ -5972,7 +6087,7 @@
             return;
           }
           if (st.is_desktop_app || st.version) {
-            enableDesktopAppUI(st.version || 'v1.2.8');
+            enableDesktopAppUI(st.version || 'v1.2.9');
           }
         } else {
           fetchCloudVersionForWeb();
@@ -7439,8 +7554,8 @@
 
           <div style="display: flex; flex-direction: column; gap: 6px; align-items: stretch; min-width: 90px;">
             <button class="btn-inspect">Inspect</button>
-            <button class="btn-share-run" title="Share this run on Spire Council Community Forum">
-              <span>💬</span> <span>Share</span>
+            <button class="btn-share-run" title="Send this run directly to a Slayer's Inbox, copy link, or share">
+              <span>📨</span> <span>Share</span>
             </button>
           </div>
         `;
@@ -7456,7 +7571,7 @@
         if (shareBtn) {
           shareBtn.onclick = (e) => {
             e.stopPropagation();
-            initiateShareRunToForum(r);
+            openDirectShareModal(r);
           };
         }
 
@@ -7481,7 +7596,11 @@
       badge.className = `run-outcome-badge ${isWin ? 'badge-win' : (isAbandoned ? 'badge-abandoned' : 'badge-loss')}`;
       badge.innerHTML = isWin ? 'VICTORY 🏆' : (isAbandoned ? 'ABANDONED 🚪' : 'DEFEAT 💀');
 
-      document.getElementById('modalSharedBadge').style.display = isShared ? 'inline-flex' : 'none';
+      const sharedBadgeEl = document.getElementById('modalSharedBadge');
+      if (sharedBadgeEl) {
+        sharedBadgeEl.style.display = isShared ? 'inline-flex' : 'none';
+        sharedBadgeEl.innerHTML = run._sharedBy ? `📨 SHARED BY ${escapeHtml(String(run._sharedBy).toUpperCase())}` : '👤 SHARED RUN';
+      }
 
       const isDaily = isDailyOrChallengeRun(run);
       const dailyEl = document.getElementById('modalDailyBadge');
@@ -7517,7 +7636,7 @@
 
       document.getElementById('modalSubInfo').innerHTML = `
         Climbed on ${formatDate(run.start_time)} &bull; ${run._runNumber ? `<strong>Run #${run._runNumber}</strong> &bull; ` : ''}Seed: <button class="copy-seed-btn" onclick="copySeed('${run.seed}', event)" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border-subtle); color: var(--gold-spire); padding: 2px 6px; border-radius: 4px; cursor: pointer;">${run.seed} (Copy)</button>
-        ${isShared ? ' &bull; <strong style="color: var(--shared-color);">Imported Run</strong>' : ''}
+        ${isShared ? ` &bull; <strong style="color: var(--shared-color);">${run._sharedBy ? 'Shared by ' + escapeHtml(run._sharedBy) : 'Shared Run'}</strong>${run._sharedNote ? ` &bull; <span style="color: #e9d5ff; background: rgba(192, 132, 252, 0.14); border: 1px solid rgba(192, 132, 252, 0.35); padding: 2px 8px; border-radius: 6px; font-style: italic;">&ldquo;${escapeHtml(run._sharedNote)}&rdquo;</span>` : ''}` : ''}
         ${isCoop ? ' &bull; <strong style="color: #38bdf8;">Co-op Duo Run</strong>' : ''}
       `;
 
@@ -8948,6 +9067,13 @@
           runDataStr = hash.substring(5);
         } else if (search) {
           const params = new URLSearchParams(search);
+          if (params.has('shared')) {
+            const shareId = params.get('shared');
+            if (shareId) {
+              inspectCloudSharedRunById(shareId);
+              return;
+            }
+          }
           if (params.has('run')) {
             const rId = params.get('run');
             const found = allRuns.find(r => String(r.start_time) === rId || String(r.id) === rId);
@@ -11583,6 +11709,7 @@
       updateForumUserUI();
       renderForumPosts();
       renderUploadTabAuthUI();
+      if (typeof fetchSlayerInbox === 'function') fetchSlayerInbox(false);
     }
 
     function isOwnerAuthenticated() {
@@ -11650,6 +11777,9 @@
 
             <button class="profile-dropdown-item" onclick="openPlayerProfileModal('${escapeHtml(user.username)}'); closeHeaderProfileDropdown();">
               <span>👤</span> <span>View My Slayer Profile</span>
+            </button>
+            <button class="profile-dropdown-item" onclick="openSlayerInboxModal('received'); closeHeaderProfileDropdown();">
+              <span>🔔</span> <span>Slayer Inbox &amp; Shared Runs</span>
             </button>
             <button class="profile-dropdown-item" onclick="syncUserRunsFromCloud('${escapeHtml(user.username)}', true); closeHeaderProfileDropdown();" title="Download and restore your cloud-saved climbs onto this device">
               <span>☁️</span> <span>Sync Cloud Runs</span>
@@ -17088,6 +17218,742 @@
       closeClaimHandleModal();
       showToast(`🏆 Welcome, ${escapeHtml(val)}! Your climbs are now linked & syncing to the Global Leaderboard.`);
       await submitRunsToLeaderboard(false);
+    }
+
+
+    /* ======================================================================
+       DIRECT SLAYER-TO-SLAYER RUN SHARING & INBOX NOTIFICATION SYSTEM
+       ====================================================================== */
+    let currentDirectShareRun = null;
+    let slayerDirectoryCache = [];
+    let slayerInboxState = {
+      received: [],
+      sent: [],
+      activeTab: 'received',
+      knownUnreadIds: new Set(),
+      initialized: false
+    };
+    let currentInspectedProfileHandle = '';
+
+    function normalizeSlayerKey(handle) {
+      return String(handle || '').trim().toLowerCase().replace(/[^a-z0-9_-]/g, '_');
+    }
+
+    function getActiveSlayerIdentity() {
+      const user = getCurrentUser();
+      if (user && user.username) {
+        return {
+          handle: user.username,
+          key: normalizeSlayerKey(user.username),
+          isCreator: !!user.isCreator || normalizeSlayerKey(user.username) === 'apocaelypze',
+          avatar: getUserAvatar(user.username, !!user.isCreator)
+        };
+      }
+      const savedHandle = localStorage.getItem('sts2_slayer_handle') || (typeof detectedSteamPersona !== 'undefined' && detectedSteamPersona ? detectedSteamPersona : '');
+      if (savedHandle) {
+        const isCr = normalizeSlayerKey(savedHandle) === 'apocaelypze' && isOwnerAuthenticated();
+        return {
+          handle: savedHandle,
+          key: normalizeSlayerKey(savedHandle),
+          isCreator: isCr,
+          avatar: getUserAvatar(savedHandle, isCr)
+        };
+      }
+      return null;
+    }
+
+    async function loadSlayerDirectory() {
+      const map = new Map();
+      const addEntry = (handle, avatar, isCreator, role) => {
+        if (!handle || typeof handle !== 'string') return;
+        const clean = handle.trim();
+        if (!clean || clean.length < 2) return;
+        const key = normalizeSlayerKey(clean);
+        if (!key) return;
+        const existing = map.get(key) || {};
+        map.set(key, {
+          key,
+          handle: existing.handle || clean,
+          isCreator: !!(existing.isCreator || isCreator || key === 'apocaelypze'),
+          avatar: avatar || existing.avatar || getUserAvatar(clean, key === 'apocaelypze'),
+          role: role || existing.role || 'slayer'
+        });
+      };
+
+      // Always include known community Slayers & Leaderboard players
+      if (leaderboardState && leaderboardState.players) {
+        const pList = Array.isArray(leaderboardState.players) ? leaderboardState.players : Object.values(leaderboardState.players);
+        pList.forEach(p => {
+          if (p && p.handle) addEntry(p.handle, p.avatar, p.isCreator, p.role);
+        });
+      }
+
+      try {
+        const [lbResp, usersResp, steamResp] = await Promise.all([
+          fetch(`${FORUM_RTDB_BASE}/leaderboard/players.json`).catch(() => null),
+          fetch(`${FORUM_RTDB_BASE}/users.json`).catch(() => null),
+          fetch(`${FORUM_RTDB_BASE}/steam_users.json`).catch(() => null)
+        ]);
+
+        if (lbResp && lbResp.ok) {
+          const lbData = await lbResp.json();
+          if (lbData && typeof lbData === 'object') {
+            Object.values(lbData).forEach(p => {
+              if (p && p.handle) addEntry(p.handle, p.avatar, p.isCreator, p.role);
+            });
+          }
+        }
+        if (usersResp && usersResp.ok) {
+          const uData = await usersResp.json();
+          if (uData && typeof uData === 'object') {
+            Object.entries(uData).forEach(([k, u]) => {
+              addEntry((u && u.username) || k, u && u.avatar, u && u.isCreator, 'slayer');
+            });
+          }
+        }
+        if (steamResp && steamResp.ok) {
+          const sData = await steamResp.json();
+          if (sData && typeof sData === 'object') {
+            Object.values(sData).forEach(s => {
+              if (s && s.persona) addEntry(s.persona, null, normalizeSlayerKey(s.persona) === 'apocaelypze', 'steam');
+            });
+          }
+        }
+      } catch (e) {}
+
+      slayerDirectoryCache = Array.from(map.values()).sort((a, b) => {
+        if (a.isCreator !== b.isCreator) return a.isCreator ? -1 : 1;
+        return a.handle.localeCompare(b.handle);
+      });
+      return slayerDirectoryCache;
+    }
+
+    function openDirectShareFromProfile() {
+      const hEl = document.getElementById('profHandle');
+      const targetHandle = (hEl ? hEl.innerText : '').trim();
+      closePlayerProfileModal();
+      const defaultRun = (rawLocalRuns && rawLocalRuns.length > 0) ? rawLocalRuns[0] : (allRuns && allRuns.length > 0 ? allRuns[0] : null);
+      openDirectShareModal(defaultRun, targetHandle);
+    }
+
+    async function openDirectShareModal(run = null, prefillRecipient = '') {
+      let targetRun = run || currentInspectedRun || ((rawLocalRuns && rawLocalRuns.length > 0) ? rawLocalRuns[0] : (allRuns && allRuns.length > 0 ? allRuns[0] : null));
+      if (!targetRun) {
+        showToast('⚠️ No climb loaded to share yet. Play or load a save file first!');
+        return;
+      }
+      currentDirectShareRun = targetRun;
+
+      const modal = document.getElementById('directShareRunModal');
+      if (!modal) return;
+
+      // Populate Run Selector dropdown so user can switch which run they're sharing if desired
+      const pickerWrap = document.getElementById('directShareRunPickerWrap');
+      const selectEl = document.getElementById('directShareRunSelect');
+      const sourceRuns = (rawLocalRuns && rawLocalRuns.length > 0) ? rawLocalRuns : allRuns;
+      if (pickerWrap && selectEl && sourceRuns && sourceRuns.length > 1) {
+        pickerWrap.style.display = 'block';
+        selectEl.innerHTML = sourceRuns.slice(0, 60).map((r, idx) => {
+          const cKey = getCharKey(r);
+          const cfg = CHAR_CONFIG[cKey] || { name: cKey };
+          const fl = getRunFloors(r);
+          const rId = String(r.start_time || r.id || idx);
+          const curId = String(targetRun.start_time || targetRun.id || '');
+          const isSel = rId === curId;
+          const outText = r.win ? '🏆 WIN' : (r.was_abandoned ? '🚪 ABANDON' : '💀 LOSS');
+          return `<option value="${escapeHtml(rId)}" ${isSel ? 'selected' : ''}>Run #${sourceRuns.length - idx} • ${escapeHtml(cfg.name)} (A${r.ascension || 0}) • ${outText} • Floor ${fl} (${formatDate(r.start_time)})</option>`;
+        }).join('');
+      } else if (pickerWrap) {
+        pickerWrap.style.display = 'none';
+      }
+
+      renderDirectShareRunPreview(targetRun);
+
+      const recInput = document.getElementById('directShareRecipientInput');
+      if (recInput) {
+        recInput.value = prefillRecipient || '';
+      }
+      const noteInput = document.getElementById('directShareNoteInput');
+      if (noteInput) {
+        noteInput.value = '';
+      }
+
+      modal.style.display = 'flex';
+      await loadSlayerDirectory();
+      renderDirectShareSlayerDirectory(recInput ? recInput.value : '');
+    }
+
+    function onDirectShareRunSelectChange(runIdStr) {
+      const sourceRuns = (rawLocalRuns && rawLocalRuns.length > 0) ? rawLocalRuns : allRuns;
+      const found = (sourceRuns || []).find(r => String(r.start_time || r.id) === String(runIdStr));
+      if (found) {
+        currentDirectShareRun = found;
+        renderDirectShareRunPreview(found);
+      }
+    }
+
+    function renderDirectShareRunPreview(run) {
+      const card = document.getElementById('directShareRunPreviewCard');
+      if (!card || !run) return;
+      const p = getPlayer(run);
+      const cKey = getCharKey(run);
+      const cfg = CHAR_CONFIG[cKey] || { name: cKey, color: '#fff', img: 'ironclad.webp' };
+      const isWin = !!run.win;
+      const isAbandoned = !!run.was_abandoned;
+      const floors = getRunFloors(run);
+      const deckSize = p && p.deck ? p.deck.length : 0;
+      const relicCount = p && p.relics ? p.relics.length : 0;
+
+      card.innerHTML = `
+        <img src="${getAssetUrl('assets/characters/' + cfg.img)}" style="width: 48px; height: 48px; border-radius: 10px; object-fit: cover; border: 2px solid ${cfg.color}; flex-shrink: 0;" onerror="this.src='web/assets/characters/${cfg.img}'" />
+        <div style="flex: 1; min-width: 0;">
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span style="font-family: var(--font-title); font-size: 16px; font-weight: 800; color: ${cfg.color};">${escapeHtml(cfg.name)}</span>
+            <span class="run-outcome-badge ${isWin ? 'badge-win' : (isAbandoned ? 'badge-abandoned' : 'badge-loss')}" style="font-size: 10px; padding: 2px 7px;">
+              ${isWin ? 'VICTORY 🏆' : (isAbandoned ? 'ABANDONED 🚪' : 'DEFEAT 💀')}
+            </span>
+            <span style="font-size: 11px; font-weight: 800; color: var(--gold-spire); background: rgba(234, 179, 8, 0.14); border: 1px solid rgba(234, 179, 8, 0.35); padding: 1px 7px; border-radius: 6px;">A${run.ascension || 0}</span>
+          </div>
+          <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">
+            Floor <strong>${floors}</strong> &bull; <strong>${formatTime(run.run_time || 0)}</strong> &bull; <strong>${deckSize}</strong> Cards &bull; <strong>${relicCount}</strong> Relics &bull; ${formatDate(run.start_time)}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderDirectShareSlayerDirectory(filterText = '') {
+      const container = document.getElementById('directShareSlayerDirectory');
+      if (!container) return;
+      const myIdent = getActiveSlayerIdentity();
+      const myKey = myIdent ? myIdent.key : '';
+      const q = String(filterText || '').trim().toLowerCase();
+
+      const list = slayerDirectoryCache.filter(s => {
+        if (!q) return true;
+        return s.handle.toLowerCase().includes(q) || s.key.includes(q);
+      });
+
+      if (list.length === 0) {
+        container.innerHTML = `<div style="font-size: 11.5px; color: var(--text-dim); padding: 4px 2px;">✨ Custom Slayer handle — will be delivered to <strong>${escapeHtml(filterText || 'their Inbox')}</strong> when they sign in.</div>`;
+        return;
+      }
+
+      container.innerHTML = list.map(s => {
+        const isMe = s.key === myKey;
+        const isSelected = q && (s.handle.toLowerCase() === q || s.key === q);
+        return `
+          <button type="button" onclick="selectDirectShareRecipient('${escapeHtml(s.handle)}')" style="display: inline-flex; align-items: center; gap: 6px; padding: 5px 11px; border-radius: 999px; background: ${isSelected ? 'rgba(192, 132, 252, 0.25)' : 'rgba(15, 23, 42, 0.85)'}; border: 1px solid ${isSelected ? '#c084fc' : 'rgba(255,255,255,0.14)'}; color: #fff; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.15s;">
+            <span style="width: 18px; height: 18px; border-radius: 50%; overflow: hidden; display: inline-flex; align-items: center; justify-content: center;">${renderAvatarImgOrIcon(s.avatar, 18)}</span>
+            <span class="${s.isCreator ? 'apocaelypze-name' : ''}">${escapeHtml(s.handle)}</span>
+            ${s.isCreator ? '<span style="font-size: 10px;">👑</span>' : ''}
+            ${isMe ? '<span style="font-size: 9.5px; color: #94a3b8; font-weight: 600;">(You)</span>' : ''}
+          </button>
+        `;
+      }).join('');
+    }
+
+    function selectDirectShareRecipient(handle) {
+      const inp = document.getElementById('directShareRecipientInput');
+      if (inp) {
+        inp.value = handle;
+        renderDirectShareSlayerDirectory(handle);
+      }
+      const noteInp = document.getElementById('directShareNoteInput');
+      if (noteInp) noteInp.focus();
+    }
+
+    function closeDirectShareModal() {
+      const modal = document.getElementById('directShareRunModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    async function uploadSharedRunSnapshot(run, senderIdent, note = '') {
+      const runId = String(run.start_time || run.id || Date.now());
+      const shareId = `${senderIdent ? senderIdent.key : 'slayer'}_${runId}`;
+      const payload = {
+        shareId,
+        sharedAt: Date.now(),
+        sharedBy: senderIdent ? senderIdent.handle : 'Slayer',
+        sharedByKey: senderIdent ? senderIdent.key : 'slayer',
+        note: note || '',
+        run: run
+      };
+      await fetch(`${FORUM_RTDB_BASE}/shared_runs/${shareId}.json`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      return shareId;
+    }
+
+    async function copyDirectRunShareLink() {
+      if (!currentDirectShareRun) return;
+      const sender = getActiveSlayerIdentity() || { handle: 'Slayer', key: 'slayer', isCreator: false };
+      const note = (document.getElementById('directShareNoteInput')?.value || '').trim();
+      try {
+        showToast('⏳ Generating direct cloud share link...');
+        const shareId = await uploadSharedRunSnapshot(currentDirectShareRun, sender, note);
+        const shareUrl = `https://slay-the-spire-2-tracker.web.app/?shared=${encodeURIComponent(shareId)}`;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(shareUrl);
+        }
+        showToast('🔗 Direct Run Share Link copied to clipboard!');
+      } catch (e) {
+        showToast('❌ Could not generate share link. Check connection.');
+      }
+    }
+
+    async function inspectCloudSharedRunById(shareId) {
+      if (!shareId) return;
+      try {
+        showToast('⏳ Opening shared climb...');
+        const resp = await fetch(`${FORUM_RTDB_BASE}/shared_runs/${encodeURIComponent(shareId)}.json`);
+        if (resp.ok) {
+          const data = await resp.json();
+          if (data && data.run) {
+            const runObj = data.run;
+            runObj._isShared = true;
+            runObj._sharedBy = data.sharedBy || 'Slayer';
+            runObj._sharedNote = data.note || '';
+            openModal(runObj);
+            return;
+          }
+        }
+        showToast('⚠️ Shared climb could not be found.');
+      } catch (e) {
+        showToast('❌ Failed to load shared climb.');
+      }
+    }
+
+    async function submitDirectShareRun() {
+      if (!currentDirectShareRun) return;
+      const recInput = document.getElementById('directShareRecipientInput');
+      const noteInput = document.getElementById('directShareNoteInput');
+      const btn = document.getElementById('btnSubmitDirectShare');
+
+      const recipientHandle = (recInput ? recInput.value : '').trim();
+      if (!recipientHandle) {
+        showToast('⚠️ Please select or enter a Recipient Slayer handle.');
+        if (recInput) recInput.focus();
+        return;
+      }
+
+      let sender = getActiveSlayerIdentity();
+      if (!sender) {
+        openAuthModal();
+        showToast('🛡️ Please sign in or choose a Slayer Handle first so the recipient knows who sent the run!');
+        return;
+      }
+
+      const recipientKey = normalizeSlayerKey(recipientHandle);
+      const note = (noteInput ? noteInput.value : '').trim();
+      const run = currentDirectShareRun;
+      const p = getPlayer(run);
+      const cKey = getCharKey(run);
+      const cfg = CHAR_CONFIG[cKey] || { name: cKey, color: '#fff', img: 'ironclad.webp' };
+      const floors = getRunFloors(run);
+      const deckSize = p && p.deck ? p.deck.length : 0;
+      const relicCount = p && p.relics ? p.relics.length : 0;
+
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>⏳</span> <span>Sending to Slayer Inbox...</span>';
+      }
+
+      try {
+        const shareId = await uploadSharedRunSnapshot(run, sender, note);
+        const msgId = `msg_${Date.now()}_${Math.random().toString(36).substring(2, 7)}`;
+
+        const messagePayload = {
+          id: msgId,
+          shareId,
+          createdAt: Date.now(),
+          read: false,
+          senderHandle: sender.handle,
+          senderKey: sender.key,
+          senderIsCreator: sender.isCreator,
+          senderAvatar: sender.avatar,
+          recipientHandle: recipientHandle,
+          recipientKey: recipientKey,
+          note: note,
+          summary: {
+            character: cKey,
+            charName: cfg.name,
+            charColor: cfg.color,
+            charImg: cfg.img,
+            win: !!run.win,
+            wasAbandoned: !!run.was_abandoned,
+            ascension: run.ascension || 0,
+            floors: floors,
+            runTime: run.run_time || 0,
+            deckSize: deckSize,
+            relicCount: relicCount,
+            startTime: run.start_time || Math.floor(Date.now() / 1000)
+          },
+          run: run
+        };
+
+        await Promise.all([
+          fetch(`${FORUM_RTDB_BASE}/inbox/${recipientKey}/${msgId}.json`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(messagePayload)
+          }),
+          fetch(`${FORUM_RTDB_BASE}/sent_shares/${sender.key}/${msgId}.json`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(messagePayload)
+          })
+        ]);
+
+        closeDirectShareModal();
+        showToast(`📨 Sent your ${cfg.name} climb directly to ${escapeHtml(recipientHandle)}'s Inbox!`);
+        fetchSlayerInbox(false);
+      } catch (e) {
+        console.error('Direct share error:', e);
+        showToast('❌ Could not send run. Please check your connection.');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<span>📨</span> <span>Send Directly to Slayer\'s Inbox</span>';
+        }
+      }
+    }
+
+    function initSlayerInboxPolling() {
+      fetchSlayerInbox(false);
+      setInterval(() => {
+        fetchSlayerInbox(false);
+      }, 15000);
+    }
+
+    async function fetchSlayerInbox(showFeedback = false) {
+      const ident = getActiveSlayerIdentity();
+      if (!ident || !ident.key) {
+        updateInboxBadgeUI(0);
+        return;
+      }
+
+      try {
+        const [recResp, sentResp] = await Promise.all([
+          fetch(`${FORUM_RTDB_BASE}/inbox/${ident.key}.json`).catch(() => null),
+          fetch(`${FORUM_RTDB_BASE}/sent_shares/${ident.key}.json`).catch(() => null)
+        ]);
+
+        let recList = [];
+        if (recResp && recResp.ok) {
+          const recData = await recResp.json();
+          if (recData && typeof recData === 'object') {
+            recList = Object.values(recData).filter(Boolean);
+            recList.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+          }
+        }
+
+        let sentList = [];
+        if (sentResp && sentResp.ok) {
+          const sentData = await sentResp.json();
+          if (sentData && typeof sentData === 'object') {
+            sentList = Object.values(sentData).filter(Boolean);
+            sentList.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+          }
+        }
+
+        // Check if any brand-new unread items arrived since last poll
+        const unreadItems = recList.filter(x => !x.read);
+        if (slayerInboxState.initialized) {
+          unreadItems.forEach(item => {
+            if (item.id && !slayerInboxState.knownUnreadIds.has(item.id)) {
+              const charName = (item.summary && item.summary.charName) || 'Spire';
+              const fl = (item.summary && item.summary.floors) || '?';
+              showToast(`📨 ${escapeHtml(item.senderHandle || 'A Slayer')} shared a ${escapeHtml(charName)} (Floor ${fl}) run with you! Click 🔔 Inbox to view.`);
+            }
+          });
+        }
+        slayerInboxState.knownUnreadIds = new Set(unreadItems.map(x => x.id));
+        slayerInboxState.initialized = true;
+        slayerInboxState.received = recList;
+        slayerInboxState.sent = sentList;
+
+        updateInboxBadgeUI(unreadItems.length);
+
+        const modal = document.getElementById('slayerInboxModal');
+        if (modal && modal.style.display === 'flex') {
+          renderSlayerInboxModalContent();
+        }
+        if (showFeedback) {
+          showToast('🔔 Inbox refreshed!');
+        }
+      } catch (e) {}
+    }
+
+    function updateInboxBadgeUI(unreadCount) {
+      const badge = document.getElementById('inboxUnreadBadge');
+      const btn = document.getElementById('btnHeaderInbox');
+      if (badge) {
+        if (unreadCount > 0) {
+          badge.style.display = 'inline-block';
+          badge.innerText = unreadCount > 99 ? '99+' : String(unreadCount);
+        } else {
+          badge.style.display = 'none';
+        }
+      }
+      if (btn) {
+        if (unreadCount > 0) {
+          btn.style.borderColor = '#f43f5e';
+          btn.style.boxShadow = '0 0 14px rgba(244, 63, 94, 0.35)';
+        } else {
+          btn.style.borderColor = 'rgba(192, 132, 252, 0.35)';
+          btn.style.boxShadow = 'none';
+        }
+      }
+    }
+
+    function openSlayerInboxModal(tab = 'received') {
+      slayerInboxState.activeTab = tab === 'sent' ? 'sent' : 'received';
+      const modal = document.getElementById('slayerInboxModal');
+      if (modal) {
+        modal.style.display = 'flex';
+      }
+      renderSlayerInboxModalContent();
+      fetchSlayerInbox(false);
+    }
+
+    function closeSlayerInboxModal() {
+      const modal = document.getElementById('slayerInboxModal');
+      if (modal) {
+        modal.style.display = 'none';
+      }
+    }
+
+    function switchSlayerInboxTab(tab) {
+      slayerInboxState.activeTab = tab === 'sent' ? 'sent' : 'received';
+      renderSlayerInboxModalContent();
+    }
+
+    function renderSlayerInboxModalContent() {
+      const body = document.getElementById('slayerInboxBody');
+      const identBar = document.getElementById('slayerInboxIdentityBar');
+      const btnRec = document.getElementById('inboxTabBtnReceived');
+      const btnSent = document.getElementById('inboxTabBtnSent');
+      const recPill = document.getElementById('inboxReceivedCountPill');
+      const sentPill = document.getElementById('inboxSentCountPill');
+
+      if (btnRec) btnRec.classList.toggle('active', slayerInboxState.activeTab === 'received');
+      if (btnSent) btnSent.classList.toggle('active', slayerInboxState.activeTab === 'sent');
+
+      const unreadCount = slayerInboxState.received.filter(x => !x.read).length;
+      if (recPill) {
+        recPill.innerText = unreadCount > 0
+          ? `(${slayerInboxState.received.length} • ${unreadCount} new)`
+          : `(${slayerInboxState.received.length})`;
+      }
+      if (sentPill) {
+        sentPill.innerText = `(${slayerInboxState.sent.length})`;
+      }
+
+      const ident = getActiveSlayerIdentity();
+      if (identBar) {
+        if (ident) {
+          identBar.innerHTML = `
+            <div>Signed in Inbox: <strong style="color: #fff;">${escapeHtml(ident.handle)}</strong> <span style="color: var(--text-dim);">(@${escapeHtml(ident.key)})</span></div>
+            <div style="color: #c084fc;">Other Slayers can send runs directly to <strong>${escapeHtml(ident.handle)}</strong></div>
+          `;
+        } else {
+          identBar.innerHTML = `
+            <div>⚠️ Sign in or claim a Slayer handle to receive direct run shares from other Slayers.</div>
+            <button class="btn-primary" onclick="closeSlayerInboxModal(); openAuthModal();" style="padding: 4px 10px; font-size: 11px;">Sign In</button>
+          `;
+        }
+      }
+
+      if (!body) return;
+      if (!ident) {
+        body.innerHTML = `
+          <div style="text-align: center; padding: 48px 20px; color: var(--text-muted);">
+            <div style="font-size: 38px; margin-bottom: 10px;">🔔</div>
+            <div style="font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 6px;">Sign In to Access Your Slayer Inbox</div>
+            <p style="font-size: 13px; color: var(--text-dim); max-width: 420px; margin: 0 auto 16px auto;">Once signed in, any Slayer on the site can send runs directly to your handle and you'll receive instant notifications here.</p>
+            <button class="btn-primary" onclick="closeSlayerInboxModal(); openAuthModal();" style="padding: 8px 18px; font-weight: 700;">🔑 Sign In / Choose Handle</button>
+          </div>
+        `;
+        return;
+      }
+
+      const isSent = slayerInboxState.activeTab === 'sent';
+      const items = isSent ? slayerInboxState.sent : slayerInboxState.received;
+
+      if (items.length === 0) {
+        body.innerHTML = `
+          <div style="text-align: center; padding: 48px 20px; color: var(--text-muted);">
+            <div style="font-size: 36px; margin-bottom: 10px;">${isSent ? '📤' : '📭'}</div>
+            <div style="font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 6px;">
+              ${isSent ? 'You haven\'t sent any runs directly yet' : 'Your Slayer Inbox is empty'}
+            </div>
+            <p style="font-size: 12.5px; color: var(--text-dim); max-width: 440px; margin: 0 auto 16px auto;">
+              ${isSent
+                ? 'Click "📨 Share" on any climb card or inside the Run Inspector to send a run directly to another Slayer on the site.'
+                : 'When another Slayer shares a run with you on the site, it will appear right here with 1-click full telemetry inspection.'}
+            </p>
+            <button class="btn-primary" onclick="closeSlayerInboxModal(); openDirectShareModal();" style="padding: 8px 16px; font-size: 12.5px; font-weight: 700; background: linear-gradient(135deg, #a855f7, #7c3aed); border: 1px solid #c084fc;">
+              📨 Share a Run with a Slayer
+            </button>
+          </div>
+        `;
+        return;
+      }
+
+      body.innerHTML = items.map(item => {
+        const s = item.summary || {};
+        const cKey = s.character || (item.run ? getCharKey(item.run) : 'IRONCLAD');
+        const cfg = CHAR_CONFIG[cKey] || { name: s.charName || cKey, color: s.charColor || '#fff', img: s.charImg || 'ironclad.webp' };
+        const isWin = s.win !== undefined ? s.win : !!(item.run && item.run.win);
+        const isAbandoned = s.wasAbandoned !== undefined ? s.wasAbandoned : !!(item.run && item.run.was_abandoned);
+        const asc = s.ascension !== undefined ? s.ascension : ((item.run && item.run.ascension) || 0);
+        const floors = s.floors || (item.run ? getRunFloors(item.run) : 0);
+        const runTime = s.runTime !== undefined ? s.runTime : ((item.run && item.run.run_time) || 0);
+        const deckSize = s.deckSize || 0;
+        const relicCount = s.relicCount || 0;
+        const unread = !isSent && !item.read;
+        const relTime = item.createdAt ? formatRelativeTime(Math.floor(item.createdAt / 1000)) : 'Recently';
+
+        const otherHandle = isSent ? (item.recipientHandle || item.recipientKey || 'Slayer') : (item.senderHandle || 'Slayer');
+        const otherIsCreator = isSent ? (normalizeSlayerKey(otherHandle) === 'apocaelypze') : !!item.senderIsCreator;
+
+        return `
+          <div style="background: ${unread ? 'linear-gradient(135deg, rgba(88, 28, 135, 0.28), rgba(15, 23, 42, 0.92))' : 'rgba(15, 23, 42, 0.75)'}; border: 1px solid ${unread ? 'rgba(192, 132, 252, 0.65)' : 'rgba(255, 255, 255, 0.08)'}; border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; transition: all 0.15s;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                ${unread ? '<span style="background: #f43f5e; color: #fff; font-size: 9.5px; font-weight: 800; padding: 2px 6px; border-radius: 999px; letter-spacing: 0.4px;">NEW</span>' : ''}
+                <span style="font-size: 12px; color: var(--text-muted);">${isSent ? 'Sent to' : 'From'}:</span>
+                <button onclick="closeSlayerInboxModal(); openPlayerProfileModal('${escapeHtml(otherHandle)}');" style="background: none; border: none; padding: 0; cursor: pointer; font-size: 13.5px; font-weight: 800; color: #fff; display: inline-flex; align-items: center; gap: 5px; text-decoration: underline;">
+                  <span class="${otherIsCreator ? 'apocaelypze-name' : ''}">${escapeHtml(otherHandle)}</span>
+                  ${otherIsCreator ? '<span>👑</span>' : ''}
+                </button>
+                <span style="font-size: 11.5px; color: var(--text-dim);">&bull; ${relTime}</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                ${isSent ? `<span style="font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: ${item.read ? 'rgba(34, 197, 94, 0.15)' : 'rgba(148, 163, 184, 0.12)'}; color: ${item.read ? '#4ade80' : '#94a3b8'}; border: 1px solid ${item.read ? 'rgba(34, 197, 94, 0.35)' : 'rgba(148, 163, 184, 0.25)'};">${item.read ? '✅ Viewed' : '⏳ Unread'}</span>` : ''}
+                <button onclick="deleteSlayerInboxItem('${escapeHtml(item.id)}', ${isSent})" title="Remove from ${isSent ? 'Sent' : 'Inbox'}" style="background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); color: #f87171; border-radius: 6px; padding: 4px 8px; font-size: 11px; cursor: pointer;">
+                  🗑️
+                </button>
+              </div>
+            </div>
+
+            ${item.note ? `
+              <div style="background: rgba(192, 132, 252, 0.1); border-left: 3px solid #c084fc; padding: 8px 12px; border-radius: 0 8px 8px 0; font-size: 12.5px; color: #f3e8ff; font-style: italic;">
+                &ldquo;${escapeHtml(item.note)}&rdquo;
+              </div>
+            ` : ''}
+
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; background: rgba(0, 0, 0, 0.35); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 10px; padding: 10px 14px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <img src="${getAssetUrl('assets/characters/' + cfg.img)}" style="width: 42px; height: 42px; border-radius: 8px; object-fit: cover; border: 1.5px solid ${cfg.color};" onerror="this.src='web/assets/characters/${cfg.img}'" />
+                <div>
+                  <div style="display: flex; align-items: center; gap: 7px; flex-wrap: wrap;">
+                    <span style="font-family: var(--font-title); font-size: 15px; font-weight: 800; color: ${cfg.color};">${escapeHtml(cfg.name)}</span>
+                    <span class="run-outcome-badge ${isWin ? 'badge-win' : (isAbandoned ? 'badge-abandoned' : 'badge-loss')}" style="font-size: 9.5px; padding: 2px 6px;">
+                      ${isWin ? 'VICTORY 🏆' : (isAbandoned ? 'ABANDONED 🚪' : 'DEFEAT 💀')}
+                    </span>
+                    <span style="font-size: 11px; font-weight: 800; color: var(--gold-spire);">A${asc}</span>
+                  </div>
+                  <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px;">
+                    Floor <strong>${floors}</strong> &bull; <strong>${formatTime(runTime)}</strong>${deckSize ? ` &bull; ${deckSize} Cards` : ''}${relicCount ? ` &bull; ${relicCount} Relics` : ''}
+                  </div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <button onclick="inspectSlayerInboxRun('${escapeHtml(item.id)}', ${isSent})" class="btn-primary" style="padding: 8px 16px; font-size: 12px; font-weight: 800; background: linear-gradient(135deg, #a855f7, #7c3aed); border: 1px solid #c084fc; display: inline-flex; align-items: center; gap: 6px;">
+                  <span>🔍</span> <span>Inspect Run</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function inspectSlayerInboxRun(msgId, isSent = false) {
+      const list = isSent ? slayerInboxState.sent : slayerInboxState.received;
+      const item = list.find(x => x.id === msgId);
+      if (!item) return;
+
+      const ident = getActiveSlayerIdentity();
+      if (!isSent && !item.read && ident) {
+        item.read = true;
+        updateInboxBadgeUI(slayerInboxState.received.filter(x => !x.read).length);
+        fetch(`${FORUM_RTDB_BASE}/inbox/${ident.key}/${msgId}/read.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: 'true'
+        }).catch(() => {});
+        if (item.senderKey) {
+          fetch(`${FORUM_RTDB_BASE}/sent_shares/${item.senderKey}/${msgId}/read.json`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: 'true'
+          }).catch(() => {});
+        }
+      }
+
+      closeSlayerInboxModal();
+
+      if (item.run) {
+        const runObj = item.run;
+        runObj._isShared = true;
+        runObj._sharedBy = item.senderHandle || 'Slayer';
+        runObj._sharedNote = item.note || '';
+        if (!rawSharedRuns.some(r => String(r.start_time) === String(runObj.start_time))) {
+          rawSharedRuns.unshift(runObj);
+          saveSharedRunsToStorage();
+        }
+        openModal(runObj);
+      } else if (item.shareId) {
+        await inspectCloudSharedRunById(item.shareId);
+      }
+    }
+
+    async function markAllSlayerInboxRead() {
+      const ident = getActiveSlayerIdentity();
+      if (!ident) return;
+      const unread = slayerInboxState.received.filter(x => !x.read);
+      if (unread.length === 0) {
+        showToast('✓ All inbox runs are already marked as read.');
+        return;
+      }
+      unread.forEach(item => {
+        item.read = true;
+        fetch(`${FORUM_RTDB_BASE}/inbox/${ident.key}/${item.id}/read.json`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: 'true'
+        }).catch(() => {});
+        if (item.senderKey) {
+          fetch(`${FORUM_RTDB_BASE}/sent_shares/${item.senderKey}/${item.id}/read.json`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: 'true'
+          }).catch(() => {});
+        }
+      });
+      updateInboxBadgeUI(0);
+      renderSlayerInboxModalContent();
+      showToast('✓ Marked all shared runs as read.');
+    }
+
+    async function deleteSlayerInboxItem(msgId, isSent = false) {
+      const ident = getActiveSlayerIdentity();
+      if (!ident || !msgId) return;
+      if (isSent) {
+        slayerInboxState.sent = slayerInboxState.sent.filter(x => x.id !== msgId);
+        renderSlayerInboxModalContent();
+        await fetch(`${FORUM_RTDB_BASE}/sent_shares/${ident.key}/${msgId}.json`, { method: 'DELETE' }).catch(() => {});
+      } else {
+        slayerInboxState.received = slayerInboxState.received.filter(x => x.id !== msgId);
+        updateInboxBadgeUI(slayerInboxState.received.filter(x => !x.read).length);
+        renderSlayerInboxModalContent();
+        await fetch(`${FORUM_RTDB_BASE}/inbox/${ident.key}/${msgId}.json`, { method: 'DELETE' }).catch(() => {});
+      }
+      showToast('🗑️ Removed from Inbox.');
     }
 
     function showToast(msg) {
