@@ -6,7 +6,10 @@
       "**/.*",
       "**/node_modules/**",
       "**/*.bak*",
-      "**/*.exe"
+      "**/*.exe",
+      "**/*.zip",
+      "STS2_Run_Tracker_Web.html",
+      "test_*"
     ],
     "rewrites": [
       {
