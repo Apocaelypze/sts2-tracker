@@ -32,7 +32,7 @@ namespace STS2Tracker
         private static DateTime lastHeartbeat = DateTime.UtcNow;
         private static bool clientConnected = false;
         private static readonly DateTime serverStartTime = DateTime.UtcNow;
-        private static readonly string AppVersion = "v1.2.9";
+        private static readonly string AppVersion = "v1.3.0";
         private static HttpListener httpListener = null;
         private static int closeSequenceId = 0;
         private static volatile bool isUpdatingCompanion = false;
@@ -458,7 +458,7 @@ namespace STS2Tracker
                         Process.Start(new ProcessStartInfo
                         {
                             FileName = edgePath,
-                            Arguments = "--app=\"" + targetUrl + "\" --user-data-dir=\"" + edgeUserData + "\" --window-size=1440,920",
+                            Arguments = "--app=\"" + targetUrl + "\" --user-data-dir=\"" + edgeUserData + "\" --start-maximized --window-size=1920,1080",
                             UseShellExecute = true
                         });
                         edgeAppStarted = true;
@@ -1347,7 +1347,7 @@ namespace STS2Tracker
             }
         }
 
-        private static string cachedRemoteVersion = "v1.2.9";
+        private static string cachedRemoteVersion = "v1.3.0";
         private static DateTime lastRemoteCheck = DateTime.MinValue;
 
         private static string GetCachedRemoteVersion()

@@ -315,9 +315,10 @@
     }
 
     .app-container {
-      max-width: 1440px;
+      width: 100%;
+      max-width: 100%;
       margin: 0 auto;
-      padding: 24px 20px 80px 20px;
+      padding: 24px clamp(20px, 2.5vw, 48px) 80px clamp(20px, 2.5vw, 48px);
     }
 
     header {
@@ -1472,8 +1473,8 @@
       background: var(--bg-card);
       border: 1px solid var(--border-light);
       border-radius: 16px;
-      width: 100%;
-      max-width: 1200px;
+      width: 95vw;
+      max-width: min(1760px, 95vw);
       max-height: 92vh;
       overflow-y: auto;
       box-shadow: 0 20px 60px rgba(0,0,0,0.8);
@@ -2079,7 +2080,7 @@
     }
     .records-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 12px;
     }
     .record-card {
@@ -2357,7 +2358,8 @@
 
     /* Community Forum & Feedback Hub Styles */
     .forum-container {
-      max-width: 1100px;
+      width: 100%;
+      max-width: 100%;
       margin: 0 auto;
     }
     .forum-banner {
@@ -4588,7 +4590,7 @@
 
   <!-- SLAYER PROFILE MODAL -->
   <div class="modal-overlay" id="playerProfileModal" style="display: none; z-index: 100000;" onclick="if(event.target.id === 'playerProfileModal') closePlayerProfileModal()">
-    <div class="modal-content" style="max-width: 980px; width: 95vw; max-height: 90vh; overflow-y: auto; padding: 28px; border-radius: 16px; border: 1px solid rgba(212, 175, 55, 0.4); background: var(--bg-card); box-shadow: 0 20px 60px rgba(0,0,0,0.85);">
+    <div class="modal-content" style="max-width: min(1600px, 95vw); width: 95vw; max-height: 90vh; overflow-y: auto; padding: 28px; border-radius: 16px; border: 1px solid rgba(212, 175, 55, 0.4); background: var(--bg-card); box-shadow: 0 20px 60px rgba(0,0,0,0.85);">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 16px;">
         <div style="display: flex; align-items: center; gap: 14px;">
           <div id="profAvatar" style="width: 50px; height: 50px; border-radius: 50%; background: rgba(245, 158, 11, 0.15); border: 2px solid var(--gold-spire); display: flex; align-items: center; justify-content: center; font-size: 26px; overflow: hidden;">
@@ -5195,7 +5197,7 @@
 
   <!-- SPIRE COMPENDIUM & DISCOVERY CODEX MODAL (RELICS & CARDS) -->
   <div id="compendiumCodexModal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(10px); z-index: 100000; justify-content: center; align-items: center; padding: 20px;" onclick="if(event.target===this) closeCompendiumModal()">
-    <div class="modal-content" style="max-width: 1220px; width: 96%; max-height: 90vh; display: flex; flex-direction: column; background: var(--bg-card); border-radius: 16px; border: 1px solid rgba(192, 132, 252, 0.4); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9); overflow: hidden; padding: 0;">
+    <div class="modal-content" style="max-width: min(1760px, 96vw); width: 96vw; max-height: 90vh; display: flex; flex-direction: column; background: var(--bg-card); border-radius: 16px; border: 1px solid rgba(192, 132, 252, 0.4); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.9); overflow: hidden; padding: 0;">
       <div class="modal-header" style="padding: 16px 24px; background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.92)); border-bottom: 1px solid var(--border-subtle); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
         <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
           <div style="display: flex; gap: 8px;">
@@ -5753,7 +5755,7 @@
                 return;
               }
               if (st.is_desktop_app || st.version) {
-                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.2.9');
+                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.3.0');
               }
               if (st.local_player_id && !getLocalSteamId()) {
                 setLocalSteamId(st.local_player_id);
@@ -5795,15 +5797,15 @@
       }
     }
 
-    const LOADED_UI_VERSION = 'v1.2.9';
-    let currentAppVersion = 'v1.2.9';
+    const LOADED_UI_VERSION = 'v1.3.0';
+    let currentAppVersion = 'v1.3.0';
     let isDesktopAppMode = false;
     let detectedSteamPlayerId = null;
     let detectedSteamPersona = null;
     let detectedSteamAccount = null;
     let authSessionPollInterval = null;
     let cloudUpdateAvailable = false;
-    let latestCloudVersion = 'v1.2.9';
+    let latestCloudVersion = 'v1.3.0';
 
     function dismissUpdateBanner() {
       const banner = document.getElementById('discordUpdateBanner');
@@ -5959,7 +5961,7 @@
     async function triggerAppUpdate(skipConfirm = true) {
       isUpdatingCompanion = true;
       const originalVersion = currentAppVersion || 'v1.2.3';
-      const targetVersion = latestCloudVersion || 'v1.2.9';
+      const targetVersion = latestCloudVersion || 'v1.3.0';
 
       // Show sleek updating overlay
       let overlay = document.getElementById('appUpdateOverlay');
@@ -6087,7 +6089,7 @@
             return;
           }
           if (st.is_desktop_app || st.version) {
-            enableDesktopAppUI(st.version || 'v1.2.9');
+            enableDesktopAppUI(st.version || 'v1.3.0');
           }
         } else {
           fetchCloudVersionForWeb();
