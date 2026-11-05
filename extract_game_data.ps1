@@ -342,6 +342,9 @@ foreach ($t in ($sts2Asm.MainModule.Types | Where-Object { $_.Namespace -eq 'Meg
 
     $minRes = Parse-HpInstructions $mMin
     $maxRes = Parse-HpInstructions $mMax
+    if ($maxRes.Base -eq 50 -and $minRes.Base -ne 50) {
+        $maxRes = $minRes
+    }
 
     $monsterModels[$mName] = @{
         MinHp = $minRes.Base

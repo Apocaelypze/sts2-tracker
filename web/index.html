@@ -3384,10 +3384,10 @@
 
       <div class="header-actions">
         <!-- Web Download Desktop App Button (hidden when running inside Desktop App) -->
-        <button class="btn-desktop-app" id="btnHeaderDesktopApp" onclick="openAppDownloadModal()" title="Download standalone Desktop App companion (v1.3.0)">
+        <button class="btn-desktop-app" id="btnHeaderDesktopApp" onclick="openAppDownloadModal()" title="Download standalone Desktop App companion (v1.3.1)">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
           <span id="headerDesktopAppText">Desktop App</span>
-          <span id="headerDesktopAppVersion" style="font-size: 10px; opacity: 0.75; font-family: var(--font-mono); font-weight: 700; margin-left: 2px;">v1.3.0</span>
+          <span id="headerDesktopAppVersion" style="font-size: 10px; opacity: 0.75; font-family: var(--font-mono); font-weight: 700; margin-left: 2px;">v1.3.1</span>
         </button>
 
         <button class="btn-primary" id="btnHeaderUploadRun" onclick="openLoadSavesModal()" title="Upload your runs and join the global leaderboard" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; font-size: 12px; font-weight: 700; background: linear-gradient(135deg, #10b981, #059669); border: 1px solid #34d399; box-shadow: 0 2px 10px rgba(16, 185, 129, 0.25);">
@@ -3398,7 +3398,7 @@
         <!-- Exclusive Desktop App Controls (Version Ribbon & 1-Click Cloud Updater on Right Side) -->
         <div id="desktopAppHeaderControls" style="display: none; align-items: center; gap: 6px;">
           <span id="desktopAppVersionPill" style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: #38bdf8; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); padding: 4px 8px; border-radius: 6px; letter-spacing: 0.3px;" title="Current Desktop App Version">
-            v1.3.0
+            v1.3.1
           </span>
           <button class="btn-primary" id="btnDesktopUpdate" onclick="triggerAppUpdate()" title="Restart and auto-update companion to latest version" style="display: none; align-items: center; gap: 5px; padding: 5px 12px; font-size: 11px; font-weight: 700; background: linear-gradient(135deg, #22c55e, #16a34a); border: 1px solid #4ade80; border-radius: 6px; box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4);">
             <span id="btnUpdateIcon">🔄</span> <span id="btnUpdateText">Restart to Update</span>
@@ -4713,7 +4713,7 @@
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <div>
           <h2 style="font-family: var(--font-title); color: var(--gold-spire); font-size: 22px; display: flex; align-items: center; gap: 10px;">
-            <span>⚡ Standalone Desktop App <span id="modalAppTitleVer" style="font-size: 13px; color: #38bdf8; font-family: var(--font-mono); border: 1px solid rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.15); padding: 1px 6px; border-radius: 4px;">v1.3.0</span></span>
+            <span>⚡ Standalone Desktop App <span id="modalAppTitleVer" style="font-size: 13px; color: #38bdf8; font-family: var(--font-mono); border: 1px solid rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.15); padding: 1px 6px; border-radius: 4px;">v1.3.1</span></span>
           </h2>
           <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Zero setup &bull; 100% self-contained &bull; Real-time background sync</p>
         </div>
@@ -4724,7 +4724,7 @@
         <div style="background: linear-gradient(135deg, rgba(217, 119, 6, 0.12), rgba(20, 24, 33, 0.95)); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 12px; padding: 20px;">
           <div style="font-weight: 700; color: #fbbf24; font-size: 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
             <span>🚀 1-Click Desktop Companion</span>
-            <span id="modalAppRecVer" style="font-size: 10px; background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: 700;">RECOMMENDED &bull; v1.3.0</span>
+            <span id="modalAppRecVer" style="font-size: 10px; background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: 700;">RECOMMENDED &bull; v1.3.1</span>
           </div>
           <p style="font-size: 13px; color: var(--text-main); line-height: 1.5; margin-bottom: 14px;">
             Direct 1-click standalone executable (<code>STS2Tracker.exe</code>). Just download and double-click to run &mdash; zero unzipping, zero installation, and includes built-in auto-updating:
@@ -5755,7 +5755,7 @@
                 return;
               }
               if (st.is_desktop_app || st.version) {
-                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.3.0');
+                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.3.1');
               }
               if (st.local_player_id && !getLocalSteamId()) {
                 setLocalSteamId(st.local_player_id);
@@ -5797,15 +5797,15 @@
       }
     }
 
-    const LOADED_UI_VERSION = 'v1.3.0';
-    let currentAppVersion = 'v1.3.0';
+    const LOADED_UI_VERSION = 'v1.3.1';
+    let currentAppVersion = 'v1.3.1';
     let isDesktopAppMode = false;
     let detectedSteamPlayerId = null;
     let detectedSteamPersona = null;
     let detectedSteamAccount = null;
     let authSessionPollInterval = null;
     let cloudUpdateAvailable = false;
-    let latestCloudVersion = 'v1.3.0';
+    let latestCloudVersion = 'v1.3.1';
 
     function dismissUpdateBanner() {
       const banner = document.getElementById('discordUpdateBanner');
@@ -5942,7 +5942,7 @@
     }
 
     async function fetchCloudVersionForWeb() {
-      let ver = LOADED_UI_VERSION || 'v1.3.0';
+      let ver = LOADED_UI_VERSION || 'v1.3.1';
       try {
         const resp = await fetch('/version.json?t=' + Date.now());
         if (resp.ok) {
@@ -5974,7 +5974,7 @@
     async function triggerAppUpdate(skipConfirm = true) {
       isUpdatingCompanion = true;
       const originalVersion = currentAppVersion || 'v1.2.3';
-      const targetVersion = latestCloudVersion || 'v1.3.0';
+      const targetVersion = latestCloudVersion || 'v1.3.1';
 
       // Show sleek updating overlay
       let overlay = document.getElementById('appUpdateOverlay');
@@ -6102,7 +6102,7 @@
             return;
           }
           if (st.is_desktop_app || st.version) {
-            enableDesktopAppUI(st.version || 'v1.3.0');
+            enableDesktopAppUI(st.version || 'v1.3.1');
           }
         } else {
           fetchCloudVersionForWeb();
@@ -8102,19 +8102,27 @@
             let dmgTaken = 0, hpStr = '-', goldStr = '-';
             const decisionParts = [];
 
+            const nonEnemySet = new Set(['MONSTER.PAELS_LEGION', 'MONSTER.BYRDPIP', 'MONSTER.ARCHITECT', 'MONSTER.BIG_DUMMY', 'MONSTER.OSTY', 'MONSTER.DEPRECATED_MONSTER', 'MONSTER.MULTI_ATTACK_MOVE_MONSTER', 'MONSTER.SINGLE_ATTACK_MOVE_MONSTER']);
             if (mph.rooms && mph.rooms.length > 0) {
               const rm = mph.rooms[0];
               encounterName = rm.model_id ? cleanId(rm.model_id) : (rm.room_type || nodeType);
               turns = rm.turns_taken || 0;
-              monsters = rm.monster_ids || [];
+              monsters = (rm.monster_ids || []).filter(mId => {
+                if (nonEnemySet.has(mId)) return false;
+                const mDb = gameDatabase.monsters && gameDatabase.monsters[mId];
+                return !(mDb && (mDb.isPetOrDummy || mDb.maxHp >= 9000 || mDb.minHp >= 9000));
+              });
             }
 
             // Estimate damage dealt in this fight
             let estDmgDealt = 0;
             monsters.forEach(mId => {
-              const mDb = gameDatabase.monsters[mId];
+              const mDb = gameDatabase.monsters && gameDatabase.monsters[mId];
               if (mDb) {
-                estDmgDealt += (run.ascension >= 8 ? mDb.maxHpA8 : mDb.maxHp);
+                const hp = (run.ascension >= 8)
+                  ? Math.max(mDb.maxHpA8 || 0, mDb.minHpA8 || 0)
+                  : Math.max(mDb.maxHp || 0, mDb.minHp || 0);
+                estDmgDealt += hp;
               } else {
                 estDmgDealt += 45;
               }
@@ -9223,15 +9231,20 @@
     }
 
     function showEncounterTooltip(encName, monsterIdsStr, turns, dmgDealt, dmgTaken, element, e) {
-      const mIds = monsterIdsStr ? monsterIdsStr.split(',') : [];
+      const nonEnemySet = new Set(['MONSTER.PAELS_LEGION', 'MONSTER.BYRDPIP', 'MONSTER.ARCHITECT', 'MONSTER.BIG_DUMMY', 'MONSTER.OSTY', 'MONSTER.DEPRECATED_MONSTER', 'MONSTER.MULTI_ATTACK_MOVE_MONSTER', 'MONSTER.SINGLE_ATTACK_MOVE_MONSTER']);
+      const mIds = (monsterIdsStr ? monsterIdsStr.split(',') : []).filter(mId => mId && !nonEnemySet.has(mId));
       let monsterRows = '';
 
       mIds.forEach(mId => {
-        const m = gameDatabase.monsters[mId] || { name: cleanId(mId), minHp: 40, maxHp: 50, minHpA8: 45, maxHpA8: 55 };
+        const m = (gameDatabase.monsters && gameDatabase.monsters[mId]) || { name: cleanId(mId), minHp: 40, maxHp: 50, minHpA8: 45, maxHpA8: 55 };
+        const minH = m.minHp || m.maxHp || 45;
+        const maxH = Math.max(m.maxHp || 0, m.minHp || 0) || 45;
+        const maxHA8 = Math.max(m.maxHpA8 || 0, m.minHpA8 || 0) || maxH;
+        const hpRangeStr = (minH === maxH) ? `${maxH}` : `${minH} &ndash; ${maxH}`;
         monsterRows += `
           <div class="tt-enemy-pill">
             <span><strong>${m.name}</strong></span>
-            <span style="color: #38bdf8;">${m.minHp} &ndash; ${m.maxHp} HP <small style="color: var(--text-dim);">(A8+: ${m.maxHpA8})</small></span>
+            <span style="color: #38bdf8;">${hpRangeStr} HP <small style="color: var(--text-dim);">(A8+: ${maxHA8})</small></span>
           </div>
         `;
       });
@@ -9802,6 +9815,7 @@
     /* HELPER CALCULATIONS */
     function calculateRunTotalDamageDealt(run) {
       if (!run.map_point_history) return 0;
+      const nonEnemySet = new Set(['MONSTER.PAELS_LEGION', 'MONSTER.BYRDPIP', 'MONSTER.ARCHITECT', 'MONSTER.BIG_DUMMY', 'MONSTER.OSTY', 'MONSTER.DEPRECATED_MONSTER', 'MONSTER.MULTI_ATTACK_MOVE_MONSTER', 'MONSTER.SINGLE_ATTACK_MOVE_MONSTER']);
       let total = 0;
       run.map_point_history.forEach(act => {
         (Array.isArray(act) ? act : [act]).forEach(mph => {
@@ -9809,9 +9823,17 @@
             const rm = mph.rooms[0];
             if (rm.monster_ids) {
               rm.monster_ids.forEach(mId => {
-                const mDb = gameDatabase.monsters[mId];
-                if (mDb) total += (run.ascension >= 8 ? mDb.maxHpA8 : mDb.maxHp);
-                else total += 45;
+                if (nonEnemySet.has(mId)) return;
+                const mDb = gameDatabase.monsters && gameDatabase.monsters[mId];
+                if (mDb) {
+                  if (mDb.isPetOrDummy || mDb.maxHp >= 9000 || mDb.minHp >= 9000) return;
+                  const hp = (run.ascension >= 8)
+                    ? Math.max(mDb.maxHpA8 || 0, mDb.minHpA8 || 0)
+                    : Math.max(mDb.maxHp || 0, mDb.minHp || 0);
+                  total += hp;
+                } else {
+                  total += 45;
+                }
               });
             }
           }
@@ -9822,6 +9844,7 @@
 
     function getPeakDamageFight(run) {
       if (!run.map_point_history) return null;
+      const nonEnemySet = new Set(['MONSTER.PAELS_LEGION', 'MONSTER.BYRDPIP', 'MONSTER.ARCHITECT', 'MONSTER.BIG_DUMMY', 'MONSTER.OSTY', 'MONSTER.DEPRECATED_MONSTER', 'MONSTER.MULTI_ATTACK_MOVE_MONSTER', 'MONSTER.SINGLE_ATTACK_MOVE_MONSTER']);
       let peakDmg = 0;
       let peakObj = null;
       let floor = 0;
@@ -9834,9 +9857,17 @@
             if (rm.monster_ids && rm.monster_ids.length > 0) {
               let fDmg = 0;
               rm.monster_ids.forEach(mId => {
-                const mDb = gameDatabase.monsters[mId];
-                if (mDb) fDmg += (run.ascension >= 8 ? mDb.maxHpA8 : mDb.maxHp);
-                else fDmg += 45;
+                if (nonEnemySet.has(mId)) return;
+                const mDb = gameDatabase.monsters && gameDatabase.monsters[mId];
+                if (mDb) {
+                  if (mDb.isPetOrDummy || mDb.maxHp >= 9000 || mDb.minHp >= 9000) return;
+                  const hp = (run.ascension >= 8)
+                    ? Math.max(mDb.maxHpA8 || 0, mDb.minHpA8 || 0)
+                    : Math.max(mDb.maxHp || 0, mDb.minHp || 0);
+                  fDmg += hp;
+                } else {
+                  fDmg += 45;
+                }
               });
               if (fDmg > peakDmg) {
                 peakDmg = fDmg;

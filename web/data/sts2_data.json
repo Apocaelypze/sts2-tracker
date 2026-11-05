@@ -815,8 +815,8 @@
       "id": "MONSTER.THE_ADVERSARY_MK_THREE",
       "name": "The Adversary Mk 3",
       "minHp": 300,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 300,
+      "maxHpA8": 300,
       "minHpA8": 300
     },
     "MONSTER.GEM_EATER": {
@@ -839,16 +839,16 @@
       "id": "MONSTER.BYGONE_EFFIGY",
       "name": "Bygone Effigy",
       "minHp": 127,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 127,
+      "maxHpA8": 132,
       "minHpA8": 132
     },
     "MONSTER.GAS_BOMB": {
       "id": "MONSTER.GAS_BOMB",
       "name": "Gas Bomb",
       "minHp": 7,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 7,
+      "maxHpA8": 8,
       "minHpA8": 8
     },
     "MONSTER.BYRDONIS_NEST": {
@@ -863,8 +863,8 @@
       "id": "MONSTER.FABRICATOR",
       "name": "Fabricator",
       "minHp": 150,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 150,
+      "maxHpA8": 155,
       "minHpA8": 155
     },
     "MONSTER.LEAF_SLIME_M": {
@@ -879,8 +879,8 @@
       "id": "MONSTER.WATERFALL_GIANT",
       "name": "Waterfall Giant",
       "minHp": 240,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 240,
+      "maxHpA8": 250,
       "minHpA8": 250
     },
     "MONSTER.THE_DREAMER": {
@@ -903,16 +903,16 @@
       "id": "MONSTER.MECHA_KNIGHT",
       "name": "Mecha Knight",
       "minHp": 300,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 300,
+      "maxHpA8": 320,
       "minHpA8": 320
     },
     "MONSTER.CUBEX_CONSTRUCT": {
       "id": "MONSTER.CUBEX_CONSTRUCT",
       "name": "Cubex Construct",
       "minHp": 65,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 65,
+      "maxHpA8": 70,
       "minHpA8": 70
     },
     "MONSTER.SLITHERING_STRANGLER": {
@@ -927,8 +927,8 @@
       "id": "MONSTER.HUNTER_KILLER",
       "name": "Hunter Killer",
       "minHp": 121,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 121,
+      "maxHpA8": 126,
       "minHpA8": 126
     },
     "MONSTER.INKLET": {
@@ -951,32 +951,32 @@
       "id": "MONSTER.ENTOMANCER",
       "name": "Entomancer",
       "minHp": 145,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 145,
+      "maxHpA8": 155,
       "minHpA8": 155
     },
     "MONSTER.FROG_KNIGHT": {
       "id": "MONSTER.FROG_KNIGHT",
       "name": "Frog Knight",
       "minHp": 191,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 191,
+      "maxHpA8": 199,
       "minHpA8": 199
     },
     "MONSTER.LIVING_SHIELD": {
       "id": "MONSTER.LIVING_SHIELD",
       "name": "Living Shield",
       "minHp": 55,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 55,
+      "maxHpA8": 65,
       "minHpA8": 65
     },
     "MONSTER.MAWLER": {
       "id": "MONSTER.MAWLER",
       "name": "Mawler",
       "minHp": 72,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 72,
+      "maxHpA8": 76,
       "minHpA8": 76
     },
     "MONSTER.DEPRECATED_MONSTER": {
@@ -985,22 +985,23 @@
       "minHp": 0,
       "maxHp": 0,
       "maxHpA8": 0,
-      "minHpA8": 0
+      "minHpA8": 0,
+      "isPetOrDummy": true
     },
     "MONSTER.THE_INSATIABLE": {
       "id": "MONSTER.THE_INSATIABLE",
       "name": "The Insatiable",
       "minHp": 321,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 321,
+      "maxHpA8": 341,
       "minHpA8": 341
     },
     "MONSTER.FLAIL_KNIGHT": {
       "id": "MONSTER.FLAIL_KNIGHT",
       "name": "Flail Knight",
       "minHp": 101,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 101,
+      "maxHpA8": 108,
       "minHpA8": 108
     },
     "MONSTER.TWIG_SLIME_S": {
@@ -1015,17 +1016,18 @@
       "id": "MONSTER.QUEEN",
       "name": "Queen",
       "minHp": 400,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 400,
+      "maxHpA8": 419,
       "minHpA8": 419
     },
     "MONSTER.ARCHITECT": {
       "id": "MONSTER.ARCHITECT",
       "name": "The Architect",
-      "minHp": 9999,
-      "maxHp": 9999,
-      "maxHpA8": 9999,
-      "minHpA8": 9999
+      "minHp": 0,
+      "maxHp": 0,
+      "maxHpA8": 0,
+      "minHpA8": 0,
+      "isPetOrDummy": true
     },
     "MONSTER.KIN_FOLLOWER": {
       "id": "MONSTER.KIN_FOLLOWER",
@@ -1039,8 +1041,8 @@
       "id": "MONSTER.ROCKET",
       "name": "Rocket",
       "minHp": 199,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 199,
+      "maxHpA8": 209,
       "minHpA8": 209
     },
     "MONSTER.NOISEBOT": {
@@ -1079,8 +1081,8 @@
       "id": "MONSTER.EYE_WITH_TEETH",
       "name": "Eye with Teeth",
       "minHp": 6,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 6,
+      "maxHpA8": 6,
       "minHpA8": 6
     },
     "MONSTER.STABBOT": {
@@ -1095,8 +1097,8 @@
       "id": "MONSTER.LIVING_FOG",
       "name": "Living Fog",
       "minHp": 80,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 80,
+      "maxHpA8": 82,
       "minHpA8": 82
     },
     "MONSTER.SLUDGE_SPINNER": {
@@ -1110,10 +1112,10 @@
     "MONSTER.MYSTERIOUS_KNIGHT": {
       "id": "MONSTER.MYSTERIOUS_KNIGHT",
       "name": "Mysterious Knight",
-      "minHp": 50,
-      "maxHp": 50,
-      "maxHpA8": 50,
-      "minHpA8": 50
+      "minHp": 101,
+      "maxHp": 101,
+      "maxHpA8": 108,
+      "minHpA8": 108
     },
     "MONSTER.CALCIFIED_CULTIST": {
       "id": "MONSTER.CALCIFIED_CULTIST",
@@ -1127,17 +1129,17 @@
       "id": "MONSTER.SPECTRAL_KNIGHT",
       "name": "Spectral Knight",
       "minHp": 93,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 93,
+      "maxHpA8": 97,
       "minHpA8": 97
     },
     "MONSTER.TEST_SUBJECT": {
       "id": "MONSTER.TEST_SUBJECT",
       "name": "Test Subject #C{Count}",
-      "minHp": 50,
-      "maxHp": 50,
-      "maxHpA8": 50,
-      "minHpA8": 50
+      "minHp": 600,
+      "maxHp": 600,
+      "maxHpA8": 636,
+      "minHpA8": 636
     },
     "MONSTER.CROSSBOW_RUBY_RAIDER": {
       "id": "MONSTER.CROSSBOW_RUBY_RAIDER",
@@ -1159,16 +1161,16 @@
       "id": "MONSTER.TURRET_OPERATOR",
       "name": "Turret Operator",
       "minHp": 41,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 41,
+      "maxHpA8": 51,
       "minHpA8": 51
     },
     "MONSTER.SKULKING_COLONY": {
       "id": "MONSTER.SKULKING_COLONY",
       "name": "Skulking Colony",
       "minHp": 75,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 75,
+      "maxHpA8": 80,
       "minHpA8": 80
     },
     "MONSTER.BATTLE_FRIEND_V2": {
@@ -1191,8 +1193,8 @@
       "id": "MONSTER.HAUNTED_SHIP",
       "name": "Haunted Ship",
       "minHp": 63,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 63,
+      "maxHpA8": 67,
       "minHpA8": 67
     },
     "MONSTER.THE_BELL": {
@@ -1207,24 +1209,24 @@
       "id": "MONSTER.FOGMOG",
       "name": "Fogmog",
       "minHp": 74,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 74,
+      "maxHpA8": 78,
       "minHpA8": 78
     },
     "MONSTER.AEONGLASS": {
       "id": "MONSTER.AEONGLASS",
       "name": "Aeonglass",
       "minHp": 512,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 512,
+      "maxHpA8": 535,
       "minHpA8": 535
     },
     "MONSTER.OWL_MAGISTRATE": {
       "id": "MONSTER.OWL_MAGISTRATE",
       "name": "Owl Magistrate",
       "minHp": 231,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 231,
+      "maxHpA8": 247,
       "minHpA8": 247
     },
     "MONSTER.GUARDBOT": {
@@ -1263,16 +1265,16 @@
       "id": "MONSTER.GLOBE_HEAD",
       "name": "Globe Head",
       "minHp": 148,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 148,
+      "maxHpA8": 158,
       "minHpA8": 158
     },
     "MONSTER.SOUL_FYSH": {
       "id": "MONSTER.SOUL_FYSH",
       "name": "Soul Fysh",
       "minHp": 211,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 211,
+      "maxHpA8": 221,
       "minHpA8": 221
     },
     "MONSTER.CORPSE_SLUG": {
@@ -1287,32 +1289,32 @@
       "id": "MONSTER.DEVOTED_SCULPTOR",
       "name": "Devoted Sculptor",
       "minHp": 162,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 162,
+      "maxHpA8": 172,
       "minHpA8": 172
     },
     "MONSTER.TORCH_HEAD_AMALGAM": {
       "id": "MONSTER.TORCH_HEAD_AMALGAM",
       "name": "Torch Head Amalgam",
       "minHp": 199,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 199,
+      "maxHpA8": 211,
       "minHpA8": 211
     },
     "MONSTER.KNOWLEDGE_DEMON": {
       "id": "MONSTER.KNOWLEDGE_DEMON",
       "name": "Knowledge Demon",
       "minHp": 379,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 379,
+      "maxHpA8": 399,
       "minHpA8": 399
     },
     "MONSTER.THIEVING_HOPPER": {
       "id": "MONSTER.THIEVING_HOPPER",
       "name": "Thieving Hopper",
       "minHp": 79,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 79,
+      "maxHpA8": 84,
       "minHpA8": 84
     },
     "MONSTER.FLYCONID": {
@@ -1334,18 +1336,20 @@
     "MONSTER.PAELS_LEGION": {
       "id": "MONSTER.PAELS_LEGION",
       "name": "Pael's Legion",
-      "minHp": 9999,
-      "maxHp": 9999,
-      "maxHpA8": 9999,
-      "minHpA8": 9999
+      "minHp": 0,
+      "maxHp": 0,
+      "maxHpA8": 0,
+      "minHpA8": 0,
+      "isPetOrDummy": true
     },
     "MONSTER.OSTY": {
       "id": "MONSTER.OSTY",
       "name": "Osty",
-      "minHp": 1,
-      "maxHp": 1,
-      "maxHpA8": 1,
-      "minHpA8": 1
+      "minHp": 0,
+      "maxHp": 0,
+      "maxHpA8": 0,
+      "minHpA8": 0,
+      "isPetOrDummy": true
     },
     "MONSTER.MYTE": {
       "id": "MONSTER.MYTE",
@@ -1367,8 +1371,8 @@
       "id": "MONSTER.KIN_PRIEST",
       "name": "Kin Priest",
       "minHp": 190,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 190,
+      "maxHpA8": 199,
       "minHpA8": 199
     },
     "MONSTER.NIBBIT": {
@@ -1383,8 +1387,8 @@
       "id": "MONSTER.LAGAVULIN_MATRIARCH",
       "name": "Lagavulin Matriarch",
       "minHp": 222,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 222,
+      "maxHpA8": 233,
       "minHpA8": 233
     },
     "MONSTER.HATCHLING": {
@@ -1399,8 +1403,8 @@
       "id": "MONSTER.VINE_SHAMBLER",
       "name": "Vine Shambler",
       "minHp": 61,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 61,
+      "maxHpA8": 64,
       "minHpA8": 64
     },
     "MONSTER.LEAF_SLIME_S": {
@@ -1447,8 +1451,8 @@
       "id": "MONSTER.SOUL_NEXUS",
       "name": "Soul Nexus",
       "minHp": 234,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 234,
+      "maxHpA8": 254,
       "minHpA8": 254
     },
     "MONSTER.TWIG_SLIME_M": {
@@ -1462,10 +1466,11 @@
     "MONSTER.BIG_DUMMY": {
       "id": "MONSTER.BIG_DUMMY",
       "name": "Big Dummy",
-      "minHp": 9999,
-      "maxHp": 9999,
-      "maxHpA8": 9999,
-      "minHpA8": 9999
+      "minHp": 0,
+      "maxHp": 0,
+      "maxHpA8": 0,
+      "minHpA8": 0,
+      "isPetOrDummy": true
     },
     "MONSTER.SNAPPING_JAXFRUIT": {
       "id": "MONSTER.SNAPPING_JAXFRUIT",
@@ -1495,16 +1500,16 @@
       "id": "MONSTER.MAGI_KNIGHT",
       "name": "Magi Knight",
       "minHp": 82,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 82,
+      "maxHpA8": 89,
       "minHpA8": 89
     },
     "MONSTER.SEWER_CLAM": {
       "id": "MONSTER.SEWER_CLAM",
       "name": "Sewer Clam",
       "minHp": 56,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 56,
+      "maxHpA8": 58,
       "minHpA8": 58
     },
     "MONSTER.FAT_GREMLIN": {
@@ -1519,16 +1524,16 @@
       "id": "MONSTER.THE_FORGOTTEN",
       "name": "The Forgotten",
       "minHp": 106,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 106,
+      "maxHpA8": 111,
       "minHpA8": 111
     },
     "MONSTER.THE_ADVERSARY_MK_ONE": {
       "id": "MONSTER.THE_ADVERSARY_MK_ONE",
       "name": "The Adversary Mk 1",
       "minHp": 100,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 100,
+      "maxHpA8": 100,
       "minHpA8": 100
     },
     "MONSTER.TWO_TAILED_RAT": {
@@ -1559,16 +1564,16 @@
       "id": "MONSTER.THE_OBSCURA",
       "name": "The Obscura",
       "minHp": 123,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 123,
+      "maxHpA8": 129,
       "minHpA8": 129
     },
     "MONSTER.CEREMONIAL_BEAST": {
       "id": "MONSTER.CEREMONIAL_BEAST",
       "name": "Ceremonial Beast",
       "minHp": 252,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 252,
+      "maxHpA8": 262,
       "minHpA8": 262
     },
     "MONSTER.AXE_RUBY_RAIDER": {
@@ -1590,10 +1595,11 @@
     "MONSTER.BYRDPIP": {
       "id": "MONSTER.BYRDPIP",
       "name": "Byrdpip",
-      "minHp": 9999,
-      "maxHp": 9999,
-      "maxHpA8": 9999,
-      "minHpA8": 9999
+      "minHp": 0,
+      "maxHp": 0,
+      "maxHpA8": 0,
+      "minHpA8": 0,
+      "isPetOrDummy": true
     },
     "MONSTER.PHROG_PARASITE": {
       "id": "MONSTER.PHROG_PARASITE",
@@ -1607,8 +1613,8 @@
       "id": "MONSTER.TERROR_EEL",
       "name": "Terror Eel",
       "minHp": 140,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 140,
+      "maxHpA8": 150,
       "minHpA8": 150
     },
     "MONSTER.TOUGH_EGG": {
@@ -1623,32 +1629,32 @@
       "id": "MONSTER.CRUSHER",
       "name": "Crusher",
       "minHp": 209,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 209,
+      "maxHpA8": 219,
       "minHpA8": 219
     },
     "MONSTER.PUNCH_CONSTRUCT": {
       "id": "MONSTER.PUNCH_CONSTRUCT",
       "name": "Punch Construct",
       "minHp": 55,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 55,
+      "maxHpA8": 60,
       "minHpA8": 60
     },
     "MONSTER.TUNNELER": {
       "id": "MONSTER.TUNNELER",
       "name": "Tunneler",
       "minHp": 87,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 87,
+      "maxHpA8": 92,
       "minHpA8": 92
     },
     "MONSTER.INFESTED_PRISM": {
       "id": "MONSTER.INFESTED_PRISM",
       "name": "Infested Prism",
       "minHp": 161,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 161,
+      "maxHpA8": 171,
       "minHpA8": 171
     },
     "MONSTER.MOCK_ATTACK_MONSTER": {
@@ -1663,8 +1669,8 @@
       "id": "MONSTER.SLIMED_BERSERKER",
       "name": "Slimed Berserker",
       "minHp": 261,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 261,
+      "maxHpA8": 281,
       "minHpA8": 281
     },
     "MONSTER.AXEBOT": {
@@ -1687,8 +1693,8 @@
       "id": "MONSTER.THE_ADVERSARY_MK_TWO",
       "name": "The Adversary Mk 2",
       "minHp": 200,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 200,
+      "maxHpA8": 200,
       "minHpA8": 200
     },
     "MONSTER.FAKE_MERCHANT_MONSTER": {
@@ -1711,8 +1717,8 @@
       "id": "MONSTER.THE_LOST",
       "name": "The Lost",
       "minHp": 93,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 93,
+      "maxHpA8": 99,
       "minHpA8": 99
     },
     "MONSTER.WRIGGLER": {
@@ -1727,8 +1733,8 @@
       "id": "MONSTER.PARAFRIGHT",
       "name": "Parafright",
       "minHp": 21,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 21,
+      "maxHpA8": 21,
       "minHpA8": 21
     },
     "MONSTER.BATTLE_FRIEND_V1": {
@@ -1759,16 +1765,16 @@
       "id": "MONSTER.VANTOM",
       "name": "Vantom",
       "minHp": 173,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 173,
+      "maxHpA8": 183,
       "minHpA8": 183
     },
     "MONSTER.SLUMBERING_BEETLE": {
       "id": "MONSTER.SLUMBERING_BEETLE",
       "name": "Slumbering Beetle",
       "minHp": 86,
-      "maxHp": 50,
-      "maxHpA8": 50,
+      "maxHp": 86,
+      "maxHpA8": 89,
       "minHpA8": 89
     },
     "MONSTER.THE_ARM": {

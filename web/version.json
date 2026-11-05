@@ -1,14 +1,14 @@
 {
-  "version": "1.3.0",
-  "versionNumber": 1.25,
-  "releaseDate": "2026-10-21",
-  "title": "STS2 Tracker v1.2.5 - Automatic Single Desktop Shortcut & AppData Installer",
+  "version": "1.3.1",
+  "versionNumber": 1.31,
+  "releaseDate": "2026-11-04",
+  "title": "STS2 Tracker v1.3.1 - Accurate Combat Damage & Pet Filtering",
   "changelog": [
-    "Automatic Desktop Shortcut Creation: Running the downloaded app automatically installs to AppData and places a 'Slay the Spire 2 Tracker' shortcut on your Desktop",
-    "Smart Duplicate Prevention: Downloading or running the app a second time updates the existing installation without ever creating a second Desktop shortcut",
-    "Custom Slay the Spire II Multi-Resolution App Icon & Native X-Close Lifecycle"
+    "Excludes friendly pet/companion entities (Pael's Legion, Byrdpip, Osty, Architect) with 9999 dummy HP from combat damage calculations and enemy counts",
+    "Extracts true MonsterModel HP values across all 125 monsters, elites, and bosses (including fixed-HP bosses and multi-phase encounters)",
+    "Full 16:9 widescreen layout & Direct Slayer-to-Slayer Run Sharing Inbox"
   ],
   "downloadExe": "https://github.com/Apocaelypze/sts2-tracker/releases/latest/download/STS2Tracker.exe",
   "downloadZip": "https://slay-the-spire-2-tracker.web.app/STS2Tracker.zip",
-  "notes": "Fixed Compendium modal overlay positioning, renamed Unknown status to Not Discovered, and added exact Event & Ancient sources to all Relics and Cards."
+  "notes": "Excludes friendly pet/companion entities (Pael's Legion, Byrdpip) with 9999 dummy HP from combat damage calculations and updates all 125 monster HP values."
 }
