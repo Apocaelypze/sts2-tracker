@@ -3384,10 +3384,10 @@
 
       <div class="header-actions">
         <!-- Web Download Desktop App Button (hidden when running inside Desktop App) -->
-        <button class="btn-desktop-app" id="btnHeaderDesktopApp" onclick="openAppDownloadModal()" title="Download standalone Desktop App companion (v1.3.1)">
+        <button class="btn-desktop-app" id="btnHeaderDesktopApp" onclick="openAppDownloadModal()" title="Download standalone Desktop App companion (v1.3.2)">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
           <span id="headerDesktopAppText">Desktop App</span>
-          <span id="headerDesktopAppVersion" style="font-size: 10px; opacity: 0.75; font-family: var(--font-mono); font-weight: 700; margin-left: 2px;">v1.3.1</span>
+          <span id="headerDesktopAppVersion" style="font-size: 10px; opacity: 0.75; font-family: var(--font-mono); font-weight: 700; margin-left: 2px;">v1.3.2</span>
         </button>
 
         <button class="btn-primary" id="btnHeaderUploadRun" onclick="openLoadSavesModal()" title="Upload your runs and join the global leaderboard" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; font-size: 12px; font-weight: 700; background: linear-gradient(135deg, #10b981, #059669); border: 1px solid #34d399; box-shadow: 0 2px 10px rgba(16, 185, 129, 0.25);">
@@ -3398,7 +3398,7 @@
         <!-- Exclusive Desktop App Controls (Version Ribbon & 1-Click Cloud Updater on Right Side) -->
         <div id="desktopAppHeaderControls" style="display: none; align-items: center; gap: 6px;">
           <span id="desktopAppVersionPill" style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: #38bdf8; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); padding: 4px 8px; border-radius: 6px; letter-spacing: 0.3px;" title="Current Desktop App Version">
-            v1.3.1
+            v1.3.2
           </span>
           <button class="btn-primary" id="btnDesktopUpdate" onclick="triggerAppUpdate()" title="Restart and auto-update companion to latest version" style="display: none; align-items: center; gap: 5px; padding: 5px 12px; font-size: 11px; font-weight: 700; background: linear-gradient(135deg, #22c55e, #16a34a); border: 1px solid #4ade80; border-radius: 6px; box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4);">
             <span id="btnUpdateIcon">🔄</span> <span id="btnUpdateText">Restart to Update</span>
@@ -4434,6 +4434,7 @@
         </div>
 
         <div style="display: flex; gap: 10px; align-items: center;">
+          <button class="btn-share-modal" onclick="openRunExportCardModal(currentInspectedRun)" title="Export high-definition 16:9 infographic for Reddit, Discord, and social media" style="background: linear-gradient(135deg, rgba(234, 179, 8, 0.2), rgba(245, 158, 11, 0.3)); border: 1px solid #fbbf24; color: #fef08a; padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease; box-shadow: 0 2px 10px rgba(234, 179, 8, 0.25); margin-right: 2px;"><span>📸</span> <span>Export Reddit Card</span></button>
           <button class="btn-share-modal" onclick="openDirectShareModal(currentInspectedRun)" title="Send this run directly to another Slayer's Inbox or copy a direct share link" style="background: linear-gradient(135deg, rgba(192, 132, 252, 0.2), rgba(124, 58, 237, 0.25)); border: 1px solid rgba(192, 132, 252, 0.55); color: #e9d5ff; padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease; box-shadow: 0 2px 10px rgba(168, 85, 247, 0.2);">
             <span>📨</span> <span>Send to Slayer</span>
           </button>
@@ -4713,7 +4714,7 @@
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <div>
           <h2 style="font-family: var(--font-title); color: var(--gold-spire); font-size: 22px; display: flex; align-items: center; gap: 10px;">
-            <span>⚡ Standalone Desktop App <span id="modalAppTitleVer" style="font-size: 13px; color: #38bdf8; font-family: var(--font-mono); border: 1px solid rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.15); padding: 1px 6px; border-radius: 4px;">v1.3.1</span></span>
+            <span>⚡ Standalone Desktop App <span id="modalAppTitleVer" style="font-size: 13px; color: #38bdf8; font-family: var(--font-mono); border: 1px solid rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.15); padding: 1px 6px; border-radius: 4px;">v1.3.2</span></span>
           </h2>
           <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Zero setup &bull; 100% self-contained &bull; Real-time background sync</p>
         </div>
@@ -4724,7 +4725,7 @@
         <div style="background: linear-gradient(135deg, rgba(217, 119, 6, 0.12), rgba(20, 24, 33, 0.95)); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 12px; padding: 20px;">
           <div style="font-weight: 700; color: #fbbf24; font-size: 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
             <span>🚀 1-Click Desktop Companion</span>
-            <span id="modalAppRecVer" style="font-size: 10px; background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: 700;">RECOMMENDED &bull; v1.3.1</span>
+            <span id="modalAppRecVer" style="font-size: 10px; background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: 700;">RECOMMENDED &bull; v1.3.2</span>
           </div>
           <p style="font-size: 13px; color: var(--text-main); line-height: 1.5; margin-bottom: 14px;">
             Direct 1-click standalone executable (<code>STS2Tracker.exe</code>). Just download and double-click to run &mdash; zero unzipping, zero installation, and includes built-in auto-updating:
@@ -5393,7 +5394,67 @@
     </div>
   </div>
 
-  <!-- FORUM MEDIA LIGHTBOX MODAL -->
+    <!-- REDDIT & SOCIAL RUN INFOGRAPHIC EXPORT MODAL -->
+  <div id="runExportCardModal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.88); backdrop-filter: blur(12px); z-index: 100007; justify-content: center; align-items: center; padding: 20px;" onclick="if(event.target===this) closeRunExportCardModal()">
+    <div class="modal-content" style="max-width: min(1500px, 96vw); width: 96vw; max-height: 92vh; display: flex; flex-direction: column; background: var(--bg-card); border-radius: 16px; border: 1px solid rgba(234, 179, 8, 0.45); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.95); overflow: hidden; padding: 0;">
+      
+      <!-- Modal Header & Quick Actions -->
+      <div style="padding: 16px 24px; background: linear-gradient(135deg, rgba(15, 23, 42, 0.98), rgba(30, 41, 59, 0.92)); border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <span style="font-size: 24px;">📸</span>
+          <div>
+            <h2 style="font-family: var(--font-title); color: var(--gold-spire); font-size: 19px; margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>Spire Chronicle &bull; Reddit &amp; Social Export</span>
+              <span id="exportCardFormatBadge" style="font-size: 10px; background: rgba(234, 179, 8, 0.2); color: #fbbf24; border: 1px solid rgba(234, 179, 8, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: 700;">1920×1080 HD (16:9)</span>
+            </h2>
+            <div style="font-size: 12px; color: var(--text-dim); margin-top: 2px;">
+              High-resolution infographic and formatted Reddit summary to showcase your victory on r/slaythespire, Discord, and Twitter
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+          <button id="btnCopyExportImage" onclick="copyExportCardToClipboard()" class="btn-primary" style="padding: 7px 16px; font-size: 12px; font-weight: 800; background: linear-gradient(135deg, #0284c7, #0369a1); border: 1px solid #38bdf8; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 10px rgba(2, 132, 199, 0.35);">
+            <span>📋</span> <span id="btnCopyExportText">Copy Image to Clipboard</span>
+          </button>
+          <button id="btnDownloadExportImage" onclick="downloadExportCardPng()" class="btn-primary" style="padding: 7px 16px; font-size: 12px; font-weight: 800; background: linear-gradient(135deg, #eab308, #ca8a04); border: 1px solid #fbbf24; color: #000; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 10px rgba(234, 179, 8, 0.35);">
+            <span>💾</span> <span>Download PNG (1080p)</span>
+          </button>
+          <button id="btnCopyRedditMd" onclick="copyRedditMarkdown()" class="btn-secondary" style="padding: 7px 14px; font-size: 12px; font-weight: 700; color: #c084fc; border-color: rgba(192, 132, 252, 0.4); display: inline-flex; align-items: center; gap: 6px;">
+            <span>📝</span> <span>Copy Reddit Post text</span>
+          </button>
+          <button id="btnExportHtmlFromCard" onclick="exportCurrentRun('html')" class="btn-secondary" style="padding: 7px 12px; font-size: 12px;" title="Export interactive self-contained HTML page">
+            <span>🌐</span> <span>HTML Page</span>
+          </button>
+          <button class="modal-close-btn" onclick="closeRunExportCardModal()" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: #fff; width: 32px; height: 32px; border-radius: 8px; font-size: 20px; cursor: pointer;">&times;</button>
+        </div>
+      </div>
+
+      <!-- Live Canvas & Preview Area -->
+      <div style="padding: 20px 24px; overflow-y: auto; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; background: rgba(8, 12, 20, 0.85); gap: 14px;">
+        <div id="exportCardLoadingSpinner" style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 60px; gap: 12px;">
+          <div style="width: 44px; height: 44px; border: 3px solid rgba(234, 179, 8, 0.2); border-top-color: var(--gold-spire); border-radius: 50%; animation: stsUpdateSpin 0.9s linear infinite;"></div>
+          <div style="font-size: 13px; color: var(--gold-spire); font-weight: 600;">Composing 1920×1080 HD Infographic...</div>
+        </div>
+
+        <div id="exportCardCanvasContainer" style="width: 100%; max-width: 1280px; display: none; flex-direction: column; align-items: center; gap: 12px;">
+          <canvas id="exportRunCanvas" width="1920" height="1080" style="width: 100%; height: auto; aspect-ratio: 16/9; border-radius: 10px; border: 1.5px solid rgba(234, 179, 8, 0.4); box-shadow: 0 16px 50px rgba(0,0,0,0.85); display: block;"></canvas>
+          
+          <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-dim); padding: 8px 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-subtle); border-radius: 8px; flex-wrap: wrap; gap: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span>💡</span>
+              <span><strong>Reddit Pro Tip:</strong> Click <strong>Copy Image to Clipboard</strong> and press <kbd style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono);">Ctrl+V</kbd> directly inside Reddit's post creator on <code>r/slaythespire</code>!</span>
+            </div>
+            <div style="font-family: var(--font-mono); color: #38bdf8;">
+              Attribution: slay-the-spire-2-tracker.web.app
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- FORUM MEDIA LIGHTBOX MODAL -->
   <div id="forumLightboxModal" class="media-lightbox-modal" onclick="closeImageLightbox()">
     <img id="lightboxImage" class="media-lightbox-content" src="" alt="Enlarged Artwork" onclick="event.stopPropagation()" />
     <button onclick="closeImageLightbox()" style="position: absolute; top: 20px; right: 24px; background: rgba(0,0,0,0.6); border: 1px solid rgba(255,255,255,0.2); color: #fff; font-size: 26px; border-radius: 50%; width: 44px; height: 44px; cursor: pointer; display: flex; align-items: center; justify-content: center;">&times;</button>
@@ -5755,7 +5816,7 @@
                 return;
               }
               if (st.is_desktop_app || st.version) {
-                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.3.1');
+                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.3.2');
               }
               if (st.local_player_id && !getLocalSteamId()) {
                 setLocalSteamId(st.local_player_id);
@@ -5797,15 +5858,15 @@
       }
     }
 
-    const LOADED_UI_VERSION = 'v1.3.1';
-    let currentAppVersion = 'v1.3.1';
+    const LOADED_UI_VERSION = 'v1.3.2';
+    let currentAppVersion = 'v1.3.2';
     let isDesktopAppMode = false;
     let detectedSteamPlayerId = null;
     let detectedSteamPersona = null;
     let detectedSteamAccount = null;
     let authSessionPollInterval = null;
     let cloudUpdateAvailable = false;
-    let latestCloudVersion = 'v1.3.1';
+    let latestCloudVersion = 'v1.3.2';
 
     function dismissUpdateBanner() {
       const banner = document.getElementById('discordUpdateBanner');
@@ -5942,7 +6003,7 @@
     }
 
     async function fetchCloudVersionForWeb() {
-      let ver = LOADED_UI_VERSION || 'v1.3.1';
+      let ver = LOADED_UI_VERSION || 'v1.3.2';
       try {
         const resp = await fetch('/version.json?t=' + Date.now());
         if (resp.ok) {
@@ -5974,7 +6035,7 @@
     async function triggerAppUpdate(skipConfirm = true) {
       isUpdatingCompanion = true;
       const originalVersion = currentAppVersion || 'v1.2.3';
-      const targetVersion = latestCloudVersion || 'v1.3.1';
+      const targetVersion = latestCloudVersion || 'v1.3.2';
 
       // Show sleek updating overlay
       let overlay = document.getElementById('appUpdateOverlay');
@@ -6102,7 +6163,7 @@
             return;
           }
           if (st.is_desktop_app || st.version) {
-            enableDesktopAppUI(st.version || 'v1.3.1');
+            enableDesktopAppUI(st.version || 'v1.3.2');
           }
         } else {
           fetchCloudVersionForWeb();
@@ -7572,6 +7633,9 @@
             <button class="btn-share-run" title="Send this run directly to a Slayer's Inbox, copy link, or share">
               <span>📨</span> <span>Share</span>
             </button>
+            <button class="btn-export-reddit" title="Export high-res Reddit & Discord share infographic" style="background: rgba(234, 179, 8, 0.12); border: 1px solid rgba(234, 179, 8, 0.35); color: var(--gold-spire); padding: 5px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 4px; transition: all 0.2s ease;">
+              <span>📸</span> <span>Export</span>
+            </button>
           </div>
         `;
 
@@ -7587,6 +7651,13 @@
           shareBtn.onclick = (e) => {
             e.stopPropagation();
             openDirectShareModal(r);
+          };
+        }
+        const exportBtn = card.querySelector('.btn-export-reddit');
+        if (exportBtn) {
+          exportBtn.onclick = (e) => {
+            e.stopPropagation();
+            openRunExportCardModal(r);
           };
         }
 
@@ -16466,6 +16537,11 @@
 
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
+        const expModal = document.getElementById('runExportCardModal');
+        if (expModal && expModal.style.display === 'flex') {
+          closeRunExportCardModal();
+          return;
+        }
         const modal = document.getElementById('compendiumCodexModal');
         if (modal && modal.style.display === 'flex') {
           closeCompendiumModal();
@@ -18000,6 +18076,848 @@
         await fetch(`${FORUM_RTDB_BASE}/inbox/${ident.key}/${msgId}.json`, { method: 'DELETE' }).catch(() => {});
       }
       showToast('🗑️ Removed from Inbox.');
+    }
+
+    
+    // =========================================================================
+    // REDDIT & SOCIAL RUN INFOGRAPHIC EXPORT ENGINE
+    // =========================================================================
+    let currentExportRun = null;
+    let exportCardActivePlayerIdx = 0;
+
+    function openRunExportCardModal(run, targetPlayerIdx = null) {
+      if (!run && typeof currentInspectedRun !== 'undefined') run = currentInspectedRun;
+      if (!run) {
+        showToast('⚠️ No run selected for export.');
+        return;
+      }
+      currentExportRun = run;
+      exportCardActivePlayerIdx = (targetPlayerIdx !== null) ? targetPlayerIdx : getPlayerIndex(run);
+
+      const modal = document.getElementById('runExportCardModal');
+      if (modal) {
+        modal.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+
+      const spinner = document.getElementById('exportCardLoadingSpinner');
+      const canvasContainer = document.getElementById('exportCardCanvasContainer');
+      if (spinner) spinner.style.display = 'flex';
+      if (canvasContainer) canvasContainer.style.display = 'none';
+
+      setTimeout(async () => {
+        try {
+          const canvas = document.getElementById('exportRunCanvas');
+          if (canvas) {
+            await renderRunShareCardCanvas(currentExportRun, canvas, exportCardActivePlayerIdx);
+          }
+          if (spinner) spinner.style.display = 'none';
+          if (canvasContainer) canvasContainer.style.display = 'flex';
+        } catch (err) {
+          console.error('[EXPORT CARD] Rendering error:', err);
+          if (spinner) {
+            spinner.innerHTML = '<span style="color:#f87171;">Failed to compose infographic canvas.</span>';
+          }
+        }
+      }, 50);
+    }
+
+    function closeRunExportCardModal() {
+      const modal = document.getElementById('runExportCardModal');
+      if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Helper: Async image loader with timeout
+    function loadCanvasImage(url, timeoutMs = 2500) {
+      return new Promise((resolve) => {
+        if (!url) return resolve(null);
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        let timer = setTimeout(() => {
+          resolve(null);
+        }, timeoutMs);
+        img.onload = () => {
+          clearTimeout(timer);
+          resolve(img);
+        };
+        img.onerror = () => {
+          clearTimeout(timer);
+          resolve(null);
+        };
+        img.src = url;
+      });
+    }
+
+    async function renderRunShareCardCanvas(run, canvas, playerIdx = 0) {
+      const W = 1920;
+      const H = 1080;
+      canvas.width = W;
+      canvas.height = H;
+      const ctx = canvas.getContext('2d');
+
+      const isCoop = isCoopRun(run);
+      const p = getPlayer(run, playerIdx) || (run.players && run.players[0]) || {};
+      const cKey = getCharKey(run, playerIdx);
+      const cfg = CHAR_CONFIG[cKey] || { name: cKey, color: '#38bdf8', img: 'ironclad.webp' };
+      const themeColor = cfg.color || '#38bdf8';
+      const isWin = run.win;
+      const isAbandoned = run.was_abandoned;
+      const asc = run.ascension || 0;
+      const floors = getRunFloors(run);
+      const duration = formatTime(run.run_time);
+      const seed = run.seed || 'UNKNOWN';
+
+      // 1. Gather Telemetry
+      let finalHp = '-', finalMaxHp = '-', finalGold = '-';
+      let totalDmgTaken = 0, rests = 0, smiths = 0;
+      if (run.map_point_history && run.map_point_history.length > 0) {
+        const lastAct = run.map_point_history[run.map_point_history.length - 1];
+        const lastNode = Array.isArray(lastAct) ? lastAct[lastAct.length - 1] : lastAct;
+        if (lastNode && lastNode.player_stats && lastNode.player_stats.length > 0) {
+          const ps = lastNode.player_stats.find(s => String(s.player_id) === String(p.id)) || lastNode.player_stats[0];
+          if (ps) {
+            finalHp = ps.current_hp !== undefined ? ps.current_hp : '-';
+            finalMaxHp = ps.max_hp !== undefined ? ps.max_hp : '-';
+            finalGold = ps.current_gold !== undefined ? ps.current_gold : '-';
+          }
+        }
+        run.map_point_history.forEach(act => {
+          (Array.isArray(act) ? act : [act]).forEach(node => {
+            if (node.player_stats) {
+              const ps = node.player_stats.find(s => String(s.player_id) === String(p.id)) || node.player_stats[0];
+              if (ps) {
+                totalDmgTaken += (ps.damage_taken || 0);
+                if (node.map_point_type === 'rest_site' && ps.rest_site_choices) {
+                  ps.rest_site_choices.forEach(ch => {
+                    if (ch === 'HEAL') rests++;
+                    else if (ch === 'SMITH') smiths++;
+                  });
+                }
+              }
+            }
+          });
+        });
+      }
+
+      const totalDmg = calculateRunTotalDamageDealt(run);
+      const peakFight = getPeakDamageFight(run);
+      const peakStr = peakFight ? ('~' + peakFight.dmg.toLocaleString() + ' DMG (F' + peakFight.floor + ')') : 'N/A';
+
+      // 2. Gather Cards & Categorize
+      const cardMap = {};
+      (p.deck || []).forEach(c => {
+        const lvl = c.current_upgrade_level || 0;
+        const key = c.id + '_' + lvl;
+        if (!cardMap[key]) cardMap[key] = { id: c.id, level: lvl, count: 0 };
+        cardMap[key].count++;
+      });
+      const attacks = [], skills = [], powers = [], others = [];
+      Object.values(cardMap).forEach(c => {
+        const cd = (gameDatabase && gameDatabase.cards && gameDatabase.cards[c.id]) || { name: cleanId(c.id), type: 'Skill', rarity: 'Common', cost: 1 };
+        const item = { ...c, name: cd.name || cleanId(c.id), type: cd.type || 'Skill', rarity: cd.rarity || 'Common', cost: cd.cost !== undefined ? cd.cost : 1 };
+        if (item.type === 'Attack') attacks.push(item);
+        else if (item.type === 'Skill') skills.push(item);
+        else if (item.type === 'Power') powers.push(item);
+        else others.push(item);
+      });
+      attacks.sort((a,b) => a.name.localeCompare(b.name));
+      skills.sort((a,b) => a.name.localeCompare(b.name));
+      powers.sort((a,b) => a.name.localeCompare(b.name));
+      others.sort((a,b) => a.name.localeCompare(b.name));
+      const totalCards = (p.deck || []).length;
+      const upgradedCards = (p.deck || []).filter(c => c.current_upgrade_level > 0).length;
+      const upgPct = totalCards > 0 ? Math.round((upgradedCards / totalCards) * 100) : 0;
+
+      // 3. Gather Relics
+      const relicsList = (p.relics || []).map(r => {
+        const rd = (gameDatabase && gameDatabase.relics && gameDatabase.relics[r.id]) || {};
+        return {
+          id: r.id,
+          name: rd.name || cleanId(r.id),
+          rarity: rd.rarity || 'Common',
+          asset: cleanIdForAsset(r.id)
+        };
+      });
+      const rCounts = { Ancient: 0, Rare: 0, Uncommon: 0, Common: 0, Starter: 0, Shop: 0, Event: 0 };
+      relicsList.forEach(r => {
+        if (rCounts[r.rarity] !== undefined) rCounts[r.rarity]++;
+        else rCounts.Common++;
+      });
+
+      // 4. Preload Assets (Hero portrait & first 24 relics)
+      const heroUrl = getAssetUrl('assets/characters/' + cfg.img);
+      const heroImgPromise = loadCanvasImage(heroUrl);
+      const relicImgPromises = relicsList.slice(0, 24).map(r => loadCanvasImage(getAssetUrl('assets/relics/' + r.asset + '.png')));
+      const [heroImg, ...relicImgs] = await Promise.all([heroImgPromise, ...relicImgPromises]);
+
+      // 5. Draw Deep Dark Aesthetic Canvas Background
+      const bgGrad = ctx.createLinearGradient(0, 0, 0, H);
+      bgGrad.addColorStop(0, '#090d16');
+      bgGrad.addColorStop(0.5, '#101726');
+      bgGrad.addColorStop(1, '#070a11');
+      ctx.fillStyle = bgGrad;
+      ctx.fillRect(0, 0, W, H);
+
+      // Character Ambient Glow
+      const auraGrad = ctx.createRadialGradient(140, 180, 0, 140, 180, 500);
+      auraGrad.addColorStop(0, themeColor + '22');
+      auraGrad.addColorStop(1, 'transparent');
+      ctx.fillStyle = auraGrad;
+      ctx.fillRect(0, 0, W, H);
+
+      // Outer Golden Frame & Corner Braces
+      ctx.strokeStyle = 'rgba(234, 179, 8, 0.4)';
+      ctx.lineWidth = 2;
+      roundRectPath(ctx, 16, 16, W - 32, H - 32, 16);
+      ctx.stroke();
+
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+      ctx.lineWidth = 1;
+      roundRectPath(ctx, 24, 24, W - 48, H - 48, 12);
+      ctx.stroke();
+
+      drawCornerBraces(ctx, 16, 16, W - 32, H - 32, 32, '#fbbf24');
+
+      // 6. Header Bar (y: 36 to 92)
+      ctx.font = 'bold 26px "Cinzel", Georgia, serif';
+      const titleGrad = ctx.createLinearGradient(48, 0, 360, 0);
+      titleGrad.addColorStop(0, '#fef08a');
+      titleGrad.addColorStop(1, '#fbbf24');
+      ctx.fillStyle = titleGrad;
+      ctx.fillText('🔥 NEOW\'S LEDGER', 48, 66);
+
+      ctx.font = '700 13px "Outfit", sans-serif';
+      ctx.fillStyle = '#94a3b8';
+      ctx.fillText('•  SLAY THE SPIRE 2 RUN CHRONICLE', 276, 64);
+
+      // Outcome Quote / Flavor (Center)
+      ctx.font = 'italic 14px "Outfit", sans-serif';
+      ctx.fillStyle = '#cbd5e1';
+      ctx.textAlign = 'center';
+      const quoteText = isWin
+        ? ('"The ' + cfg.name + ' has conquered the Spire and claimed eternal glory."')
+        : ('"The climb has ended on Floor ' + floors + '. The Spire hungers for more."');
+      ctx.fillText(quoteText, W / 2, 65);
+      ctx.textAlign = 'left';
+
+      // Watermark Pill (Right)
+      drawWatermarkPill(ctx, W - 420, 42, 372, 36, '🌐 slay-the-spire-2-tracker.web.app');
+
+      // 7. Hero Profile & Telemetry Card (y: 98 to 226, h: 128)
+      const heroCardY = 98;
+      const heroCardH = 128;
+      drawCardBox(ctx, 48, heroCardY, W - 96, heroCardH, 'rgba(17, 24, 39, 0.85)', 'rgba(255, 255, 255, 0.1)');
+
+      // Character Portrait Frame
+      const portX = 64;
+      const portY = heroCardY + 12;
+      const portSize = 104;
+      ctx.save();
+      roundRectPath(ctx, portX, portY, portSize, portSize, 14);
+      ctx.clip();
+      ctx.fillStyle = '#1e293b';
+      ctx.fillRect(portX, portY, portSize, portSize);
+      if (heroImg) {
+        ctx.drawImage(heroImg, portX, portY, portSize, portSize);
+      }
+      ctx.restore();
+      ctx.strokeStyle = themeColor;
+      ctx.lineWidth = 2.5;
+      roundRectPath(ctx, portX, portY, portSize, portSize, 14);
+      ctx.stroke();
+
+      // Hero Badges & Outcome
+      let bX = 188;
+      const bY = heroCardY + 22;
+      if (isWin) {
+        bX += drawCanvasPill(ctx, bX, bY, '🏆 VICTORY', '#065f46', '#10b981', '#6ee7b7', 'bold 13px "Outfit", sans-serif') + 8;
+      } else if (isAbandoned) {
+        bX += drawCanvasPill(ctx, bX, bY, '⚠️ ABANDONED', '#451a03', '#d97706', '#fcd34d', 'bold 13px "Outfit", sans-serif') + 8;
+      } else {
+        bX += drawCanvasPill(ctx, bX, bY, '💀 DEFEAT', '#450a0a', '#ef4444', '#fca5a5', 'bold 13px "Outfit", sans-serif') + 8;
+      }
+
+      bX += drawCanvasPill(ctx, bX, bY, 'ASCENSION ' + asc, '#78350f', '#f59e0b', '#fef08a', 'bold 13px "Outfit", sans-serif') + 8;
+      if (isCoop) {
+        bX += drawCanvasPill(ctx, bX, bY, '🤝 CO-OP DUO', '#581c87', '#a855f7', '#e9d5ff', 'bold 13px "Outfit", sans-serif') + 8;
+      }
+
+      // Hero Name
+      ctx.font = 'bold 28px "Cinzel", Georgia, serif';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(cfg.name.toUpperCase(), 188, heroCardY + 76);
+
+      // Meta Run Strip
+      ctx.font = '13.5px "Outfit", sans-serif';
+      ctx.fillStyle = '#94a3b8';
+      ctx.fillText('Floor ' + floors + ' reached  •  ⏱️ ' + duration + '  •  🎲 Seed: ' + seed + '  •  🩸 ' + finalHp + '/' + finalMaxHp + ' HP  •  💰 ' + finalGold + 'g', 188, heroCardY + 104);
+
+      // 4 Telemetry KPI Cards (Right Side of Hero Bar)
+      const kpiW = 180;
+      const kpiH = 96;
+      const kpiY = heroCardY + 16;
+      let kX = W - 48 - (kpiW * 4 + 36);
+
+      drawCanvasKpi(ctx, kX, kpiY, kpiW, kpiH, '⚔️ TOTAL DAMAGE', '~' + totalDmg.toLocaleString(), 'Estimated deal', '#38bdf8');
+      kX += kpiW + 12;
+      drawCanvasKpi(ctx, kX, kpiY, kpiW, kpiH, '🩸 DAMAGE TAKEN', '-' + totalDmgTaken + ' HP', 'Loss total', '#f87171');
+      kX += kpiW + 12;
+      drawCanvasKpi(ctx, kX, kpiY, kpiW, kpiH, '⚡ PEAK COMBAT', '~' + (peakFight ? peakFight.dmg.toLocaleString() : '0'), peakFight ? ('Floor ' + peakFight.floor) : 'No data', '#eab308');
+      kX += kpiW + 12;
+      drawCanvasKpi(ctx, kX, kpiY, kpiW, kpiH, '🏕️ CAMPFIRES', rests + 'R / ' + smiths + 'S', 'Rest & Smith', '#34d399');
+
+      // 8. Act Progression & Pathing (y: 236 to 340, h: 104)
+      const pathCardY = 236;
+      const pathCardH = 104;
+      drawCardBox(ctx, 48, pathCardY, W - 96, pathCardH, 'rgba(13, 18, 30, 0.9)', 'rgba(255, 255, 255, 0.08)');
+
+      ctx.font = 'bold 11px "Outfit", sans-serif';
+      ctx.fillStyle = '#94a3b8';
+      ctx.fillText('🗺️ CLIMB PROGRESSION & ACT PATHING', 64, pathCardY + 22);
+
+      if (run.map_point_history && run.map_point_history.length > 0) {
+        const actRowH = 22;
+        run.map_point_history.forEach((act, aIdx) => {
+          const actY = pathCardY + 36 + aIdx * actRowH;
+          const rawName = (run.acts && run.acts[aIdx]) ? run.acts[aIdx].replace('ACT.', '') : ('ACT ' + (aIdx + 1));
+          
+          ctx.font = 'bold 11px "Outfit", sans-serif';
+          ctx.fillStyle = '#eab308';
+          ctx.fillText(rawName.toUpperCase(), 64, actY + 12);
+
+          const nodes = Array.isArray(act) ? act : [act];
+          let nX = 180;
+          nodes.forEach((node, nIdx) => {
+            const nt = node.map_point_type || (node.rooms && node.rooms[0] && node.rooms[0].room_type) || 'unknown';
+            drawNodeGlyph(ctx, nX, actY + 1, 16, nt);
+            if (nIdx < nodes.length - 1) {
+              ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(nX + 18, actY + 9);
+              ctx.lineTo(nX + 24, actY + 9);
+              ctx.stroke();
+            }
+            nX += 28;
+          });
+        });
+      }
+
+      // 9. Relic Belt Showcase (y: 350 to 486, h: 136)
+      const relicCardY = 350;
+      const relicCardH = 136;
+      drawCardBox(ctx, 48, relicCardY, W - 96, relicCardH, 'rgba(13, 18, 30, 0.9)', 'rgba(255, 255, 255, 0.08)');
+
+      ctx.font = 'bold 11px "Outfit", sans-serif';
+      ctx.fillStyle = '#94a3b8';
+      ctx.fillText('💍 RELIC ARSENAL (' + relicsList.length + ')', 64, relicCardY + 22);
+
+      // Relic rarity counts strip
+      let rSummary = rCounts.Ancient + ' Ancient  •  ' + rCounts.Rare + ' Rare  •  ' + rCounts.Uncommon + ' Uncommon  •  ' + rCounts.Common + ' Common  •  ' + rCounts.Starter + ' Starter';
+      ctx.font = '11px "Outfit", sans-serif';
+      ctx.fillStyle = '#c084fc';
+      ctx.fillText(rSummary, 230, relicCardY + 22);
+
+      // Draw up to 22 Relics horizontally
+      const maxRelics = Math.min(22, relicsList.length);
+      const rSlotW = 74;
+      const rSlotH = 88;
+      const rStartX = 64;
+      const rStartY = relicCardY + 34;
+
+      for (let i = 0; i < maxRelics; i++) {
+        const r = relicsList[i];
+        const rImg = relicImgs[i];
+        const rx = rStartX + i * (rSlotW + 8);
+        drawRelicSlotCanvas(ctx, rx, rStartY, rSlotW, rSlotH, r, rImg);
+      }
+      if (relicsList.length > 22) {
+        const moreX = rStartX + 22 * (rSlotW + 8);
+        ctx.fillStyle = 'rgba(255,255,255,0.06)';
+        roundRectPath(ctx, moreX, rStartY, 60, 60, 8);
+        ctx.fill();
+        ctx.font = 'bold 14px "Outfit", sans-serif';
+        ctx.fillStyle = '#94a3b8';
+        ctx.textAlign = 'center';
+        ctx.fillText('+' + (relicsList.length - 22), moreX + 30, rStartY + 35);
+        ctx.textAlign = 'left';
+      }
+
+      // 10. Complete Decklist Showcase (y: 496 to 1008, h: 512)
+      const deckCardY = 496;
+      const deckCardH = 512;
+      drawCardBox(ctx, 48, deckCardY, W - 96, deckCardH, 'rgba(13, 18, 30, 0.9)', 'rgba(255, 255, 255, 0.08)');
+
+      ctx.font = 'bold 12px "Outfit", sans-serif';
+      ctx.fillStyle = '#94a3b8';
+      ctx.fillText('🃏 COMPLETE DECKLIST (' + totalCards + ' Cards • ' + upgradedCards + ' Upgraded • ' + upgPct + '% Upgraded)', 64, deckCardY + 24);
+
+      // 3 Columns: Attacks (left), Skills (center), Powers & Other (right)
+      const colW = 580;
+      const col1X = 64;
+      const col2X = col1X + colW + 28;
+      const col3X = col2X + colW + 28;
+      const colHeaderY = deckCardY + 50;
+
+      // Attacks Column
+      drawDeckColumn(ctx, col1X, colHeaderY, colW, '⚔️ ATTACKS (' + attacks.length + ')', attacks, '#f43f5e');
+
+      // Skills Column
+      drawDeckColumn(ctx, col2X, colHeaderY, colW, '🛡️ SKILLS (' + skills.length + ')', skills, '#38bdf8');
+
+      // Powers & Other Column
+      const powersAndOther = [...powers, ...others];
+      drawDeckColumn(ctx, col3X, colHeaderY, colW, '⚡ POWERS & OTHER (' + powersAndOther.length + ')', powersAndOther, '#c084fc');
+
+      // 11. Footer Strip (y: 1018 to 1060)
+      ctx.font = '11.5px "Outfit", sans-serif';
+      ctx.fillStyle = '#94a3b8';
+      const honors = (p.badges || []).map(b => cleanId(b.id)).filter(Boolean);
+      const honorsText = honors.length > 0 ? ('🎖️ Honors: ' + honors.slice(0, 5).join(' • ')) : '🎖️ Climb Authenticated & Recorded';
+      ctx.fillText(honorsText, 48, 1046);
+
+      ctx.textAlign = 'right';
+      ctx.fillStyle = '#cbd5e1';
+      ctx.fillText('Track your climbs, inspect detailed telemetry, and join the global leaderboard at slay-the-spire-2-tracker.web.app', W - 48, 1046);
+      ctx.textAlign = 'left';
+    }
+
+    // Canvas Draw Helpers
+    function roundRectPath(ctx, x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.lineTo(x + w - r, y);
+      ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+      ctx.lineTo(x + w, y + h - r);
+      ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+      ctx.lineTo(x + r, y + h);
+      ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+      ctx.lineTo(x, y + r);
+      ctx.quadraticCurveTo(x, y, x + r, y);
+      ctx.closePath();
+    }
+
+    function drawCardBox(ctx, x, y, w, h, fill, stroke) {
+      ctx.fillStyle = fill;
+      roundRectPath(ctx, x, y, w, h, 12);
+      ctx.fill();
+      if (stroke) {
+        ctx.strokeStyle = stroke;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+    }
+
+    function drawCornerBraces(ctx, x, y, w, h, len, color) {
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2.5;
+      // Top-Left
+      ctx.beginPath();
+      ctx.moveTo(x, y + len); ctx.lineTo(x, y); ctx.lineTo(x + len, y);
+      ctx.stroke();
+      // Top-Right
+      ctx.beginPath();
+      ctx.moveTo(x + w - len, y); ctx.lineTo(x + w, y); ctx.lineTo(x + w, y + len);
+      ctx.stroke();
+      // Bottom-Left
+      ctx.beginPath();
+      ctx.moveTo(x, y + h - len); ctx.lineTo(x, y + h); ctx.lineTo(x + len, y + h);
+      ctx.stroke();
+      // Bottom-Right
+      ctx.beginPath();
+      ctx.moveTo(x + w - len, y + h); ctx.lineTo(x + w, y + h); ctx.lineTo(x + w, y + h - len);
+      ctx.stroke();
+    }
+
+    function drawCanvasPill(ctx, x, y, text, fill, stroke, textColor, font) {
+      ctx.font = font;
+      const textW = ctx.measureText(text).width;
+      const pillW = textW + 18;
+      const pillH = 24;
+
+      ctx.fillStyle = fill;
+      roundRectPath(ctx, x, y, pillW, pillH, pillH / 2);
+      ctx.fill();
+
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      ctx.fillStyle = textColor;
+      ctx.fillText(text, x + 9, y + 16);
+      return pillW;
+    }
+
+    function drawWatermarkPill(ctx, x, y, w, h, text) {
+      ctx.fillStyle = 'rgba(14, 165, 233, 0.12)';
+      roundRectPath(ctx, x, y, w, h, h / 2);
+      ctx.fill();
+
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      ctx.font = 'bold 14px "JetBrains Mono", monospace';
+      ctx.fillStyle = '#38bdf8';
+      ctx.textAlign = 'center';
+      ctx.fillText(text, x + w / 2, y + 23);
+      ctx.textAlign = 'left';
+    }
+
+    function drawCanvasKpi(ctx, x, y, w, h, label, val, sub, accent) {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+      roundRectPath(ctx, x, y, w, h, 8);
+      ctx.fill();
+
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // Top colored accent stripe
+      ctx.fillStyle = accent;
+      ctx.fillRect(x + 12, y, w - 24, 2);
+
+      ctx.font = 'bold 10px "Outfit", sans-serif';
+      ctx.fillStyle = '#94a3b8';
+      ctx.fillText(label, x + 10, y + 20);
+
+      ctx.font = 'bold 21px "Outfit", sans-serif';
+      ctx.fillStyle = accent;
+      ctx.fillText(val, x + 10, y + 48);
+
+      ctx.font = '11px "Outfit", sans-serif';
+      ctx.fillStyle = '#64748b';
+      ctx.fillText(sub, x + 10, y + 74);
+    }
+
+    function drawNodeGlyph(ctx, x, y, size, nt) {
+      const glyphMap = {
+        monster: { icon: '⚔️', color: 'rgba(255,255,255,0.08)', border: '#64748b' },
+        elite: { icon: '👹', color: 'rgba(244,63,94,0.18)', border: '#f43f5e' },
+        boss: { icon: '👑', color: 'rgba(234,179,8,0.22)', border: '#fbbf24' },
+        rest_site: { icon: '🔥', color: 'rgba(249,115,22,0.18)', border: '#f97316' },
+        shop: { icon: '💰', color: 'rgba(16,185,129,0.18)', border: '#10b981' },
+        event: { icon: '❓', color: 'rgba(192,132,252,0.18)', border: '#c084fc' },
+        unknown: { icon: '❓', color: 'rgba(192,132,252,0.18)', border: '#c084fc' },
+        treasure: { icon: '📦', color: 'rgba(56,189,248,0.18)', border: '#38bdf8' },
+        ancient: { icon: '🏛️', color: 'rgba(168,85,247,0.22)', border: '#a855f7' }
+      };
+      const g = glyphMap[nt] || glyphMap.unknown;
+
+      ctx.fillStyle = g.color;
+      roundRectPath(ctx, x, y, size, size, 4);
+      ctx.fill();
+
+      ctx.strokeStyle = g.border;
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      ctx.font = '11px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(g.icon, x + size / 2, y + size - 3);
+      ctx.textAlign = 'left';
+    }
+
+    function drawRelicSlotCanvas(ctx, x, y, w, h, relic, img) {
+      const rarityColors = {
+        Ancient: '#c084fc',
+        Rare: '#fbbf24',
+        Uncommon: '#38bdf8',
+        Common: '#e2e8f0',
+        Starter: '#94a3b8',
+        Shop: '#34d399',
+        Event: '#f472b6'
+      };
+      const rColor = rarityColors[relic.rarity] || '#cbd5e1';
+
+      // Slot box
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
+      roundRectPath(ctx, x, y, w, 56, 8);
+      ctx.fill();
+
+      ctx.strokeStyle = rColor + '66';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+
+      if (img) {
+        ctx.drawImage(img, x + (w - 44) / 2, y + 6, 44, 44);
+      } else {
+        ctx.font = 'bold 20px sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = rColor;
+        ctx.fillText('💍', x + w / 2, y + 36);
+        ctx.textAlign = 'left';
+      }
+
+      // Relic title underneath
+      ctx.font = '600 9.5px "Outfit", sans-serif';
+      ctx.fillStyle = '#cbd5e1';
+      ctx.textAlign = 'center';
+      let title = relic.name;
+      if (title.length > 11) title = title.substring(0, 10) + '..';
+      ctx.fillText(title, x + w / 2, y + 72);
+      ctx.textAlign = 'left';
+    }
+
+    function drawDeckColumn(ctx, x, y, w, title, cards, accent) {
+      ctx.font = 'bold 12px "Outfit", sans-serif';
+      ctx.fillStyle = accent;
+      ctx.fillText(title, x, y);
+
+      const subColW = (w - 12) / 2;
+      const startY = y + 14;
+      const chipH = 26;
+      const chipGap = 5;
+      const maxRowsPerSubCol = 14;
+
+      const rarityStripe = {
+        Basic: '#94a3b8',
+        Starter: '#94a3b8',
+        Common: '#f1f5f9',
+        Uncommon: '#38bdf8',
+        Rare: '#fbbf24',
+        Special: '#c084fc',
+        Curse: '#ef4444'
+      };
+
+      for (let i = 0; i < cards.length; i++) {
+        if (i >= maxRowsPerSubCol * 2) {
+          // If overflow, show +X more
+          const remaining = cards.length - i;
+          const subIdx = 1;
+          const rIdx = maxRowsPerSubCol - 1;
+          const cx = x + subIdx * (subColW + 12);
+          const cy = startY + rIdx * (chipH + chipGap);
+          ctx.fillStyle = 'rgba(255,255,255,0.05)';
+          roundRectPath(ctx, cx, cy, subColW, chipH, 5);
+          ctx.fill();
+          ctx.font = 'italic 11px "Outfit", sans-serif';
+          ctx.fillStyle = '#94a3b8';
+          ctx.fillText('+ ' + remaining + ' more cards', cx + 12, cy + 17);
+          break;
+        }
+
+        const c = cards[i];
+        const subColIdx = Math.floor(i / maxRowsPerSubCol);
+        const rowIdx = i % maxRowsPerSubCol;
+        const cx = x + subColIdx * (subColW + 12);
+        const cy = startY + rowIdx * (chipH + chipGap);
+
+        // Chip box
+        ctx.fillStyle = 'rgba(255, 255, 255, 0.035)';
+        roundRectPath(ctx, cx, cy, subColW, chipH, 5);
+        ctx.fill();
+
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.07)';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Rarity Stripe on left
+        const rColor = rarityStripe[c.rarity] || '#cbd5e1';
+        ctx.fillStyle = rColor;
+        ctx.beginPath();
+        ctx.moveTo(cx + 3, cy);
+        ctx.lineTo(cx + 6, cy);
+        ctx.lineTo(cx + 6, cy + chipH);
+        ctx.lineTo(cx + 3, cy + chipH);
+        ctx.closePath();
+        ctx.fill();
+
+        // Card name text
+        ctx.font = '600 11.5px "Outfit", sans-serif';
+        ctx.fillStyle = '#f8fafc';
+        const qStr = c.count > 1 ? (c.count + 'x ') : '';
+        ctx.fillText(qStr + c.name, cx + 12, cy + 17);
+
+        // Green + upgrade mark
+        if (c.level > 0) {
+          const nameW = ctx.measureText(qStr + c.name).width;
+          ctx.font = 'bold 13px "Outfit", sans-serif';
+          ctx.fillStyle = '#4ade80';
+          ctx.fillText('+', cx + 12 + nameW + 2, cy + 17);
+        }
+
+        // Cost badge on right
+        if (c.cost !== undefined) {
+          const costStr = c.cost === -1 ? 'X' : String(c.cost);
+          ctx.font = 'bold 10px "JetBrains Mono", monospace';
+          ctx.fillStyle = '#64748b';
+          ctx.textAlign = 'right';
+          ctx.fillText('[' + costStr + ']', cx + subColW - 8, cy + 17);
+          ctx.textAlign = 'left';
+        }
+      }
+    }
+
+    function downloadExportCardPng() {
+      const canvas = document.getElementById('exportRunCanvas');
+      if (!canvas || !currentExportRun) return;
+      const run = currentExportRun;
+      const cKey = getCharKey(run);
+      const resName = run.win ? 'Victory' : (run.was_abandoned ? 'Abandoned' : 'Defeat');
+      const filename = 'STS2_Chronicle_' + cKey + '_A' + (run.ascension || 0) + '_' + resName + '_Seed_' + (run.seed || 'run') + '.png';
+
+      canvas.toBlob(blob => {
+        if (!blob) {
+          showToast('❌ Failed to compose image blob.');
+          return;
+        }
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+        }, 1200);
+        showToast('📸 Downloaded ' + filename + '! Ready for Reddit!');
+      }, 'image/png');
+    }
+
+    async function copyExportCardToClipboard() {
+      const canvas = document.getElementById('exportRunCanvas');
+      if (!canvas) return;
+      const btnText = document.getElementById('btnCopyExportText');
+      const oldText = btnText ? btnText.innerText : 'Copy Image to Clipboard';
+
+      if (btnText) btnText.innerText = 'Copying...';
+      canvas.toBlob(async blob => {
+        if (!blob) {
+          showToast('❌ Failed to compose image.');
+          if (btnText) btnText.innerText = oldText;
+          return;
+        }
+        try {
+          await navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': blob })
+          ]);
+          if (btnText) btnText.innerText = '✓ Copied Image!';
+          showToast('📋 High-Res Infographic copied to clipboard! Paste directly into Reddit or Discord (Ctrl+V)');
+          setTimeout(() => {
+            if (btnText) btnText.innerText = oldText;
+          }, 2500);
+        } catch (clipErr) {
+          console.warn('Clipboard image write failed, downloading fallback PNG:', clipErr);
+          downloadExportCardPng();
+          if (btnText) btnText.innerText = oldText;
+          showToast('ℹ️ Browser prevented direct clipboard write; downloaded image as PNG instead!');
+        }
+      }, 'image/png');
+    }
+
+    function generateRedditMarkdownText(run, playerIdx = 0) {
+      const p = getPlayer(run, playerIdx) || (run.players && run.players[0]) || {};
+      const cKey = getCharKey(run, playerIdx);
+      const cName = cKey.charAt(0) + cKey.slice(1).toLowerCase();
+      const isWin = run.win;
+      const outcomeText = isWin ? 'Victory 🏆' : (run.was_abandoned ? 'Abandoned ⚠️' : 'Defeat 💀');
+      const asc = run.ascension || 0;
+      const floors = getRunFloors(run);
+      const duration = formatTime(run.run_time);
+      const totalDmg = calculateRunTotalDamageDealt(run);
+      const peakFight = getPeakDamageFight(run);
+
+      // Relics
+      const relicNames = (p.relics || []).map(r => {
+        const rd = (gameDatabase && gameDatabase.relics && gameDatabase.relics[r.id]);
+        return rd ? rd.name : cleanId(r.id);
+      });
+
+      // Cards
+      const cardMap = {};
+      (p.deck || []).forEach(c => {
+        const lvl = c.current_upgrade_level || 0;
+        const key = c.id + '_' + lvl;
+        if (!cardMap[key]) cardMap[key] = { id: c.id, level: lvl, count: 0 };
+        cardMap[key].count++;
+      });
+      const attacks = [], skills = [], powers = [], others = [];
+      Object.values(cardMap).forEach(c => {
+        const cd = (gameDatabase && gameDatabase.cards && gameDatabase.cards[c.id]) || { name: cleanId(c.id), type: 'Skill' };
+        const name = (cd.name || cleanId(c.id)) + (c.level > 0 ? '+' : '');
+        const str = (c.count > 1 ? c.count + 'x ' : '') + name;
+        if (cd.type === 'Attack') attacks.push(str);
+        else if (cd.type === 'Skill') skills.push(str);
+        else if (cd.type === 'Power') powers.push(str);
+        else others.push(str);
+      });
+
+      // Act path
+      const actLines = [];
+      if (run.map_point_history) {
+        run.map_point_history.forEach((act, i) => {
+          const actName = (run.acts && run.acts[i]) ? run.acts[i].replace('ACT.', '') : ('Act ' + (i + 1));
+          const iconMap = {
+            monster: '⚔️', elite: '👹', boss: '👑', rest_site: '🔥',
+            shop: '💰', event: '❓', unknown: '❓', treasure: '📦', ancient: '🏛️'
+          };
+          const chain = (Array.isArray(act) ? act : [act]).map(n => iconMap[n.map_point_type] || '⚪').join(' > ');
+          actLines.push('* **' + actName + ':** ' + chain);
+        });
+      }
+
+      const totalCards = (p.deck || []).length;
+      const upgCards = (p.deck || []).filter(c => c.current_upgrade_level > 0).length;
+
+      const lines = [
+        '# ⚡ Slay the Spire 2 — The ' + cName + ' (Ascension ' + asc + ' ' + outcomeText + ')',
+        '',
+        '* **Seed:** `' + (run.seed || 'UNKNOWN') + '`',
+        '* **Floor:** ' + floors + ' • **Time:** ' + duration,
+        '* **Combat Damage Dealt:** ~' + totalDmg.toLocaleString() + ' DMG ' + (peakFight ? ('(Peak: ~' + peakFight.dmg.toLocaleString() + ' DMG)') : ''),
+        '',
+        '---',
+        '',
+        '### 💍 Relics (' + relicNames.length + ')',
+        relicNames.join(' • ') || 'None',
+        '',
+        '---',
+        '',
+        '### 🃏 Deck (' + totalCards + ' Cards • ' + upgCards + ' Upgraded)',
+        '* **Attacks (' + attacks.length + '):** ' + (attacks.join(', ') || 'None'),
+        '* **Skills (' + skills.length + '):** ' + (skills.join(', ') || 'None'),
+        '* **Powers (' + powers.length + '):** ' + (powers.join(', ') || 'None'),
+        (others.length > 0 ? ('* **Other (' + others.length + '):** ' + others.join(', ')) : ''),
+        '',
+        '---',
+        '',
+        '### 🗺️ Route Pathing',
+        actLines.join('\n'),
+        '',
+        '---',
+        '*Tracked & exported with [Neow\'s Ledger](https://slay-the-spire-2-tracker.web.app)*'
+      ];
+
+      return lines.filter(Boolean).join('\n');
+    }
+
+    function copyRedditMarkdown() {
+      if (!currentExportRun) return;
+      const md = generateRedditMarkdownText(currentExportRun, exportCardActivePlayerIdx);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(md).then(() => {
+          showToast('📝 Formatted Reddit Post Markdown copied to clipboard! Ready to paste into Reddit comments.');
+        }).catch(() => {
+          promptCopyFallback(md);
+        });
+      } else {
+        promptCopyFallback(md);
+      }
+    }
+
+    function promptCopyFallback(text) {
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textarea);
+      showToast('📝 Formatted Reddit Post Markdown copied to clipboard!');
     }
 
     function showToast(msg) {

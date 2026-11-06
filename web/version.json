@@ -1,14 +1,15 @@
 {
-  "version": "1.3.1",
-  "versionNumber": 1.31,
-  "releaseDate": "2026-11-04",
-  "title": "STS2 Tracker v1.3.1 - Accurate Combat Damage & Pet Filtering",
+  "version": "1.3.2",
+  "versionNumber": 1.32,
+  "releaseDate": "2026-11-05",
+  "title": "STS2 Tracker v1.3.2 - High-Res Reddit & Social Infographic Export",
   "changelog": [
-    "Excludes friendly pet/companion entities (Pael's Legion, Byrdpip, Osty, Architect) with 9999 dummy HP from combat damage calculations and enemy counts",
-    "Extracts true MonsterModel HP values across all 125 monsters, elites, and bosses (including fixed-HP bosses and multi-phase encounters)",
-    "Full 16:9 widescreen layout & Direct Slayer-to-Slayer Run Sharing Inbox"
+    "High-Res 16:9 Infographic Export: Generates professional 1920x1080 social media share cards for Reddit (r/slaythespire), Discord, and Twitter",
+    "1-Click Copy Image to Clipboard: Directly copy the full HD infographic to clipboard and paste immediately into Reddit image posts with Ctrl+V",
+    "Reddit Post Markdown Generator: Instant formatted Reddit markdown summary with Seed, Damage Dealt, Relics list, Deck breakdown, and Route pathing",
+    "Prominent Watermark & Attribution: Highlights Neow's Ledger and slay-the-spire-2-tracker.web.app for seamless community discovery"
   ],
   "downloadExe": "https://github.com/Apocaelypze/sts2-tracker/releases/latest/download/STS2Tracker.exe",
   "downloadZip": "https://slay-the-spire-2-tracker.web.app/STS2Tracker.zip",
-  "notes": "Excludes friendly pet/companion entities (Pael's Legion, Byrdpip) with 9999 dummy HP from combat damage calculations and updates all 125 monster HP values."
+  "notes": "Introduces high-resolution Reddit/Discord Infographic Export, 1-click clipboard image copy, and Reddit post markdown generation."
 }
