@@ -3384,10 +3384,10 @@
 
       <div class="header-actions">
         <!-- Web Download Desktop App Button (hidden when running inside Desktop App) -->
-        <button class="btn-desktop-app" id="btnHeaderDesktopApp" onclick="openAppDownloadModal()" title="Download standalone Desktop App companion (v1.3.3)">
+        <button class="btn-desktop-app" id="btnHeaderDesktopApp" onclick="openAppDownloadModal()" title="Download standalone Desktop App companion (v1.3.4)">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
           <span id="headerDesktopAppText">Desktop App</span>
-          <span id="headerDesktopAppVersion" style="font-size: 10px; opacity: 0.75; font-family: var(--font-mono); font-weight: 700; margin-left: 2px;">v1.3.3</span>
+          <span id="headerDesktopAppVersion" style="font-size: 10px; opacity: 0.75; font-family: var(--font-mono); font-weight: 700; margin-left: 2px;">v1.3.4</span>
         </button>
 
         <button class="btn-primary" id="btnHeaderUploadRun" onclick="openLoadSavesModal()" title="Upload your runs and join the global leaderboard" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; font-size: 12px; font-weight: 700; background: linear-gradient(135deg, #10b981, #059669); border: 1px solid #34d399; box-shadow: 0 2px 10px rgba(16, 185, 129, 0.25);">
@@ -3398,7 +3398,7 @@
         <!-- Exclusive Desktop App Controls (Version Ribbon & 1-Click Cloud Updater on Right Side) -->
         <div id="desktopAppHeaderControls" style="display: none; align-items: center; gap: 6px;">
           <span id="desktopAppVersionPill" style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: #38bdf8; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); padding: 4px 8px; border-radius: 6px; letter-spacing: 0.3px;" title="Current Desktop App Version">
-            v1.3.3
+            v1.3.4
           </span>
           <button class="btn-primary" id="btnDesktopUpdate" onclick="triggerAppUpdate()" title="Restart and auto-update companion to latest version" style="display: none; align-items: center; gap: 5px; padding: 5px 12px; font-size: 11px; font-weight: 700; background: linear-gradient(135deg, #22c55e, #16a34a); border: 1px solid #4ade80; border-radius: 6px; box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4);">
             <span id="btnUpdateIcon">🔄</span> <span id="btnUpdateText">Restart to Update</span>
@@ -4714,7 +4714,7 @@
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <div>
           <h2 style="font-family: var(--font-title); color: var(--gold-spire); font-size: 22px; display: flex; align-items: center; gap: 10px;">
-            <span>⚡ Standalone Desktop App <span id="modalAppTitleVer" style="font-size: 13px; color: #38bdf8; font-family: var(--font-mono); border: 1px solid rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.15); padding: 1px 6px; border-radius: 4px;">v1.3.3</span></span>
+            <span>⚡ Standalone Desktop App <span id="modalAppTitleVer" style="font-size: 13px; color: #38bdf8; font-family: var(--font-mono); border: 1px solid rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.15); padding: 1px 6px; border-radius: 4px;">v1.3.4</span></span>
           </h2>
           <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Zero setup &bull; 100% self-contained &bull; Real-time background sync</p>
         </div>
@@ -4725,7 +4725,7 @@
         <div style="background: linear-gradient(135deg, rgba(217, 119, 6, 0.12), rgba(20, 24, 33, 0.95)); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 12px; padding: 20px;">
           <div style="font-weight: 700; color: #fbbf24; font-size: 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
             <span>🚀 1-Click Desktop Companion</span>
-            <span id="modalAppRecVer" style="font-size: 10px; background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: 700;">RECOMMENDED &bull; v1.3.3</span>
+            <span id="modalAppRecVer" style="font-size: 10px; background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: 700;">RECOMMENDED &bull; v1.3.4</span>
           </div>
           <p style="font-size: 13px; color: var(--text-main); line-height: 1.5; margin-bottom: 14px;">
             Direct 1-click standalone executable (<code>STS2Tracker.exe</code>). Just download and double-click to run &mdash; zero unzipping, zero installation, and includes built-in auto-updating:
@@ -5810,7 +5810,7 @@
                 return;
               }
               if (st.is_desktop_app || st.version) {
-                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.3.3');
+                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.3.4');
               }
               if (st.local_player_id && !getLocalSteamId()) {
                 setLocalSteamId(st.local_player_id);
@@ -5852,15 +5852,15 @@
       }
     }
 
-    const LOADED_UI_VERSION = 'v1.3.3';
-    let currentAppVersion = 'v1.3.3';
+    const LOADED_UI_VERSION = 'v1.3.4';
+    let currentAppVersion = 'v1.3.4';
     let isDesktopAppMode = false;
     let detectedSteamPlayerId = null;
     let detectedSteamPersona = null;
     let detectedSteamAccount = null;
     let authSessionPollInterval = null;
     let cloudUpdateAvailable = false;
-    let latestCloudVersion = 'v1.3.3';
+    let latestCloudVersion = 'v1.3.4';
 
     function dismissUpdateBanner() {
       const banner = document.getElementById('discordUpdateBanner');
@@ -5997,7 +5997,7 @@
     }
 
     async function fetchCloudVersionForWeb() {
-      let ver = LOADED_UI_VERSION || 'v1.3.3';
+      let ver = LOADED_UI_VERSION || 'v1.3.4';
       try {
         const resp = await fetch('/version.json?t=' + Date.now());
         if (resp.ok) {
@@ -6029,7 +6029,7 @@
     async function triggerAppUpdate(skipConfirm = true) {
       isUpdatingCompanion = true;
       const originalVersion = currentAppVersion || 'v1.2.3';
-      const targetVersion = latestCloudVersion || 'v1.3.3';
+      const targetVersion = latestCloudVersion || 'v1.3.4';
 
       // Show sleek updating overlay
       let overlay = document.getElementById('appUpdateOverlay');
@@ -6156,7 +6156,7 @@
             return;
           }
           if (st.is_desktop_app || st.version) {
-            enableDesktopAppUI(st.version || 'v1.3.3');
+            enableDesktopAppUI(st.version || 'v1.3.4');
           }
         } else {
           fetchCloudVersionForWeb();
@@ -23472,7 +23472,7 @@
       "character_stats": [
         {
           "character": "CHARACTER.IRONCLAD",
-          "losses": 4,
+          "losses": 5,
           "wins": 2
         },
         {
@@ -23502,7 +23502,7 @@
       "character_stats": [
         {
           "character": "CHARACTER.IRONCLAD",
-          "losses": 15,
+          "losses": 16,
           "wins": 6
         },
         {
@@ -23707,21 +23707,21 @@
   "card_stats": [
     {
       "id": "CARD.STRIKE_IRONCLAD",
-      "times_lost": 16,
+      "times_lost": 17,
       "times_picked": 0,
       "times_skipped": 0,
       "times_won": 5
     },
     {
       "id": "CARD.DEFEND_IRONCLAD",
-      "times_lost": 16,
+      "times_lost": 17,
       "times_picked": 0,
       "times_skipped": 0,
       "times_won": 6
     },
     {
       "id": "CARD.BASH",
-      "times_lost": 14,
+      "times_lost": 15,
       "times_picked": 0,
       "times_skipped": 0,
       "times_won": 6
@@ -23735,9 +23735,9 @@
     },
     {
       "id": "CARD.INFLAME",
-      "times_lost": 8,
+      "times_lost": 9,
       "times_picked": 7,
-      "times_skipped": 10,
+      "times_skipped": 12,
       "times_won": 2
     },
     {
@@ -23751,7 +23751,7 @@
       "id": "CARD.STOMP",
       "times_lost": 5,
       "times_picked": 5,
-      "times_skipped": 10,
+      "times_skipped": 11,
       "times_won": 2
     },
     {
@@ -23770,8 +23770,8 @@
     },
     {
       "id": "CARD.BATTLE_TRANCE",
-      "times_lost": 4,
-      "times_picked": 5,
+      "times_lost": 5,
+      "times_picked": 6,
       "times_skipped": 6,
       "times_won": 1
     },
@@ -23786,7 +23786,7 @@
       "id": "CARD.WHIRLWIND",
       "times_lost": 3,
       "times_picked": 6,
-      "times_skipped": 8,
+      "times_skipped": 9,
       "times_won": 4
     },
     {
@@ -23807,7 +23807,7 @@
       "id": "CARD.HAVOC",
       "times_lost": 6,
       "times_picked": 10,
-      "times_skipped": 33,
+      "times_skipped": 34,
       "times_won": 2
     },
     {
@@ -23833,8 +23833,8 @@
     },
     {
       "id": "CARD.STAMPEDE",
-      "times_lost": 10,
-      "times_picked": 7,
+      "times_lost": 11,
+      "times_picked": 8,
       "times_skipped": 3,
       "times_won": 2
     },
@@ -23842,12 +23842,12 @@
       "id": "CARD.FLAME_BARRIER",
       "times_lost": 5,
       "times_picked": 5,
-      "times_skipped": 11,
+      "times_skipped": 13,
       "times_won": 1
     },
     {
       "id": "CARD.TREMBLE",
-      "times_lost": 4,
+      "times_lost": 5,
       "times_picked": 10,
       "times_skipped": 29,
       "times_won": 6
@@ -23856,7 +23856,7 @@
       "id": "CARD.BLOOD_WALL",
       "times_lost": 0,
       "times_picked": 1,
-      "times_skipped": 19,
+      "times_skipped": 20,
       "times_won": 1
     },
     {
@@ -23870,35 +23870,35 @@
       "id": "CARD.ANGER",
       "times_lost": 4,
       "times_picked": 6,
-      "times_skipped": 35,
+      "times_skipped": 37,
       "times_won": 1
     },
     {
       "id": "CARD.IRON_WAVE",
       "times_lost": 2,
       "times_picked": 2,
-      "times_skipped": 30,
+      "times_skipped": 31,
       "times_won": 1
     },
     {
       "id": "CARD.CINDER",
       "times_lost": 7,
       "times_picked": 5,
-      "times_skipped": 16,
+      "times_skipped": 18,
       "times_won": 0
     },
     {
       "id": "CARD.SHRUG_IT_OFF",
-      "times_lost": 5,
-      "times_picked": 8,
-      "times_skipped": 26,
+      "times_lost": 6,
+      "times_picked": 11,
+      "times_skipped": 28,
       "times_won": 3
     },
     {
       "id": "CARD.ARMAMENTS",
-      "times_lost": 9,
-      "times_picked": 12,
-      "times_skipped": 14,
+      "times_lost": 10,
+      "times_picked": 14,
+      "times_skipped": 16,
       "times_won": 5
     },
     {
@@ -23919,7 +23919,7 @@
       "id": "CARD.THUNDERCLAP",
       "times_lost": 1,
       "times_picked": 2,
-      "times_skipped": 35,
+      "times_skipped": 36,
       "times_won": 2
     },
     {
@@ -23940,14 +23940,14 @@
       "id": "CARD.BLOODLETTING",
       "times_lost": 5,
       "times_picked": 8,
-      "times_skipped": 29,
+      "times_skipped": 30,
       "times_won": 5
     },
     {
       "id": "CARD.HEMOKINESIS",
       "times_lost": 1,
       "times_picked": 2,
-      "times_skipped": 12,
+      "times_skipped": 14,
       "times_won": 2
     },
     {
@@ -23996,7 +23996,7 @@
       "id": "CARD.RAMPAGE",
       "times_lost": 2,
       "times_picked": 2,
-      "times_skipped": 7,
+      "times_skipped": 9,
       "times_won": 0
     },
     {
@@ -24010,7 +24010,7 @@
       "id": "CARD.ULTIMATE_STRIKE",
       "times_lost": 3,
       "times_picked": 0,
-      "times_skipped": 15,
+      "times_skipped": 16,
       "times_won": 2
     },
     {
@@ -24022,8 +24022,8 @@
     },
     {
       "id": "CARD.PILLAGE",
-      "times_lost": 2,
-      "times_picked": 2,
+      "times_lost": 3,
+      "times_picked": 3,
       "times_skipped": 13,
       "times_won": 0
     },
@@ -24050,30 +24050,30 @@
     },
     {
       "id": "CARD.JUGGLING",
-      "times_lost": 5,
+      "times_lost": 6,
       "times_picked": 5,
-      "times_skipped": 7,
+      "times_skipped": 8,
       "times_won": 3
     },
     {
       "id": "CARD.POMMEL_STRIKE",
-      "times_lost": 5,
-      "times_picked": 10,
-      "times_skipped": 26,
+      "times_lost": 6,
+      "times_picked": 11,
+      "times_skipped": 27,
       "times_won": 3
     },
     {
       "id": "CARD.BODY_SLAM",
       "times_lost": 2,
       "times_picked": 2,
-      "times_skipped": 20,
+      "times_skipped": 21,
       "times_won": 1
     },
     {
       "id": "CARD.SWORD_BOOMERANG",
       "times_lost": 1,
       "times_picked": 2,
-      "times_skipped": 32,
+      "times_skipped": 35,
       "times_won": 1
     },
     {
@@ -24099,8 +24099,8 @@
     },
     {
       "id": "CARD.HEADBUTT",
-      "times_lost": 13,
-      "times_picked": 14,
+      "times_lost": 14,
+      "times_picked": 15,
       "times_skipped": 20,
       "times_won": 3
     },
@@ -24113,15 +24113,15 @@
     },
     {
       "id": "CARD.MANGLE",
-      "times_lost": 3,
-      "times_picked": 4,
+      "times_lost": 4,
+      "times_picked": 5,
       "times_skipped": 4,
       "times_won": 1
     },
     {
       "id": "CARD.PERFECTED_STRIKE",
-      "times_lost": 5,
-      "times_picked": 10,
+      "times_lost": 6,
+      "times_picked": 11,
       "times_skipped": 14,
       "times_won": 3
     },
@@ -24143,21 +24143,21 @@
       "id": "CARD.HAND_OF_GREED",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 16,
+      "times_skipped": 17,
       "times_won": 0
     },
     {
       "id": "CARD.EXPECT_A_FIGHT",
       "times_lost": 2,
       "times_picked": 2,
-      "times_skipped": 14,
+      "times_skipped": 15,
       "times_won": 0
     },
     {
       "id": "CARD.SPITE",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 12,
+      "times_skipped": 13,
       "times_won": 0
     },
     {
@@ -24178,14 +24178,14 @@
       "id": "CARD.BURNING_PACT",
       "times_lost": 1,
       "times_picked": 1,
-      "times_skipped": 8,
+      "times_skipped": 9,
       "times_won": 0
     },
     {
       "id": "CARD.FIEND_FIRE",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 6,
+      "times_skipped": 7,
       "times_won": 0
     },
     {
@@ -24199,21 +24199,21 @@
       "id": "CARD.VICIOUS",
       "times_lost": 0,
       "times_picked": 1,
-      "times_skipped": 11,
+      "times_skipped": 12,
       "times_won": 1
     },
     {
       "id": "CARD.ASHEN_STRIKE",
       "times_lost": 4,
       "times_picked": 3,
-      "times_skipped": 15,
+      "times_skipped": 17,
       "times_won": 0
     },
     {
       "id": "CARD.HOWL_FROM_BEYOND",
       "times_lost": 3,
       "times_picked": 5,
-      "times_skipped": 4,
+      "times_skipped": 6,
       "times_won": 2
     },
     {
@@ -24234,7 +24234,7 @@
       "id": "CARD.UNRELENTING",
       "times_lost": 4,
       "times_picked": 7,
-      "times_skipped": 10,
+      "times_skipped": 11,
       "times_won": 4
     },
     {
@@ -24248,21 +24248,21 @@
       "id": "CARD.GOLD_AXE",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 15,
+      "times_skipped": 16,
       "times_won": 4
     },
     {
       "id": "CARD.ULTIMATE_DEFEND",
-      "times_lost": 4,
+      "times_lost": 5,
       "times_picked": 0,
       "times_skipped": 10,
       "times_won": 3
     },
     {
       "id": "CARD.HELLRAISER",
-      "times_lost": 1,
+      "times_lost": 2,
       "times_picked": 3,
-      "times_skipped": 2,
+      "times_skipped": 3,
       "times_won": 2
     },
     {
@@ -24288,8 +24288,8 @@
     },
     {
       "id": "CARD.BRAND",
-      "times_lost": 0,
-      "times_picked": 0,
+      "times_lost": 1,
+      "times_picked": 1,
       "times_skipped": 5,
       "times_won": 0
     },
@@ -24339,7 +24339,7 @@
       "id": "CARD.THE_GAMBIT",
       "times_lost": 0,
       "times_picked": 0,
-      "times_skipped": 17,
+      "times_skipped": 18,
       "times_won": 0
     },
     {
@@ -24682,7 +24682,7 @@
       "id": "CARD.STRATAGEM",
       "times_lost": 1,
       "times_picked": 0,
-      "times_skipped": 10,
+      "times_skipped": 11,
       "times_won": 0
     },
     {
@@ -26962,8 +26962,8 @@
     },
     {
       "id": "CARD.DRUM_OF_BATTLE",
-      "times_lost": 2,
-      "times_picked": 1,
+      "times_lost": 3,
+      "times_picked": 2,
       "times_skipped": 8,
       "times_won": 2
     },
@@ -26971,7 +26971,7 @@
       "id": "CARD.PACTS_END",
       "times_lost": 1,
       "times_picked": 1,
-      "times_skipped": 4,
+      "times_skipped": 5,
       "times_won": 0
     },
     {
@@ -27116,8 +27116,8 @@
     },
     {
       "id": "CARD.BARRICADE",
-      "times_lost": 3,
-      "times_picked": 6,
+      "times_lost": 4,
+      "times_picked": 7,
       "times_skipped": 3,
       "times_won": 3
     },
@@ -27158,7 +27158,7 @@
     },
     {
       "id": "CARD.REBOUND",
-      "times_lost": 2,
+      "times_lost": 3,
       "times_picked": 0,
       "times_skipped": 0,
       "times_won": 1
@@ -27256,7 +27256,7 @@
     },
     {
       "id": "CARD.SPLASH",
-      "times_lost": 5,
+      "times_lost": 6,
       "times_picked": 0,
       "times_skipped": 2,
       "times_won": 3
@@ -27396,7 +27396,7 @@
     },
     {
       "id": "CARD.ASCENDERS_BANE",
-      "times_lost": 7,
+      "times_lost": 8,
       "times_picked": 0,
       "times_skipped": 0,
       "times_won": 0
@@ -27420,7 +27420,7 @@
     {
       "badges": [
         {
-          "count": 9,
+          "count": 10,
           "id": "ELITE",
           "rarity": "bronze"
         },
@@ -27480,9 +27480,9 @@
       "fastest_win_time": 2971,
       "id": "CHARACTER.IRONCLAD",
       "max_ascension": 5,
-      "playtime": 68792,
+      "playtime": 71671,
       "preferred_ascension": 5,
-      "total_losses": 16,
+      "total_losses": 17,
       "total_wins": 6
     },
     {
@@ -28753,7 +28753,8 @@
     "RELIC.WINGED_BOOTS",
     "RELIC.PAELS_LEGION",
     "RELIC.BLESSED_ANTLER",
-    "RELIC.PAELS_EYE"
+    "RELIC.PAELS_EYE",
+    "RELIC.MAW_BANK"
   ],
   "enable_ftues": true,
   "encounter_stats": [
@@ -29153,7 +29154,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 8
+          "wins": 9
         },
         {
           "character": "CHARACTER.SILENT",
@@ -29388,7 +29389,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 7
+          "wins": 8
         },
         {
           "character": "CHARACTER.SILENT",
@@ -29418,7 +29419,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 9
+          "wins": 10
         },
         {
           "character": "CHARACTER.REGENT",
@@ -29448,7 +29449,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 4
+          "wins": 5
         },
         {
           "character": "CHARACTER.SILENT",
@@ -29478,7 +29479,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 7
+          "wins": 8
         },
         {
           "character": "CHARACTER.REGENT",
@@ -29508,7 +29509,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 2,
-          "wins": 8
+          "wins": 9
         },
         {
           "character": "CHARACTER.SILENT",
@@ -30038,7 +30039,7 @@
         {
           "character": "CHARACTER.NECROBINDER",
           "losses": 0,
-          "wins": 6
+          "wins": 7
         },
         {
           "character": "CHARACTER.DEFECT",
@@ -30048,7 +30049,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 5
+          "wins": 6
         }
       ]
     },
@@ -30078,7 +30079,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 10
+          "wins": 11
         }
       ]
     },
@@ -30093,7 +30094,7 @@
         {
           "character": "CHARACTER.NECROBINDER",
           "losses": 0,
-          "wins": 10
+          "wins": 11
         },
         {
           "character": "CHARACTER.DEFECT",
@@ -30103,7 +30104,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 9
+          "wins": 10
         },
         {
           "character": "CHARACTER.REGENT",
@@ -30188,7 +30189,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 6
+          "wins": 7
         },
         {
           "character": "CHARACTER.DEFECT",
@@ -30253,7 +30254,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 1
+          "wins": 2
         }
       ]
     },
@@ -30273,7 +30274,7 @@
         {
           "character": "CHARACTER.NECROBINDER",
           "losses": 0,
-          "wins": 10
+          "wins": 11
         },
         {
           "character": "CHARACTER.DEFECT",
@@ -30303,7 +30304,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 1,
-          "wins": 3
+          "wins": 4
         },
         {
           "character": "CHARACTER.DEFECT",
@@ -30333,7 +30334,7 @@
         {
           "character": "CHARACTER.NECROBINDER",
           "losses": 0,
-          "wins": 9
+          "wins": 10
         },
         {
           "character": "CHARACTER.IRONCLAD",
@@ -30368,7 +30369,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 8
+          "wins": 9
         },
         {
           "character": "CHARACTER.DEFECT",
@@ -30463,7 +30464,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 2
+          "wins": 3
         }
       ]
     },
@@ -30482,7 +30483,7 @@
         },
         {
           "character": "CHARACTER.IRONCLAD",
-          "losses": 3,
+          "losses": 4,
           "wins": 3
         },
         {
@@ -30603,7 +30604,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 1
+          "wins": 2
         },
         {
           "character": "CHARACTER.SILENT",
@@ -31063,7 +31064,7 @@
         {
           "character": "CHARACTER.NECROBINDER",
           "losses": 1,
-          "wins": 2
+          "wins": 3
         },
         {
           "character": "CHARACTER.SILENT",
@@ -31550,7 +31551,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 15
+          "wins": 16
         },
         {
           "character": "CHARACTER.SILENT",
@@ -31610,7 +31611,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 12
+          "wins": 14
         },
         {
           "character": "CHARACTER.SILENT",
@@ -31730,7 +31731,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 8
+          "wins": 9
         },
         {
           "character": "CHARACTER.SILENT",
@@ -32130,7 +32131,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 6
+          "wins": 8
         },
         {
           "character": "CHARACTER.SILENT",
@@ -32160,7 +32161,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 9
+          "wins": 10
         },
         {
           "character": "CHARACTER.REGENT",
@@ -32190,7 +32191,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 4
+          "wins": 5
         },
         {
           "character": "CHARACTER.SILENT",
@@ -32220,7 +32221,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 2,
-          "wins": 8
+          "wins": 9
         },
         {
           "character": "CHARACTER.SILENT",
@@ -32250,7 +32251,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 2,
-          "wins": 8
+          "wins": 9
         },
         {
           "character": "CHARACTER.SILENT",
@@ -32280,7 +32281,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 2,
-          "wins": 8
+          "wins": 9
         },
         {
           "character": "CHARACTER.SILENT",
@@ -33010,7 +33011,7 @@
         {
           "character": "CHARACTER.NECROBINDER",
           "losses": 0,
-          "wins": 6
+          "wins": 7
         },
         {
           "character": "CHARACTER.DEFECT",
@@ -33020,7 +33021,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 7
+          "wins": 8
         }
       ]
     },
@@ -33050,7 +33051,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 12
+          "wins": 13
         }
       ]
     },
@@ -33065,7 +33066,7 @@
         {
           "character": "CHARACTER.NECROBINDER",
           "losses": 0,
-          "wins": 10
+          "wins": 11
         },
         {
           "character": "CHARACTER.DEFECT",
@@ -33075,7 +33076,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 9
+          "wins": 10
         },
         {
           "character": "CHARACTER.REGENT",
@@ -33195,7 +33196,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 6
+          "wins": 7
         },
         {
           "character": "CHARACTER.DEFECT",
@@ -33320,7 +33321,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 1
+          "wins": 2
         }
       ]
     },
@@ -33340,7 +33341,7 @@
         {
           "character": "CHARACTER.NECROBINDER",
           "losses": 0,
-          "wins": 10
+          "wins": 11
         },
         {
           "character": "CHARACTER.DEFECT",
@@ -33370,7 +33371,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 1,
-          "wins": 3
+          "wins": 4
         },
         {
           "character": "CHARACTER.DEFECT",
@@ -33400,7 +33401,7 @@
         {
           "character": "CHARACTER.NECROBINDER",
           "losses": 0,
-          "wins": 9
+          "wins": 10
         },
         {
           "character": "CHARACTER.IRONCLAD",
@@ -33435,7 +33436,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 8
+          "wins": 9
         },
         {
           "character": "CHARACTER.DEFECT",
@@ -33549,7 +33550,7 @@
         },
         {
           "character": "CHARACTER.IRONCLAD",
-          "losses": 3,
+          "losses": 4,
           "wins": 3
         },
         {
@@ -33579,7 +33580,7 @@
         },
         {
           "character": "CHARACTER.IRONCLAD",
-          "losses": 3,
+          "losses": 4,
           "wins": 3
         },
         {
@@ -33670,7 +33671,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 1
+          "wins": 2
         },
         {
           "character": "CHARACTER.SILENT",
@@ -33855,7 +33856,7 @@
         {
           "character": "CHARACTER.IRONCLAD",
           "losses": 0,
-          "wins": 3
+          "wins": 4
         }
       ]
     },
@@ -34150,7 +34151,7 @@
         {
           "character": "CHARACTER.NECROBINDER",
           "losses": 1,
-          "wins": 2
+          "wins": 3
         },
         {
           "character": "CHARACTER.SILENT",
@@ -34602,7 +34603,7 @@
       "state": "revealed"
     }
   ],
-  "floors_climbed": 4531,
+  "floors_climbed": 4564,
   "ftue_completed": [
     "accept_tutorials_ftue",
     "map_select_ftue",
@@ -34624,7 +34625,7 @@
   "preferred_multiplayer_ascension": 2,
   "schema_version": 21,
   "test_subject_kills": 32,
-  "total_playtime": 406144,
+  "total_playtime": 409023,
   "total_unlocks": 18,
   "unique_id": "BNNXAC6",
   "unlocked_achievements": [],
@@ -43395,17 +43396,19 @@
 
       drawCornerBraces(ctx, 16, 16, W - 32, H - 32, 32, '#fbbf24');
 
-      // 6. Header Bar (y: 36 to 92)
+      // 6. Header Bar (y: 36 to 82)
       ctx.font = 'bold 26px "Cinzel", Georgia, serif';
       const titleGrad = ctx.createLinearGradient(48, 0, 360, 0);
       titleGrad.addColorStop(0, '#fef08a');
       titleGrad.addColorStop(1, '#fbbf24');
       ctx.fillStyle = titleGrad;
-      ctx.fillText('🔥 NEOW\'S LEDGER', 48, 66);
+      const titleText = "🔥 NEOW'S LEDGER";
+      ctx.fillText(titleText, 48, 66);
 
+      const titleW = ctx.measureText(titleText).width;
       ctx.font = '700 13px "Outfit", sans-serif';
       ctx.fillStyle = '#94a3b8';
-      ctx.fillText('•  SLAY THE SPIRE 2 RUN CHRONICLE', 276, 64);
+      ctx.fillText('•  SLAY THE SPIRE 2 RUN CHRONICLE', 48 + titleW + 16, 64);
 
       // Outcome Quote / Flavor (Center)
       ctx.font = 'italic 14px "Outfit", sans-serif';
@@ -43420,8 +43423,8 @@
       // Watermark Pill (Right)
       drawWatermarkPill(ctx, W - 420, 42, 372, 36, '🌐 slay-the-spire-2-tracker.web.app');
 
-      // 7. Hero Profile & Telemetry Card (y: 98 to 226, h: 128)
-      const heroCardY = 98;
+      // 7. Hero Profile & Telemetry Card (y: 90 to 218, h: 128)
+      const heroCardY = 90;
       const heroCardH = 128;
       drawCardBox(ctx, 48, heroCardY, W - 96, heroCardH, 'rgba(17, 24, 39, 0.85)', 'rgba(255, 255, 255, 0.1)');
 
@@ -43469,6 +43472,59 @@
       ctx.fillStyle = '#94a3b8';
       ctx.fillText('Floor ' + floors + ' reached  •  ⏱️ ' + duration + '  •  🎲 Seed: ' + seed + '  •  🩸 ' + finalHp + '/' + finalMaxHp + ' HP  •  💰 ' + finalGold + 'g', 188, heroCardY + 104);
 
+      // Nemesis / Cause of Death / Final Boss Resolution
+      let nemesisLabel = '💀 KILLED BY';
+      let nemesisVal = 'Unknown Foe';
+      let nemesisSub = 'Floor ' + floors + ' • Nemesis';
+      let nemesisAccent = '#f43f5e';
+
+      if (isWin) {
+        nemesisLabel = '👑 CONQUERED';
+        nemesisAccent = '#fbbf24';
+        nemesisSub = 'Victory Claimed 🏆';
+        let lastBoss = null;
+        if (run.map_point_history && run.map_point_history.length > 0) {
+          for (let i = run.map_point_history.length - 1; i >= 0; i--) {
+            const act = run.map_point_history[i];
+            const nodes = Array.isArray(act) ? act : [act];
+            for (let j = nodes.length - 1; j >= 0; j--) {
+              const node = nodes[j];
+              const isBoss = (node.map_point_type === 'boss') || (node.rooms && node.rooms.some(r => r.room_type === 'boss'));
+              if (isBoss) {
+                if (node.rooms && node.rooms[0] && node.rooms[0].encounter_id && node.rooms[0].encounter_id !== 'NONE.NONE') {
+                  lastBoss = cleanId(node.rooms[0].encounter_id);
+                } else if (node.encounter_id && node.encounter_id !== 'NONE.NONE') {
+                  lastBoss = cleanId(node.encounter_id);
+                }
+                break;
+              }
+            }
+            if (lastBoss) break;
+          }
+        }
+        nemesisVal = lastBoss || 'Spire Vanquished';
+      } else if (isAbandoned) {
+        nemesisLabel = '🚪 RUN END';
+        nemesisVal = 'Abandoned';
+        nemesisSub = 'Floor ' + floors + ' • Forfeited';
+        nemesisAccent = '#f59e0b';
+      } else {
+        if (run.killed_by_encounter && run.killed_by_encounter !== 'NONE.NONE') {
+          nemesisVal = cleanId(run.killed_by_encounter);
+        } else if (run.killed_by_event && run.killed_by_event !== 'NONE.NONE') {
+          nemesisVal = cleanId(run.killed_by_event);
+        } else {
+          if (run.map_point_history && run.map_point_history.length > 0) {
+            const lastAct = run.map_point_history[run.map_point_history.length - 1];
+            const lastNode = Array.isArray(lastAct) ? lastAct[lastAct.length - 1] : lastAct;
+            if (lastNode && lastNode.rooms && lastNode.rooms[0] && lastNode.rooms[0].encounter_id && lastNode.rooms[0].encounter_id !== 'NONE.NONE') {
+              nemesisVal = cleanId(lastNode.rooms[0].encounter_id);
+            }
+          }
+        }
+        nemesisSub = 'Floor ' + floors + ' • Nemesis';
+      }
+
       // 4 Telemetry KPI Cards (Right Side of Hero Bar)
       const kpiW = 180;
       const kpiH = 96;
@@ -43479,50 +43535,60 @@
       kX += kpiW + 12;
       drawCanvasKpi(ctx, kX, kpiY, kpiW, kpiH, '🩸 DAMAGE TAKEN', '-' + totalDmgTaken + ' HP', 'Loss total', '#f87171');
       kX += kpiW + 12;
-      drawCanvasKpi(ctx, kX, kpiY, kpiW, kpiH, '⚡ PEAK COMBAT', '~' + (peakFight ? peakFight.dmg.toLocaleString() : '0'), peakFight ? ('Floor ' + peakFight.floor) : 'No data', '#eab308');
+      drawCanvasKpi(ctx, kX, kpiY, kpiW, kpiH, nemesisLabel, nemesisVal, nemesisSub, nemesisAccent);
       kX += kpiW + 12;
       drawCanvasKpi(ctx, kX, kpiY, kpiW, kpiH, '🏕️ CAMPFIRES', rests + 'R / ' + smiths + 'S', 'Rest & Smith', '#34d399');
 
-      // 8. Act Progression & Pathing (y: 236 to 340, h: 104)
-      const pathCardY = 236;
-      const pathCardH = 104;
+      // 8. Act Progression & Pathing (y: 226 to 376, h: 150)
+      const pathCardY = 226;
+      const pathCardH = 150;
       drawCardBox(ctx, 48, pathCardY, W - 96, pathCardH, 'rgba(13, 18, 30, 0.9)', 'rgba(255, 255, 255, 0.08)');
 
       ctx.font = 'bold 11px "Outfit", sans-serif';
       ctx.fillStyle = '#94a3b8';
       ctx.fillText('🗺️ CLIMB PROGRESSION & ACT PATHING', 64, pathCardY + 22);
 
+      // Dedicated visual legend on top-right of path card
+      ctx.font = '600 11.5px "Outfit", sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillStyle = '#cbd5e1';
+      ctx.fillText('⚔️ Combat   👹 Elite   👑 Boss   🔥 Rest   💰 Shop   ❓ Event   📦 Chest', W - 64, pathCardY + 22);
+      ctx.textAlign = 'left';
+
       if (run.map_point_history && run.map_point_history.length > 0) {
-        const actRowH = 22;
+        const actRowH = 36;
+        const nodeSize = 26;
         run.map_point_history.forEach((act, aIdx) => {
-          const actY = pathCardY + 36 + aIdx * actRowH;
-          const rawName = (run.acts && run.acts[aIdx]) ? run.acts[aIdx].replace('ACT.', '') : ('ACT ' + (aIdx + 1));
+          const actY = pathCardY + 34 + aIdx * actRowH;
+          const actTitle = (run.acts && run.acts[aIdx]) 
+            ? ('ACT ' + (aIdx + 1) + ': ' + cleanId(run.acts[aIdx]).toUpperCase())
+            : ('ACT ' + (aIdx + 1));
           
-          ctx.font = 'bold 11px "Outfit", sans-serif';
-          ctx.fillStyle = '#eab308';
-          ctx.fillText(rawName.toUpperCase(), 64, actY + 12);
+          ctx.font = 'bold 11.5px "Outfit", sans-serif';
+          ctx.fillStyle = '#fbbf24';
+          ctx.fillText(actTitle, 64, actY + 17);
 
           const nodes = Array.isArray(act) ? act : [act];
-          let nX = 180;
+          let nX = 216;
           nodes.forEach((node, nIdx) => {
             const nt = node.map_point_type || (node.rooms && node.rooms[0] && node.rooms[0].room_type) || 'unknown';
-            drawNodeGlyph(ctx, nX, actY + 1, 16, nt);
+            drawNodeGlyph(ctx, nX, actY + 1, nodeSize, nt);
             if (nIdx < nodes.length - 1) {
-              ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
-              ctx.lineWidth = 1;
+              ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+              ctx.lineWidth = 1.5;
               ctx.beginPath();
-              ctx.moveTo(nX + 18, actY + 9);
-              ctx.lineTo(nX + 24, actY + 9);
+              ctx.moveTo(nX + nodeSize + 2, actY + 14);
+              ctx.lineTo(nX + nodeSize + 7, actY + 14);
               ctx.stroke();
             }
-            nX += 28;
+            nX += nodeSize + 9;
           });
         });
       }
 
-      // 9. Relic Belt Showcase (y: 350 to 486, h: 136)
-      const relicCardY = 350;
-      const relicCardH = 136;
+      // 9. Relic Belt Showcase (y: 384 to 524, h: 140)
+      const relicCardY = 384;
+      const relicCardH = 140;
       drawCardBox(ctx, 48, relicCardY, W - 96, relicCardH, 'rgba(13, 18, 30, 0.9)', 'rgba(255, 255, 255, 0.08)');
 
       ctx.font = 'bold 11px "Outfit", sans-serif';
@@ -43560,42 +43626,42 @@
         ctx.textAlign = 'left';
       }
 
-      // 10. Complete Decklist Showcase (y: 496 to 1008, h: 512)
-      const deckCardY = 496;
-      const deckCardH = 512;
-      drawCardBox(ctx, 48, deckCardY, W - 96, deckCardH, 'rgba(13, 18, 30, 0.9)', 'rgba(255, 255, 255, 0.08)');
+      // 10. Complete Decklist Showcase (y: 540 to 1020, h: 480)
+      const deckCardY = 540;
+      const deckCardH = 478;
 
+      // Section title above panels
       ctx.font = 'bold 12px "Outfit", sans-serif';
       ctx.fillStyle = '#94a3b8';
-      ctx.fillText('🃏 COMPLETE DECKLIST (' + totalCards + ' Cards • ' + upgradedCards + ' Upgraded • ' + upgPct + '% Upgraded)', 64, deckCardY + 24);
+      ctx.fillText('🃏 DECK COMPOSITION (' + totalCards + ' Cards • ' + upgradedCards + ' Upgraded • ' + upgPct + '% Upgraded)', 48, deckCardY - 8);
 
-      // 3 Columns: Attacks (left), Skills (center), Powers & Other (right)
-      const colW = 580;
-      const col1X = 64;
-      const col2X = col1X + colW + 28;
-      const col3X = col2X + colW + 28;
-      const colHeaderY = deckCardY + 50;
+      const panelW = Math.floor((W - 96 - 32) / 3); // 597
+      const panelH = deckCardH; // 478
+      const p1X = 48;
+      const p2X = p1X + panelW + 16;
+      const p3X = p2X + panelW + 16;
+      const panelY = deckCardY + 4;
 
-      // Attacks Column
-      drawDeckColumn(ctx, col1X, colHeaderY, colW, '⚔️ ATTACKS (' + attacks.length + ')', attacks, '#f43f5e');
+      // Attacks Panel
+      drawDeckCategoryPanel(ctx, p1X, panelY, panelW, panelH - 12, '⚔️', 'ATTACKS', attacks, '#f43f5e');
 
-      // Skills Column
-      drawDeckColumn(ctx, col2X, colHeaderY, colW, '🛡️ SKILLS (' + skills.length + ')', skills, '#38bdf8');
+      // Skills Panel
+      drawDeckCategoryPanel(ctx, p2X, panelY, panelW, panelH - 12, '🛡️', 'SKILLS', skills, '#38bdf8');
 
-      // Powers & Other Column
+      // Powers & Other Panel
       const powersAndOther = [...powers, ...others];
-      drawDeckColumn(ctx, col3X, colHeaderY, colW, '⚡ POWERS & OTHER (' + powersAndOther.length + ')', powersAndOther, '#c084fc');
+      drawDeckCategoryPanel(ctx, p3X, panelY, panelW, panelH - 12, '⚡', 'POWERS & OTHER', powersAndOther, '#c084fc');
 
-      // 11. Footer Strip (y: 1018 to 1060)
+      // 11. Footer Strip (y: 1028 to 1060)
       ctx.font = '11.5px "Outfit", sans-serif';
       ctx.fillStyle = '#94a3b8';
       const honors = (p.badges || []).map(b => cleanId(b.id)).filter(Boolean);
       const honorsText = honors.length > 0 ? ('🎖️ Honors: ' + honors.slice(0, 5).join(' • ')) : '🎖️ Climb Authenticated & Recorded';
-      ctx.fillText(honorsText, 48, 1046);
+      ctx.fillText(honorsText, 48, 1048);
 
       ctx.textAlign = 'right';
       ctx.fillStyle = '#cbd5e1';
-      ctx.fillText('Track your climbs, inspect detailed telemetry, and join the global leaderboard at slay-the-spire-2-tracker.web.app', W - 48, 1046);
+      ctx.fillText('Track your climbs, inspect detailed telemetry, and join the global leaderboard at slay-the-spire-2-tracker.web.app', W - 48, 1048);
       ctx.textAlign = 'left';
     }
 
@@ -43682,7 +43748,7 @@
     }
 
     function drawCanvasKpi(ctx, x, y, w, h, label, val, sub, accent) {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.45)';
       roundRectPath(ctx, x, y, w, h, 8);
       ctx.fill();
 
@@ -43692,15 +43758,21 @@
 
       // Top colored accent stripe
       ctx.fillStyle = accent;
-      ctx.fillRect(x + 12, y, w - 24, 2);
+      ctx.fillRect(x + 10, y, w - 20, 2);
 
       ctx.font = 'bold 10px "Outfit", sans-serif';
       ctx.fillStyle = '#94a3b8';
       ctx.fillText(label, x + 10, y + 20);
 
-      ctx.font = 'bold 21px "Outfit", sans-serif';
+      // Dynamic font scaling for val so enemy names or numbers fit nicely
+      const valStr = String(val || '');
+      let fontSize = 20;
+      if (valStr.length > 18) fontSize = 13.5;
+      else if (valStr.length > 14) fontSize = 15;
+      else if (valStr.length > 11) fontSize = 17.5;
+      ctx.font = 'bold ' + fontSize + 'px "Outfit", sans-serif';
       ctx.fillStyle = accent;
-      ctx.fillText(val, x + 10, y + 48);
+      ctx.fillText(valStr, x + 10, y + 49);
 
       ctx.font = '11px "Outfit", sans-serif';
       ctx.fillStyle = '#64748b';
@@ -43710,28 +43782,28 @@
     function drawNodeGlyph(ctx, x, y, size, nt) {
       const glyphMap = {
         monster: { icon: '⚔️', color: 'rgba(255,255,255,0.08)', border: '#64748b' },
-        elite: { icon: '👹', color: 'rgba(244,63,94,0.18)', border: '#f43f5e' },
-        boss: { icon: '👑', color: 'rgba(234,179,8,0.22)', border: '#fbbf24' },
-        rest_site: { icon: '🔥', color: 'rgba(249,115,22,0.18)', border: '#f97316' },
-        shop: { icon: '💰', color: 'rgba(16,185,129,0.18)', border: '#10b981' },
-        event: { icon: '❓', color: 'rgba(192,132,252,0.18)', border: '#c084fc' },
-        unknown: { icon: '❓', color: 'rgba(192,132,252,0.18)', border: '#c084fc' },
-        treasure: { icon: '📦', color: 'rgba(56,189,248,0.18)', border: '#38bdf8' },
-        ancient: { icon: '🏛️', color: 'rgba(168,85,247,0.22)', border: '#a855f7' }
+        elite: { icon: '👹', color: 'rgba(244,63,94,0.22)', border: '#f43f5e' },
+        boss: { icon: '👑', color: 'rgba(234,179,8,0.25)', border: '#fbbf24' },
+        rest_site: { icon: '🔥', color: 'rgba(249,115,22,0.22)', border: '#f97316' },
+        shop: { icon: '💰', color: 'rgba(16,185,129,0.22)', border: '#10b981' },
+        event: { icon: '❓', color: 'rgba(192,132,252,0.22)', border: '#c084fc' },
+        unknown: { icon: '❓', color: 'rgba(192,132,252,0.22)', border: '#c084fc' },
+        treasure: { icon: '📦', color: 'rgba(56,189,248,0.22)', border: '#38bdf8' },
+        ancient: { icon: '🏛️', color: 'rgba(168,85,247,0.25)', border: '#a855f7' }
       };
       const g = glyphMap[nt] || glyphMap.unknown;
 
       ctx.fillStyle = g.color;
-      roundRectPath(ctx, x, y, size, size, 4);
+      roundRectPath(ctx, x, y, size, size, 6);
       ctx.fill();
 
       ctx.strokeStyle = g.border;
-      ctx.lineWidth = 1;
+      ctx.lineWidth = 1.5;
       ctx.stroke();
 
-      ctx.font = '11px sans-serif';
+      ctx.font = '14px sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(g.icon, x + size / 2, y + size - 3);
+      ctx.fillText(g.icon, x + size / 2, y + size - 5);
       ctx.textAlign = 'left';
     }
 
@@ -43776,16 +43848,57 @@
       ctx.textAlign = 'left';
     }
 
-    function drawDeckColumn(ctx, x, y, w, title, cards, accent) {
-      ctx.font = 'bold 12px "Outfit", sans-serif';
-      ctx.fillStyle = accent;
-      ctx.fillText(title, x, y);
+    function drawDeckCategoryPanel(ctx, x, y, w, h, icon, title, cards, accent) {
+      // Category Box
+      ctx.fillStyle = 'rgba(13, 18, 30, 0.85)';
+      roundRectPath(ctx, x, y, w, h, 10);
+      ctx.fill();
 
-      const subColW = (w - 12) / 2;
-      const startY = y + 14;
-      const chipH = 26;
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // Top colored accent stripe
+      ctx.fillStyle = accent;
+      ctx.fillRect(x + 12, y, w - 24, 2.5);
+
+      // Header Bar inside Panel
+      ctx.font = 'bold 13px "Outfit", sans-serif';
+      ctx.fillStyle = accent;
+      ctx.fillText(icon + ' ' + title + ' (' + cards.length + ')', x + 14, y + 24);
+
+      // Count Upgraded
+      const upgCount = cards.filter(c => c.level > 0).length;
+      if (upgCount > 0) {
+        ctx.font = 'bold 11px "Outfit", sans-serif';
+        ctx.fillStyle = '#4ade80';
+        ctx.textAlign = 'right';
+        ctx.fillText('⚡ ' + upgCount + ' Upgraded', x + w - 14, y + 24);
+        ctx.textAlign = 'left';
+      }
+
+      // Subtle separator line
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.06)';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(x + 12, y + 34);
+      ctx.lineTo(x + w - 12, y + 34);
+      ctx.stroke();
+
+      if (cards.length === 0) {
+        ctx.font = 'italic 12px "Outfit", sans-serif';
+        ctx.fillStyle = '#64748b';
+        ctx.textAlign = 'center';
+        ctx.fillText('(No ' + title.toLowerCase() + ' cards in deck)', x + w / 2, y + 80);
+        ctx.textAlign = 'left';
+        return;
+      }
+
+      const startY = y + 44;
+      const chipH = 25;
       const chipGap = 5;
-      const maxRowsPerSubCol = 14;
+      const maxRowsPerSubCol = 13;
+      const subColW = Math.floor((w - 28 - 10) / 2);
 
       const rarityStripe = {
         Basic: '#94a3b8',
@@ -43799,25 +43912,24 @@
 
       for (let i = 0; i < cards.length; i++) {
         if (i >= maxRowsPerSubCol * 2) {
-          // If overflow, show +X more
           const remaining = cards.length - i;
           const subIdx = 1;
           const rIdx = maxRowsPerSubCol - 1;
-          const cx = x + subIdx * (subColW + 12);
+          const cx = x + 14 + subIdx * (subColW + 10);
           const cy = startY + rIdx * (chipH + chipGap);
           ctx.fillStyle = 'rgba(255,255,255,0.05)';
           roundRectPath(ctx, cx, cy, subColW, chipH, 5);
           ctx.fill();
           ctx.font = 'italic 11px "Outfit", sans-serif';
           ctx.fillStyle = '#94a3b8';
-          ctx.fillText('+ ' + remaining + ' more cards', cx + 12, cy + 17);
+          ctx.fillText('+ ' + remaining + ' more cards', cx + 10, cy + 17);
           break;
         }
 
         const c = cards[i];
         const subColIdx = Math.floor(i / maxRowsPerSubCol);
         const rowIdx = i % maxRowsPerSubCol;
-        const cx = x + subColIdx * (subColW + 12);
+        const cx = x + 14 + subColIdx * (subColW + 10);
         const cy = startY + rowIdx * (chipH + chipGap);
 
         // Chip box
@@ -43840,18 +43952,32 @@
         ctx.closePath();
         ctx.fill();
 
-        // Card name text
+        // Card quantity / name
+        let textX = cx + 12;
+        if (c.count > 1) {
+          ctx.font = 'bold 11px "Outfit", sans-serif';
+          ctx.fillStyle = '#fbbf24';
+          const qStr = c.count + 'x ';
+          ctx.fillText(qStr, textX, cy + 17);
+          textX += ctx.measureText(qStr).width;
+        }
+
         ctx.font = '600 11.5px "Outfit", sans-serif';
         ctx.fillStyle = '#f8fafc';
-        const qStr = c.count > 1 ? (c.count + 'x ') : '';
-        ctx.fillText(qStr + c.name, cx + 12, cy + 17);
+        let cardDisplayName = c.name;
+        const maxNameW = subColW - (textX - cx) - 34;
+        while (cardDisplayName.length > 4 && ctx.measureText(cardDisplayName).width > maxNameW) {
+          cardDisplayName = cardDisplayName.substring(0, cardDisplayName.length - 1);
+        }
+        if (cardDisplayName !== c.name) cardDisplayName += '..';
+        ctx.fillText(cardDisplayName, textX, cy + 17);
+        textX += ctx.measureText(cardDisplayName).width;
 
         // Green + upgrade mark
         if (c.level > 0) {
-          const nameW = ctx.measureText(qStr + c.name).width;
           ctx.font = 'bold 13px "Outfit", sans-serif';
           ctx.fillStyle = '#4ade80';
-          ctx.fillText('+', cx + 12 + nameW + 2, cy + 17);
+          ctx.fillText('+', textX + 2, cy + 17);
         }
 
         // Cost badge on right

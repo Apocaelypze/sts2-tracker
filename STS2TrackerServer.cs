@@ -32,7 +32,7 @@ namespace STS2Tracker
         private static DateTime lastHeartbeat = DateTime.UtcNow;
         private static bool clientConnected = false;
         private static readonly DateTime serverStartTime = DateTime.UtcNow;
-        private static readonly string AppVersion = "v1.3.3";
+        private static readonly string AppVersion = "v1.3.4";
         private static HttpListener httpListener = null;
         private static int closeSequenceId = 0;
         private static volatile bool isUpdatingCompanion = false;
@@ -1372,7 +1372,7 @@ namespace STS2Tracker
             }
         }
 
-        private static string cachedRemoteVersion = "v1.3.3";
+        private static string cachedRemoteVersion = "v1.3.4";
         private static DateTime lastRemoteCheck = DateTime.MinValue;
 
         private static string GetCachedRemoteVersion()
@@ -1434,6 +1434,14 @@ namespace STS2Tracker
                 if (color.HasValue) Console.ForegroundColor = color.Value;
                 Console.WriteLine(msg);
                 if (color.HasValue) Console.ResetColor();
+            }
+            catch { }
+            try
+            {
+                string logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "STS2Tracker");
+                Directory.CreateDirectory(logDir);
+                string logPath = Path.Combine(logDir, "sts2_tracker.log");
+                File.AppendAllText(logPath, "[" + DateTime.UtcNow.ToString("HH:mm:ss.fff") + "] " + msg + Environment.NewLine);
             }
             catch { }
         }
