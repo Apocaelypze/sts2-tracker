@@ -3384,10 +3384,10 @@
 
       <div class="header-actions">
         <!-- Web Download Desktop App Button (hidden when running inside Desktop App) -->
-        <button class="btn-desktop-app" id="btnHeaderDesktopApp" onclick="openAppDownloadModal()" title="Download standalone Desktop App companion (v1.3.2)">
+        <button class="btn-desktop-app" id="btnHeaderDesktopApp" onclick="openAppDownloadModal()" title="Download standalone Desktop App companion (v1.3.3)">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
           <span id="headerDesktopAppText">Desktop App</span>
-          <span id="headerDesktopAppVersion" style="font-size: 10px; opacity: 0.75; font-family: var(--font-mono); font-weight: 700; margin-left: 2px;">v1.3.2</span>
+          <span id="headerDesktopAppVersion" style="font-size: 10px; opacity: 0.75; font-family: var(--font-mono); font-weight: 700; margin-left: 2px;">v1.3.3</span>
         </button>
 
         <button class="btn-primary" id="btnHeaderUploadRun" onclick="openLoadSavesModal()" title="Upload your runs and join the global leaderboard" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; font-size: 12px; font-weight: 700; background: linear-gradient(135deg, #10b981, #059669); border: 1px solid #34d399; box-shadow: 0 2px 10px rgba(16, 185, 129, 0.25);">
@@ -3398,7 +3398,7 @@
         <!-- Exclusive Desktop App Controls (Version Ribbon & 1-Click Cloud Updater on Right Side) -->
         <div id="desktopAppHeaderControls" style="display: none; align-items: center; gap: 6px;">
           <span id="desktopAppVersionPill" style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: #38bdf8; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); padding: 4px 8px; border-radius: 6px; letter-spacing: 0.3px;" title="Current Desktop App Version">
-            v1.3.2
+            v1.3.3
           </span>
           <button class="btn-primary" id="btnDesktopUpdate" onclick="triggerAppUpdate()" title="Restart and auto-update companion to latest version" style="display: none; align-items: center; gap: 5px; padding: 5px 12px; font-size: 11px; font-weight: 700; background: linear-gradient(135deg, #22c55e, #16a34a); border: 1px solid #4ade80; border-radius: 6px; box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4);">
             <span id="btnUpdateIcon">🔄</span> <span id="btnUpdateText">Restart to Update</span>
@@ -4434,7 +4434,7 @@
         </div>
 
         <div style="display: flex; gap: 10px; align-items: center;">
-          <button class="btn-share-modal" onclick="openRunExportCardModal(currentInspectedRun)" title="Export high-definition 16:9 infographic for Reddit, Discord, and social media" style="background: linear-gradient(135deg, rgba(234, 179, 8, 0.2), rgba(245, 158, 11, 0.3)); border: 1px solid #fbbf24; color: #fef08a; padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease; box-shadow: 0 2px 10px rgba(234, 179, 8, 0.25); margin-right: 2px;"><span>📸</span> <span>Export Reddit Card</span></button>
+          <button class="btn-share-modal" onclick="openRunExportCardModal(currentInspectedRun)" title="Export high-resolution 16:9 run infographic card" style="background: linear-gradient(135deg, rgba(234, 179, 8, 0.2), rgba(245, 158, 11, 0.3)); border: 1px solid #fbbf24; color: #fef08a; padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease; box-shadow: 0 2px 10px rgba(234, 179, 8, 0.25); margin-right: 2px;"><span>📸</span> <span>Export Run Card</span></button>
           <button class="btn-share-modal" onclick="openDirectShareModal(currentInspectedRun)" title="Send this run directly to another Slayer's Inbox or copy a direct share link" style="background: linear-gradient(135deg, rgba(192, 132, 252, 0.2), rgba(124, 58, 237, 0.25)); border: 1px solid rgba(192, 132, 252, 0.55); color: #e9d5ff; padding: 7px 14px; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease; box-shadow: 0 2px 10px rgba(168, 85, 247, 0.2);">
             <span>📨</span> <span>Send to Slayer</span>
           </button>
@@ -4714,7 +4714,7 @@
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <div>
           <h2 style="font-family: var(--font-title); color: var(--gold-spire); font-size: 22px; display: flex; align-items: center; gap: 10px;">
-            <span>⚡ Standalone Desktop App <span id="modalAppTitleVer" style="font-size: 13px; color: #38bdf8; font-family: var(--font-mono); border: 1px solid rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.15); padding: 1px 6px; border-radius: 4px;">v1.3.2</span></span>
+            <span>⚡ Standalone Desktop App <span id="modalAppTitleVer" style="font-size: 13px; color: #38bdf8; font-family: var(--font-mono); border: 1px solid rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.15); padding: 1px 6px; border-radius: 4px;">v1.3.3</span></span>
           </h2>
           <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Zero setup &bull; 100% self-contained &bull; Real-time background sync</p>
         </div>
@@ -4725,7 +4725,7 @@
         <div style="background: linear-gradient(135deg, rgba(217, 119, 6, 0.12), rgba(20, 24, 33, 0.95)); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 12px; padding: 20px;">
           <div style="font-weight: 700; color: #fbbf24; font-size: 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
             <span>🚀 1-Click Desktop Companion</span>
-            <span id="modalAppRecVer" style="font-size: 10px; background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: 700;">RECOMMENDED &bull; v1.3.2</span>
+            <span id="modalAppRecVer" style="font-size: 10px; background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: 700;">RECOMMENDED &bull; v1.3.3</span>
           </div>
           <p style="font-size: 13px; color: var(--text-main); line-height: 1.5; margin-bottom: 14px;">
             Direct 1-click standalone executable (<code>STS2Tracker.exe</code>). Just download and double-click to run &mdash; zero unzipping, zero installation, and includes built-in auto-updating:
@@ -5394,7 +5394,7 @@
     </div>
   </div>
 
-    <!-- REDDIT & SOCIAL RUN INFOGRAPHIC EXPORT MODAL -->
+    <!-- RUN INFOGRAPHIC EXPORT MODAL -->
   <div id="runExportCardModal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0, 0, 0, 0.88); backdrop-filter: blur(12px); z-index: 100007; justify-content: center; align-items: center; padding: 20px;" onclick="if(event.target===this) closeRunExportCardModal()">
     <div class="modal-content" style="max-width: min(1500px, 96vw); width: 96vw; max-height: 92vh; display: flex; flex-direction: column; background: var(--bg-card); border-radius: 16px; border: 1px solid rgba(234, 179, 8, 0.45); box-shadow: 0 24px 60px rgba(0, 0, 0, 0.95); overflow: hidden; padding: 0;">
       
@@ -5404,29 +5404,23 @@
           <span style="font-size: 24px;">📸</span>
           <div>
             <h2 style="font-family: var(--font-title); color: var(--gold-spire); font-size: 19px; margin: 0; display: flex; align-items: center; gap: 8px;">
-              <span>Spire Chronicle &bull; Reddit &amp; Social Export</span>
+              <span>Spire Chronicle &bull; Run Infographic</span>
               <span id="exportCardFormatBadge" style="font-size: 10px; background: rgba(234, 179, 8, 0.2); color: #fbbf24; border: 1px solid rgba(234, 179, 8, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: 700;">1920×1080 HD (16:9)</span>
             </h2>
             <div style="font-size: 12px; color: var(--text-dim); margin-top: 2px;">
-              High-resolution infographic and formatted Reddit summary to showcase your victory on r/slaythespire, Discord, and Twitter
+              High-resolution 16:9 infographic card showcasing complete decklist, relics, route, and combat telemetry
             </div>
           </div>
         </div>
 
-        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-          <button id="btnCopyExportImage" onclick="copyExportCardToClipboard()" class="btn-primary" style="padding: 7px 16px; font-size: 12px; font-weight: 800; background: linear-gradient(135deg, #0284c7, #0369a1); border: 1px solid #38bdf8; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 10px rgba(2, 132, 199, 0.35);">
-            <span>📋</span> <span id="btnCopyExportText">Copy Image to Clipboard</span>
-          </button>
-          <button id="btnDownloadExportImage" onclick="downloadExportCardPng()" class="btn-primary" style="padding: 7px 16px; font-size: 12px; font-weight: 800; background: linear-gradient(135deg, #eab308, #ca8a04); border: 1px solid #fbbf24; color: #000; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 10px rgba(234, 179, 8, 0.35);">
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <button id="btnDownloadExportImage" onclick="downloadExportCardPng()" class="btn-primary" style="padding: 8px 18px; font-size: 13px; font-weight: 800; background: linear-gradient(135deg, #eab308, #ca8a04); border: 1px solid #fbbf24; color: #000; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 12px rgba(234, 179, 8, 0.35); cursor: pointer; border-radius: 8px;">
             <span>💾</span> <span>Download PNG (1080p)</span>
           </button>
-          <button id="btnCopyRedditMd" onclick="copyRedditMarkdown()" class="btn-secondary" style="padding: 7px 14px; font-size: 12px; font-weight: 700; color: #c084fc; border-color: rgba(192, 132, 252, 0.4); display: inline-flex; align-items: center; gap: 6px;">
-            <span>📝</span> <span>Copy Reddit Post text</span>
+          <button id="btnCopyExportImage" onclick="copyExportCardToClipboard()" class="btn-primary" style="padding: 8px 18px; font-size: 13px; font-weight: 800; background: linear-gradient(135deg, #0284c7, #0369a1); border: 1px solid #38bdf8; color: #fff; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 12px rgba(2, 132, 199, 0.35); cursor: pointer; border-radius: 8px;">
+            <span>📋</span> <span id="btnCopyExportText">Copy Image</span>
           </button>
-          <button id="btnExportHtmlFromCard" onclick="exportCurrentRun('html')" class="btn-secondary" style="padding: 7px 12px; font-size: 12px;" title="Export interactive self-contained HTML page">
-            <span>🌐</span> <span>HTML Page</span>
-          </button>
-          <button class="modal-close-btn" onclick="closeRunExportCardModal()" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: #fff; width: 32px; height: 32px; border-radius: 8px; font-size: 20px; cursor: pointer;">&times;</button>
+          <button class="modal-close-btn" onclick="closeRunExportCardModal()" style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: #fff; width: 34px; height: 34px; border-radius: 8px; font-size: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; margin-left: 4px;">&times;</button>
         </div>
       </div>
 
@@ -5440,13 +5434,13 @@
         <div id="exportCardCanvasContainer" style="width: 100%; max-width: 1280px; display: none; flex-direction: column; align-items: center; gap: 12px;">
           <canvas id="exportRunCanvas" width="1920" height="1080" style="width: 100%; height: auto; aspect-ratio: 16/9; border-radius: 10px; border: 1.5px solid rgba(234, 179, 8, 0.4); box-shadow: 0 16px 50px rgba(0,0,0,0.85); display: block;"></canvas>
           
-          <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-dim); padding: 8px 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-subtle); border-radius: 8px; flex-wrap: wrap; gap: 8px;">
+          <div style="width: 100%; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--text-dim); padding: 8px 14px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-subtle); border-radius: 8px; flex-wrap: wrap; gap: 8px;">
             <div style="display: flex; align-items: center; gap: 8px;">
               <span>💡</span>
-              <span><strong>Reddit Pro Tip:</strong> Click <strong>Copy Image to Clipboard</strong> and press <kbd style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono);">Ctrl+V</kbd> directly inside Reddit's post creator on <code>r/slaythespire</code>!</span>
+              <span><strong>Quick Share:</strong> Click <strong>Download PNG</strong> to save or <strong>Copy Image</strong> to paste directly into Discord, chat, or social media with <kbd style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono);">Ctrl+V</kbd>.</span>
             </div>
             <div style="font-family: var(--font-mono); color: #38bdf8;">
-              Attribution: slay-the-spire-2-tracker.web.app
+              slay-the-spire-2-tracker.web.app
             </div>
           </div>
         </div>
@@ -5816,7 +5810,7 @@
                 return;
               }
               if (st.is_desktop_app || st.version) {
-                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.3.2');
+                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.3.3');
               }
               if (st.local_player_id && !getLocalSteamId()) {
                 setLocalSteamId(st.local_player_id);
@@ -5858,15 +5852,15 @@
       }
     }
 
-    const LOADED_UI_VERSION = 'v1.3.2';
-    let currentAppVersion = 'v1.3.2';
+    const LOADED_UI_VERSION = 'v1.3.3';
+    let currentAppVersion = 'v1.3.3';
     let isDesktopAppMode = false;
     let detectedSteamPlayerId = null;
     let detectedSteamPersona = null;
     let detectedSteamAccount = null;
     let authSessionPollInterval = null;
     let cloudUpdateAvailable = false;
-    let latestCloudVersion = 'v1.3.2';
+    let latestCloudVersion = 'v1.3.3';
 
     function dismissUpdateBanner() {
       const banner = document.getElementById('discordUpdateBanner');
@@ -6003,7 +5997,7 @@
     }
 
     async function fetchCloudVersionForWeb() {
-      let ver = LOADED_UI_VERSION || 'v1.3.2';
+      let ver = LOADED_UI_VERSION || 'v1.3.3';
       try {
         const resp = await fetch('/version.json?t=' + Date.now());
         if (resp.ok) {
@@ -6035,7 +6029,7 @@
     async function triggerAppUpdate(skipConfirm = true) {
       isUpdatingCompanion = true;
       const originalVersion = currentAppVersion || 'v1.2.3';
-      const targetVersion = latestCloudVersion || 'v1.3.2';
+      const targetVersion = latestCloudVersion || 'v1.3.3';
 
       // Show sleek updating overlay
       let overlay = document.getElementById('appUpdateOverlay');
@@ -6122,9 +6116,8 @@
 
         if (attempts >= maxAttempts) {
           clearInterval(pollInterval);
-          isUpdatingCompanion = false;
           if (statusMsg) {
-            statusMsg.innerHTML = `<span style="color: #f87171;">Companion restart took longer than anticipated.</span><br><br><button onclick="window.location.reload()" class="btn-primary" style="margin-top: 12px; padding: 8px 18px;">Reload Window</button>`;
+            statusMsg.innerHTML = `<span style="color: #f87171;">Companion restart took longer than anticipated.</span><br><br><button onclick="isReloadingPage = true; window.location.reload()" class="btn-primary" style="margin-top: 12px; padding: 8px 18px;">Reload Window</button>`;
           }
         }
       }, 1000);
@@ -6163,7 +6156,7 @@
             return;
           }
           if (st.is_desktop_app || st.version) {
-            enableDesktopAppUI(st.version || 'v1.3.2');
+            enableDesktopAppUI(st.version || 'v1.3.3');
           }
         } else {
           fetchCloudVersionForWeb();
@@ -7633,7 +7626,7 @@
             <button class="btn-share-run" title="Send this run directly to a Slayer's Inbox, copy link, or share">
               <span>📨</span> <span>Share</span>
             </button>
-            <button class="btn-export-reddit" title="Export high-res Reddit & Discord share infographic" style="background: rgba(234, 179, 8, 0.12); border: 1px solid rgba(234, 179, 8, 0.35); color: var(--gold-spire); padding: 5px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 4px; transition: all 0.2s ease;">
+            <button class="btn-export-run-card" title="Export high-resolution 16:9 run infographic card" style="background: rgba(234, 179, 8, 0.12); border: 1px solid rgba(234, 179, 8, 0.35); color: var(--gold-spire); padding: 5px 8px; border-radius: 6px; font-size: 11px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 4px; transition: all 0.2s ease;">
               <span>📸</span> <span>Export</span>
             </button>
           </div>
@@ -7653,7 +7646,7 @@
             openDirectShareModal(r);
           };
         }
-        const exportBtn = card.querySelector('.btn-export-reddit');
+        const exportBtn = card.querySelector('.btn-export-run-card');
         if (exportBtn) {
           exportBtn.onclick = (e) => {
             e.stopPropagation();
@@ -35068,7 +35061,7 @@
       if (typeof id !== 'string') id = String(id || '');
       const clean = id.replace(/^(CARD|RELIC|CHARACTER|ACT|ENCOUNTER|MONSTER|EVENT|POTION|MODIFIER)\./, '')
                       .toLowerCase();
-      const charName = character || (currentInspectedRun && currentInspectedRun.character);
+      const charName = character || (typeof currentInspectedRun !== 'undefined' && currentInspectedRun && currentInspectedRun.character ? currentInspectedRun.character : null);
       if (charName) {
         const cLower = String(charName).toLowerCase();
         if (clean === 'strike' && ['ironclad', 'silent', 'defect', 'necrobinder', 'regent'].includes(cLower)) {
@@ -43177,10 +43170,21 @@
 
     
     // =========================================================================
-    // REDDIT & SOCIAL RUN INFOGRAPHIC EXPORT ENGINE
+    // RUN INFOGRAPHIC EXPORT ENGINE
     // =========================================================================
     let currentExportRun = null;
     let exportCardActivePlayerIdx = 0;
+
+    function hexToRgba(hex, alpha = 1) {
+      if (!hex || typeof hex !== 'string') return `rgba(56, 189, 248, ${alpha})`;
+      let c = hex.replace('#', '').trim();
+      if (c.length === 3) c = c.split('').map(x => x + x).join('');
+      if (c.length === 6) {
+        const num = parseInt(c, 16);
+        return `rgba(${(num >> 16) & 255}, ${(num >> 8) & 255}, ${num & 255}, ${alpha})`;
+      }
+      return hex;
+    }
 
     function openRunExportCardModal(run, targetPlayerIdx = null) {
       if (!run && typeof currentInspectedRun !== 'undefined') run = currentInspectedRun;
@@ -43199,7 +43203,13 @@
 
       const spinner = document.getElementById('exportCardLoadingSpinner');
       const canvasContainer = document.getElementById('exportCardCanvasContainer');
-      if (spinner) spinner.style.display = 'flex';
+      if (spinner) {
+        spinner.style.display = 'flex';
+        spinner.innerHTML = `
+          <div style="width: 44px; height: 44px; border: 3px solid rgba(234, 179, 8, 0.2); border-top-color: var(--gold-spire); border-radius: 50%; animation: stsUpdateSpin 0.9s linear infinite;"></div>
+          <div style="font-size: 13px; color: var(--gold-spire); font-weight: 600;">Composing 1920×1080 HD Infographic...</div>
+        `;
+      }
       if (canvasContainer) canvasContainer.style.display = 'none';
 
       setTimeout(async () => {
@@ -43258,7 +43268,14 @@
       const isCoop = isCoopRun(run);
       const p = getPlayer(run, playerIdx) || (run.players && run.players[0]) || {};
       const cKey = getCharKey(run, playerIdx);
-      const cfg = CHAR_CONFIG[cKey] || { name: cKey, color: '#38bdf8', img: 'ironclad.webp' };
+      const CHAR_CANVAS_THEMES = {
+        'IRONCLAD': { name: 'The Ironclad', color: '#ef4444', img: 'ironclad.webp' },
+        'SILENT': { name: 'The Silent', color: '#10b981', img: 'silent.webp' },
+        'DEFECT': { name: 'The Defect', color: '#38bdf8', img: 'defect.webp' },
+        'REGENT': { name: 'The Regent', color: '#a855f7', img: 'regent.webp' },
+        'NECROBINDER': { name: 'The Necrobinder', color: '#14b8a6', img: 'necrobinder.webp' }
+      };
+      const cfg = CHAR_CANVAS_THEMES[cKey] || { name: cKey || 'Slayer', color: '#38bdf8', img: 'ironclad.webp' };
       const themeColor = cfg.color || '#38bdf8';
       const isWin = run.win;
       const isAbandoned = run.was_abandoned;
@@ -43335,7 +43352,7 @@
           id: r.id,
           name: rd.name || cleanId(r.id),
           rarity: rd.rarity || 'Common',
-          asset: cleanIdForAsset(r.id)
+          asset: cleanIdForAsset(r.id, cKey)
         };
       });
       const rCounts = { Ancient: 0, Rare: 0, Uncommon: 0, Common: 0, Starter: 0, Shop: 0, Event: 0 };
@@ -43360,7 +43377,7 @@
 
       // Character Ambient Glow
       const auraGrad = ctx.createRadialGradient(140, 180, 0, 140, 180, 500);
-      auraGrad.addColorStop(0, themeColor + '22');
+      auraGrad.addColorStop(0, hexToRgba(themeColor, 0.22));
       auraGrad.addColorStop(1, 'transparent');
       ctx.fillStyle = auraGrad;
       ctx.fillRect(0, 0, W, H);
@@ -43445,7 +43462,7 @@
       // Hero Name
       ctx.font = 'bold 28px "Cinzel", Georgia, serif';
       ctx.fillStyle = '#ffffff';
-      ctx.fillText(cfg.name.toUpperCase(), 188, heroCardY + 76);
+      ctx.fillText((cfg.name || cKey || 'Slayer').toUpperCase(), 188, heroCardY + 76);
 
       // Meta Run Strip
       ctx.font = '13.5px "Outfit", sans-serif';
@@ -43857,12 +43874,7 @@
       const resName = run.win ? 'Victory' : (run.was_abandoned ? 'Abandoned' : 'Defeat');
       const filename = 'STS2_Chronicle_' + cKey + '_A' + (run.ascension || 0) + '_' + resName + '_Seed_' + (run.seed || 'run') + '.png';
 
-      canvas.toBlob(blob => {
-        if (!blob) {
-          showToast('❌ Failed to compose image blob.');
-          return;
-        }
-        const url = URL.createObjectURL(blob);
+      const triggerDownload = (url) => {
         const a = document.createElement('a');
         a.href = url;
         a.download = filename;
@@ -43870,151 +43882,66 @@
         a.click();
         setTimeout(() => {
           document.body.removeChild(a);
-          URL.revokeObjectURL(url);
+          if (url.startsWith('blob:')) URL.revokeObjectURL(url);
         }, 1200);
-        showToast('📸 Downloaded ' + filename + '! Ready for Reddit!');
-      }, 'image/png');
+        showToast('📸 Downloaded ' + filename);
+      };
+
+      try {
+        canvas.toBlob(blob => {
+          if (blob) {
+            triggerDownload(URL.createObjectURL(blob));
+          } else {
+            triggerDownload(canvas.toDataURL('image/png'));
+          }
+        }, 'image/png');
+      } catch (err) {
+        try {
+          triggerDownload(canvas.toDataURL('image/png'));
+        } catch (e2) {
+          showToast('❌ Failed to download infographic image.');
+        }
+      }
     }
 
     async function copyExportCardToClipboard() {
       const canvas = document.getElementById('exportRunCanvas');
       if (!canvas) return;
       const btnText = document.getElementById('btnCopyExportText');
-      const oldText = btnText ? btnText.innerText : 'Copy Image to Clipboard';
+      const oldText = btnText ? btnText.innerText : 'Copy Image';
 
       if (btnText) btnText.innerText = 'Copying...';
-      canvas.toBlob(async blob => {
-        if (!blob) {
-          showToast('❌ Failed to compose image.');
-          if (btnText) btnText.innerText = oldText;
-          return;
-        }
-        try {
-          await navigator.clipboard.write([
-            new ClipboardItem({ 'image/png': blob })
-          ]);
-          if (btnText) btnText.innerText = '✓ Copied Image!';
-          showToast('📋 High-Res Infographic copied to clipboard! Paste directly into Reddit or Discord (Ctrl+V)');
-          setTimeout(() => {
+      try {
+        canvas.toBlob(async blob => {
+          if (!blob) {
+            downloadExportCardPng();
             if (btnText) btnText.innerText = oldText;
-          }, 2500);
-        } catch (clipErr) {
-          console.warn('Clipboard image write failed, downloading fallback PNG:', clipErr);
-          downloadExportCardPng();
-          if (btnText) btnText.innerText = oldText;
-          showToast('ℹ️ Browser prevented direct clipboard write; downloaded image as PNG instead!');
-        }
-      }, 'image/png');
-    }
-
-    function generateRedditMarkdownText(run, playerIdx = 0) {
-      const p = getPlayer(run, playerIdx) || (run.players && run.players[0]) || {};
-      const cKey = getCharKey(run, playerIdx);
-      const cName = cKey.charAt(0) + cKey.slice(1).toLowerCase();
-      const isWin = run.win;
-      const outcomeText = isWin ? 'Victory 🏆' : (run.was_abandoned ? 'Abandoned ⚠️' : 'Defeat 💀');
-      const asc = run.ascension || 0;
-      const floors = getRunFloors(run);
-      const duration = formatTime(run.run_time);
-      const totalDmg = calculateRunTotalDamageDealt(run);
-      const peakFight = getPeakDamageFight(run);
-
-      // Relics
-      const relicNames = (p.relics || []).map(r => {
-        const rd = (gameDatabase && gameDatabase.relics && gameDatabase.relics[r.id]);
-        return rd ? rd.name : cleanId(r.id);
-      });
-
-      // Cards
-      const cardMap = {};
-      (p.deck || []).forEach(c => {
-        const lvl = c.current_upgrade_level || 0;
-        const key = c.id + '_' + lvl;
-        if (!cardMap[key]) cardMap[key] = { id: c.id, level: lvl, count: 0 };
-        cardMap[key].count++;
-      });
-      const attacks = [], skills = [], powers = [], others = [];
-      Object.values(cardMap).forEach(c => {
-        const cd = (gameDatabase && gameDatabase.cards && gameDatabase.cards[c.id]) || { name: cleanId(c.id), type: 'Skill' };
-        const name = (cd.name || cleanId(c.id)) + (c.level > 0 ? '+' : '');
-        const str = (c.count > 1 ? c.count + 'x ' : '') + name;
-        if (cd.type === 'Attack') attacks.push(str);
-        else if (cd.type === 'Skill') skills.push(str);
-        else if (cd.type === 'Power') powers.push(str);
-        else others.push(str);
-      });
-
-      // Act path
-      const actLines = [];
-      if (run.map_point_history) {
-        run.map_point_history.forEach((act, i) => {
-          const actName = (run.acts && run.acts[i]) ? run.acts[i].replace('ACT.', '') : ('Act ' + (i + 1));
-          const iconMap = {
-            monster: '⚔️', elite: '👹', boss: '👑', rest_site: '🔥',
-            shop: '💰', event: '❓', unknown: '❓', treasure: '📦', ancient: '🏛️'
-          };
-          const chain = (Array.isArray(act) ? act : [act]).map(n => iconMap[n.map_point_type] || '⚪').join(' > ');
-          actLines.push('* **' + actName + ':** ' + chain);
-        });
+            return;
+          }
+          try {
+            if (navigator.clipboard && navigator.clipboard.write && typeof ClipboardItem !== 'undefined') {
+              await navigator.clipboard.write([
+                new ClipboardItem({ 'image/png': blob })
+              ]);
+              if (btnText) btnText.innerText = '✓ Copied Image!';
+              showToast('📋 Infographic copied to clipboard! Paste anywhere (Ctrl+V)');
+              setTimeout(() => {
+                if (btnText) btnText.innerText = oldText;
+              }, 2500);
+            } else {
+              throw new Error('ClipboardItem API unavailable');
+            }
+          } catch (clipErr) {
+            console.warn('Clipboard write restricted, initiating download fallback:', clipErr);
+            downloadExportCardPng();
+            if (btnText) btnText.innerText = oldText;
+            showToast('ℹ️ Clipboard direct write unavailable; downloaded image as PNG instead!');
+          }
+        }, 'image/png');
+      } catch (e) {
+        downloadExportCardPng();
+        if (btnText) btnText.innerText = oldText;
       }
-
-      const totalCards = (p.deck || []).length;
-      const upgCards = (p.deck || []).filter(c => c.current_upgrade_level > 0).length;
-
-      const lines = [
-        '# ⚡ Slay the Spire 2 — The ' + cName + ' (Ascension ' + asc + ' ' + outcomeText + ')',
-        '',
-        '* **Seed:** `' + (run.seed || 'UNKNOWN') + '`',
-        '* **Floor:** ' + floors + ' • **Time:** ' + duration,
-        '* **Combat Damage Dealt:** ~' + totalDmg.toLocaleString() + ' DMG ' + (peakFight ? ('(Peak: ~' + peakFight.dmg.toLocaleString() + ' DMG)') : ''),
-        '',
-        '---',
-        '',
-        '### 💍 Relics (' + relicNames.length + ')',
-        relicNames.join(' • ') || 'None',
-        '',
-        '---',
-        '',
-        '### 🃏 Deck (' + totalCards + ' Cards • ' + upgCards + ' Upgraded)',
-        '* **Attacks (' + attacks.length + '):** ' + (attacks.join(', ') || 'None'),
-        '* **Skills (' + skills.length + '):** ' + (skills.join(', ') || 'None'),
-        '* **Powers (' + powers.length + '):** ' + (powers.join(', ') || 'None'),
-        (others.length > 0 ? ('* **Other (' + others.length + '):** ' + others.join(', ')) : ''),
-        '',
-        '---',
-        '',
-        '### 🗺️ Route Pathing',
-        actLines.join('\n'),
-        '',
-        '---',
-        '*Tracked & exported with [Neow\'s Ledger](https://slay-the-spire-2-tracker.web.app)*'
-      ];
-
-      return lines.filter(Boolean).join('\n');
-    }
-
-    function copyRedditMarkdown() {
-      if (!currentExportRun) return;
-      const md = generateRedditMarkdownText(currentExportRun, exportCardActivePlayerIdx);
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(md).then(() => {
-          showToast('📝 Formatted Reddit Post Markdown copied to clipboard! Ready to paste into Reddit comments.');
-        }).catch(() => {
-          promptCopyFallback(md);
-        });
-      } else {
-        promptCopyFallback(md);
-      }
-    }
-
-    function promptCopyFallback(text) {
-      const textarea = document.createElement('textarea');
-      textarea.value = text;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-      showToast('📝 Formatted Reddit Post Markdown copied to clipboard!');
     }
 
     function showToast(msg) {
