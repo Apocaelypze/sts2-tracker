@@ -344,6 +344,31 @@ namespace STS2Tracker
                     scType.InvokeMember("Save", BindingFlags.InvokeMethod, null, shortcut, null);
                     SafeLog("[INSTALL] Desktop shortcut ready: " + shortcutToWrite);
                 }
+
+                // 4. Ensure Start Menu Shortcut
+                try
+                {
+                    string startMenuDir = Environment.GetFolderPath(Environment.SpecialFolder.Programs);
+                    if (!string.IsNullOrEmpty(startMenuDir) && Directory.Exists(startMenuDir))
+                    {
+                        string startMenuShortcut = Path.Combine(startMenuDir, "Slay the Spire 2 Tracker.lnk");
+                        object smShortcut = shellType.InvokeMember("CreateShortcut", BindingFlags.InvokeMethod, null, shell, new object[] { startMenuShortcut });
+                        Type smType = smShortcut.GetType();
+                        smType.InvokeMember("TargetPath", BindingFlags.SetProperty, null, smShortcut, new object[] { targetExe });
+                        smType.InvokeMember("WorkingDirectory", BindingFlags.SetProperty, null, smShortcut, new object[] { Path.GetDirectoryName(targetExe) });
+                        smType.InvokeMember("Description", BindingFlags.SetProperty, null, smShortcut, new object[] { "Slay the Spire 2 Run Tracker & Analytics Companion" });
+                        if (File.Exists(installedIco))
+                        {
+                            smType.InvokeMember("IconLocation", BindingFlags.SetProperty, null, smShortcut, new object[] { installedIco + ",0" });
+                        }
+                        else
+                        {
+                            smType.InvokeMember("IconLocation", BindingFlags.SetProperty, null, smShortcut, new object[] { targetExe + ",0" });
+                        }
+                        smType.InvokeMember("Save", BindingFlags.InvokeMethod, null, smShortcut, null);
+                    }
+                }
+                catch { }
             }
             catch (Exception ex)
             {
