@@ -1,15 +1,16 @@
 {
-  "version": "1.3.5",
-  "versionNumber": 1.35,
+  "version": "1.3.6",
+  "versionNumber": 1.36,
   "releaseDate": "2026-11-07",
-  "title": "STS2 Tracker v1.3.5 - Mandatory Leaderboard Authentication & Profile Deduplication",
+  "title": "STS2 Tracker v1.3.6 - Sleep & Power Mode Resilience, Auto-Updater Timeout Protection & Instant Recovery",
   "changelog": [
-    "Enforced Leaderboard Auth: Requires explicit sign-in or Slayer Handle selection before syncing climb records to the Global Leaderboard",
-    "Eliminated Default Slayers: Removed synthetic SteamSlayer_XXXX fallback usernames; leaderboard only ranks verified accounts",
-    "Profile Deduplication: Merged duplicate SteamSlayer entries into confirmed player handles (Kratos77x and volodia)",
-    "Competitive Integrity: Filtered out defeat runs and missing player records from global competitive tables"
+    "Sleep & Power Mode Resilience: Integrated Windows SystemEvents.PowerModeChanged hook to prevent the background companion engine from shutting down when the PC enters sleep mode or suspends tabs",
+    "Removed Premature pagehide Beacon: Fixed Chromium Edge sleeping tabs and OS sleep dispatching false client_closed beacons",
+    "Smart Wake Reconnect: Added clock tick jump detection to gracefully pause telemetry sync and give network 4 seconds to reconnect after waking from sleep",
+    "Safe Auto-Updater Polling: Fixed version polling loop lock when already running target release, reduced timeout from 90s to 30s, and added Dismiss & Return to Dashboard overlay recovery controls",
+    "Fail-safe Process Restarter: Guaranteed companion restart even if file-swapping encounters a delay or file lock"
   ],
   "downloadExe": "https://github.com/Apocaelypze/sts2-tracker/releases/latest/download/STS2Tracker.exe",
   "downloadZip": "https://slay-the-spire-2-tracker.web.app/STS2Tracker.zip",
-  "notes": "Enforces authentication before leaderboard syncing, removes synthetic SteamSlayer profiles, and merges verified player records."
+  "notes": "Fixes app freezing after sleep mode, adds Windows power event management, eliminates premature companion termination on sleeping tabs, and improves update polling resilience."
 }

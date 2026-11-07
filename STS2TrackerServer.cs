@@ -32,16 +32,40 @@ namespace STS2Tracker
         private static DateTime lastHeartbeat = DateTime.UtcNow;
         private static bool clientConnected = false;
         private static readonly DateTime serverStartTime = DateTime.UtcNow;
-        private static readonly string AppVersion = "v1.3.5";
+        private static readonly string AppVersion = "v1.3.6";
         private static HttpListener httpListener = null;
         private static int closeSequenceId = 0;
         private static volatile bool isUpdatingCompanion = false;
+        private static volatile bool isSystemSleeping = false;
+        private static DateTime lastResumeTime = DateTime.MinValue;
 
         [DllImport("shell32.dll")]
         private static extern void SHChangeNotify(int wEventId, int uFlags, IntPtr dwItem1, IntPtr dwItem2);
 
+        private static void OnPowerModeChanged(object sender, Microsoft.Win32.PowerModeChangedEventArgs e)
+        {
+            if (e.Mode == Microsoft.Win32.PowerModes.Suspend)
+            {
+                isSystemSleeping = true;
+                SafeLog("[POWER] System entering sleep mode. Suspending shutdown and telemetry timers...");
+            }
+            else if (e.Mode == Microsoft.Win32.PowerModes.Resume)
+            {
+                isSystemSleeping = false;
+                lastResumeTime = DateTime.UtcNow;
+                lastHeartbeat = DateTime.UtcNow;
+                SafeLog("[POWER] System resumed from sleep mode. Resuming telemetry engine.");
+            }
+        }
+
         static void Main(string[] args)
         {
+            try
+            {
+                Microsoft.Win32.SystemEvents.PowerModeChanged += OnPowerModeChanged;
+            }
+            catch { }
+
             AppDomain.CurrentDomain.UnhandledException += delegate(object sender, UnhandledExceptionEventArgs eArgs)
             {
                 SafeLog("[FATAL UNHANDLED EXCEPTION] " + (eArgs.ExceptionObject != null ? eArgs.ExceptionObject.ToString() : "unknown"));
@@ -829,12 +853,17 @@ namespace STS2Tracker
                 if (rawUrl.Equals("/api/client_closed", StringComparison.OrdinalIgnoreCase))
                 {
                     ServeString(resp, "{\"status\":\"closing\"}", "application/json; charset=utf-8", true);
-                    if (isUpdatingCompanion) return;
+                    if (isUpdatingCompanion || isSystemSleeping) return;
+                    if ((DateTime.UtcNow - lastResumeTime).TotalSeconds < 20)
+                    {
+                        SafeLog("[LIFECYCLE] Ignored client_closed beacon received within 20s of system resume.");
+                        return;
+                    }
                     int seq = Interlocked.Increment(ref closeSequenceId);
                     ThreadPool.QueueUserWorkItem(delegate
                     {
-                        Thread.Sleep(2000);
-                        if (!isUpdatingCompanion && closeSequenceId == seq)
+                        Thread.Sleep(6000);
+                        if (!isUpdatingCompanion && !isSystemSleeping && (DateTime.UtcNow - lastResumeTime).TotalSeconds >= 20 && closeSequenceId == seq)
                         {
                             SafeLog("[LIFECYCLE] Window closed via X button. Shutting down companion cleanly...");
                             try { if (httpListener != null) { httpListener.Stop(); httpListener.Close(); } } catch { }
@@ -1281,6 +1310,15 @@ namespace STS2Tracker
                 string tempZipPath = Path.Combine(exeDir, "STS2Tracker_update.zip");
                 string batPath = Path.Combine(exeDir, "update_sts2tracker.bat");
 
+                // Guard: If already at latest release or no update needed, do nothing!
+                string remoteVer = GetCachedRemoteVersion();
+                if (!IsNewerVersion(remoteVer, AppVersion))
+                {
+                    SafeLog("[UPDATE] Already running latest version (" + AppVersion + "). Skipping update.");
+                    isUpdatingCompanion = false;
+                    return;
+                }
+
                 SafeLog("[UPDATE] Downloading latest STS2Tracker from cloud...", ConsoleColor.Cyan);
                 using (WebClient wc = new WebClient())
                 {
@@ -1322,7 +1360,8 @@ namespace STS2Tracker
 
                 if (!File.Exists(newExePath) || new FileInfo(newExePath).Length < 1000000)
                 {
-                    SafeLog("[UPDATE ERROR] Downloaded executable is invalid or incomplete.", ConsoleColor.Red);
+                    SafeLog("[UPDATE ERROR] Downloaded executable is invalid or incomplete. Aborting update without restart.", ConsoleColor.Red);
+                    isUpdatingCompanion = false;
                     return;
                 }
 
@@ -1349,6 +1388,7 @@ namespace STS2Tracker
                     "del \"%~f0\"\r\n" +
                     "exit\r\n" +
                     ":move_timeout\r\n" +
+                    "start \"\" \"" + exePath + "\" --no-browser\r\n" +
                     "del \"%~f0\"\r\n" +
                     "exit\r\n";
 
@@ -1369,10 +1409,11 @@ namespace STS2Tracker
             catch (Exception ex)
             {
                 SafeLog("[UPDATE EXCEPTION] " + ex.Message, ConsoleColor.Red);
+                isUpdatingCompanion = false;
             }
         }
 
-        private static string cachedRemoteVersion = "v1.3.5";
+        private static string cachedRemoteVersion = "v1.3.6";
         private static DateTime lastRemoteCheck = DateTime.MinValue;
 
         private static string GetCachedRemoteVersion()
