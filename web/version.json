@@ -1,15 +1,15 @@
 {
-  "version": "1.3.4",
-  "versionNumber": 1.34,
-  "releaseDate": "2026-11-06",
-  "title": "STS2 Tracker v1.3.4 - Refined Run Infographic & Balanced Deck Panels",
+  "version": "1.3.5",
+  "versionNumber": 1.35,
+  "releaseDate": "2026-11-07",
+  "title": "STS2 Tracker v1.3.5 - Mandatory Leaderboard Authentication & Profile Deduplication",
   "changelog": [
-    "Refined Infographic Header: Fixed title and subtitle text collision in the top-left corner",
-    "Nemesis & Conqueror KPI: Replaced Peak Combat with exact Cause of Death (or Final Boss Vanquished)",
-    "Enlarged Route Pathing: 2.6x larger nodes (26x26) with crisp glyphs and a dedicated visual legend (Combat, Elite, Boss, Rest, Shop, Event, Chest)",
-    "Structured Deck Panels: Replaced empty vertical space with 3 dark-glass category panels (Attacks, Skills, Powers) with upgraded badges and compact 2-column chips"
+    "Enforced Leaderboard Auth: Requires explicit sign-in or Slayer Handle selection before syncing climb records to the Global Leaderboard",
+    "Eliminated Default Slayers: Removed synthetic SteamSlayer_XXXX fallback usernames; leaderboard only ranks verified accounts",
+    "Profile Deduplication: Merged duplicate SteamSlayer entries into confirmed player handles (Kratos77x and volodia)",
+    "Competitive Integrity: Filtered out defeat runs and missing player records from global competitive tables"
   ],
   "downloadExe": "https://github.com/Apocaelypze/sts2-tracker/releases/latest/download/STS2Tracker.exe",
   "downloadZip": "https://slay-the-spire-2-tracker.web.app/STS2Tracker.zip",
-  "notes": "Refines 16:9 infographic card layout, replaces Peak Combat with exact Cause of Death, enlarges pathing nodes with visual legend, and structures decklist into category panels."
+  "notes": "Enforces authentication before leaderboard syncing, removes synthetic SteamSlayer profiles, and merges verified player records."
 }

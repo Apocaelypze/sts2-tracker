@@ -32,7 +32,7 @@ namespace STS2Tracker
         private static DateTime lastHeartbeat = DateTime.UtcNow;
         private static bool clientConnected = false;
         private static readonly DateTime serverStartTime = DateTime.UtcNow;
-        private static readonly string AppVersion = "v1.3.4";
+        private static readonly string AppVersion = "v1.3.5";
         private static HttpListener httpListener = null;
         private static int closeSequenceId = 0;
         private static volatile bool isUpdatingCompanion = false;
@@ -598,15 +598,15 @@ namespace STS2Tracker
                             int nextUser = sub.IndexOf("\"\n\t{", 10);
                             if (nextUser != -1) sub = sub.Substring(0, nextUser);
 
-                            Match mPersona = Regex.Match(sub, "\"PersonaName\"\\s*\"([^\"]+)\"");
+                            Match mPersona = Regex.Match(sub, "\"PersonaName\"\\s*\"([^\"]+)\"", RegexOptions.IgnoreCase);
                             if (mPersona.Success) steamPersonaName = mPersona.Groups[1].Value;
-                            Match mAcct = Regex.Match(sub, "\"AccountName\"\\s*\"([^\"]+)\"");
+                            Match mAcct = Regex.Match(sub, "\"AccountName\"\\s*\"([^\"]+)\"", RegexOptions.IgnoreCase);
                             if (mAcct.Success) steamAccountName = mAcct.Groups[1].Value;
                         }
                     }
                     else
                     {
-                        Match mUser = Regex.Match(vdf, "\"([0-9]{15,20})\"\\s*\\{[^}]*?\"(?:MostRecent|AutoLogin)\"\\s*\"1\"", RegexOptions.Singleline);
+                        Match mUser = Regex.Match(vdf, "\"([0-9]{15,20})\"\\s*\\{[^}]*?\"(?:MostRecent|AutoLogin)\"\\s*\"1\"", RegexOptions.Singleline | RegexOptions.IgnoreCase);
                         if (mUser.Success)
                         {
                             localPlayerId = mUser.Groups[1].Value;
@@ -614,9 +614,9 @@ namespace STS2Tracker
                             if (idIdx != -1)
                             {
                                 string sub = vdf.Substring(idIdx);
-                                Match mPersona = Regex.Match(sub, "\"PersonaName\"\\s*\"([^\"]+)\"");
+                                Match mPersona = Regex.Match(sub, "\"PersonaName\"\\s*\"([^\"]+)\"", RegexOptions.IgnoreCase);
                                 if (mPersona.Success) steamPersonaName = mPersona.Groups[1].Value;
-                                Match mAcct = Regex.Match(sub, "\"AccountName\"\\s*\"([^\"]+)\"");
+                                Match mAcct = Regex.Match(sub, "\"AccountName\"\\s*\"([^\"]+)\"", RegexOptions.IgnoreCase);
                                 if (mAcct.Success) steamAccountName = mAcct.Groups[1].Value;
                             }
                         }
@@ -624,7 +624,7 @@ namespace STS2Tracker
 
                     if (string.IsNullOrEmpty(steamPersonaName))
                     {
-                        Match mFirst = Regex.Match(vdf, "\"PersonaName\"\\s*\"([^\"]+)\"");
+                        Match mFirst = Regex.Match(vdf, "\"PersonaName\"\\s*\"([^\"]+)\"", RegexOptions.IgnoreCase);
                         if (mFirst.Success) steamPersonaName = mFirst.Groups[1].Value;
                     }
                 }
@@ -1372,7 +1372,7 @@ namespace STS2Tracker
             }
         }
 
-        private static string cachedRemoteVersion = "v1.3.4";
+        private static string cachedRemoteVersion = "v1.3.5";
         private static DateTime lastRemoteCheck = DateTime.MinValue;
 
         private static string GetCachedRemoteVersion()

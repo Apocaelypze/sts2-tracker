@@ -3384,10 +3384,10 @@
 
       <div class="header-actions">
         <!-- Web Download Desktop App Button (hidden when running inside Desktop App) -->
-        <button class="btn-desktop-app" id="btnHeaderDesktopApp" onclick="openAppDownloadModal()" title="Download standalone Desktop App companion (v1.3.4)">
+        <button class="btn-desktop-app" id="btnHeaderDesktopApp" onclick="openAppDownloadModal()" title="Download standalone Desktop App companion (v1.3.5)">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
           <span id="headerDesktopAppText">Desktop App</span>
-          <span id="headerDesktopAppVersion" style="font-size: 10px; opacity: 0.75; font-family: var(--font-mono); font-weight: 700; margin-left: 2px;">v1.3.4</span>
+          <span id="headerDesktopAppVersion" style="font-size: 10px; opacity: 0.75; font-family: var(--font-mono); font-weight: 700; margin-left: 2px;">v1.3.5</span>
         </button>
 
         <button class="btn-primary" id="btnHeaderUploadRun" onclick="openLoadSavesModal()" title="Upload your runs and join the global leaderboard" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; font-size: 12px; font-weight: 700; background: linear-gradient(135deg, #10b981, #059669); border: 1px solid #34d399; box-shadow: 0 2px 10px rgba(16, 185, 129, 0.25);">
@@ -3398,7 +3398,7 @@
         <!-- Exclusive Desktop App Controls (Version Ribbon & 1-Click Cloud Updater on Right Side) -->
         <div id="desktopAppHeaderControls" style="display: none; align-items: center; gap: 6px;">
           <span id="desktopAppVersionPill" style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: #38bdf8; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); padding: 4px 8px; border-radius: 6px; letter-spacing: 0.3px;" title="Current Desktop App Version">
-            v1.3.4
+            v1.3.5
           </span>
           <button class="btn-primary" id="btnDesktopUpdate" onclick="triggerAppUpdate()" title="Restart and auto-update companion to latest version" style="display: none; align-items: center; gap: 5px; padding: 5px 12px; font-size: 11px; font-weight: 700; background: linear-gradient(135deg, #22c55e, #16a34a); border: 1px solid #4ade80; border-radius: 6px; box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4);">
             <span id="btnUpdateIcon">🔄</span> <span id="btnUpdateText">Restart to Update</span>
@@ -4714,7 +4714,7 @@
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <div>
           <h2 style="font-family: var(--font-title); color: var(--gold-spire); font-size: 22px; display: flex; align-items: center; gap: 10px;">
-            <span>⚡ Standalone Desktop App <span id="modalAppTitleVer" style="font-size: 13px; color: #38bdf8; font-family: var(--font-mono); border: 1px solid rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.15); padding: 1px 6px; border-radius: 4px;">v1.3.4</span></span>
+            <span>⚡ Standalone Desktop App <span id="modalAppTitleVer" style="font-size: 13px; color: #38bdf8; font-family: var(--font-mono); border: 1px solid rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.15); padding: 1px 6px; border-radius: 4px;">v1.3.5</span></span>
           </h2>
           <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Zero setup &bull; 100% self-contained &bull; Real-time background sync</p>
         </div>
@@ -4725,7 +4725,7 @@
         <div style="background: linear-gradient(135deg, rgba(217, 119, 6, 0.12), rgba(20, 24, 33, 0.95)); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 12px; padding: 20px;">
           <div style="font-weight: 700; color: #fbbf24; font-size: 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
             <span>🚀 1-Click Desktop Companion</span>
-            <span id="modalAppRecVer" style="font-size: 10px; background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: 700;">RECOMMENDED &bull; v1.3.4</span>
+            <span id="modalAppRecVer" style="font-size: 10px; background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: 700;">RECOMMENDED &bull; v1.3.5</span>
           </div>
           <p style="font-size: 13px; color: var(--text-main); line-height: 1.5; margin-bottom: 14px;">
             Direct 1-click standalone executable (<code>STS2Tracker.exe</code>). Just download and double-click to run &mdash; zero unzipping, zero installation, and includes built-in auto-updating:
@@ -5810,7 +5810,7 @@
                 return;
               }
               if (st.is_desktop_app || st.version) {
-                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.3.4');
+                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.3.5');
               }
               if (st.local_player_id && !getLocalSteamId()) {
                 setLocalSteamId(st.local_player_id);
@@ -5826,15 +5826,20 @@
               }
 
               if (serverUpdate > lastSeenCompanionUpdate || serverCount !== lastSeenCompanionRunCount) {
-                console.log('[COMPANION WATCHER] Disk run change detected! Syncing runs & leaderboard...');
+                console.log('[COMPANION WATCHER] Disk run change detected! Loading runs...');
                 lastSeenCompanionUpdate = serverUpdate;
                 lastSeenCompanionRunCount = serverCount;
                 await fetchRuns(false);
-                await submitRunsToLeaderboard(true);
-                if (typeof currentTab !== 'undefined' && currentTab === 'leaderboard') {
-                  await loadLeaderboardData(false);
+                const curUser = getCurrentUser();
+                if (curUser && curUser.username && !curUser.username.startsWith('SteamSlayer_') && curUser.username !== 'Slayer') {
+                  await submitRunsToLeaderboard(true);
+                  if (typeof currentTab !== 'undefined' && currentTab === 'leaderboard') {
+                    await loadLeaderboardData(false);
+                  }
+                  showToast('⚡ New climb detected & auto-synced to Global Leaderboard!');
+                } else {
+                  showToast('⚡ New climb detected! (Sign in to sync to Global Leaderboard)');
                 }
-                showToast('⚡ New climb detected & auto-synced to Global Leaderboard!');
               }
             }
           } catch (e) {}
@@ -5852,15 +5857,15 @@
       }
     }
 
-    const LOADED_UI_VERSION = 'v1.3.4';
-    let currentAppVersion = 'v1.3.4';
+    const LOADED_UI_VERSION = 'v1.3.5';
+    let currentAppVersion = 'v1.3.5';
     let isDesktopAppMode = false;
     let detectedSteamPlayerId = null;
     let detectedSteamPersona = null;
     let detectedSteamAccount = null;
     let authSessionPollInterval = null;
     let cloudUpdateAvailable = false;
-    let latestCloudVersion = 'v1.3.4';
+    let latestCloudVersion = 'v1.3.5';
 
     function dismissUpdateBanner() {
       const banner = document.getElementById('discordUpdateBanner');
@@ -5997,7 +6002,7 @@
     }
 
     async function fetchCloudVersionForWeb() {
-      let ver = LOADED_UI_VERSION || 'v1.3.4';
+      let ver = LOADED_UI_VERSION || 'v1.3.5';
       try {
         const resp = await fetch('/version.json?t=' + Date.now());
         if (resp.ok) {
@@ -6029,7 +6034,7 @@
     async function triggerAppUpdate(skipConfirm = true) {
       isUpdatingCompanion = true;
       const originalVersion = currentAppVersion || 'v1.2.3';
-      const targetVersion = latestCloudVersion || 'v1.3.4';
+      const targetVersion = latestCloudVersion || 'v1.3.5';
 
       // Show sleek updating overlay
       let overlay = document.getElementById('appUpdateOverlay');
@@ -6143,10 +6148,27 @@
 
           updateDetectedSteamUI();
 
-          // Auto-login on launch in desktop app mode if user is not yet signed in and did not explicitly log out
+          // Auto-login on launch in desktop app mode ONLY if user is creator or has an existing confirmed account
           if (isDesktopAppMode && !getCurrentUser() && !localStorage.getItem('sts2_logged_out')) {
-            if (detectedSteamPlayerId) {
+            if (detectedSteamPlayerId === '76561199078562869') {
               connectDetectedSteamAccount(false);
+            } else if (detectedSteamPlayerId) {
+              const cached = localStorage.getItem('sts2_steam_persona_' + detectedSteamPlayerId);
+              if (cached && !cached.startsWith('SteamSlayer_')) {
+                connectDetectedSteamAccount(false);
+              } else {
+                fetch(`${FORUM_RTDB_BASE}/steam_users/${detectedSteamPlayerId}.json`)
+                  .then(r => r.ok ? r.json() : null)
+                  .then(data => {
+                    if (data && data.persona && !data.persona.startsWith('SteamSlayer_')) {
+                      connectDetectedSteamAccount(false);
+                    } else {
+                      updateLeaderboardSyncStatus('');
+                    }
+                  }).catch(() => {
+                    updateLeaderboardSyncStatus('');
+                  });
+              }
             }
           }
 
@@ -6156,7 +6178,7 @@
             return;
           }
           if (st.is_desktop_app || st.version) {
-            enableDesktopAppUI(st.version || 'v1.3.4');
+            enableDesktopAppUI(st.version || 'v1.3.5');
           }
         } else {
           fetchCloudVersionForWeb();
@@ -12007,7 +12029,45 @@
 
     async function connectDetectedSteamAccount(showFeedback = true) {
       if (!detectedSteamPlayerId) return;
-      const persona = detectedSteamPersona || (detectedSteamPlayerId === '76561199078562869' ? 'Apocaelypze' : ('SteamSlayer_' + detectedSteamPlayerId.slice(-4)));
+
+      let persona = detectedSteamPersona || '';
+
+      // 1. Check local storage for previously confirmed persona
+      if (!persona || persona.startsWith('SteamSlayer_')) {
+        try {
+          const cached = localStorage.getItem('sts2_steam_persona_' + detectedSteamPlayerId);
+          if (cached && !cached.startsWith('SteamSlayer_')) persona = cached;
+        } catch (_) {}
+      }
+
+      // 2. Check cloud RTDB steam_users mapping
+      if (!persona || persona.startsWith('SteamSlayer_')) {
+        try {
+          const resp = await fetch(`${FORUM_RTDB_BASE}/steam_users/${detectedSteamPlayerId}.json`);
+          if (resp.ok) {
+            const data = await resp.json();
+            if (data && data.persona && !data.persona.startsWith('SteamSlayer_')) {
+              persona = data.persona;
+            }
+          }
+        } catch (_) {}
+      }
+
+      // 3. Creator fallback
+      if (detectedSteamPlayerId === '76561199078562869') {
+        persona = 'Apocaelypze';
+      }
+
+      // 4. If still no valid non-default persona, ask user to enter/confirm their Slayer Handle
+      if (!persona || persona.startsWith('SteamSlayer_')) {
+        const inputName = prompt('Welcome! Please enter your Slayer Handle / Username for the Leaderboard:', detectedSteamPersona && !detectedSteamPersona.startsWith('SteamSlayer_') ? detectedSteamPersona : '');
+        if (!inputName || !inputName.trim()) {
+          showToast('⚠️ A Slayer handle is required to sync with the Global Leaderboard.');
+          return;
+        }
+        persona = inputName.trim();
+      }
+
       const isCreator = (detectedSteamPlayerId === '76561199078562869' || persona.toLowerCase() === 'apocaelypze');
 
       try {
@@ -12030,9 +12090,10 @@
       closeAuthModal();
 
       if (showFeedback) {
-        showToast(isCreator ? '👑 Welcome back, Apocaelypze! Profile & climbs connected.' : `🎮 Connected via Steam (${persona})!`);
+        showToast(isCreator ? '👑 Welcome back, Apocaelypze! Profile & climbs connected.' : `🎮 Connected via Steam as ${persona}!`);
       }
       await syncUserRunsFromCloud(persona, showFeedback);
+      await submitRunsToLeaderboard(true);
     }
 
     function startSteamAuth() {
@@ -12146,10 +12207,19 @@
         } catch (e) {}
       }
 
-      // If still no persona, prompt user for their Steam display name
-      if (!persona) {
-        const inputName = prompt('Welcome! Please confirm your Steam Display Name / Slayer Handle (e.g. Kratos77x):', 'SteamSlayer_' + steamId.slice(-4));
-        persona = (inputName && inputName.trim()) ? inputName.trim() : ('SteamSlayer_' + steamId.slice(-4));
+      // If still no persona, prompt user for their Steam display name (never default to SteamSlayer_XXXX)
+      if (!persona || persona.startsWith('SteamSlayer_')) {
+        let inputName = prompt('Welcome to Neow\'s Ledger! Please enter your Slayer Handle / Username for the Leaderboard:', '');
+        while (!inputName || !inputName.trim()) {
+          inputName = prompt('A Slayer Handle is required to participate in the Leaderboard. Please enter your handle:', '');
+          if (inputName === null) break;
+        }
+        if (inputName && inputName.trim()) {
+          persona = inputName.trim();
+        } else {
+          showToast('⚠️ Sign in cancelled: username required.');
+          return;
+        }
       }
 
       try {
@@ -13036,18 +13106,21 @@
           run_time: attachedForumRun.run_time || 0,
           floors: postData.runMeta.floors,
           fullRun: attachedForumRun,
+          playerHandle: author,
           sharedBy: author,
           sharedAt: Date.now()
         };
 
-        if (!leaderboardState.runs) leaderboardState.runs = {};
-        leaderboardState.runs[runId] = runRecord;
+        if (attachedForumRun.win) {
+          if (!leaderboardState.runs) leaderboardState.runs = {};
+          leaderboardState.runs[runId] = runRecord;
 
-        fetch(`${FORUM_RTDB_BASE}/leaderboard/runs/${runId}.json`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(runRecord)
-        }).catch(err => console.warn('Could not sync run to leaderboard/runs:', err));
+          fetch(`${FORUM_RTDB_BASE}/leaderboard/runs/${runId}.json`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(runRecord)
+          }).catch(err => console.warn('Could not sync run to leaderboard/runs:', err));
+        }
 
         fetch(`${FORUM_RTDB_BASE}/forum_runs/${runId}.json`, {
           method: 'PUT',
@@ -14951,8 +15024,8 @@
     }
 
     function renderLeaderboardMetrics() {
-      const playersList = Object.values(leaderboardState.players);
-      const runsList = Object.values(leaderboardState.runs);
+      const playersList = Object.values(leaderboardState.players).filter(p => p && p.handle && p.handle !== 'Slayer' && !p.handle.startsWith('SteamSlayer_'));
+      const runsList = Object.values(leaderboardState.runs).filter(r => r && r.playerHandle && r.playerHandle !== 'Slayer' && !r.playerHandle.startsWith('SteamSlayer_'));
 
       const elPlayers = document.getElementById('lbStatPlayers');
       const elMostWins = document.getElementById('lbStatMostWins');
@@ -15151,7 +15224,7 @@
           </tr>
         `;
 
-        let players = Object.values(leaderboardState.players);
+        let players = Object.values(leaderboardState.players).filter(p => p && p.handle && p.handle !== 'Slayer' && !p.handle.startsWith('SteamSlayer_'));
         if (charFilter !== 'ALL') {
           players = players.filter(p => p.topCharacter === charFilter);
         }
@@ -15218,7 +15291,7 @@
           </tr>
         `;
 
-        let runs = Object.values(leaderboardState.runs).filter(r => r.win && (r.run_time || 0) >= 30);
+        let runs = Object.values(leaderboardState.runs).filter(r => r.win && (r.run_time || 0) >= 30 && r.playerHandle && r.playerHandle !== 'Slayer' && !r.playerHandle.startsWith('SteamSlayer_'));
         if (charFilter !== 'ALL') {
           runs = runs.filter(r => (r.character || getCharKey(r)) === charFilter);
         }
@@ -15281,7 +15354,7 @@
           </tr>
         `;
 
-        let runs = Object.values(leaderboardState.runs).filter(r => r.win && (r.run_time || 0) >= 30 && (r.ascension || 0) >= 10);
+        let runs = Object.values(leaderboardState.runs).filter(r => r.win && (r.run_time || 0) >= 30 && (r.ascension || 0) >= 10 && r.playerHandle && r.playerHandle !== 'Slayer' && !r.playerHandle.startsWith('SteamSlayer_'));
         if (charFilter !== 'ALL') {
           runs = runs.filter(r => (r.character || getCharKey(r)) === charFilter);
         }
@@ -15343,7 +15416,7 @@
           </tr>
         `;
 
-        let players = Object.values(leaderboardState.players);
+        let players = Object.values(leaderboardState.players).filter(p => p && p.handle && p.handle !== 'Slayer' && !p.handle.startsWith('SteamSlayer_'));
         if (charFilter !== 'ALL') {
           players = players.filter(p => p.topCharacter === charFilter);
         }
@@ -17150,11 +17223,11 @@
       }
 
       const currentUser = getCurrentUser();
-      if (!currentUser) {
+      if (!currentUser || !currentUser.username || currentUser.username.trim() === '' || currentUser.username === 'Slayer' || currentUser.username.startsWith('SteamSlayer_')) {
         updateLeaderboardSyncStatus('');
         if (!isSilent) {
           openAuthModal();
-          showToast('🛡️ Sign in or create an account to sync your runs to the Global Leaderboard.');
+          showToast('🛡️ Sign in or choose your Slayer Handle to sync runs to the Global Leaderboard.');
         }
         return;
       }
@@ -17242,9 +17315,11 @@
       const promptBtn = document.getElementById('btnLeaderboardJoinPrompt');
       const syncPill = document.getElementById('lbAutoSyncPill');
       const syncText = document.getElementById('lbAutoSyncText');
-      const userHandle = handle || (getCurrentUser() ? getCurrentUser().username : localStorage.getItem('sts2_slayer_handle'));
+      const curUser = getCurrentUser();
+      const userHandle = handle || (curUser ? curUser.username : localStorage.getItem('sts2_slayer_handle'));
+      const isValidHandle = userHandle && userHandle !== 'Slayer' && !userHandle.startsWith('SteamSlayer_');
 
-      if (userHandle) {
+      if (isValidHandle) {
         if (promptBtn) promptBtn.style.display = 'none';
         if (syncPill) {
           syncPill.style.background = 'rgba(16, 185, 129, 0.1)';
@@ -17253,13 +17328,16 @@
         }
         if (syncText) syncText.innerHTML = `Live Auto-Sync Active: <strong>${escapeHtml(userHandle)}</strong>`;
       } else {
-        if (promptBtn) promptBtn.style.display = 'inline-flex';
-        if (syncPill) {
-          syncPill.style.background = 'rgba(148, 163, 184, 0.08)';
-          syncPill.style.borderColor = 'rgba(148, 163, 184, 0.2)';
-          syncPill.style.color = 'var(--text-muted)';
+        if (promptBtn) {
+          promptBtn.style.display = 'inline-flex';
+          promptBtn.innerText = '🛡️ Sign In to Join Leaderboard';
         }
-        if (syncText) syncText.innerText = 'Sync Paused (Choose Handle)';
+        if (syncPill) {
+          syncPill.style.background = 'rgba(239, 68, 68, 0.1)';
+          syncPill.style.borderColor = 'rgba(239, 68, 68, 0.3)';
+          syncPill.style.color = '#f87171';
+        }
+        if (syncText) syncText.innerText = 'Leaderboard Sync Paused (Sign In / Set Handle)';
       }
     }
 
