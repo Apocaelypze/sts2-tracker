@@ -34,6 +34,8 @@ runFiles.forEach(f => {
     const raw = fs.readFileSync(path.join(runsDir, f), 'utf8');
     const safeJson = raw.replace(/"(player_)?id"\s*:\s*([0-9]{15,20})/g, '"$1id":"$2"');
     const obj = JSON.parse(safeJson);
+    const stat = fs.statSync(path.join(runsDir, f));
+    obj.completed_time = Math.floor(stat.mtimeMs / 1000);
     obj.local_player_id = '76561199078562869';
     loadedRuns.push(obj);
   } catch (e) {
@@ -41,8 +43,8 @@ runFiles.forEach(f => {
   }
 });
 
-// Sort by start_time descending
-loadedRuns.sort((a, b) => (b.start_time || 0) - (a.start_time || 0));
+// Sort by effective completion time descending
+loadedRuns.sort((a, b) => Math.max(b.completed_time || 0, b.start_time || 0) - Math.max(a.completed_time || 0, a.start_time || 0));
 
 const embeddedRunsScript = `\n  <script>\n  window.EMBEDDED_STS2_DATA = ${dataJson};\n  window.EMBEDDED_PROGRESS = ${progressJson};\n  window.OFFLINE_RUNS = ${JSON.stringify(loadedRuns)};\n  </script>\n`;
 const offlineBundle = indexHtml.replace('</head>', `${embeddedRunsScript}</head>`);

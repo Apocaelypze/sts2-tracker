@@ -3384,10 +3384,10 @@
 
       <div class="header-actions">
         <!-- Web Download Desktop App Button (hidden when running inside Desktop App) -->
-        <button class="btn-desktop-app" id="btnHeaderDesktopApp" onclick="openAppDownloadModal()" title="Download standalone Desktop App companion (v1.3.6)">
+        <button class="btn-desktop-app" id="btnHeaderDesktopApp" onclick="openAppDownloadModal()" title="Download standalone Desktop App companion (v1.3.7)">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
           <span id="headerDesktopAppText">Desktop App</span>
-          <span id="headerDesktopAppVersion" style="font-size: 10px; opacity: 0.75; font-family: var(--font-mono); font-weight: 700; margin-left: 2px;">v1.3.6</span>
+          <span id="headerDesktopAppVersion" style="font-size: 10px; opacity: 0.75; font-family: var(--font-mono); font-weight: 700; margin-left: 2px;">v1.3.7</span>
         </button>
 
         <button class="btn-primary" id="btnHeaderUploadRun" onclick="openLoadSavesModal()" title="Upload your runs and join the global leaderboard" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; font-size: 12px; font-weight: 700; background: linear-gradient(135deg, #10b981, #059669); border: 1px solid #34d399; box-shadow: 0 2px 10px rgba(16, 185, 129, 0.25);">
@@ -3398,7 +3398,7 @@
         <!-- Exclusive Desktop App Controls (Version Ribbon & 1-Click Cloud Updater on Right Side) -->
         <div id="desktopAppHeaderControls" style="display: none; align-items: center; gap: 6px;">
           <span id="desktopAppVersionPill" style="font-family: var(--font-mono); font-size: 11px; font-weight: 700; color: #38bdf8; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); padding: 4px 8px; border-radius: 6px; letter-spacing: 0.3px;" title="Current Desktop App Version">
-            v1.3.6
+            v1.3.7
           </span>
           <button class="btn-primary" id="btnDesktopUpdate" onclick="triggerAppUpdate()" title="Restart and auto-update companion to latest version" style="display: none; align-items: center; gap: 5px; padding: 5px 12px; font-size: 11px; font-weight: 700; background: linear-gradient(135deg, #22c55e, #16a34a); border: 1px solid #4ade80; border-radius: 6px; box-shadow: 0 2px 8px rgba(34, 197, 94, 0.4);">
             <span id="btnUpdateIcon">🔄</span> <span id="btnUpdateText">Restart to Update</span>
@@ -4714,7 +4714,7 @@
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
         <div>
           <h2 style="font-family: var(--font-title); color: var(--gold-spire); font-size: 22px; display: flex; align-items: center; gap: 10px;">
-            <span>⚡ Standalone Desktop App <span id="modalAppTitleVer" style="font-size: 13px; color: #38bdf8; font-family: var(--font-mono); border: 1px solid rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.15); padding: 1px 6px; border-radius: 4px;">v1.3.6</span></span>
+            <span>⚡ Standalone Desktop App <span id="modalAppTitleVer" style="font-size: 13px; color: #38bdf8; font-family: var(--font-mono); border: 1px solid rgba(56, 189, 248, 0.4); background: rgba(56, 189, 248, 0.15); padding: 1px 6px; border-radius: 4px;">v1.3.7</span></span>
           </h2>
           <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Zero setup &bull; 100% self-contained &bull; Real-time background sync</p>
         </div>
@@ -4725,7 +4725,7 @@
         <div style="background: linear-gradient(135deg, rgba(217, 119, 6, 0.12), rgba(20, 24, 33, 0.95)); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 12px; padding: 20px;">
           <div style="font-weight: 700; color: #fbbf24; font-size: 16px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
             <span>🚀 1-Click Desktop Companion</span>
-            <span id="modalAppRecVer" style="font-size: 10px; background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: 700;">RECOMMENDED &bull; v1.3.6</span>
+            <span id="modalAppRecVer" style="font-size: 10px; background: rgba(245, 158, 11, 0.25); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 2px 8px; border-radius: 12px; font-weight: 700;">RECOMMENDED &bull; v1.3.7</span>
           </div>
           <p style="font-size: 13px; color: var(--text-main); line-height: 1.5; margin-bottom: 14px;">
             Direct 1-click standalone executable (<code>STS2Tracker.exe</code>). Just download and double-click to run &mdash; zero unzipping, zero installation, and includes built-in auto-updating:
@@ -5846,7 +5846,7 @@
                 return;
               }
               if (st.is_desktop_app || st.version) {
-                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.3.6');
+                if (!isDesktopAppMode) enableDesktopAppUI(st.version || 'v1.3.7');
               }
               if (st.local_player_id && !getLocalSteamId()) {
                 setLocalSteamId(st.local_player_id);
@@ -5893,15 +5893,15 @@
       }
     }
 
-    const LOADED_UI_VERSION = 'v1.3.6';
-    let currentAppVersion = 'v1.3.6';
+    const LOADED_UI_VERSION = 'v1.3.7';
+    let currentAppVersion = 'v1.3.7';
     let isDesktopAppMode = false;
     let detectedSteamPlayerId = null;
     let detectedSteamPersona = null;
     let detectedSteamAccount = null;
     let authSessionPollInterval = null;
     let cloudUpdateAvailable = false;
-    let latestCloudVersion = 'v1.3.6';
+    let latestCloudVersion = 'v1.3.7';
 
     function dismissUpdateBanner() {
       const banner = document.getElementById('discordUpdateBanner');
@@ -6038,7 +6038,7 @@
     }
 
     async function fetchCloudVersionForWeb() {
-      let ver = LOADED_UI_VERSION || 'v1.3.6';
+      let ver = LOADED_UI_VERSION || 'v1.3.7';
       try {
         const resp = await fetch('/version.json?t=' + Date.now());
         if (resp.ok) {
@@ -6074,8 +6074,8 @@
     }
 
     async function triggerAppUpdate(skipConfirm = true) {
-      const originalVersion = currentAppVersion || 'v1.3.6';
-      const targetVersion = latestCloudVersion || currentAppVersion || 'v1.3.6';
+      const originalVersion = currentAppVersion || 'v1.3.7';
+      const targetVersion = latestCloudVersion || currentAppVersion || 'v1.3.7';
 
       // If already at or above target version, no need to update!
       if (!isNewerVersion(targetVersion, originalVersion)) {
@@ -6241,7 +6241,7 @@
             return;
           }
           if (st.is_desktop_app || st.version) {
-            enableDesktopAppUI(st.version || 'v1.3.6');
+            enableDesktopAppUI(st.version || 'v1.3.7');
           }
         } else {
           fetchCloudVersionForWeb();
@@ -6352,11 +6352,19 @@
       }
     }
 
+    function getEffectiveRunTime(r) {
+      if (!r) return 0;
+      const comp = Number(r.completed_time) || 0;
+      const start = Number(r.start_time) || 0;
+      const duration = Number(r.run_time) || 0;
+      return Math.max(comp, start + duration, start);
+    }
+
     function updateRunCollections() {
       rawLocalRuns.forEach(r => r._isShared = false);
 
       // Assign permanent chronological run numbers (Run #1 = oldest climb, Run #N = newest climb)
-      const localChrono = [...rawLocalRuns].sort((a, b) => (a.start_time || 0) - (b.start_time || 0));
+      const localChrono = [...rawLocalRuns].sort((a, b) => getEffectiveRunTime(a) - getEffectiveRunTime(b));
       localChrono.forEach((r, idx) => {
         r._runNumber = idx + 1;
       });
@@ -6768,7 +6776,7 @@
         const scopeBadge = isWinsMode ? '🏆 Victory' : 'Climb';
 
         // Streaks calculation (evaluated chronologically across all runs in climb career)
-        const chronoRuns = [...runs].sort((a,b) => (a.start_time || 0) - (b.start_time || 0));
+        const chronoRuns = [...runs].sort((a,b) => getEffectiveRunTime(a) - getEffectiveRunTime(b));
         let curWin = 0, maxWin = 0, winStreakRun = null;
         let curLoss = 0, maxLoss = 0, lossStreakRun = null;
 
@@ -7429,8 +7437,8 @@
       }
 
       filteredRuns.sort((a, b) => {
-        if (currentSort === 'newest') return (b.start_time || 0) - (a.start_time || 0);
-        if (currentSort === 'oldest') return (a.start_time || 0) - (b.start_time || 0);
+        if (currentSort === 'newest') return getEffectiveRunTime(b) - getEffectiveRunTime(a);
+        if (currentSort === 'oldest') return getEffectiveRunTime(a) - getEffectiveRunTime(b);
         if (currentSort === 'duration') return (b.run_time || 0) - (a.run_time || 0);
         if (currentSort === 'floors') return getRunFloors(b) - getRunFloors(a);
         if (currentSort === 'ascension') return (b.ascension || 0) - (a.ascension || 0);
@@ -7674,7 +7682,7 @@
             ${isCoop ? `<div class="badge-coop" style="margin-top: 4px;">CO-OP 👥 (2P)</div>` : ''}
             ${isSolo ? `<div class="badge-solo" style="margin-top: 4px; background: rgba(99, 102, 241, 0.15); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.3); padding: 2px 7px; border-radius: 4px; font-size: 11px; font-weight: 600;">SOLO 👤</div>` : ''}
             ${isShared ? `<div class="run-outcome-badge badge-shared" style="margin-top: 4px;">👤 Shared</div>` : ''}
-            <div class="run-time-info">${formatRelativeTime(r.start_time)}</div>
+            <div class="run-time-info">${formatRelativeTime(getEffectiveRunTime(r))}</div>
             <div class="run-time-info">${formatTime(r.run_time)}</div>
           </div>
 
@@ -7798,8 +7806,14 @@
         `;
       }
 
+      const runEffTime = getEffectiveRunTime(run);
+      const isMultiDay = run.completed_time && run.start_time && Math.abs(run.completed_time - run.start_time) > 86400;
+      const climbDateStr = isMultiDay
+        ? `Completed on ${formatDate(runEffTime)} (Started ${formatDate(run.start_time)})`
+        : `Climbed on ${formatDate(runEffTime)}`;
+
       document.getElementById('modalSubInfo').innerHTML = `
-        Climbed on ${formatDate(run.start_time)} &bull; ${run._runNumber ? `<strong>Run #${run._runNumber}</strong> &bull; ` : ''}Seed: <button class="copy-seed-btn" onclick="copySeed('${run.seed}', event)" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border-subtle); color: var(--gold-spire); padding: 2px 6px; border-radius: 4px; cursor: pointer;">${run.seed} (Copy)</button>
+        ${climbDateStr} &bull; ${run._runNumber ? `<strong>Run #${run._runNumber}</strong> &bull; ` : ''}Seed: <button class="copy-seed-btn" onclick="copySeed('${run.seed}', event)" style="background: rgba(255,255,255,0.06); border: 1px solid var(--border-subtle); color: var(--gold-spire); padding: 2px 6px; border-radius: 4px; cursor: pointer;">${run.seed} (Copy)</button>
         ${isShared ? ` &bull; <strong style="color: var(--shared-color);">${run._sharedBy ? 'Shared by ' + escapeHtml(run._sharedBy) : 'Shared Run'}</strong>${run._sharedNote ? ` &bull; <span style="color: #e9d5ff; background: rgba(192, 132, 252, 0.14); border: 1px solid rgba(192, 132, 252, 0.35); padding: 2px 8px; border-radius: 6px; font-style: italic;">&ldquo;${escapeHtml(run._sharedNote)}&rdquo;</span>` : ''}` : ''}
         ${isCoop ? ' &bull; <strong style="color: #38bdf8;">Co-op Duo Run</strong>' : ''}
       `;
@@ -9892,11 +9906,20 @@
             const safeText = text.replace(/"(player_)?id"\s*:\s*([0-9]{15,20})/g, '"$1id":"$2"');
             const data = JSON.parse(safeText);
             if (data && data.runs && Array.isArray(data.runs)) {
+              data.runs.forEach(dr => {
+                if (file.lastModified && !dr.completed_time) dr.completed_time = Math.floor(file.lastModified / 1000);
+              });
               parsedRuns.push(...data.runs);
             } else if (Array.isArray(data)) {
+              data.forEach(dr => {
+                if (file.lastModified && !dr.completed_time) dr.completed_time = Math.floor(file.lastModified / 1000);
+              });
               parsedRuns.push(...data);
             } else if (data && typeof data === 'object') {
               if (data.map_point_history || data.acts || data.character_chosen || data.seed || data.ascension_level !== undefined || data.players) {
+                if (file.lastModified && !data.completed_time) {
+                  data.completed_time = Math.floor(file.lastModified / 1000);
+                }
                 if (getLocalSteamId() && !data.local_player_id) {
                   data.local_player_id = getLocalSteamId();
                 }
@@ -9918,8 +9941,8 @@
           return;
         }
 
-        // Sort by start_time descending
-        verifiedRuns.sort((a, b) => (b.start_time || 0) - (a.start_time || 0));
+        // Sort by effective completion time descending
+        verifiedRuns.sort((a, b) => getEffectiveRunTime(b) - getEffectiveRunTime(a));
 
         // Save to browser localStorage so runs persist forever across page visits
         rawLocalRuns = verifiedRuns;
@@ -15392,7 +15415,7 @@
             <td><span style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 6px; padding: 2px 7px; font-size: 11px; font-weight: 700;">A${r.ascension || 0}</span></td>
             <td>${authorBadge}</td>
             <td style="font-size: 12px; color: var(--text-muted);">${r.floors || getRunFloors(r)} Floors</td>
-            <td style="font-size: 11px; color: var(--text-dim);">${formatRelativeTime(r.start_time)}</td>
+            <td style="font-size: 11px; color: var(--text-dim);">${formatRelativeTime(getEffectiveRunTime(r))}</td>
             <td style="text-align: right;">
               <button class="btn-primary" style="padding: 5px 14px; font-size: 11px;" onclick="inspectLeaderboardRun('${r.id || r.start_time}')">
                 🔍 Inspect Run
@@ -15455,7 +15478,7 @@
             <td><span style="background: rgba(244, 63, 94, 0.2); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.4); border-radius: 6px; padding: 2px 7px; font-size: 11px; font-weight: 700;">A${r.ascension || 0}</span></td>
             <td>${authorBadge}</td>
             <td style="font-size: 12px; color: var(--text-muted);">${r.floors || getRunFloors(r)} Floors</td>
-            <td style="font-size: 11px; color: var(--text-dim);">${formatRelativeTime(r.start_time)}</td>
+            <td style="font-size: 11px; color: var(--text-dim);">${formatRelativeTime(getEffectiveRunTime(r))}</td>
             <td style="text-align: right;">
               <button class="btn-primary" style="padding: 5px 14px; font-size: 11px;" onclick="inspectLeaderboardRun('${r.id || r.start_time}')">
                 🔍 Inspect Run
@@ -15595,7 +15618,7 @@
       let fastestWinSeconds = null;
       let curStreak = 0, longestStreak = 0;
 
-      const chronoRuns = [...allRuns].sort((a,b) => (a.start_time || 0) - (b.start_time || 0));
+      const chronoRuns = [...allRuns].sort((a,b) => getEffectiveRunTime(a) - getEffectiveRunTime(b));
       chronoRuns.forEach(r => {
         if (r.win) {
           curStreak++;
@@ -17210,7 +17233,7 @@
       let curStreak = 0, maxStreak = 0;
       const charWins = {};
 
-      const chrono = [...standardRuns].sort((a, b) => (a.start_time || 0) - (b.start_time || 0));
+      const chrono = [...standardRuns].sort((a, b) => getEffectiveRunTime(a) - getEffectiveRunTime(b));
       chrono.forEach(r => {
         if (r.win) {
           totalVictories++;
@@ -17338,6 +17361,7 @@
 
         // ONLY sync standard victory runs (EXCLUDE dailies)
         const victoryRuns = runsToSync.filter(r => r.win && !isDailyOrChallengeRun(r));
+        victoryRuns.sort((a, b) => getEffectiveRunTime(b) - getEffectiveRunTime(a));
         for (const r of victoryRuns.slice(0, 25)) {
           const runId = String(r.start_time || r.id);
           const cKey = getCharKey(r);
@@ -17352,6 +17376,7 @@
             ascension: r.ascension || 0,
             character: cKey,
             start_time: r.start_time || Math.floor(Date.now() / 1000),
+            completed_time: getEffectiveRunTime(r),
             floors: getRunFloors(r),
             fullRun: r
           };
@@ -17617,7 +17642,7 @@
           const curId = String(targetRun.start_time || targetRun.id || '');
           const isSel = rId === curId;
           const outText = r.win ? '🏆 WIN' : (r.was_abandoned ? '🚪 ABANDON' : '💀 LOSS');
-          return `<option value="${escapeHtml(rId)}" ${isSel ? 'selected' : ''}>Run #${sourceRuns.length - idx} • ${escapeHtml(cfg.name)} (A${r.ascension || 0}) • ${outText} • Floor ${fl} (${formatDate(r.start_time)})</option>`;
+          return `<option value="${escapeHtml(rId)}" ${isSel ? 'selected' : ''}>Run #${sourceRuns.length - idx} • ${escapeHtml(cfg.name)} (A${r.ascension || 0}) • ${outText} • Floor ${fl} (${formatDate(getEffectiveRunTime(r))})</option>`;
         }).join('');
       } else if (pickerWrap) {
         pickerWrap.style.display = 'none';
@@ -17671,7 +17696,7 @@
             <span style="font-size: 11px; font-weight: 800; color: var(--gold-spire); background: rgba(234, 179, 8, 0.14); border: 1px solid rgba(234, 179, 8, 0.35); padding: 1px 7px; border-radius: 6px;">A${run.ascension || 0}</span>
           </div>
           <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">
-            Floor <strong>${floors}</strong> &bull; <strong>${formatTime(run.run_time || 0)}</strong> &bull; <strong>${deckSize}</strong> Cards &bull; <strong>${relicCount}</strong> Relics &bull; ${formatDate(run.start_time)}
+            Floor <strong>${floors}</strong> &bull; <strong>${formatTime(run.run_time || 0)}</strong> &bull; <strong>${deckSize}</strong> Cards &bull; <strong>${relicCount}</strong> Relics &bull; ${formatDate(getEffectiveRunTime(run))}
           </div>
         </div>
       `;

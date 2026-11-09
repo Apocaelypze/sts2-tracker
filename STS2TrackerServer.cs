@@ -32,7 +32,7 @@ namespace STS2Tracker
         private static DateTime lastHeartbeat = DateTime.UtcNow;
         private static bool clientConnected = false;
         private static readonly DateTime serverStartTime = DateTime.UtcNow;
-        private static readonly string AppVersion = "v1.3.6";
+        private static readonly string AppVersion = "v1.3.7";
         private static HttpListener httpListener = null;
         private static int closeSequenceId = 0;
         private static volatile bool isUpdatingCompanion = false;
@@ -713,6 +713,7 @@ namespace STS2Tracker
             public string FilePath;
             public long StartTime;
             public DateTime FileTime;
+            public long CompletedTime;
         }
 
         private static void ReloadRuns()
@@ -739,23 +740,31 @@ namespace STS2Tracker
                         RunFileInfo rfi = new RunFileInfo();
                         rfi.FilePath = f;
                         rfi.FileTime = File.GetLastWriteTime(f);
+                        rfi.CompletedTime = ((DateTimeOffset)rfi.FileTime.ToUniversalTime()).ToUnixTimeSeconds();
                         rfi.StartTime = 0;
 
                         try
                         {
-                            using (FileStream fs = new FileStream(f, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                            using (StreamReader sr = new StreamReader(fs, Encoding.UTF8))
+                            string fname = Path.GetFileNameWithoutExtension(f);
+                            long fStartTime;
+                            if (long.TryParse(fname, out fStartTime))
                             {
-                                char[] buf = new char[2048];
-                                int read = sr.Read(buf, 0, buf.Length);
-                                string header = new string(buf, 0, read);
-                                Match m = startTimeRegex.Match(header);
-                                if (m.Success)
+                                rfi.StartTime = fStartTime;
+                            }
+                            else
+                            {
+                                using (FileStream fs = new FileStream(f, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                                using (StreamReader sr = new StreamReader(fs, Encoding.UTF8))
                                 {
-                                    long st;
-                                    if (long.TryParse(m.Groups[1].Value, out st))
+                                    string text = sr.ReadToEnd();
+                                    Match m = startTimeRegex.Match(text);
+                                    if (m.Success)
                                     {
-                                        rfi.StartTime = st;
+                                        long st;
+                                        if (long.TryParse(m.Groups[1].Value, out st))
+                                        {
+                                            rfi.StartTime = st;
+                                        }
                                     }
                                 }
                             }
@@ -767,11 +776,9 @@ namespace STS2Tracker
 
                     list.Sort(delegate(RunFileInfo a, RunFileInfo b)
                     {
-                        if (a.StartTime != b.StartTime)
-                        {
-                            return b.StartTime.CompareTo(a.StartTime);
-                        }
-                        return b.FileTime.CompareTo(a.FileTime);
+                        long effA = Math.Max(a.CompletedTime, a.StartTime);
+                        long effB = Math.Max(b.CompletedTime, b.StartTime);
+                        return effB.CompareTo(effA);
                     });
 
                     StringBuilder sb = new StringBuilder();
@@ -783,26 +790,30 @@ namespace STS2Tracker
                     {
                         try
                         {
-                            string content;
+                            string fileJson;
                             using (FileStream fs = new FileStream(item.FilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                             using (StreamReader sr = new StreamReader(fs, Encoding.UTF8))
                             {
-                                content = sr.ReadToEnd().Trim();
+                                fileJson = sr.ReadToEnd().Trim();
                             }
 
-                            if (content.StartsWith("{") && content.EndsWith("}"))
+                            if (fileJson.StartsWith("{") && fileJson.EndsWith("}"))
                             {
                                 // Quote large 64-bit Steam IDs to preserve full precision in JavaScript
-                                content = Regex.Replace(content, "\"id\"\\s*:\\s*([0-9]{15,20})", "\"id\":\"$1\"");
-                                content = Regex.Replace(content, "\"player_id\"\\s*:\\s*([0-9]{15,20})", "\"player_id\":\"$1\"");
+                                fileJson = Regex.Replace(fileJson, "\"id\"\\s*:\\s*([0-9]{15,20})", "\"id\":\"$1\"");
+                                fileJson = Regex.Replace(fileJson, "\"player_id\"\\s*:\\s*([0-9]{15,20})", "\"player_id\":\"$1\"");
 
+                                long compTime = item.CompletedTime > 0 ? item.CompletedTime : ((DateTimeOffset)item.FileTime.ToUniversalTime()).ToUnixTimeSeconds();
+                                string meta = "\"completed_time\":" + compTime;
                                 if (!string.IsNullOrEmpty(localPlayerId))
                                 {
-                                    content = "{\"local_player_id\":\"" + localPlayerId + "\"," + content.Substring(1);
+                                    meta += ",\"local_player_id\":\"" + localPlayerId + "\"";
                                 }
 
+                                fileJson = "{" + meta + "," + fileJson.Substring(1);
+
                                 if (!first) sb.Append(",");
-                                sb.Append(content);
+                                sb.Append(fileJson);
                                 first = false;
                                 count++;
                             }

@@ -1,16 +1,16 @@
 {
-  "version": "1.3.6",
-  "versionNumber": 1.36,
-  "releaseDate": "2026-11-07",
-  "title": "STS2 Tracker v1.3.6 - Sleep & Power Mode Resilience, Auto-Updater Timeout Protection & Instant Recovery",
+  "version": "1.3.7",
+  "versionNumber": 1.37,
+  "releaseDate": "2026-11-09",
+  "title": "STS2 Tracker v1.3.7 - Resumed Runs Chronology & Real Completion Timestamp Sync",
   "changelog": [
-    "Sleep & Power Mode Resilience: Integrated Windows SystemEvents.PowerModeChanged hook to prevent the background companion engine from shutting down when the PC enters sleep mode or suspends tabs",
-    "Removed Premature pagehide Beacon: Fixed Chromium Edge sleeping tabs and OS sleep dispatching false client_closed beacons",
-    "Smart Wake Reconnect: Added clock tick jump detection to gracefully pause telemetry sync and give network 4 seconds to reconnect after waking from sleep",
-    "Safe Auto-Updater Polling: Fixed version polling loop lock when already running target release, reduced timeout from 90s to 30s, and added Dismiss & Return to Dashboard overlay recovery controls",
-    "Fail-safe Process Restarter: Guaranteed companion restart even if file-swapping encounters a delay or file lock"
+    "Fixed Run Chronology for Resumed Climbs: Multi-session or suspended runs resumed across days now sort strictly by their true completion timestamp rather than initial session start time",
+    "Accurate Run Numbering: Newly completed climbs immediately receive the top run number (#150) and populate at the very top of Climbs & History",
+    "Multi-Day Run Time Display: Cards accurately display relative completion time (e.g. 'Just now' / 'XXm ago') and modal inspect details both completion and start dates for multi-day climbs",
+    "Server & Cloud Completed Time Injection: Injected completed_time into API payloads and Firebase Leaderboard syncing",
+    "Web Save Import Enhancements: Drag-and-drop save uploads now preserve file modification timestamps as completed_time"
   ],
   "downloadExe": "https://github.com/Apocaelypze/sts2-tracker/releases/latest/download/STS2Tracker.exe",
   "downloadZip": "https://slay-the-spire-2-tracker.web.app/STS2Tracker.zip",
-  "notes": "Fixes app freezing after sleep mode, adds Windows power event management, eliminates premature companion termination on sleeping tabs, and improves update polling resilience."
+  "notes": "Fixes multi-day climb chronological sorting, accurately numbers resumed runs at the top of history, and displays true completion timestamps."
 }
