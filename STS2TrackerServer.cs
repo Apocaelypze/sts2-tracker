@@ -32,7 +32,7 @@ namespace STS2Tracker
         private static DateTime lastHeartbeat = DateTime.UtcNow;
         private static bool clientConnected = false;
         private static readonly DateTime serverStartTime = DateTime.UtcNow;
-        private static readonly string AppVersion = "v1.3.8";
+        private static readonly string AppVersion = "v1.3.9";
         private static HttpListener httpListener = null;
         private static int closeSequenceId = 0;
         private static volatile bool isUpdatingCompanion = false;

@@ -1,16 +1,16 @@
 {
-  "version": "1.3.8",
-  "versionNumber": 1.38,
+  "version": "1.3.9",
+  "versionNumber": 1.39,
   "releaseDate": "2026-11-09",
-  "title": "STS2 Tracker v1.3.8 - Active Session Auto-Healer & Legacy Steam Handle Migration",
+  "title": "STS2 Tracker v1.3.9 - Canonical Spire Accolades Showcase & Rarity Badging",
   "changelog": [
-    "Active Session Auto-Healer: Automatically heals stale 'SteamSlayer_XXXX' local storage handles into verified Slayer handles without requiring user re-login",
-    "Direct Steam ID Identity Resolution: Linked Steam ID 76561199088830668 strictly resolves to Kratos77x across all client storage, cloud sync, and leaderboards",
-    "Cloud Steam Mapping Sync: Auto-resolves steamId against cloud database (/steam_users/<id>.json) on startup to keep display personas synchronized",
-    "Prompt Fallback for Unknown Legacy Handles: Any remaining unmapped SteamSlayer_ users are automatically prompted to choose their preferred handle",
-    "Full Leaderboard & Run Sync Restoration: Unblocks cloud climb hydration and leaderboard submissions for active sessions"
+    "Complete 41 Canonical Accolades Catalog: Integrated all official Slay the Spire 2 accolades directly from the game engine localization and bytecode",
+    "Instant Rarity Identification: Badges and chips now feature distinct Gold 🥇, Silver 🥈, and Bronze 🥉 metallic styling, glowing borders, and medal icons for immediate at-a-glance recognition without hovering",
+    "Full Accolades Pursuit Section: Players can now view all 41 accolades—including unearned ones with 🔒 0x locked styling and precise unlock criteria—to pursue in future climbs",
+    "Multi-Tier Accolade Dynamic Resolution: Accurately distinguishes tiered achievements like Flawless (Bronze 1 boss), Supreme (Silver 2 bosses), and Perfect (Gold 3 bosses), as well as Elite Hunter / Killer / Slayer and Healer tiers",
+    "Interactive Accolade Tabs & Filtering: Filter by All (41), Earned, In Pursuit, or specific Gold / Silver / Bronze rarities with a single click"
   ],
   "downloadExe": "https://github.com/Apocaelypze/sts2-tracker/releases/latest/download/STS2Tracker.exe",
   "downloadZip": "https://slay-the-spire-2-tracker.web.app/STS2Tracker.zip",
-  "notes": "Auto-heals existing client sessions from legacy SteamSlayer_ handles to real Slayer identities without requiring sign out."
+  "notes": "Full canonical 41-accolade showcase with Gold/Silver/Bronze instant rarity badging and unearned pursuit tracker."
 }

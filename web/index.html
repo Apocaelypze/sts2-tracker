@@ -1993,10 +1993,63 @@
       border-color: #94a3b8;
       color: #e2e8f0;
     }
+    .badge-medallion.rarity-gold {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(180, 83, 9, 0.2));
+      border: 1.5px solid #fbbf24;
+      color: #fef08a;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.35);
+    }
+    .badge-medallion.rarity-silver {
+      background: linear-gradient(135deg, rgba(203, 213, 225, 0.22), rgba(100, 116, 139, 0.2));
+      border: 1.5px solid #cbd5e1;
+      color: #f8fafc;
+      box-shadow: 0 0 8px rgba(203, 213, 225, 0.3);
+    }
     .badge-medallion.rarity-bronze {
-      background: linear-gradient(135deg, rgba(217, 119, 6, 0.2), rgba(180, 83, 9, 0.1));
-      border-color: #b45309;
-      color: #fcd34d;
+      background: linear-gradient(135deg, rgba(217, 119, 6, 0.2), rgba(120, 53, 15, 0.2));
+      border: 1.5px solid #d97706;
+      color: #fed7aa;
+      box-shadow: 0 0 6px rgba(217, 119, 6, 0.25);
+    }
+
+    .badge-player-pill.rarity-gold {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.25), rgba(180, 83, 9, 0.25));
+      border: 1px solid #f59e0b;
+      color: #fde047;
+      box-shadow: 0 0 6px rgba(245, 158, 11, 0.3);
+    }
+    .badge-player-pill.rarity-silver {
+      background: linear-gradient(135deg, rgba(203, 213, 225, 0.2), rgba(100, 116, 139, 0.25));
+      border: 1px solid #cbd5e1;
+      color: #f1f5f9;
+      box-shadow: 0 0 6px rgba(203, 213, 225, 0.25);
+    }
+    .badge-player-pill.rarity-bronze {
+      background: linear-gradient(135deg, rgba(217, 119, 6, 0.18), rgba(120, 53, 15, 0.2));
+      border: 1px solid #b45309;
+      color: #fed7aa;
+    }
+
+    /* Accolade Filter Tabs */
+    .accolade-tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .accolade-tab-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+    }
+    .accolade-tab-btn.active {
+      color: #fff;
+      background: rgba(234, 179, 8, 0.2);
+      border: 1px solid rgba(234, 179, 8, 0.4);
     }
 
     /* Dashboard Lifetime Achievements Showcase */
@@ -2010,24 +2063,126 @@
     .badge-counter-chip {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 6px 12px;
+      gap: 7px;
+      padding: 6px 11px;
       border-radius: 8px;
       background: var(--bg-darker);
-      border: 1px solid var(--border-subtle);
+      border: 1.5px solid var(--border-subtle);
       font-size: 12px;
       cursor: pointer;
       transition: all 0.15s ease;
+      position: relative;
     }
     .badge-counter-chip:hover {
-      border-color: var(--gold-spire);
-      background: rgba(234, 179, 8, 0.08);
       transform: translateY(-2px);
     }
-    .badge-counter-chip.active {
-      border-color: var(--gold-spire);
-      background: rgba(234, 179, 8, 0.15);
-      box-shadow: 0 0 10px rgba(234, 179, 8, 0.2);
+    .badge-counter-chip.rarity-gold {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.18) 0%, rgba(120, 53, 15, 0.28) 100%);
+      border-color: #f59e0b;
+      box-shadow: 0 2px 10px rgba(245, 158, 11, 0.25);
+    }
+    .badge-counter-chip.rarity-gold strong {
+      color: #fef08a !important;
+    }
+    .badge-counter-chip.rarity-gold:hover {
+      border-color: #fbbf24;
+      box-shadow: 0 4px 16px rgba(245, 158, 11, 0.45);
+    }
+    .badge-counter-chip.rarity-gold.active {
+      background: linear-gradient(135deg, rgba(245, 158, 11, 0.35) 0%, rgba(180, 83, 9, 0.45) 100%);
+      border-color: #fde047;
+      box-shadow: 0 0 16px rgba(253, 224, 71, 0.6);
+    }
+    .badge-counter-chip.rarity-gold .chip-count {
+      background: rgba(251, 191, 36, 0.25);
+      color: #fef08a;
+      border: 1px solid rgba(251, 191, 36, 0.5);
+    }
+
+    .badge-counter-chip.rarity-silver {
+      background: linear-gradient(135deg, rgba(203, 213, 225, 0.16) 0%, rgba(71, 85, 105, 0.28) 100%);
+      border-color: #94a3b8;
+      box-shadow: 0 2px 10px rgba(148, 163, 184, 0.2);
+    }
+    .badge-counter-chip.rarity-silver strong {
+      color: #f8fafc !important;
+    }
+    .badge-counter-chip.rarity-silver:hover {
+      border-color: #e2e8f0;
+      box-shadow: 0 4px 16px rgba(203, 213, 225, 0.4);
+    }
+    .badge-counter-chip.rarity-silver.active {
+      background: linear-gradient(135deg, rgba(203, 213, 225, 0.3) 0%, rgba(100, 116, 139, 0.45) 100%);
+      border-color: #f1f5f9;
+      box-shadow: 0 0 16px rgba(241, 245, 249, 0.5);
+    }
+    .badge-counter-chip.rarity-silver .chip-count {
+      background: rgba(203, 213, 225, 0.2);
+      color: #f8fafc;
+      border: 1px solid rgba(203, 213, 225, 0.4);
+    }
+
+    .badge-counter-chip.rarity-bronze {
+      background: linear-gradient(135deg, rgba(180, 83, 9, 0.16) 0%, rgba(69, 26, 3, 0.28) 100%);
+      border-color: #b45309;
+      box-shadow: 0 2px 8px rgba(180, 83, 9, 0.18);
+    }
+    .badge-counter-chip.rarity-bronze strong {
+      color: #fed7aa !important;
+    }
+    .badge-counter-chip.rarity-bronze:hover {
+      border-color: #d97706;
+      box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35);
+    }
+    .badge-counter-chip.rarity-bronze.active {
+      background: linear-gradient(135deg, rgba(217, 119, 6, 0.3) 0%, rgba(120, 53, 15, 0.45) 100%);
+      border-color: #f59e0b;
+      box-shadow: 0 0 14px rgba(245, 158, 11, 0.5);
+    }
+    .badge-counter-chip.rarity-bronze .chip-count {
+      background: rgba(217, 119, 6, 0.2);
+      color: #fed7aa;
+      border: 1px solid rgba(217, 119, 6, 0.4);
+    }
+
+    /* Locked / Unearned Chips */
+    .badge-counter-chip.locked {
+      background: rgba(15, 23, 42, 0.5);
+      border-style: dashed;
+      cursor: pointer;
+      opacity: 0.65;
+    }
+    .badge-counter-chip.locked:hover {
+      opacity: 1;
+      transform: translateY(-2px);
+    }
+    .badge-counter-chip.locked.rarity-gold {
+      border-color: rgba(245, 158, 11, 0.5);
+    }
+    .badge-counter-chip.locked.rarity-silver {
+      border-color: rgba(148, 163, 184, 0.45);
+    }
+    .badge-counter-chip.locked.rarity-bronze {
+      border-color: rgba(180, 83, 9, 0.45);
+    }
+    .badge-counter-chip.locked strong {
+      color: var(--text-dim) !important;
+    }
+    .badge-counter-chip.locked .chip-count {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-dim);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .badge-counter-chip .chip-medal {
+      font-size: 13.5px;
+      line-height: 1;
+    }
+    .badge-counter-chip .chip-count {
+      padding: 1px 7px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 11px;
+      margin-left: 2px;
     }
 
     /* Hall of Records Showcase */
@@ -3387,7 +3542,7 @@
         <button class="btn-desktop-app" id="btnHeaderDesktopApp" onclick="openAppDownloadModal()" title="Download standalone Desktop App companion (v1.3.8)">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
           <span id="headerDesktopAppText">Desktop App</span>
-          <span id="headerDesktopAppVersion" style="font-size: 10px; opacity: 0.75; font-family: var(--font-mono); font-weight: 700; margin-left: 2px;">v1.3.8</span>
+          <span id="headerDesktopAppVersion" style="font-size: 10px; opacity: 0.75; font-family: var(--font-mono); font-weight: 700; margin-left: 2px;">v1.3.9</span>
         </button>
 
         <button class="btn-primary" id="btnHeaderUploadRun" onclick="openLoadSavesModal()" title="Upload your runs and join the global leaderboard" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; font-size: 12px; font-weight: 700; background: linear-gradient(135deg, #10b981, #059669); border: 1px solid #34d399; box-shadow: 0 2px 10px rgba(16, 185, 129, 0.25);">
@@ -3548,26 +3703,37 @@
 
       <!-- Lifetime Achievements & Badges Showcase -->
       <div class="achievements-showcase" id="lifetimeBadgesShowcase">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="font-size: 20px;">🏆</span>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 24px;">🏆</span>
             <div>
-              <div style="font-family: var(--font-title); font-size: 15px; font-weight: 700; color: var(--gold-spire);">
-                Lifetime Run Badges &amp; Achievements
+              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                <span style="font-family: var(--font-title); font-size: 16px; font-weight: 700; color: var(--gold-spire);">
+                  Lifetime Spire Accolades &amp; Honors
+                </span>
+                <span id="accoladeCompletionBadge" style="font-size: 11px; background: rgba(234, 179, 8, 0.15); border: 1px solid rgba(234, 179, 8, 0.35); color: var(--gold-spire); padding: 2px 8px; border-radius: 10px; font-weight: 700;"></span>
               </div>
-              <div style="font-size: 12px; color: var(--text-dim);">
-                Special honors and playstyle accolades awarded at run completion. Click any badge to filter matching runs below.
+              <div style="font-size: 12px; color: var(--text-dim); margin-top: 2px;">
+                Complete Spire chronicle of all 41 canonical honors. Click any accolade to filter matching runs below.
               </div>
             </div>
           </div>
           <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <div class="accolade-tabs" style="display: inline-flex; background: rgba(0,0,0,0.35); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 2px;">
+              <button class="accolade-tab-btn active" id="btnAccoladeTabAll" onclick="setAccoladesTab('all')">All (41)</button>
+              <button class="accolade-tab-btn" id="btnAccoladeTabEarned" onclick="setAccoladesTab('earned')">Earned</button>
+              <button class="accolade-tab-btn" id="btnAccoladeTabUnearned" onclick="setAccoladesTab('unearned')">In Pursuit</button>
+              <button class="accolade-tab-btn" id="btnAccoladeTabGold" onclick="setAccoladesTab('gold')">🥇 Gold</button>
+              <button class="accolade-tab-btn" id="btnAccoladeTabSilver" onclick="setAccoladesTab('silver')">🥈 Silver</button>
+              <button class="accolade-tab-btn" id="btnAccoladeTabBronze" onclick="setAccoladesTab('bronze')">🥉 Bronze</button>
+            </div>
             <span id="myBadgesTotalCount" style="font-size: 11.5px; background: rgba(234,179,8,0.15); border: 1px solid rgba(234,179,8,0.3); color: var(--gold-spire); padding: 4px 12px; border-radius: 12px; font-weight: 700;"></span>
             <button class="btn-secondary" id="btnClearBadgeFilter" style="display: none; font-size: 11px; padding: 4px 10px;" onclick="clearBadgeFilter()">
-              Clear Badge Filter ✕
+              Clear Filter ✕
             </button>
           </div>
         </div>
-        <div id="badgesGrid" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center;">
+        <div id="badgesGrid">
           <!-- Dynamically filled with badge chips -->
         </div>
       </div>
@@ -5559,24 +5725,111 @@
     }
 
     const BADGE_DEFINITIONS = {
-      'RESTLESS': { title: 'Restless', icon: '⛺⚡', desc: 'Won a run without ever resting.', rarity: 'gold' },
-      'BIG_DECK': { title: 'Big Deck', icon: '📚', desc: 'Won a run with a massive deck (35+ cards).', rarity: 'bronze' },
-      'ELITE': { title: 'Elite Slayer', icon: '🪓', desc: 'Killed the most Elites in the party (or 5+ Elites in a single climb).', rarity: 'bronze' },
-      'HEALER': { title: 'Healer', icon: '💖', desc: 'Restored the most HP to party members during the climb.', rarity: 'silver' },
-      'SPEEDY': { title: 'Speedy', icon: '⏱️', desc: 'Completed a victorious climb in record time.', rarity: 'bronze' },
-      'HONED': { title: 'Honed', icon: '✨', desc: 'Finished a run with every card in the deck upgraded.', rarity: 'gold' },
-      'PERFECT': { title: 'Perfect', icon: '👑', desc: 'Defeated a Boss without taking any damage.', rarity: 'gold' },
-      'HIGHLANDER': { title: 'Highlander', icon: '🗡️', desc: 'Won a run with no duplicate cards in the deck.', rarity: 'gold' },
-      'MONEY_MONEY': { title: "Rainin' Money", icon: '💸', desc: 'Won with 400 or more Gold.', rarity: 'silver' },
-      'RAININ_MONEY': { title: "Rainin' Money", icon: '💸', desc: 'Won with 400 or more Gold.', rarity: 'silver' },
-      'ILIKESHINY': { title: 'I Like Shiny', icon: '✨👑', desc: 'Finished a run with 25 or more relics collected.', rarity: 'silver' },
-      'KACHING': { title: 'Ka-Ching!', icon: '🪙', desc: 'Spent over 800 gold at merchant shops.', rarity: 'bronze' },
-      'GLUTTON': { title: 'Glutton', icon: '🏺', desc: 'Consumed or hoarded an immense collection of potions and relics.', rarity: 'bronze' },
-      'TEAM_PLAYER': { title: 'Team Player', icon: '🤝', desc: 'Revived a fallen player or provided critical party support in Co-op.', rarity: 'silver' },
-      'DAMAGE_LEADER': { title: 'Damage Leader', icon: '💥', desc: 'Dealt the most combat damage in the party.', rarity: 'bronze' },
-      'DEBUFFER': { title: 'Debuffer', icon: '🧪', desc: 'Inflicted the most status ailments and debuffs on enemies.', rarity: 'bronze' },
-      'CCCCOMBO': { title: 'C-C-C-Combo!', icon: '⚡', desc: 'Played a massive chain of cards in a single combat turn.', rarity: 'bronze' }
+      // 1. Tiered Accolades (8 canonical categories x 3 tiers = 24 accolades)
+      'PERFECT_BRONZE': { baseId: 'PERFECT', tier: 'bronze', rarity: 'bronze', title: 'Flawless', desc: 'Defeated a boss without losing HP.', icon: '👑' },
+      'PERFECT_SILVER': { baseId: 'PERFECT', tier: 'silver', rarity: 'silver', title: 'Supreme', desc: 'Defeated 2 bosses without losing HP.', icon: '👑' },
+      'PERFECT_GOLD': { baseId: 'PERFECT', tier: 'gold', rarity: 'gold', title: 'Perfect', desc: 'Defeated 3 bosses without losing HP.', icon: '👑' },
+
+      'ELITE_BRONZE': { baseId: 'ELITE', tier: 'bronze', rarity: 'bronze', title: 'Elite Hunter', desc: 'Killed 3 or more Elites.', icon: '🗡️' },
+      'ELITE_SILVER': { baseId: 'ELITE', tier: 'silver', rarity: 'silver', title: 'Elite Killer', desc: 'Killed 6 or more Elites.', icon: '🗡️' },
+      'ELITE_GOLD': { baseId: 'ELITE', tier: 'gold', rarity: 'gold', title: 'Elite Slayer', desc: 'Killed 9 or more Elites.', icon: '🗡️' },
+
+      'SPEEDY_BRONZE': { baseId: 'SPEEDY', tier: 'bronze', rarity: 'bronze', title: 'Speedy', desc: 'Won a run in under 50 minutes.', icon: '⚡' },
+      'SPEEDY_SILVER': { baseId: 'SPEEDY', tier: 'silver', rarity: 'silver', title: 'Speedier', desc: 'Won a run in under 40 minutes.', icon: '⚡' },
+      'SPEEDY_GOLD': { baseId: 'SPEEDY', tier: 'gold', rarity: 'gold', title: 'Speediest', desc: 'Won a run in under 30 minutes.', icon: '⚡' },
+
+      'MONEY_MONEY_BRONZE': { baseId: 'MONEY_MONEY', tier: 'bronze', rarity: 'bronze', title: 'Money Money', desc: 'Won with 200 or more Gold.', icon: '💰' },
+      'MONEY_MONEY_SILVER': { baseId: 'MONEY_MONEY', tier: 'silver', rarity: 'silver', title: "Rainin' Money", desc: 'Won with 400 or more Gold.', icon: '💰' },
+      'MONEY_MONEY_GOLD': { baseId: 'MONEY_MONEY', tier: 'gold', rarity: 'gold', title: 'I Like Gold', desc: 'Won with 600 or more Gold.', icon: '💰' },
+
+      'GLUTTON_BRONZE': { baseId: 'GLUTTON', tier: 'bronze', rarity: 'bronze', title: 'Well Fed', desc: 'Won a run with your Max HP increased by 15 or more.', icon: '🍖' },
+      'GLUTTON_SILVER': { baseId: 'GLUTTON', tier: 'silver', rarity: 'silver', title: 'Stuffed', desc: 'Won a run with your Max HP increased by 30 or more.', icon: '🍖' },
+      'GLUTTON_GOLD': { baseId: 'GLUTTON', tier: 'gold', rarity: 'gold', title: 'Glutton', desc: 'Won a run with absurdly high Max HP (increased by 50 or more).', icon: '🍖' },
+
+      'HEALER_BRONZE': { baseId: 'HEALER', tier: 'bronze', rarity: 'bronze', title: 'Mender', desc: 'Mended an ally once.', icon: '💖' },
+      'HEALER_SILVER': { baseId: 'HEALER', tier: 'silver', rarity: 'silver', title: 'Healer', desc: 'Mended an ally twice.', icon: '💖' },
+      'HEALER_GOLD': { baseId: 'HEALER', tier: 'gold', rarity: 'gold', title: 'Doctor', desc: 'Mended allies over and over again (at least 3 times).', icon: '💖' },
+
+      'BIG_DECK_BRONZE': { baseId: 'BIG_DECK', tier: 'bronze', rarity: 'bronze', title: 'Big Deck', desc: 'Won with a deck of 40 or more cards.', icon: '📚' },
+      'BIG_DECK_SILVER': { baseId: 'BIG_DECK', tier: 'silver', rarity: 'silver', title: 'Huge Deck', desc: 'Won with a deck of 60 or more cards.', icon: '📚' },
+      'BIG_DECK_GOLD': { baseId: 'BIG_DECK', tier: 'gold', rarity: 'gold', title: 'Monster Deck', desc: 'Won with a deck of 100 or more cards.', icon: '📚' },
+
+      'TINY_DECK_BRONZE': { baseId: 'TINY_DECK', tier: 'bronze', rarity: 'bronze', title: 'Small Deck', desc: 'Won with a deck of 20 or fewer cards.', icon: '🃏' },
+      'TINY_DECK_SILVER': { baseId: 'TINY_DECK', tier: 'silver', rarity: 'silver', title: 'Tiny Deck', desc: 'Won with a deck of 10 or fewer cards.', icon: '🃏' },
+      'TINY_DECK_GOLD': { baseId: 'TINY_DECK', tier: 'gold', rarity: 'gold', title: 'Miniscule', desc: 'Won with a deck of 5 or fewer cards.', icon: '🃏' },
+
+      // 2. Non-Tiered Standalone Accolades (17 canonical accolades)
+      'TABLET': { baseId: 'TABLET', tier: 'gold', rarity: 'gold', title: 'Tablet of Truth', desc: 'Won with only 1 Max HP.', icon: '📜' },
+      'TEAM_PLAYER': { baseId: 'TEAM_PLAYER', tier: 'silver', rarity: 'silver', title: 'Team Player', desc: 'Deck contained 3 or more multiplayer-only cards.', icon: '🤝' },
+      'CURSES': { baseId: 'CURSES', tier: 'bronze', rarity: 'bronze', title: 'Curses!', desc: 'Won with 5 or more Curses.', icon: '💀' },
+      'DOUBLE_SNECKO': { baseId: 'DOUBLE_SNECKO', tier: 'bronze', rarity: 'bronze', title: 'Double Snecko', desc: 'Obtained both fake and real Snecko eyes.', icon: '🐍' },
+      'FAMISHED': { baseId: 'FAMISHED', tier: 'bronze', rarity: 'bronze', title: 'Famished', desc: 'Won with Max HP reduced to less than half of your starting HP.', icon: '🥀' },
+      'FAVORITE_CARD': { baseId: 'FAVORITE_CARD', tier: 'bronze', rarity: 'bronze', title: 'Favorite Card', desc: 'Won a run and played a single card more than 100 times.', icon: '⭐' },
+      'MYSTERY_MACHINE': { baseId: 'MYSTERY_MACHINE', tier: 'bronze', rarity: 'bronze', title: 'Mystery Machine', desc: 'Traveled to 15 or more ? rooms.', icon: '❓' },
+      'RESTFUL': { baseId: 'RESTFUL', tier: 'bronze', rarity: 'bronze', title: 'Restful', desc: 'Won a run while resting at each Rest Site.', icon: '🏕️' },
+      'RESTLESS': { baseId: 'RESTLESS', tier: 'bronze', rarity: 'bronze', title: 'Restless', desc: 'Won a run without ever resting.', icon: '🔥' },
+      'WHOMPER': { baseId: 'WHOMPER', tier: 'bronze', rarity: 'bronze', title: 'Whomper', desc: 'Dealt more than 100 damage with a single attack.', icon: '💥' },
+      'HIGHLANDER': { baseId: 'HIGHLANDER', tier: 'bronze', rarity: 'bronze', title: 'Highlander', desc: 'Won with a deck where no two cards are the same (excludes Starters).', icon: '⚔️' },
+      'HONED': { baseId: 'HONED', tier: 'bronze', rarity: 'bronze', title: 'Honed', desc: 'Won with a deck with 5 or more of the same card (excludes Starters).', icon: '✨' },
+      'ILIKESHINY': { baseId: 'ILIKESHINY', tier: 'bronze', rarity: 'bronze', title: 'I Like Shiny', desc: 'Amassed 25 or more relics.', icon: '💍' },
+      'KACHING': { baseId: 'KACHING', tier: 'bronze', rarity: 'bronze', title: 'Ka-Ching!', desc: 'Spent more than 1,000 Gold at the Merchant.', icon: '🪙' },
+      'CCCCOMBO': { baseId: 'CCCCOMBO', tier: 'bronze', rarity: 'bronze', title: 'C-c-c-Combo', desc: 'Played 20 cards in a single turn.', icon: '🎯' },
+      'DAMAGE_LEADER': { baseId: 'DAMAGE_LEADER', tier: 'bronze', rarity: 'bronze', title: 'Damage Leader', desc: 'Dealt the most damage to enemies in multiplayer.', icon: '🩸' },
+      'DEBUFFER': { baseId: 'DEBUFFER', tier: 'bronze', rarity: 'bronze', title: 'Debuffer', desc: 'Applied the most Debuffs in multiplayer.', icon: '🧪' }
     };
+
+    let currentAccoladesTab = 'all';
+
+    function setAccoladesTab(tab) {
+      currentAccoladesTab = tab;
+      const tabs = ['All', 'Earned', 'Unearned', 'Gold', 'Silver', 'Bronze'];
+      tabs.forEach(t => {
+        const btn = document.getElementById('btnAccoladeTab' + t);
+        if (btn) btn.classList.toggle('active', tab.toLowerCase() === t.toLowerCase());
+      });
+      renderLifetimeBadgesShowcase(rawLocalRuns);
+    }
+
+    function getBadgeMeta(badgeOrId, optRarity = null) {
+      if (!badgeOrId) {
+        return { key: 'UNKNOWN', baseId: 'UNKNOWN', tier: 'bronze', rarity: 'bronze', title: 'Accolade', desc: 'Run honor.', icon: '🎖️' };
+      }
+      let id = '';
+      let rarity = optRarity || '';
+      if (typeof badgeOrId === 'object' && badgeOrId !== null) {
+        id = badgeOrId.id || '';
+        if (!rarity && badgeOrId.rarity) rarity = badgeOrId.rarity;
+      } else if (typeof badgeOrId === 'string') {
+        id = badgeOrId;
+      }
+      id = (id || '').toUpperCase();
+      rarity = (rarity || '').toLowerCase();
+
+      if (id === 'RAININ_MONEY') return { ...BADGE_DEFINITIONS['MONEY_MONEY_SILVER'], key: 'MONEY_MONEY_SILVER' };
+
+      if (BADGE_DEFINITIONS[id]) {
+        return { ...BADGE_DEFINITIONS[id], key: id };
+      }
+
+      const tieredIds = ['BIG_DECK', 'ELITE', 'GLUTTON', 'HEALER', 'MONEY_MONEY', 'PERFECT', 'SPEEDY', 'TINY_DECK'];
+      if (tieredIds.includes(id)) {
+        const tier = (rarity === 'silver' || rarity === 'gold') ? rarity : 'bronze';
+        const compKey = `${id}_${tier.toUpperCase()}`;
+        if (BADGE_DEFINITIONS[compKey]) {
+          return { ...BADGE_DEFINITIONS[compKey], key: compKey };
+        }
+      }
+
+      return {
+        key: id,
+        baseId: id,
+        tier: rarity || 'bronze',
+        rarity: rarity || 'bronze',
+        title: cleanId(id),
+        desc: 'Special accolade awarded at run completion.',
+        icon: '🎖️'
+      };
+    }
 
     const STARTER_RELIC_IDS = new Set([
       'RELIC.BURNING_BLOOD',
@@ -5895,14 +6148,14 @@
     }
 
     const LOADED_UI_VERSION = 'v1.3.8';
-    let currentAppVersion = 'v1.3.8';
+    let currentAppVersion = 'v1.3.9';
     let isDesktopAppMode = false;
     let detectedSteamPlayerId = null;
     let detectedSteamPersona = null;
     let detectedSteamAccount = null;
     let authSessionPollInterval = null;
     let cloudUpdateAvailable = false;
-    let latestCloudVersion = 'v1.3.8';
+    let latestCloudVersion = 'v1.3.9';
 
     function dismissUpdateBanner() {
       const banner = document.getElementById('discordUpdateBanner');
@@ -6666,45 +6919,208 @@
       if (!container) return;
       container.innerHTML = '';
 
-      let totalMyBadges = 0;
       const myBadgeCounts = {};
+      Object.keys(BADGE_DEFINITIONS).forEach(k => myBadgeCounts[k] = 0);
+      let totalHonors = 0;
+      let goldCount = 0;
+      let silverCount = 0;
+      let bronzeCount = 0;
 
-      runs.forEach(r => {
+      (runs || []).forEach(r => {
         const localP = getPlayer(r);
         if (localP && localP.badges) {
           localP.badges.forEach(b => {
-            const id = b.id;
-            myBadgeCounts[id] = (myBadgeCounts[id] || 0) + 1;
-            totalMyBadges++;
+            const meta = getBadgeMeta(b);
+            const key = meta.key;
+            if (myBadgeCounts[key] !== undefined) {
+              myBadgeCounts[key]++;
+            } else {
+              myBadgeCounts[key] = 1;
+            }
+            totalHonors++;
+            if (meta.rarity === 'gold') goldCount++;
+            else if (meta.rarity === 'silver') silverCount++;
+            else bronzeCount++;
           });
         }
       });
 
+      const rarityRank = { 'gold': 1, 'silver': 2, 'bronze': 3 };
+      const allAccolades = Object.keys(BADGE_DEFINITIONS).map(key => {
+        const meta = BADGE_DEFINITIONS[key];
+        const count = myBadgeCounts[key] || 0;
+        return {
+          key,
+          ...meta,
+          count,
+          unlocked: count > 0
+        };
+      });
+
+      const earnedList = allAccolades.filter(a => a.count > 0).sort((a, b) => {
+        const rDiff = rarityRank[a.rarity] - rarityRank[b.rarity];
+        if (rDiff !== 0) return rDiff;
+        return b.count - a.count;
+      });
+
+      const unearnedList = allAccolades.filter(a => a.count === 0).sort((a, b) => {
+        const rDiff = rarityRank[a.rarity] - rarityRank[b.rarity];
+        if (rDiff !== 0) return rDiff;
+        return a.title.localeCompare(b.title);
+      });
+
+      // Update Header Badges
+      const completionEl = document.getElementById('accoladeCompletionBadge');
+      if (completionEl) {
+        const pct = Math.round((earnedList.length / allAccolades.length) * 100);
+        completionEl.innerText = `${earnedList.length} / ${allAccolades.length} Unlocked (${pct}%)`;
+      }
+
       const countEl = document.getElementById('myBadgesTotalCount');
-      if (countEl) countEl.innerText = `${totalMyBadges} Honors Earned`;
+      if (countEl) {
+        countEl.innerHTML = `${totalHonors} Honors Earned &bull; <span style="color:#fde047; font-weight:800;">${goldCount} 🥇</span> <span style="color:#f1f5f9; font-weight:800;">${silverCount} 🥈</span> <span style="color:#fed7aa; font-weight:800;">${bronzeCount} 🥉</span>`;
+      }
 
-      const sortedBadges = Object.entries(myBadgeCounts).sort((a,b) => b[1] - a[1]);
+      // Helper for creating chip element
+      function createChipEl(acc) {
+        const isLocked = !acc.unlocked;
+        const r = acc.rarity || 'bronze';
+        const medal = r === 'gold' ? '🥇' : (r === 'silver' ? '🥈' : '🥉');
+        const isActive = activeBadgeFilter === acc.key;
 
-      if (sortedBadges.length === 0) {
-        container.innerHTML = `<span style="color: var(--text-dim); font-size: 13px;">No personal run accolades recorded yet. Complete climbs to earn special honors!</span>`;
+        const chip = document.createElement('div');
+        chip.className = `badge-counter-chip rarity-${r} ${isLocked ? 'locked' : ''} ${isActive ? 'active' : ''}`;
+        chip.onclick = () => {
+          if (isLocked) {
+            showToast(`🎯 In Pursuit: ${acc.title} — ${acc.desc}`);
+          } else {
+            toggleBadgeFilter(acc.key);
+          }
+        };
+        chip.onmouseenter = (e) => showBadgeTooltip(acc.key, chip, e, r);
+        chip.onmousemove = (e) => positionTooltip(e);
+        chip.onmouseleave = () => hideTooltip();
+
+        chip.innerHTML = `
+          <span class="chip-medal">${isLocked ? '🔒' : medal}</span>
+          <span style="font-size: 14px;">${acc.icon}</span>
+          <strong style="color: #fff;">${acc.title}</strong>
+          <span class="chip-count">${acc.count}x</span>
+        `;
+        return chip;
+      }
+
+      // Render based on currentAccoladesTab
+      const tab = (currentAccoladesTab || 'all').toLowerCase();
+
+      if (tab === 'earned') {
+        if (earnedList.length === 0) {
+          container.innerHTML = `<div style="color: var(--text-dim); font-size: 13px; padding: 12px 0;">No accolades unlocked yet. Complete climbs to earn special honors!</div>`;
+          return;
+        }
+        const grid = document.createElement('div');
+        grid.style.display = 'flex';
+        grid.style.gap = '8px';
+        grid.style.flexWrap = 'wrap';
+        grid.style.alignItems = 'center';
+        earnedList.forEach(a => grid.appendChild(createChipEl(a)));
+        container.appendChild(grid);
         return;
       }
 
-      sortedBadges.forEach(([bId, count]) => {
-        const meta = BADGE_DEFINITIONS[bId] || { title: cleanId(bId), icon: '🎖️', desc: 'Run achievement', rarity: 'bronze' };
-        const chip = document.createElement('div');
-        chip.className = `badge-counter-chip ${activeBadgeFilter === bId ? 'active' : ''}`;
-        chip.onclick = () => toggleBadgeFilter(bId);
-        chip.onmouseenter = (e) => showBadgeTooltip(bId, chip, e);
-        chip.onmousemove = (e) => positionTooltip(e);
-        chip.onmouseleave = () => hideTooltip();
-        chip.innerHTML = `
-          <span style="font-size: 15px;">${meta.icon}</span>
-          <strong style="color: #fff;">${meta.title}</strong>
-          <span style="background: rgba(234,179,8,0.2); color: var(--gold-spire); padding: 1px 7px; border-radius: 10px; font-weight: 700; font-size: 11px; margin-left: 4px;">${count}x</span>
+      if (tab === 'unearned') {
+        if (unearnedList.length === 0) {
+          container.innerHTML = `<div style="color: #4ade80; font-size: 13px; padding: 12px 0; font-weight: 700;">🎉 Flawless Mastery! You have unlocked all 41 Spire Accolades!</div>`;
+          return;
+        }
+        const grid = document.createElement('div');
+        grid.style.display = 'flex';
+        grid.style.gap = '8px';
+        grid.style.flexWrap = 'wrap';
+        grid.style.alignItems = 'center';
+        unearnedList.forEach(a => grid.appendChild(createChipEl(a)));
+        container.appendChild(grid);
+        return;
+      }
+
+      if (tab === 'gold' || tab === 'silver' || tab === 'bronze') {
+        const targetRarity = tab;
+        const matchingEarned = earnedList.filter(a => a.rarity === targetRarity);
+        const matchingUnearned = unearnedList.filter(a => a.rarity === targetRarity);
+
+        const grid = document.createElement('div');
+        grid.style.display = 'flex';
+        grid.style.gap = '8px';
+        grid.style.flexWrap = 'wrap';
+        grid.style.alignItems = 'center';
+
+        matchingEarned.forEach(a => grid.appendChild(createChipEl(a)));
+        matchingUnearned.forEach(a => grid.appendChild(createChipEl(a)));
+
+        container.appendChild(grid);
+        return;
+      }
+
+      // Default 'all' tab: Render Earned Section first, then dedicated Unearned Section
+      if (earnedList.length > 0) {
+        const earnedSection = document.createElement('div');
+        earnedSection.style.marginBottom = '16px';
+
+        const earnedHeader = document.createElement('div');
+        earnedHeader.style.display = 'flex';
+        earnedHeader.style.alignItems = 'center';
+        earnedHeader.style.gap = '8px';
+        earnedHeader.style.marginBottom = '10px';
+        earnedHeader.innerHTML = `
+          <span style="font-size: 12px; font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.5px;">Earned Accolades (${earnedList.length})</span>
+          <span style="font-size: 11px; color: var(--text-dim);">&bull; Click any badge to filter matching runs below</span>
         `;
-        container.appendChild(chip);
-      });
+        earnedSection.appendChild(earnedHeader);
+
+        const earnedGrid = document.createElement('div');
+        earnedGrid.style.display = 'flex';
+        earnedGrid.style.gap = '8px';
+        earnedGrid.style.flexWrap = 'wrap';
+        earnedGrid.style.alignItems = 'center';
+        earnedList.forEach(a => earnedGrid.appendChild(createChipEl(a)));
+        earnedSection.appendChild(earnedGrid);
+
+        container.appendChild(earnedSection);
+      } else {
+        const emptyMsg = document.createElement('div');
+        emptyMsg.style.color = 'var(--text-dim)';
+        emptyMsg.style.fontSize = '13px';
+        emptyMsg.style.marginBottom = '16px';
+        emptyMsg.innerText = 'No accolades earned yet. Climb the Spire to achieve your first honors!';
+        container.appendChild(emptyMsg);
+      }
+
+      if (unearnedList.length > 0) {
+        const unearnedSection = document.createElement('div');
+        unearnedSection.style.paddingTop = '14px';
+        unearnedSection.style.borderTop = '1px dashed rgba(255, 255, 255, 0.1)';
+
+        const unearnedHeader = document.createElement('div');
+        unearnedHeader.style.display = 'flex';
+        unearnedHeader.style.alignItems = 'center';
+        unearnedHeader.style.gap = '8px';
+        unearnedHeader.style.marginBottom = '10px';
+        unearnedHeader.innerHTML = `
+          <span style="font-size: 12px; font-weight: 800; color: #f59e0b; text-transform: uppercase; letter-spacing: 0.5px;">🎯 Accolades In Pursuit (${unearnedList.length} Remaining)</span>
+          <span style="font-size: 11px; color: var(--text-dim);">&bull; Pursue these feats in future climbs to complete your honors</span>
+        `;
+        unearnedSection.appendChild(unearnedHeader);
+
+        const unearnedGrid = document.createElement('div');
+        unearnedGrid.style.display = 'flex';
+        unearnedGrid.style.gap = '8px';
+        unearnedGrid.style.flexWrap = 'wrap';
+        unearnedGrid.style.alignItems = 'center';
+        unearnedList.forEach(a => unearnedGrid.appendChild(createChipEl(a)));
+        unearnedSection.appendChild(unearnedGrid);
+
+        container.appendChild(unearnedSection);
+      }
     }
 
     function toggleBadgeFilter(bId) {
@@ -7357,11 +7773,10 @@
 
         if (activeBadgeFilter) {
           const localP = getPlayer(r);
-          let targetBadges = [activeBadgeFilter];
-          if (activeBadgeFilter === 'MONEY_MONEY' || activeBadgeFilter === 'RAININ_MONEY') {
-            targetBadges = ['MONEY_MONEY', 'RAININ_MONEY'];
-          }
-          const hasBadge = (localP && localP.badges) ? localP.badges.some(b => targetBadges.includes(b.id)) : false;
+          const hasBadge = (localP && localP.badges) ? localP.badges.some(b => {
+            const m = getBadgeMeta(b);
+            return m.key === activeBadgeFilter || m.baseId === activeBadgeFilter || b.id === activeBadgeFilter;
+          }) : false;
           if (!hasBadge) return false;
         }
 
@@ -7626,10 +8041,10 @@
         const partCfg = CHAR_CONFIG[partKey];
         const badgesHtml = (p && p.badges && p.badges.length > 0) ? 
           `<div style="display: flex; gap: 4px; margin-top: 4px; flex-wrap: wrap;">${p.badges.map(b => {
-            const bDef = BADGE_DEFINITIONS[b.id];
-            const bTitle = bDef ? bDef.title : cleanId(b.id);
-            const bIcon = bDef ? bDef.icon + ' ' : '';
-            return `<span class="badge-player-pill" onmouseenter="showBadgeTooltip('${b.id}', this, event)" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()">${bIcon}${bTitle}</span>`;
+            const bMeta = getBadgeMeta(b);
+            const r = bMeta.rarity || 'bronze';
+            const medal = r === 'gold' ? '🥇' : (r === 'silver' ? '🥈' : '🥉');
+            return `<span class="badge-player-pill rarity-${r}" onmouseenter="showBadgeTooltip('${bMeta.key}', this, event, '${r}')" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()">${medal} ${bMeta.title}</span>`;
           }).join('')}</div>` : '';
 
         const runNumPill = r._runNumber ? `<span class="run-number-badge">Run #${r._runNumber}</span>` : '';
@@ -7834,10 +8249,11 @@
                   ${isLocal ? '🎖️ You' : '🤝 Partner'} (${plCfg.name}):
                 </span>
                 ${pl.badges.map(b => {
-                  const def = BADGE_DEFINITIONS[b.id] || { title: cleanId(b.id), icon: '🎖️', desc: 'Run Achievement', rarity: 'bronze' };
+                  const def = getBadgeMeta(b);
+                  const medal = def.rarity === 'gold' ? '🥇' : (def.rarity === 'silver' ? '🥈' : '🥉');
                   return `
-                    <div class="badge-medallion rarity-${def.rarity}" onmouseenter="showBadgeTooltip('${b.id}', this, event)" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()">
-                      <span>${def.icon}</span>
+                    <div class="badge-medallion rarity-${def.rarity}" onmouseenter="showBadgeTooltip('${def.key}', this, event, '${def.rarity}')" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()">
+                      <span>${medal}</span>
                       <span>${def.title}</span>
                     </div>
                   `;
@@ -7858,10 +8274,11 @@
           badgesStrip.innerHTML = `
             <span style="font-size: 11px; font-weight: 700; color: var(--gold-spire); margin-right: 4px;">🎖️ Accolades:</span>
             ${p.badges.map(b => {
-              const def = BADGE_DEFINITIONS[b.id] || { title: cleanId(b.id), icon: '🎖️', desc: 'Run Achievement', rarity: 'bronze' };
+              const def = getBadgeMeta(b);
+              const medal = def.rarity === 'gold' ? '🥇' : (def.rarity === 'silver' ? '🥈' : '🥉');
               return `
-                <div class="badge-medallion rarity-${def.rarity}" onmouseenter="showBadgeTooltip('${b.id}', this, event)" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()">
-                  <span>${def.icon}</span>
+                <div class="badge-medallion rarity-${def.rarity}" onmouseenter="showBadgeTooltip('${def.key}', this, event, '${def.rarity}')" onmousemove="positionTooltip(event)" onmouseleave="hideTooltip()">
+                  <span>${medal}</span>
                   <span>${def.title}</span>
                 </div>
               `;
@@ -9372,23 +9789,33 @@
       positionTooltip(e);
     }
 
-    function showBadgeTooltip(badgeId, element, e) {
-      const def = BADGE_DEFINITIONS[badgeId] || { title: cleanId(badgeId), icon: '🎖️', desc: 'Special accolade awarded at run completion.', rarity: 'bronze' };
+    function showBadgeTooltip(badgeId, element, e, optRarity = null) {
+      const def = getBadgeMeta(badgeId, optRarity);
+      const r = (def.rarity || 'bronze').toLowerCase();
+      const medal = r === 'gold' ? '🥇' : (r === 'silver' ? '🥈' : '🥉');
+      const rColor = r === 'gold' ? '#fde047' : (r === 'silver' ? '#f1f5f9' : '#fed7aa');
+      const rBorder = r === 'gold' ? '#f59e0b' : (r === 'silver' ? '#94a3b8' : '#b45309');
+      const rBg = r === 'gold' ? 'rgba(245, 158, 11, 0.2)' : (r === 'silver' ? 'rgba(203, 213, 225, 0.2)' : 'rgba(217, 119, 6, 0.2)');
+
       tt.innerHTML = `
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
-          <span style="font-size: 20px;">${def.icon}</span>
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+          <span style="font-size: 24px;">${def.icon}</span>
           <div>
-            <div style="font-family: var(--font-title); font-size: 16px; font-weight: 700; color: #fde047; letter-spacing: 0.3px;">${def.title}</div>
-            <div style="font-size: 10px; color: #7dd3fc; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px;">Accolade &bull; ${def.rarity ? def.rarity.toUpperCase() : 'BRONZE'}</div>
+            <div style="font-family: var(--font-title); font-size: 16px; font-weight: 700; color: ${rColor}; letter-spacing: 0.3px;">${def.title}</div>
+            <div style="display: flex; align-items: center; gap: 6px; margin-top: 2px;">
+              <span style="font-size: 10px; text-transform: uppercase; font-weight: 800; letter-spacing: 0.5px; background: ${rBg}; border: 1px solid ${rBorder}; color: ${rColor}; padding: 1px 6px; border-radius: 4px;">
+                ${medal} ${r.toUpperCase()} ACCOLADE
+              </span>
+            </div>
           </div>
         </div>
-        <div style="font-size: 13px; color: #f1f5f9; line-height: 1.45;">
+        <div style="font-size: 13px; color: #f1f5f9; line-height: 1.45; margin-top: 4px;">
           ${def.desc}
         </div>
       `;
-      tt.style.background = '#1c2430';
-      tt.style.border = '2px solid #54728c';
-      tt.style.boxShadow = 'inset 0 0 0 1px #7dd3fc, 0 8px 24px rgba(0,0,0,0.8)';
+      tt.style.background = '#181e29';
+      tt.style.border = `2px solid ${rBorder}`;
+      tt.style.boxShadow = `0 8px 24px rgba(0,0,0,0.8), 0 0 12px ${rBg}`;
       tt.style.borderRadius = '8px';
       tt.style.display = 'block';
       positionTooltip(e);
@@ -15690,8 +16117,9 @@
         const localP = getPlayer(r);
         if (localP && localP.badges) {
           localP.badges.forEach(b => {
-            const id = b.id;
-            badgeCounts[id] = (badgeCounts[id] || 0) + 1;
+            const meta = getBadgeMeta(b);
+            const key = meta.key;
+            badgeCounts[key] = (badgeCounts[key] || 0) + 1;
           });
         }
       });
@@ -16504,12 +16932,15 @@
       let badgesHtml = '';
       if (Array.isArray(data.badges) && data.badges.length > 0) {
         data.badges.forEach(b => {
-          const meta = BADGE_DEFINITIONS[b.id] || { title: cleanId(b.id), icon: '🎖️' };
+          const meta = getBadgeMeta(b.id);
+          const r = meta.rarity || 'bronze';
+          const medal = r === 'gold' ? '🥇' : (r === 'silver' ? '🥈' : '🥉');
           badgesHtml += `
-            <div style="background: rgba(255,255,255,0.03); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 6px 12px; display: inline-flex; align-items: center; gap: 6px; font-size: 12px;">
+            <div class="badge-counter-chip rarity-${r}" style="padding: 4px 10px; font-size: 11px;">
+              <span class="chip-medal">${medal}</span>
               <span>${meta.icon}</span>
               <span style="font-weight: 600; color: #fff;">${meta.title}</span>
-              <span style="background: rgba(234,179,8,0.2); color: var(--gold-spire); padding: 1px 6px; border-radius: 8px; font-weight: 800; font-size: 10px;">${b.count}x</span>
+              <span class="chip-count">${b.count}x</span>
             </div>
           `;
         });
@@ -18816,7 +19247,7 @@
       // 11. Footer Strip (y: 1028 to 1060)
       ctx.font = '11.5px "Outfit", sans-serif';
       ctx.fillStyle = '#94a3b8';
-      const honors = (p.badges || []).map(b => cleanId(b.id)).filter(Boolean);
+      const honors = (p.badges || []).map(b => getBadgeMeta(b).title).filter(Boolean);
       const honorsText = honors.length > 0 ? ('🎖️ Honors: ' + honors.slice(0, 5).join(' • ')) : '🎖️ Climb Authenticated & Recorded';
       ctx.fillText(honorsText, 48, 1048);
 
