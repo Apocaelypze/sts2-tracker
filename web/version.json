@@ -1,16 +1,16 @@
 {
-  "version": "1.3.7",
-  "versionNumber": 1.37,
+  "version": "1.3.8",
+  "versionNumber": 1.38,
   "releaseDate": "2026-11-09",
-  "title": "STS2 Tracker v1.3.7 - Resumed Runs Chronology & Real Completion Timestamp Sync",
+  "title": "STS2 Tracker v1.3.8 - Active Session Auto-Healer & Legacy Steam Handle Migration",
   "changelog": [
-    "Fixed Run Chronology for Resumed Climbs: Multi-session or suspended runs resumed across days now sort strictly by their true completion timestamp rather than initial session start time",
-    "Accurate Run Numbering: Newly completed climbs immediately receive the top run number (#150) and populate at the very top of Climbs & History",
-    "Multi-Day Run Time Display: Cards accurately display relative completion time (e.g. 'Just now' / 'XXm ago') and modal inspect details both completion and start dates for multi-day climbs",
-    "Server & Cloud Completed Time Injection: Injected completed_time into API payloads and Firebase Leaderboard syncing",
-    "Web Save Import Enhancements: Drag-and-drop save uploads now preserve file modification timestamps as completed_time"
+    "Active Session Auto-Healer: Automatically heals stale 'SteamSlayer_XXXX' local storage handles into verified Slayer handles without requiring user re-login",
+    "Direct Steam ID Identity Resolution: Linked Steam ID 76561199088830668 strictly resolves to Kratos77x across all client storage, cloud sync, and leaderboards",
+    "Cloud Steam Mapping Sync: Auto-resolves steamId against cloud database (/steam_users/<id>.json) on startup to keep display personas synchronized",
+    "Prompt Fallback for Unknown Legacy Handles: Any remaining unmapped SteamSlayer_ users are automatically prompted to choose their preferred handle",
+    "Full Leaderboard & Run Sync Restoration: Unblocks cloud climb hydration and leaderboard submissions for active sessions"
   ],
   "downloadExe": "https://github.com/Apocaelypze/sts2-tracker/releases/latest/download/STS2Tracker.exe",
   "downloadZip": "https://slay-the-spire-2-tracker.web.app/STS2Tracker.zip",
-  "notes": "Fixes multi-day climb chronological sorting, accurately numbers resumed runs at the top of history, and displays true completion timestamps."
+  "notes": "Auto-heals existing client sessions from legacy SteamSlayer_ handles to real Slayer identities without requiring sign out."
 }
