@@ -1604,6 +1604,30 @@
       transform: translateY(-2px);
     }
 
+    .deck-card-item.enchanted {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.12) 0%, rgba(99, 102, 241, 0.08) 100%);
+      border: 1.5px solid rgba(192, 132, 252, 0.5);
+      box-shadow: 0 0 10px rgba(168, 85, 247, 0.2);
+    }
+    .deck-card-item.enchanted:hover {
+      border-color: #c084fc;
+      box-shadow: 0 0 16px rgba(168, 85, 247, 0.4);
+    }
+    .card-enchantment-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10.5px;
+      font-weight: 700;
+      color: #f3e8ff;
+      background: rgba(168, 85, 247, 0.25);
+      border: 1px solid rgba(192, 132, 252, 0.6);
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin-top: 3px;
+      box-shadow: 0 0 6px rgba(168, 85, 247, 0.3);
+    }
+
     .card-art-thumb {
       width: 48px;
       height: 48px;
@@ -5778,6 +5802,202 @@
       'DEBUFFER': { baseId: 'DEBUFFER', tier: 'bronze', rarity: 'bronze', title: 'Debuffer', desc: 'Applied the most Debuffs in multiplayer.', icon: '🧪' }
     };
 
+
+    // Slay the Spire 2 Canonical Card Enchantments
+    const ENCHANTMENT_DEFINITIONS = {
+  "ADROIT": {
+    "id": "ADROIT",
+    "icon": "🛡️",
+    "description": "Gain {Block:diff()} Block.",
+    "extraCardText": "Gain {Block:diff()} Block.",
+    "title": "Adroit"
+  },
+  "CLONE": {
+    "id": "CLONE",
+    "icon": "🎴",
+    "description": "This card can be duplicated at Rest Sites.",
+    "title": "Clone"
+  },
+  "CORRUPTED": {
+    "id": "CORRUPTED",
+    "icon": "💀",
+    "description": "Deal 50% more damage, but lose 2 HP.",
+    "dialogue": "Power...",
+    "extraCardText": "Lose 2 HP.",
+    "title": "Corrupted"
+  },
+  "DEPRECATED_ENCHANTMENT": {
+    "id": "DEPRECATED_ENCHANTMENT",
+    "icon": "✨",
+    "description": "This enchantment has been removed from the game.",
+    "title": "Deprecated"
+  },
+  "GLAM": {
+    "id": "GLAM",
+    "icon": "✨",
+    "description": "This card has Replay once per combat.",
+    "title": "Glam"
+  },
+  "GOOPY": {
+    "id": "GOOPY",
+    "icon": "🟢",
+    "description": "This card gains Exhaust. When played, permanently increase this card's Block by 1.",
+    "extraCardText": "Permanently increase this card's Block by 1.",
+    "title": "Goopy"
+  },
+  "IMBUED": {
+    "id": "IMBUED",
+    "icon": "⚡",
+    "description": "This card is played automatically at the start of each combat.",
+    "extraCardText": "Imbued.",
+    "title": "Imbued"
+  },
+  "INKY": {
+    "id": "INKY",
+    "icon": "🖋️",
+    "description": "This card deals {Damage} additional damage and applies {WeakPower} Weak.",
+    "extraCardText": "Apply {WeakPower} Weak{TargetType:choose(AllEnemies): to ALL enemies|}.",
+    "title": "Inky"
+  },
+  "INSTINCT": {
+    "id": "INSTINCT",
+    "icon": "🐾",
+    "description": "This card's attack damage is doubled.",
+    "title": "Instinct"
+  },
+  "MOCK_FREE_ENCHANTMENT": {
+    "id": "MOCK_FREE_ENCHANTMENT",
+    "icon": "✨",
+    "description": "",
+    "title": "Mock Free Enchantment"
+  },
+  "MOMENTUM": {
+    "id": "MOMENTUM",
+    "icon": "⏩",
+    "description": "Increase this card's attack damage by {Amount} this combat when played.",
+    "extraCardText": "Increase this card's damage by {Amount} this combat.",
+    "title": "Momentum"
+  },
+  "NIMBLE": {
+    "id": "NIMBLE",
+    "icon": "💠",
+    "description": "Increases Block gained from this card by {Amount}.",
+    "title": "Nimble"
+  },
+  "PERFECT_FIT": {
+    "id": "PERFECT_FIT",
+    "icon": "🔝",
+    "description": "Whenever this would be shuffled into your Draw Pile, place it on the top instead.",
+    "extraCardText": "Perfect Fit.",
+    "title": "Perfect Fit"
+  },
+  "ROYALLY_APPROVED": {
+    "id": "ROYALLY_APPROVED",
+    "icon": "👑",
+    "description": "This card has Innate and Retain.",
+    "title": "Royally Approved"
+  },
+  "SHARP": {
+    "id": "SHARP",
+    "icon": "🗡️",
+    "description": "Increases damage on this card by {Amount}.",
+    "title": "Sharp"
+  },
+  "SLITHER": {
+    "id": "SLITHER",
+    "icon": "🎲",
+    "description": "When you draw this card, randomize its cost from 0 to 3.",
+    "title": "Slither"
+  },
+  "SLUMBERING_ESSENCE": {
+    "id": "SLUMBERING_ESSENCE",
+    "icon": "⏳",
+    "description": "If this card is in your hand at the end of turn, reduce its cost by 1 until it is played.",
+    "title": "Slumbering Essence"
+  },
+  "SOULS_POWER": {
+    "id": "SOULS_POWER",
+    "icon": "☯️",
+    "description": "This card loses Exhaust.",
+    "title": "Soul's Power"
+  },
+  "SOWN": {
+    "id": "SOWN",
+    "icon": "☀️",
+    "description": "The first time you play this card each combat, gain {Amount:energyIcons()}.",
+    "extraCardText": "Gain {Amount:energyIcons()}.",
+    "title": "Sown"
+  },
+  "SPIRAL": {
+    "id": "SPIRAL",
+    "icon": "🌀",
+    "description": "This card gains Replay 1.",
+    "title": "Spiral"
+  },
+  "STEADY": {
+    "id": "STEADY",
+    "icon": "⚓",
+    "description": "This card gains Retain.",
+    "title": "Steady"
+  },
+  "SWIFT": {
+    "id": "SWIFT",
+    "icon": "🪶",
+    "description": "The first time you play this card, draw {Amount} {Amount:plural:card|cards}.",
+    "extraCardText": "Draw {Amount} {Amount:plural:card|cards} the first time this is played.",
+    "title": "Swift"
+  },
+  "TEZCATARAS_EMBER": {
+    "id": "TEZCATARAS_EMBER",
+    "icon": "🔥",
+    "description": "Costs 0, deals {Damage} additional damage, and gains Eternal.",
+    "title": "Tezcatara's Ember"
+  },
+  "VIGOROUS": {
+    "id": "VIGOROUS",
+    "icon": "💥",
+    "description": "The first time this card is played, it deals {Amount} additional damage.",
+    "title": "Vigorous"
+  }
+};
+
+    function getEnchantmentMeta(ench, optAmount = null) {
+      if (!ench) return null;
+      let rawId = '';
+      let amount = (optAmount !== null && optAmount !== undefined) ? optAmount : null;
+      if (typeof ench === 'object' && ench !== null) {
+        rawId = ench.id || '';
+        if (amount === null && ench.amount !== undefined) amount = ench.amount;
+      } else if (typeof ench === 'string') {
+        rawId = ench;
+      }
+      const cleanKey = rawId.replace(/^ENCHANTMENT\./i, '').toUpperCase();
+      const def = ENCHANTMENT_DEFINITIONS[cleanKey] || {
+        id: cleanKey,
+        title: cleanId(cleanKey),
+        icon: '✨',
+        description: 'Special permanent card enchantment.'
+      };
+
+      let desc = def.description || '';
+      if (amount !== null) {
+        desc = desc.replace(/\{Amount\}/g, String(amount))
+                   .replace(/\{Damage\}/g, String(amount))
+                   .replace(/\{Block:diff\(\)\}/g, String(amount))
+                   .replace(/\{Amount:plural:card\|cards\}/g, amount === 1 ? 'card' : 'cards')
+                   .replace(/\{Amount:energyIcons\(\)\}/g, amount + ' Energy');
+      }
+
+      return {
+        id: cleanKey,
+        rawId: rawId,
+        title: def.title || cleanId(cleanKey),
+        icon: def.icon || '✨',
+        amount: amount,
+        desc: desc
+      };
+    }
+
     let currentAccoladesTab = 'all';
 
     function setAccoladesTab(tab) {
@@ -7817,7 +8037,9 @@
               const dbCard = (gameDatabase && gameDatabase.cards) ? gameDatabase.cards[cId] : null;
               const dbTitle = (dbCard && (dbCard.title || dbCard.name)) ? String(dbCard.title || dbCard.name).toLowerCase() : '';
               const dbDesc = (dbCard && dbCard.desc) ? String(dbCard.desc).toLowerCase() : '';
-              return raw.includes(normQ) || clean.includes(normQ) || clean.replace(/\s+/g, '').includes(normQ.replace(/\s+/g, '')) || dbTitle.includes(normQ) || dbDesc.includes(normQ);
+              const ench = c.enchantment ? getEnchantmentMeta(c.enchantment) : null;
+              const enchMatch = ench ? (ench.title.toLowerCase().includes(normQ) || ench.desc.toLowerCase().includes(normQ) || normQ === 'enchanted' || normQ === 'enchantment') : false;
+              return raw.includes(normQ) || clean.includes(normQ) || clean.replace(/\s+/g, '').includes(normQ.replace(/\s+/g, '')) || dbTitle.includes(normQ) || dbDesc.includes(normQ) || enchMatch;
             })
           );
 
@@ -8061,7 +8283,9 @@
             const clean = cleanId(cId).toLowerCase();
             const dbCard = (gameDatabase && gameDatabase.cards) ? gameDatabase.cards[cId] : null;
             const dbTitle = (dbCard && (dbCard.title || dbCard.name)) ? String(dbCard.title || dbCard.name).toLowerCase() : '';
-            return raw.includes(normQ) || clean.includes(normQ) || clean.replace(/\s+/g, '').includes(normQ.replace(/\s+/g, '')) || dbTitle.includes(normQ);
+            const ench = c.enchantment ? getEnchantmentMeta(c.enchantment) : null;
+            const enchMatch = ench ? (ench.title.toLowerCase().includes(normQ) || ench.desc.toLowerCase().includes(normQ) || normQ === 'enchanted' || normQ === 'enchantment') : false;
+            return raw.includes(normQ) || clean.includes(normQ) || clean.replace(/\s+/g, '').includes(normQ.replace(/\s+/g, '')) || dbTitle.includes(normQ) || enchMatch;
           }))[0];
 
           const matchedRelic = (r.players || []).flatMap(pl => (pl.relics || []).filter(rl => {
@@ -8121,6 +8345,7 @@
               <span>🃏 <strong>${deckCount}</strong> cards</span>
               <span>🗺️ <strong>Floor ${floorCount}</strong></span>
               <span>⚔️ <strong>~${calculateRunTotalDamageDealt(r).toLocaleString()}</strong> DMG</span>
+              ${(deck.filter(c => c && c.enchantment).length > 0) ? `<span style="color: #c084fc;">✨ <strong>${deck.filter(c => c && c.enchantment).length}</strong> enchanted</span>` : ''}
             </div>
             ${searchMatchBadge}
           </div>
@@ -8566,38 +8791,53 @@
         relicsGrid.appendChild(item);
       });
 
-      // Complete Decklist with Art & Tooltips
+      // Complete Decklist with Art, Enchantments & Tooltips
       const deckGrid = document.getElementById('modalDeckGrid');
       deckGrid.innerHTML = '';
       const cardMap = {};
       deck.forEach(c => {
         const lvl = c.current_upgrade_level || 0;
-        const ench = c.enchantment ? cleanId(c.enchantment.id) : '';
-        const key = `${c.id}_${lvl}_${ench}`;
+        const enchId = c.enchantment ? (c.enchantment.id || '') : '';
+        const enchAmt = c.enchantment ? (c.enchantment.amount || 0) : 0;
+        const key = `${c.id}_${lvl}_${enchId}_${enchAmt}`;
         if (!cardMap[key]) {
-          cardMap[key] = { id: c.id, level: lvl, enchantment: ench, count: 0, floor: c.floor_added_to_deck };
+          cardMap[key] = { id: c.id, level: lvl, enchantment: c.enchantment, count: 0, floor: c.floor_added_to_deck };
         }
         cardMap[key].count++;
       });
 
       Object.values(cardMap).sort((a,b) => cleanId(a.id).localeCompare(cleanId(b.id))).forEach(c => {
         const item = document.createElement('div');
-        item.className = 'deck-card-item';
+        const enchMeta = getEnchantmentMeta(c.enchantment);
+        item.className = `deck-card-item ${enchMeta ? 'enchanted' : ''}`;
         const cAsset = cleanIdForAsset(c.id);
         const cardDb = gameDatabase.cards[c.id] || { cost: 1, type: 'Skill' };
 
-        item.onmouseenter = (e) => showCardTooltip(c.id, item, e, c.level);
+        item.onmouseenter = (e) => showCardTooltip(c.id, item, e, c.level, c.enchantment);
         item.onmousemove = (e) => positionTooltip(e);
         item.onmouseleave = () => hideTooltip();
+
+        let enchBadgeHtml = '';
+        if (enchMeta) {
+          enchBadgeHtml = `
+            <div class="card-enchantment-pill">
+              <span>${enchMeta.icon}</span>
+              <span>${enchMeta.title}</span>
+              ${enchMeta.amount ? `<span style="color:#fde047;">+${enchMeta.amount}</span>` : ''}
+            </div>
+          `;
+        }
 
         item.innerHTML = `
           ${getCardArtImg(cAsset, 'card-art-thumb', '', cleanId(c.id))}
           <div class="card-cost-circle">${cardDb.cost >= 0 ? cardDb.cost : 'X'}</div>
           <div style="flex: 1; min-width: 0;">
-            <div style="font-weight: 600; font-size: 13px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-              ${cleanId(c.id)}${c.level > 0 ? `<span class="upgrade-badge">+${c.level === 1 ? '' : c.level}</span>` : ''}
+            <div style="font-weight: 600; font-size: 13px; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: flex; align-items: center; gap: 4px;">
+              <span>${cleanId(c.id)}</span>
+              ${c.level > 0 ? `<span class="upgrade-badge">+${c.level === 1 ? '' : c.level}</span>` : ''}
             </div>
-            <div style="font-size: 11px; color: var(--text-dim); display: flex; justify-content: space-between;">
+            ${enchBadgeHtml}
+            <div style="font-size: 11px; color: var(--text-dim); display: flex; justify-content: space-between; margin-top: 2px;">
               <span>${cardDb.type}</span>
               ${c.count > 1 ? `<strong style="color: var(--gold-spire);">x${c.count}</strong>` : ''}
             </div>
@@ -9740,12 +9980,30 @@
       tt.style.top = `${Math.max(pad, y)}px`;
     }
 
-    function showCardTooltip(cardId, element, e, upgradeLvl = 0) {
+    function showCardTooltip(cardId, element, e, upgradeLvl = 0, enchantment = null) {
       const c = gameDatabase.cards[cardId] || { name: cleanId(cardId), cost: 1, type: 'Skill', rarity: 'Common', desc: 'Slay the Spire 2 Card' };
       const cAsset = cleanIdForAsset(cardId);
       const evLine = c.eventSource
         ? `<div style="font-size: 11px; color: #f472b6; font-weight: 700; margin-top: 3px;">${c.rarity === 'Ancient' ? '🏛️ Ancient:' : '📜 Event:'} ${escapeHtml(c.eventSource)}</div>`
         : '';
+
+      const enchMeta = getEnchantmentMeta(enchantment);
+      let enchBox = '';
+      if (enchMeta) {
+        enchBox = `
+          <div style="margin-top: 10px; padding: 8px 10px; background: rgba(168, 85, 247, 0.18); border: 1.5px solid rgba(192, 132, 252, 0.6); border-radius: 6px; box-shadow: 0 0 10px rgba(168, 85, 247, 0.25);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 3px;">
+              <span style="font-family: var(--font-title); font-size: 13px; font-weight: 700; color: #f3e8ff;">
+                ${enchMeta.icon} ${enchMeta.title}${enchMeta.amount ? ` (+${enchMeta.amount})` : ''}
+              </span>
+              <span style="font-size: 10px; font-weight: 800; color: #c084fc; text-transform: uppercase; letter-spacing: 0.5px;">Enchantment</span>
+            </div>
+            <div style="font-size: 12px; color: #f1f5f9; line-height: 1.4;">
+              ${enchMeta.desc}
+            </div>
+          </div>
+        `;
+      }
 
       tt.innerHTML = `
         <div class="tt-header">
@@ -9761,6 +10019,7 @@
           </div>
         </div>
         <div class="tt-body">${c.desc}</div>
+        ${enchBox}
       `;
       tt.style.display = 'block';
       positionTooltip(e);
@@ -44044,12 +44303,14 @@
       const peakFight = getPeakDamageFight(run);
       const peakStr = peakFight ? ('~' + peakFight.dmg.toLocaleString() + ' DMG (F' + peakFight.floor + ')') : 'N/A';
 
-      // 2. Gather Cards & Categorize
+      // 2. Gather Cards & Categorize (With Full Enchantments Support)
       const cardMap = {};
       (p.deck || []).forEach(c => {
         const lvl = c.current_upgrade_level || 0;
-        const key = c.id + '_' + lvl;
-        if (!cardMap[key]) cardMap[key] = { id: c.id, level: lvl, count: 0 };
+        const enchId = c.enchantment ? (c.enchantment.id || '') : '';
+        const enchAmt = c.enchantment ? (c.enchantment.amount || 0) : 0;
+        const key = c.id + '_' + lvl + '_' + enchId + '_' + enchAmt;
+        if (!cardMap[key]) cardMap[key] = { id: c.id, level: lvl, enchantment: c.enchantment, count: 0 };
         cardMap[key].count++;
       });
       const attacks = [], skills = [], powers = [], others = [];
@@ -44067,6 +44328,7 @@
       others.sort((a,b) => a.name.localeCompare(b.name));
       const totalCards = (p.deck || []).length;
       const upgradedCards = (p.deck || []).filter(c => c.current_upgrade_level > 0).length;
+      const enchantedCards = (p.deck || []).filter(c => c.enchantment).length;
       const upgPct = totalCards > 0 ? Math.round((upgradedCards / totalCards) * 100) : 0;
 
       // 3. Gather Relics
@@ -44356,7 +44618,8 @@
       // Section title above panels
       ctx.font = 'bold 12px "Outfit", sans-serif';
       ctx.fillStyle = '#94a3b8';
-      ctx.fillText('🃏 DECK COMPOSITION (' + totalCards + ' Cards • ' + upgradedCards + ' Upgraded • ' + upgPct + '% Upgraded)', 48, deckCardY - 8);
+      const enchSubStr = enchantedCards > 0 ? (' • ' + enchantedCards + ' Enchanted ✨') : '';
+      ctx.fillText('🃏 DECK COMPOSITION (' + totalCards + ' Cards • ' + upgradedCards + ' Upgraded • ' + upgPct + '% Upgraded' + enchSubStr + ')', 48, deckCardY - 8);
 
       const panelW = Math.floor((W - 96 - 32) / 3); // 597
       const panelH = deckCardH; // 478
@@ -44655,14 +44918,27 @@
         const cx = x + 14 + subColIdx * (subColW + 10);
         const cy = startY + rowIdx * (chipH + chipGap);
 
-        // Chip box
-        ctx.fillStyle = 'rgba(255, 255, 255, 0.035)';
-        roundRectPath(ctx, cx, cy, subColW, chipH, 5);
-        ctx.fill();
+        // Enchantment detection
+        const enchMeta = getEnchantmentMeta(c.enchantment);
 
-        ctx.strokeStyle = 'rgba(255, 255, 255, 0.07)';
-        ctx.lineWidth = 1;
-        ctx.stroke();
+        // Chip box with enchanted violet tint & border if enchanted
+        if (enchMeta) {
+          ctx.fillStyle = 'rgba(168, 85, 247, 0.12)';
+          roundRectPath(ctx, cx, cy, subColW, chipH, 5);
+          ctx.fill();
+
+          ctx.strokeStyle = 'rgba(192, 132, 252, 0.55)';
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        } else {
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.035)';
+          roundRectPath(ctx, cx, cy, subColW, chipH, 5);
+          ctx.fill();
+
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.07)';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
 
         // Rarity Stripe on left
         const rColor = rarityStripe[c.rarity] || '#cbd5e1';
@@ -44675,8 +44951,9 @@
         ctx.closePath();
         ctx.fill();
 
-        // Card quantity / name
-        let textX = cx + 12;
+        // Card quantity / name / enchantment icon
+        let textX = cx + 11;
+
         if (c.count > 1) {
           ctx.font = 'bold 11px "Outfit", sans-serif';
           ctx.fillStyle = '#fbbf24';
@@ -44685,8 +44962,16 @@
           textX += ctx.measureText(qStr).width;
         }
 
+        // Render Enchantment Icon & Amount before name (matching STS2 in-game card end screen)
+        if (enchMeta) {
+          ctx.font = '12px "Outfit", sans-serif';
+          const enchIconStr = enchMeta.icon + ' ';
+          ctx.fillText(enchIconStr, textX, cy + 17);
+          textX += ctx.measureText(enchIconStr).width;
+        }
+
         ctx.font = '600 11.5px "Outfit", sans-serif';
-        ctx.fillStyle = '#f8fafc';
+        ctx.fillStyle = enchMeta ? '#f3e8ff' : '#f8fafc';
         let cardDisplayName = c.name;
         const maxNameW = subColW - (textX - cx) - 34;
         while (cardDisplayName.length > 4 && ctx.measureText(cardDisplayName).width > maxNameW) {
